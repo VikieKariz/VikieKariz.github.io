@@ -1,0 +1,120 @@
+body {
+    font-family: 'pacifico', cursive;
+    background:url("flowers.jpg");
+    background-attachment: fixed;
+    background-size:459px;
+    background-repeat: no-repeat;
+}
+header{
+  background:rgba(15, 49, 100, 0.88) ;
+  border-radius:15px;
+  text-align: center;
+  color: floralwhite;
+  font-size:40px;
+  column-count: 2;
+}
+nav{
+  background: rgba(6, 31, 66, 0.76);
+  border-radius:15px;
+  text-align: center;
+  color:yellow;
+  font-size:30px;
+  column-count: 1;
+}
+div{
+  background: rgba(69, 64, 150, 0.88);
+  border-radius:10px;
+  border-top: 10px;
+  font-size: 30px;
+}
+
+ footer{
+  background: rgba(6, 31, 66, 0.76);
+  border-radius:15px;
+  text-align: center;
+  height: 200px;
+  color:yellow;
+  column-count: 2;
+
+ }
+ nav{
+   color: rgba(91, 206, 31, 0.94);
+ }
+ @keyframes colorChange {
+    0% { color: red; }
+    50% { color: orange; }
+    100% { color: yellow; }
+}
+
+.color-change {
+    animation: colorChange 6s infinite;
+}
+/* styles.css *//* styles.css */
+}
+
+#popupButton {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#popupButton:hover {
+    background-color: #45a049;
+}
+
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+    text-align: left;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#paypalButton {
+    padding: 10px 20px;
+    background-color: #0070BA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-align: center;
+    display: block;
+}
+
+#paypalButton:hover {
+    background-color: #005A9C;
+}
+ 
