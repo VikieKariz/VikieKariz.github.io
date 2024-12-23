@@ -1,70 +1,84 @@
 <!<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>HTML</title>
-  
-  <!-- HTML -->
-  
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Website Text</title>
+    <style>
+        .editable {
+            cursor: pointer;
+            display: inline-block;
+            padding: 5px;
+            border: 1px dashed #ccc;
+        }
+        #saveBtn {
+            display: none;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
-
 <body>
-  <header class="color-change">>
-    <nav class="color-change">
-    <!--Tab to edit-->
 
-  </h1>SAMUEL KARIUKI</h1>
-  <div><h2>merry christmas</h2> Christmas.  "lets share love during this Christmas" season... all the best🎁🎁"</div>
-  </header>
-  <br/>
-  <nav>
-    <!--Tab to edit-->
-Dear [Buddy's Name],
-
-As the festive season draws near, I find myself reflecting on the past year and the incredible moments we've shared. Christmas has always been a time for joy, love, and gratitude, and this year, I'm especially grateful for having you in my life.
-
-This Christmas, I wish you nothing but joy and happiness. May your days be filled with the warmth of loved ones, the sweet aroma of festive treats, and the magic that only this season can bring. I hope Santa brings you everything on your wish list, and that the new year ahead is brimming with endless opportunities and unforgettable moments.
-
-Thank you for being the amazing friend you are. Here's to more adventures, more laughter, and more memories in the years to come. Merry Christmas, my dear friend!
-
-With all my love and best wishes,
-
-[Your Name]
-  </nav>
-  <br/>
-  <footer>
-   
-    
-<!-- Editable Header -->
-<header id="header">Click to edit header</header>
+<p class="editable">Click to edit this text.</p>
+<p class="editable">This is another editable text.</p>
+<p class="editable">You can click here to edit as well.</p>
 <button id="saveBtn">Save Changes</button>
 
-<!-- Button to open the modal -->
-<button id="openModalBtn">Open Pop-Up</button>
+<script>
+// Function to make elements editable
+function makeEditable(element) {
+    element.contentEditable = true;
+    element.focus();
+    document.getElementById("saveBtn").style.display = "inline-block";
+}
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Click the button below to go to PayPal:</p>
-    <button onclick="window.location.href='https://www.paypal.com';">Go to PayPal</button>
-  </div>
-</div>
+// Function to save changes
+function saveChanges() {
+    var editableElements = document.getElementsByClassName("editable");
+    for (var i = 0; i < editableElements.length; i++) {
+        var element = editableElements[i];
+        localStorage.setItem('editable-' + i, element.innerHTML);
+        element.contentEditable = false;
+    }
+    document.getElementById("saveBtn").style.display = "none";
+}
 
-<!-- WhatsApp Share Button -->
-<button id="whatsappBtn">Share on WhatsApp</button>
+// Load stored content from localStorage
+function loadContent() {
+    var editableElements = document.getElementsByClassName("editable");
+    for (var i = 0; i < editableElements.length; i++) {
+        var storedContent = localStorage.getItem('editable-' + i);
+        if (storedContent) {
+            editableElements[i].innerHTML = storedContent;
+        }
+    }
+}
 
-  </footer>
-  
-    <!--Tab to edit-->
-<script> src="main.js"></script>
-  
+// Make elements editable on click
+document.addEventListener("DOMContentLoaded", function() {
+    var editableElements = document.getElementsByClassName("editable");
+    for (var i = 0; i < editableElements.length; i++) {
+        editableElements[i].onclick = function() {
+            makeEditable(this);
+        };
+    }
+});
+
+// Save changes on save button click
+document.getElementById("saveBtn").onclick = function() {
+    saveChanges();
+};
+
+// Load content on page load
+window.onload = function() {
+    loadContent();
+};
+</script>
+
 </body>
-</html>￼Enter
+</htl>￼Enter
