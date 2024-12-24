@@ -1,65 +1,77 @@
-.editable {
-    cursor: pointer;
-    display: inline-block;
-    padding: 5px;
-    border: 1px dashed #ccc;
+bodybody {
+    background:url("jovian.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+     
+    text-align:center;
+    color:yellow;
 }
-#saveBtn {
-    display: none;
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+header{
+  background:rgba(44, 8, 137, 0.85);
+  border-radius:10px;
+  text-align:center;
+  column-count: 1;
+  font-size: 20px;
+  padding: 10px;
+    font-family: 'Brush Script MT', cursive;
 }
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
+nav{
+  background: rgba(44, 8, 137, 0.85);
+  text-align:center;
+  border-radius:10px;
+  color:white;
+  font-weight:bold;
+    font-family: 'Brush Script MT', cursive;
 }
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+p{
+  color:rgba(44, 8, 137, 0.85);
+  font-weight:bold;
+  font-size:10px;
+  color:yellow;
 }
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+footer{
+  background:rgba(44, 8, 137, 0.85);
+  text-align:center;
+  height:90px;
+  border-radius:5px;
+  font-size:30px;
+  font-family: 'Brush Script MT', cursive;
+  color:yellow;
+}
+div{
+  background: rgba(68, 112, 50, 1);
+  border-radius:10px;
+}
+
+
+
+
+
+@keyframes colorChange {
+    0% { color: red; }
+    50% { color: white; }
+    100% { color: yellow; }
+    
+}
+
+.dynamic-text {
     font-weight: bold;
+    animation: colorChange 6s infinite;
+    
 }
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-#openModalBtn {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #008CBA;
+
+
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #007bff;
     color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
-#whatsappBtn {
-    display: none; /* Hidden by default */
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #25D366;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-￼Enter
+
+button:hover {
+    background-color: #0056b3;
+}￼Enter
