@@ -5,71 +5,282 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>HTML</title>
+  <title>QARIZ WEB SOLUTIONS</title>
   
-  <!-- HTML -->
-  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font Oswald -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="style.css">
-</head>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Oswald', sans-serif;
+      background:#02041B;
+      color:white;
+    }
+    .div1 {
+      background: #060D58;
+      color: #CB09D0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    h4 {
+      margin: 0;
+      padding: 10px; /* You can adjust the padding value if needed */
+      font-size: 20px; /* Adjust font size to match icons */
+    }
+    .icon-container {
+      display: flex;
+      gap: 20px;
+      align-items: center; /* Align items vertically */
+    }
+    .icon, .menu-icon {
+      font-size: 20px;
+      cursor: pointer;
+      color: white; /* Set all icons to white */
+    }
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
 
-<body>
-  <div class="container">
-    <div class="div1"> <img src="1724225952740.jpg" alt="Myk.jpg" style="height:200px;width:160px;border-radius:3px;float:left">
-     </div>
-    <div class="div2"> <h3>To: elesh_sonie</h3> <h5  style="margin:1pt"> dear love here is a special giftcard made only for you please go through it<h5/></Lorem> </div>
-  </div>
-  <br/>
-   <header>
-    <!--Tab to edit-->
-    <img src="1724225952740.jpg" alt="1724225952740.jpg" style="height:201px;width:150px;margin:3px;border-radius:3px;margin:3px;float:left">
-   <img src="1724343089615.jpg" alt="1724343089615.jpg" style="height:201px;width:150px;margin:3px;border-radius:3px;margin:3px;float:right">
-   
-  <hr/>
-  💖💖💖
- 
-  </header>
-  <br/>
-  <nav>
-   <div class="dynamic-text">
-    <h4 style="float:center;margin:3px;font-size:70px">2025</h4><div/><h3 style="margin:8px;float:right">Hello cupcake have an year full of lords blessings and may he guide you through your endeavors</h3>
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 16px;
+      margin-left: 50px;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+    
+    .div2 >img {
+      height:550px;
+      width:360px;
+    }
+    .div3{
+      height:310px;
+      width:352px;
+      border:1px solid #0817BDE0;
+      text-align:center;
+      margin-left:3px;
+      border-radius:2px;
+      font-size:10px;
+    }
+    .div3 >p{
+      font-size:17px;
+      color:#D0D0EE;
+    }
+    .div4{
+      height:500px;
+      width:352px;
+      border:1px solid #0817BDE0;
+      text-align:center;
+      margin-left:3px;
+      border-radius:2px;
+    }
+    .div4>img{
+      width:345px;
+      margin-top:7px;
+      height:300;
       
-  
-  </nav>
-  
+    }
+    
+    .div5{
+      height:430px;
+      width:352px;
+      border:1px solid #0817BDE0;
+      text-align:center;
+      margin-left:3px;
+      border-radius:2px;
+      font-size:14px;
+    }
+    .div5 >h4{
+      font-style:14px;
+    }
+    .div6{
+      height:170px;
+      width:354px;
+      border:1px solid #0817BDE0;
+      text-align:center;
+      margin-left:3px;
+      border-radius:2px;
+      overflow-x: scroll;
+     font-size:1px;
+    }
+       .div6>img{
+         width:10px;
+         height:100px;
+         float:right;
+       }
+    .div10{
+      float:left;
+      width:100px;
+      border:1px solid #4550C7E0;
+      height:150px;
+      margin-top:10px;
+      font-size:17px;
+      margin-left:10px;
+    }
+    .div11{
+      width:330px;
+      border:1px solid #4550C7E0;
+      height:150px;
+      margin-top:10px;
+      font-size:17px;
+      margin-left:10px;
+    }
+    p{
+      color:#D0D0EE;
+    }
+    .social-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    transition: transform 0.2s ease-in-out;
+    float:left;
+    margin-top:50px;
+}
 
-  <br/>
-  <footer>
+.social-button:hover {
+    transform: scale(1.1);
+}
 
-   <img src="1724227958077.jpg" alt="Myk.jpg" style="height:201px;width:150px;margin:3px;border-radius:3px;margin:3px;float:left">
-   
-As the calendar turns to a brand new year, my heart overflows with gratitude and love for you. You’ve been my constant source of joy, strength, and inspiration. Every moment spent with you has been nothing short of magical. I am incredibly blessed to have you by my side, and I am eager to create more beautiful memories with you in 2025.
-
-This year, I promise to cherish every moment with you, to support you through every challenge, and to celebrate every triumph. Your laughter is the sweetest sound, and your smile is my favorite sight. I hope this new year brings you as much happiness as you bring into my life. I am so excited for all the adventures that await us and the dreams we will chase together.
-
-Our love has grown stronger with each passing day, and I am constantly amazed by your kindness, intelligence, and beauty. You make my world a better place simply by being in it. In this new year, I want you to know that my love for you is unwavering and ever-growing. You are my everything, and I am so thankful for your love and support.
-
-As we step into 2025, I look forward to holding your hand through every high and low, to sharing every laugh and every tear. May this new year be filled with endless love, joy, and prosperity for us both. Here’s to another year of wonderful memories, deeper connections, and a love that continues to blossom. Happy New Year, my love.
-
----
-
-  </footer>
-  <br/>
-  
-  <div class="container">
-    <div class="div3"> <img src="1724343089615.jpg" alt="Myk.jpg" style="height:200px;width:160px;border-radius:3px;float:left">
-     </div>
-    <div class="div4"> <h3>from: Hussein_abdi</h3> <h5  style="margin:1pt"> dear love...i hope you loved it share back if you liked the gift card<h5/></Lorem> </div>
+.social-button img {
+    width: 24px;
+    height: 24px;
+}
+  </style>
+</head>
+<body>
+  <div class="div1">
+    <div class="icon-container">
+      <span class="menu-icon" onclick="openNav()">&#9776;</span> <!-- Navigation bar icon on the left -->
+      <i class="fas fa-heart icon"></i> <!-- Love icon -->
+    </div>
+    <h4>QARIZ WEB SOLUTIONS</h4>
+    <div class="icon-container">
+      <i class="fas fa-project-diagram icon"></i>
+      <i class="fab fa-whatsapp icon"></i>
+    </div>
   </div>
-    
-    
+<h5 style="margin-top:0px;text-align:center; background:yellow;color:black">TAILORED TO MEET SUCCESS</h5>
+<div class="div2"><img src="/A logo named QARIZ WEB SOLUTIONS_20250208_090624_0000.jpg" style="width:200;height:300px;border-radius:1px"></div>
 
-  <br/>
+<h4 style="text-align:center">ABOUT </h4>
+<div class="div3"><p>I thrive at the intersection of creativity and technology, where I architect digital solutions that harmonize aesthetic elegance with robust functionality. My expertise lies in translating complex ideas into intuitive, high-performance web experiences that resonate with users and align with your strategic objectives. By leveraging a meticulous, data-informed approach, I ensure that every aspect of your digital presence—from user interface design to backend architecture—is optimized for scalability, engagement, and long-term success. My commitment to innovation and precision allows me to deliver not just websites, but transformative digital ecosystems that empower your brand to excel in an ever-evolving online landscape. Let’s collaborate to redefine what’s possible for your business.</p></div>
+<h4 style="text-align:center">MY SERVICES</h4>
+<div class="div5"<h4 style="font-size:17px">WEB DEVELOPMENT</h4><p style="font-size:15px;color:#D0D0EE">As a web developer, I design and build high-performance digital solutions using HTML, CSS, JavaScript, React, and Node.js. My focus is on creating intuitive, scalable websites that align with your goals and deliver measurable results. By blending technical expertise with creative innovation, I craft seamless web experiences that elevate your online presence. Let’s collaborate to bring your vision to life.</br>
+</p>
+<p style="font-size:16px;float:left">
+ -Design and Development: Crafting intuitive and appealing websites.</br>
+- **Performance Optimization: Ensuring fast and efficient web functionality.</br>
+- **Cutting-Edge Technologies: Integrating the latest tech for seamless user experiences.</br>
+- **Swift Problem Solving: Quickly addressing and resolving technical challenges.</br>
+- **Secure and Robust Online Presence: Focusing on security and stability.</br>
+</p>
+</div>
+
+<h4 style="text-align:center">MY PROJECTS</h4>
+<div class="div4"><img src="/61ecbf7df74264914492649d5f0c9f27039681d1-3840x2160.jpg" style="width:370;height:200px;border-radius:1px"><h4>CONTENTARY</h4><p>Introducing a sleek, user-friendly website designed to captivate your audience and elevate your brand. With lightning-fast performance, seamless navigation, and top-notch security, this cutting-edge site ensures an exceptional user experience. Showcase your products or services with stunning visuals and engaging content, all optimized for any device.
+
+Elevate your business with a website that truly stands out!
+</p>
+<button onclick="window.location.href='https://www.example.com';"style="width:100px;height:30px;margin-top:20px">Visit  Website</button></div>
+
+</br>
+<div class="div4"><img src="/evening-600x300.png" style="width:370;height:200px;border-radius:1px"><h4 style="margin-top:5px">PARTY COLLECTION</h4><p>Experience a high-performance website designed to captivate your audience with its intuitive design and seamless navigation. Offering lightning-fast load times and robust security, it ensures a superior user experience. With stunning visuals and dynamic content optimized for all devices, this website elegantly showcases your products or services. Combining functionality and innovation, it reflects your intelligence and commitment to excellence, making it the perfect digital platform to elevate your brand. 🚀✨
+
+</p>
+    
+<button onclick="window.location.href='https://www.example.com';"style="width:100px;height:30px;margin-top:5px">Visit  Website</button></div>
+</br>
+<div class="div4"><img src="/67dc4f6e5d922f4e44481e4084f0d8b4a9ac4299-3840x2160.jpg" style="width:370;height:200px">
+<h4>LITTLE ASHEE</h4>
+<p>
+"This website epitomizes the fusion of avant-garde technology and sophisticated design principles, delivering an unparalleled user experience. Engineered for seamless functionality, our platform offers a responsive, intuitive interface, ensuring optimal navigation across diverse devices. Our website is a testament to innovation, providing an immersive digital environment that caters to discerning users' nuanced needs."
+
+</p>
+
+<button onclick="window.location.href='https://www.example.com';"style="width:100px;height:30px;margin-top:20px">Visit  Website</button>
+</div>
+</div>
+<h4 style="text-align:center">CUSTOMER STORIES</h4>
+<div class="div6">
   
-  jovian
-   <button id="whatsappShareButton">Share on WhatsApp</button>
-  <!-- Project -->
-  <script src="main.js"></script>
+<div class="div10"><img src="/61ecbf7df74264914492649d5f0c9f27039681d1-3840x2160.jpg" style="width:95px;height:150px;border-radius:1px"></div>
+<div class="div11"><p>you have a great day and</p></div>
+    
+<div class="div10"><img src="/evening-600x300.png" style="width:95px;height:150px;border-radius:1px"></div>
+<div class="div11"><p>you have a great day</p></div>
+
+<div class="div10"><img src="/67dc4f6e5d922f4e44481e4084f0d8b4a9ac4299-3840x2160.jpg" style="width:95px;height:150px;border-radius:1px"></div>
+<div class="div11"><p>Hello Niambie madam I</p></div>
+
+<div class="div11"><p>you have a great day</p></div>
+</div>
+<hr style="margin-top:50px"/>
+<h4 style="text-align:center">CONTACT ME</h4>
+<div class="social-buttons">
+    <a href="https://facebook.com" class="social-button"><img src="/5296499_fb_facebook_facebook logo_icon.png" alt="Facebook"></a>
+    <a href="https://instagram.com" class="social-button"><img src="/4202090_instagram_logo_social_social media_icon.png" alt="Instagram"></a>
+    <a href="https://wa.me/+254703397753" class="social-button"><img src="/4017334_circle_logo_media_network_social_icon.png" alt="WhatsApp"></a>
+    <a href="https://linkedin.com" class="social-button"><img src="/5279114_linkedin_network_social network_linkedin logo_icon (1).png" alt="LinkedIn"></a>
+    <a href="https://github.com" class="social-button"><img src="/291716_github_logo_social network_social_icon (1).png" alt="GitHub"></a>
+</div>
+<h5 style="text-align:center">COPYRIGHT © 2025</h5>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Home</a>
+    <a href="#">Services</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "160px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+  </script>
 </body>
-    </html>
+  </html
