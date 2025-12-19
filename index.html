@@ -569,7 +569,7 @@
     </audio>
 
     <script>
-      // Welcome overlay
+            // Welcome overlay
         document.getElementById('enterBtn').addEventListener('click', function() {
             const overlay = document.getElementById('welcomeOverlay');
             overlay.style.animation = 'slideOut 0.8s ease forwards';
@@ -647,4 +647,125 @@
             
             slides.forEach(slide => {
                 const slideElement = document.createElement('div');
-                s
+                slideElement.className = 'gallery-slide';
+                slideElement.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('${slide.image}')`;
+                
+                const content = document.createElement('div');
+                content.className = 'slide-content';
+                content.innerHTML = `
+                    <h3 class="slide-title">${slide.title}</h3>
+                    <p class="slide-desc">${slide.desc}</p>
+                `;
+                
+                slideElement.appendChild(content);
+                slider.appendChild(slideElement);
+            });
+            
+            // Auto-play
+            startAutoPlay();
+        }
+
+        function showSlide(index) {
+            const slider = document.getElementById('gallerySlider');
+            const totalSlides = slides.length;
+            
+            if (index >= totalSlides) currentSlide = 0;
+            else if (index < 0) currentSlide = totalSlides - 1;
+            else currentSlide = index;
+            
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function startAutoPlay() {
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 4000);
+            
+            document.getElementById('playBtn').innerHTML = '<i class="fas fa-pause"></i>';
+        }
+
+        function stopAutoPlay() {
+            clearInterval(slideInterval);
+            slideInterval = null;
+            document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i>';
+        }
+
+        // Event listeners for gallery controls
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+            stopAutoPlay();
+            setTimeout(startAutoPlay, 10000);
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+            stopAutoPlay();
+            setTimeout(startAutoPlay, 10000);
+        });
+
+        document.getElementById('playBtn').addEventListener('click', () => {
+            if (slideInterval) {
+                stopAutoPlay();
+            } else {
+                startAutoPlay();
+            }
+        });
+
+        // Add interactive elements
+        document.querySelectorAll('.memory-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                this.style.backgroundColor = 'rgba(255, 90, 141, 0.1)';
+                
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.backgroundColor = '';
+                }, 300);
+            });
+        });
+
+        // Add snow effect
+        function createSnow() {
+            const snowflakes = ['❄️', '✨', '❅', '❆'];
+            for (let i = 0; i < 15; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                snowflake.style.position = 'fixed';
+                snowflake.style.top = '-20px';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.fontSize = Math.random() * 20 + 10 + 'px';
+                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                snowflake.style.zIndex = '999';
+                snowflake.style.pointerEvents = 'none';
+                snowflake.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`;
+                
+                document.body.appendChild(snowflake);
+            }
+        }
+
+        // Add CSS for snow animation
+        const snowStyle = document.createElement('style');
+        snowStyle.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(snowStyle);
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initGallery();
+            createSnow();
+            
+            // Hide main content initially
+            document.getElementById('mainContent').style.display = 'none';
+            
+            // Add floating animation to welcome content
+            document.querySelector('.welcome-content').classList.add('floating');
+        });
+    </script>
+</body>
+</html>
