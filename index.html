@@ -3,769 +3,1527 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merry Christmas, Lucy! ❄️</title>
+    <title>NEURAL OVERDRIVE - eFootball Cyber Enhancement Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Oxanium:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #ff5a8d;
-            --secondary: #6a67ce;
-            --accent: #42b883;
-            --light: #ffffff;
-            --light-bg: rgba(255, 255, 255, 0.95);
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            --radius: 24px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
+        /* -----------------------------------------------
+        ALL CSS STYLES (COMPLETE & UNCHANGED)
+        ----------------------------------------------- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #00d9ff;
+            --primary-light: #00ffff;
+            --primary-dark: #0099cc;
+            --secondary: #ff00ff;
+            --accent: #ff2e63;
+            --accent-light: #ff6b9d;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --light: #ffffff;
+            --glass: rgba(0, 217, 255, 0.08);
+            --glass-border: rgba(0, 217, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.1);
+            --success: #00ff88;
+            --danger: #ff2e63;
+            --warning: #ffcc00;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: #333;
-            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a1a 0%, #050510 50%, #0a0a2e 100%);
+            color: var(--light);
+            line-height: 1.5;
+            font-family: 'Oxanium', cursive;
             overflow-x: hidden;
-            padding: 20px;
+            min-height: 100vh;
             position: relative;
         }
 
-        body::before {
-            content: '';
+        .gaming-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23ff5a8d" opacity="0.1" d="M50,0 C77.614,0 100,22.386 100,50 C100,77.614 77.614,100 50,100 C22.386,100 0,77.614 0,50 C0,22.386 22.386,0 50,0 Z"/></svg>') repeat;
-            animation: float 20s linear infinite;
             z-index: -1;
+            overflow: hidden;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-100px) rotate(360deg); }
+        .cyber-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 217, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 217, 255, 0.15) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        .glitch-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+            animation: glitchMove 3s linear infinite;
+        }
+
+        @keyframes glitchMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .glitch-line:nth-child(1) { top: 20%; animation-delay: 0s; }
+        .glitch-line:nth-child(2) { top: 50%; animation-delay: 1s; }
+        .glitch-line:nth-child(3) { top: 80%; animation-delay: 2s; }
+
+        .digital-rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .rain-column {
+            position: absolute;
+            top: -100px;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(transparent, var(--primary));
+            animation: rainFall 3s linear infinite;
+        }
+
+        .rain-column:nth-child(1) { left: 5%; animation-delay: 0s; }
+        .rain-column:nth-child(2) { left: 15%; animation-delay: 0.5s; }
+        .rain-column:nth-child(3) { left: 25%; animation-delay: 1s; }
+        .rain-column:nth-child(4) { left: 35%; animation-delay: 1.5s; }
+        .rain-column:nth-child(5) { left: 45%; animation-delay: 2s; }
+        .rain-column:nth-child(6) { left: 55%; animation-delay: 2.5s; }
+        .rain-column:nth-child(7) { left: 65%; animation-delay: 0s; }
+        .rain-column:nth-child(8) { left: 75%; animation-delay: 0.5s; }
+        .rain-column:nth-child(9) { left: 85%; animation-delay: 1s; }
+        .rain-column:nth-child(10) { left: 95%; animation-delay: 1.5s; }
+
+        @keyframes rainFall {
+            0% { transform: translateY(-100px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .cyber-orb {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.15;
+            animation: pulseOrb 6s ease-in-out infinite;
+        }
+
+        .cyber-orb:nth-child(1) { top: 20%; left: 10%; animation-duration: 8s; }
+        .cyber-orb:nth-child(2) { top: 60%; right: 15%; animation-duration: 10s; background: radial-gradient(circle, var(--secondary) 0%, transparent 70%); }
+        .cyber-orb:nth-child(3) { bottom: 20%; left: 20%; animation-duration: 12s; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); }
+
+        @keyframes pulseOrb {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.3); opacity: 0.3; }
+        }
+
+        .gaming-font {
+            font-family: 'Orbitron', sans-serif;
         }
 
         .container {
-            max-width: 800px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 15px;
         }
 
-        /* Welcome Overlay */
-        .welcome-overlay {
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 10px var(--primary);
+            animation: neonPulse 2s infinite alternate;
+        }
+
+        @keyframes neonPulse {
+            from { text-shadow: 0 0 10px var(--primary); }
+            to { text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary-light); }
+        }
+
+        .logo i {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 18px;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cart-icon {
+            position: relative;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 0.85rem;
+            font-family: 'Orbitron', sans-serif;
+            border: none;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--light);
+            border: 1px solid var(--primary);
+            margin-right: 8px;
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-login:hover, .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 22px;
+            height: 16px;
+            justify-content: space-between;
+        }
+
+        .hamburger-menu span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: var(--light);
+            transition: all 0.3s;
+        }
+
+        .mobile-menu-overlay {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            animation: slideOut 0.8s ease 2.5s forwards;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 998;
         }
 
-        .welcome-content {
-            text-align: center;
-            padding: 40px;
-            background: var(--light-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transform: scale(0.9);
-            animation: popIn 0.6s ease 0.5s forwards;
-        }
-
-        .welcome-content h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .welcome-content p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-
-        .welcome-btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 6px 20px rgba(255, 90, 141, 0.3);
-        }
-
-        .welcome-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 90, 141, 0.4);
-        }
-
-        @keyframes popIn {
-            to { transform: scale(1); }
-        }
-
-        @keyframes slideOut {
-            to { transform: translateY(-100%); }
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 40px 30px;
-            background: var(--light-bg);
-            backdrop-filter: blur(20px);
-            border-radius: var(--radius);
-            margin-bottom: 25px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
+        .mobile-menu {
+            position: fixed;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            right: -280px;
+            width: 280px;
+            height: 100%;
+            background: rgba(5, 5, 16, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--primary);
+            box-shadow: -5px 0 30px rgba(0, 217, 255, 0.3);
+            z-index: 999;
+            transition: right 0.3s ease-in-out;
+            padding: 80px 25px 30px;
         }
 
-        .couple-names {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
             margin-bottom: 20px;
         }
 
-        .name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem;
+        .mobile-menu a {
+            color: var(--light);
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .mobile-menu a:hover {
             color: var(--primary);
-            position: relative;
-            padding: 0 20px;
+            border-bottom-color: var(--primary);
+            padding-left: 10px;
         }
 
-        .name::after {
-            content: '❤️';
+        .mobile-menu .close-menu {
             position: absolute;
-            top: -15px;
-            right: -10px;
-            font-size: 1.5rem;
-            animation: heartbeat 1.5s infinite;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--primary);
+            transition: all 0.3s;
         }
 
-        .cloud {
+        .mobile-menu .close-menu:hover {
+            transform: rotate(90deg);
             color: var(--secondary);
         }
 
-        .heart-separator {
-            font-size: 2rem;
-            color: var(--primary);
-            animation: heartbeat 1.5s infinite;
+        .hero {
+            padding: 60px 0 30px;
+            text-align: center;
         }
 
-        .greeting {
-            font-size: 1.8rem;
-            color: #444;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .subtitle {
-            color: #666;
-            font-size: 1.1rem;
-            max-width: 600px;
+        .hero-content {
+            max-width: 800px;
             margin: 0 auto;
-            line-height: 1.6;
+            animation: fadeInUp 1s ease-out;
         }
 
-        /* Gallery */
-        .gallery-section {
-            background: var(--light-bg);
-            border-radius: var(--radius);
-            padding: 30px;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 900;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
             margin-bottom: 25px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(20px);
+            color: #e0e0e0;
         }
 
-        .gallery-title {
+        .hero-buttons {
             display: flex;
-            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .search-bar {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px 0 0 8px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--light);
+            font-family: 'Oxanium', cursive;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        .category-section {
+            padding: 20px 0;
+        }
+
+        .category-filters {
+            display: flex;
             gap: 12px;
             margin-bottom: 25px;
-            color: var(--secondary);
-            font-size: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Oxanium', cursive;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .section {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .section-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .section-link:hover {
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .discount-carousel {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .discount-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 25px;
+        }
+
+        .discount-slide {
+            min-width: calc(33.333% - 17px);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--glass);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .carousel-btn.prev { left: 0; }
+        .carousel-btn.next { right: 0; }
+
+        .plugins-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .plugin-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .plugin-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .plugin-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .plugin-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
             font-weight: 600;
         }
 
-        .gallery-container {
-            position: relative;
-            height: 320px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        .plugin-badge.hot { background: var(--danger); }
+        .plugin-badge.new { background: var(--success); }
+        .plugin-badge.discount { background: var(--warning); color: #000; }
+        .plugin-badge.coming-soon { background: var(--primary-dark); color: var(--light); }
+
+        .plugin-info {
+            padding: 18px;
         }
 
-        .gallery-slider {
+        .plugin-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .plugin-category {
+            color: var(--primary);
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+
+        .plugin-description {
+            color: #b0b0b0;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .plugin-features {
             display: flex;
-            height: 100%;
-            transition: var(--transition);
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 0.75rem;
         }
 
-        .gallery-slide {
-            min-width: 100%;
-            height: 100%;
-            position: relative;
+        .plugin-features span i {
+            color: var(--success);
+            margin-right: 4px;
+        }
+
+        .plugin-rating {
+            margin-bottom: 12px;
+            color: var(--warning);
+        }
+
+        .plugin-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .plugin-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            font-size: 0.8rem;
+            color: #888;
+            margin-left: 5px;
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .btn-coming-soon {
+            background: rgba(255,255,255,0.1);
+            color: #888;
+            border: 1px solid #444;
+            cursor: not-allowed;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .testimonial-card {
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto 15px;
+            border: 2px solid var(--primary);
+        }
+
+        .testimonial-text {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stars {
+            color: var(--warning);
+            margin-bottom: 10px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .blog-card {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .blog-image {
+            height: 160px;
             background-size: cover;
             background-position: center;
         }
 
-        .slide-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 25px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-            color: white;
+        .blog-info {
+            padding: 18px;
         }
 
-        .slide-title {
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-            font-weight: 600;
+        .blog-date {
+            font-size: 0.7rem;
+            color: var(--primary);
+            margin-bottom: 8px;
         }
 
-        .slide-desc {
-            font-size: 0.95rem;
-            opacity: 0.9;
+        .blog-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
-        .gallery-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+        .blog-excerpt {
+            font-size: 0.85rem;
+            color: #b0b0b0;
+            margin-bottom: 15px;
         }
 
-        .gallery-btn {
-            background: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            color: var(--secondary);
-            font-size: 1.2rem;
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.85rem;
         }
 
-        .gallery-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Memory Cards */
-        .memories-section {
-            margin-bottom: 25px;
-        }
-
-        .memories-grid {
+        .faq-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
 
-        .memory-card {
-            background: var(--light-bg);
-            border-radius: 20px;
-            padding: 25px;
+        .faq-item {
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            font-size: 0.85rem;
+            color: #b0b0b0;
+        }
+
+        .newsletter {
+            padding: 50px 0;
             text-align: center;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
-        .memory-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        .newsletter-card {
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .memory-icon {
-            font-size: 2.5rem;
+        .newsletter h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px 0 0 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--light);
+        }
+
+        .newsletter-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        footer {
+            padding: 40px 0 15px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-about {
+            color: #b0b0b0;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-heading {
+            font-size: 1rem;
             margin-bottom: 15px;
             color: var(--primary);
         }
 
-        .memory-text {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.5;
+        .footer-links {
+            list-style: none;
         }
 
-        /* Message */
-        .message-section {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: var(--radius);
-            padding: 40px;
-            margin-bottom: 25px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow);
+        .footer-links li {
+            margin-bottom: 8px;
         }
 
-        .message-section::before {
-            content: '❄️✨';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            opacity: 0.3;
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
         }
 
-        .message-title {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .message-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            opacity: 0.95;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 30px;
-            background: var(--light-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-        }
-
-        .footer-heart {
+        .footer-links a:hover {
             color: var(--primary);
-            font-size: 1.5rem;
-            animation: heartbeat 1.5s infinite;
-            display: inline-block;
         }
 
-        .footer-text {
-            color: #666;
+        .social-links {
+            display: flex;
+            gap: 12px;
             margin-top: 15px;
-            font-size: 0.95rem;
         }
 
-        /* Music Control */
-        .music-toggle {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
+        .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            z-index: 100;
-            transition: var(--transition);
-            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            background: var(--glass);
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .payment-method {
+            width: 45px;
+            height: 28px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            background: var(--glass);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--glass-border);
+            color: #b0b0b0;
+            font-size: 0.75rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            max-width: 90%;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            animation: modalAppear 0.5s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .modal h2 {
             color: var(--primary);
-            font-size: 1.5rem;
+            margin-bottom: 20px;
         }
 
-        .music-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
         }
 
-        /* Animations */
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid var(--glass-border);
         }
 
-        .floating {
-            animation: floating 3s ease-in-out infinite;
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-top: 2px solid var(--glass-border);
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 10px;
-            }
-            
-            .couple-names {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .name {
-                font-size: 2.2rem;
-            }
-            
-            .greeting {
-                font-size: 1.5rem;
-            }
-            
-            .gallery-container {
-                height: 250px;
-            }
-            
-            .message-section {
-                padding: 30px 20px;
-            }
-            
-            .music-toggle {
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
-            }
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
         }
 
-        @media (max-width: 480px) {
-            .header {
-                padding: 30px 20px;
-            }
-            
-            .memory-card {
-                padding: 20px;
-            }
-            
-            .memories-grid {
+        .modal-checkout {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .modal-close {
+            background: transparent;
+            color: var(--light);
+            border: 1px solid var(--glass-border);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .email-notice {
+            background: rgba(0, 217, 255, 0.15);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .email-notice i {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .email-notice h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .email-notice p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        @media (max-width: 992px) {
+            .plugins-grid, .testimonials-grid, .blog-grid, .faq-grid, .footer-content {
                 grid-template-columns: 1fr;
             }
+            .discount-slide {
+                min-width: calc(100% - 20px);
+            }
+            .nav-links { display: none; }
+            .hamburger-menu { display: flex; }
+            .hero h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Welcome Overlay -->
-    <div class="welcome-overlay" id="welcomeOverlay">
-        <div class="welcome-content">
-            <h1>Merry Christmas!</h1>
-            <p>A special message for you, Lucy ❤️</p>
-            <button class="welcome-btn" id="enterBtn">
-                Open Your Gift <i class="fas fa-gift"></i>
-            </button>
+    <div class="gaming-bg">
+        <div class="cyber-grid"></div>
+        <div class="glitch-line"></div>
+        <div class="glitch-line"></div>
+        <div class="glitch-line"></div>
+        <div class="digital-rain">
+            <div class="rain-column"></div><div class="rain-column"></div><div class="rain-column"></div>
+            <div class="rain-column"></div><div class="rain-column"></div><div class="rain-column"></div>
+            <div class="rain-column"></div><div class="rain-column"></div><div class="rain-column"></div>
+            <div class="rain-column"></div>
+        </div>
+        <div class="cyber-orb"></div>
+        <div class="cyber-orb"></div>
+        <div class="cyber-orb"></div>
+    </div>
+
+    <header class="glass">
+        <div class="container">
+            <nav>
+                <div class="logo gaming-font"><i class="fas fa-bolt"></i>NEURAL OVERDRIVE</div>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li><li><a href="#">Plugins</a></li><li><a href="#">Deals</a></li>
+                    <li><a href="#">Blog</a></li><li><a href="#">Support</a></li><li><a href="#">Affiliates</a></li>
+                </ul>
+                <div class="user-actions">
+                    <a href="#" class="btn btn-login" id="loginBtn">Login</a>
+                    <a href="#" class="btn btn-register">Register</a>
+                    <div class="cart-icon" id="cartIcon"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></div>
+                </div>
+                <div class="hamburger-menu" id="hamburger"><span></span><span></span><span></span></div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" id="closeMenuBtn">&times;</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Plugins</a></li>
+            <li><a href="#">Deals</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Affiliates</a></li>
+            <li><a href="#" id="mobileLoginBtn">Login</a></li>
+            <li><a href="#">Register</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="gaming-font">OVERRIDE YOUR LIMITS</h1>
+                <p>Advanced neural plugins, AI-powered mods, and cybernetic enhancements for the ultimate eFootball experience.</p>
+                <div class="hero-buttons"><a href="#" class="btn btn-primary">Explore Plugins</a></div>
+                <div class="search-bar"><input type="text" class="search-input" id="searchInput" placeholder="Search neural plugins..."><button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EMAIL NOTICE SECTION - Informs users about email delivery from Freemius -->
+    <div class="container">
+        <div class="email-notice glass">
+            <i class="fas fa-envelope"></i>
+            <h4>📧 Instant Email Delivery</h4>
+            <p>After completing your purchase on the Freemius checkout page, you will receive an email containing your <strong>license keys</strong> and <strong>direct download links</strong> for all purchased plugins. Check your inbox within minutes!</p>
         </div>
     </div>
 
-    <!-- Music Control -->
-    <button class="music-toggle" id="musicToggle">
-        <i class="fas fa-music"></i>
-    </button>
+    <div class="category-section"><div class="container"><div class="category-filters" id="categoryFilters"></div></div></div>
 
-    <!-- Main Content -->
-    <div class="container" id="mainContent">
-        <!-- Header -->
-        <header class="header">
-            <div class="couple-names">
-                <div class="name cloud">Cloud</div>
-                <div class="heart-separator">❤️</div>
-                <div class="name">Lucy</div>
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">💿 Neural Overdrive Discounts</h2>
+                <a href="#" class="section-link">View All →</a>
             </div>
-            <h1 class="greeting">Merry Christmas & Happy New Year</h1>
-            <p class="subtitle">My dearest Lucy, every moment with you feels like magic. This Christmas, I want you to know how incredibly special you are to me. ❤️</p>
-        </header>
+            <div class="discount-carousel">
+                <button class="carousel-btn prev" id="discountPrev"><i class="fas fa-chevron-left"></i></button>
+                <div class="discount-slider" id="discountSlider"></div>
+                <button class="carousel-btn next" id="discountNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
 
-        <!-- Photo Gallery -->
-        <section class="gallery-section">
-            <div class="gallery-title">
-                <i class="fas fa-heart"></i>
-                <span>Our Special Moments</span>
-            </div>
-            <div class="gallery-container">
-                <div class="gallery-slider" id="gallerySlider">
-                    <!-- Slides will be added by JavaScript -->
-                </div>
-            </div>
-            <div class="gallery-controls">
-                <button class="gallery-btn" id="prevBtn">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="gallery-btn" id="playBtn">
-                    <i class="fas fa-pause"></i>
-                </button>
-                <button class="gallery-btn" id="nextBtn">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </section>
+    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">⚡ Overdrive Core Plugins</h2><a href="#" class="section-link">View All →</a></div><div class="plugins-grid" id="hotPluginsGrid"></div></div></section>
 
-        <!-- Memories -->
-        <section class="memories-section">
-            <div class="memories-grid">
-                <div class="memory-card floating">
-                    <div class="memory-icon">🎄</div>
-                    <p class="memory-text">Our first Christmas together will always be my favorite memory</p>
-                </div>
-                <div class="memory-card floating" style="animation-delay: 0.2s;">
-                    <div class="memory-icon">✨</div>
-                    <p class="memory-text">The way your eyes sparkle when you laugh</p>
-                </div>
-                <div class="memory-card floating" style="animation-delay: 0.4s;">
-                    <div class="memory-icon">❤️</div>
-                    <p class="memory-text">Every moment I get to spend with you</p>
-                </div>
+    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">🆕 Latest Neural Releases</h2><a href="#" class="section-link">View All →</a></div><div class="plugins-grid" id="latestPluginsGrid"></div></div></section>
+
+    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">⭐ Neural Impressions</h2><a href="#" class="section-link">See All →</a></div><div class="testimonials-grid" id="testimonialsGrid"></div></div></section>
+
+    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">📡 Neural Net Blog</h2><a href="#" class="section-link">Read More →</a></div><div class="blog-grid" id="blogGrid"></div></div></section>
+
+    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">❓ Neural FAQ</h2></div><div class="faq-grid" id="faqGrid"></div></div></section>
+
+    <section class="newsletter"><div class="container"><div class="newsletter-card glass"><i class="fas fa-satellite-dish" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i><h3>Subscribe to Neural Feed</h3><p>Get exclusive neural updates, cyber deals, and AI insights delivered to your neural interface.</p><div class="newsletter-form"><input type="email" class="newsletter-input" placeholder="Your neural email"><button class="newsletter-btn">Subscribe</button></div></div></div></section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div><div class="footer-logo"><i class="fas fa-bolt"></i>NEURAL OVERDRIVE</div><p class="footer-about">The #1 neural marketplace for cybernetic eFootball enhancements. Upgrade your gaming consciousness.</p><div class="social-links"><a href="#"><i class="fab fa-discord"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+                <div><h3 class="footer-heading">Neural Links</h3><ul class="footer-links"><li><a href="#">Home</a></li><li><a href="#">Plugins</a></li><li><a href="#">Deals</a></li><li><a href="#">Blog</a></li><li><a href="#">Support</a></li></ul></div>
+                <div><h3 class="footer-heading">Cyber Legal</h3><ul class="footer-links"><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">License Agreement</a></li><li><a href="#">Cookie Policy</a></li></ul></div>
+                <div><h3 class="footer-heading">Neural Payments</h3><div class="payment-methods"><div class="payment-method">Visa</div><div class="payment-method">MC</div><div class="payment-method">PayPal</div><div class="payment-method">BTC</div><div class="payment-method">ETH</div></div></div>
             </div>
-        </section>
+            <div class="footer-bottom"><p>© 2024 NEURAL OVERDRIVE. All rights reserved. | Upgrade your neural gaming</p></div>
+        </div>
+    </footer>
 
-        <!-- Message -->
-        <section class="message-section">
-            <h2 class="message-title">To My Lucy ❤️</h2>
-            <div class="message-content">
-                <p>My love, you are the most beautiful part of my life. This Christmas, I want to thank you for every smile, every laugh, and every moment of joy you've brought into my world.</p>
-                <p style="margin-top: 15px;">You make every day brighter and every challenge easier. I can't wait to create more beautiful memories with you in the coming year.</p>
-                <p style="margin-top: 15px; font-style: italic;">Forever yours,<br>Cloud</p>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-heart">❤️</div>
-            <p class="footer-text">Made with love for Lucy Lynn<br>Merry Christmas & Happy New Year 2024</p>
-        </footer>
-    </div>
-
-    <!-- Audio -->
-    <audio id="bgMusic" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-a-very-merry-christmas-397.mp3" type="audio/mpeg">
-    </audio>
+    <div class="modal" id="cartModal"><div class="modal-content glass"><h2>Neural Cart</h2><div class="cart-items" id="cartItems"><p style="color:#888; text-align:center;">Your neural cart is empty</p></div><div class="cart-total"><span>Total:</span><span id="cartTotal">$0.00</span></div><div class="modal-buttons"><button class="modal-btn modal-close" id="closeCart">Close</button><button class="modal-btn modal-checkout" id="checkoutBtn">Checkout</button></div></div></div>
+    <div class="modal" id="loginModal"><div class="modal-content glass"><h2>Neural Login</h2><input type="email" placeholder="Neural Email" id="loginEmail"><input type="password" placeholder="Neural Password" id="loginPassword"><div class="modal-buttons"><button class="modal-btn modal-close" id="cancelLogin">Cancel</button><button class="modal-btn modal-checkout" id="confirmLogin">Login</button></div></div></div>
 
     <script>
-            // Welcome overlay
-        document.getElementById('enterBtn').addEventListener('click', function() {
-            const overlay = document.getElementById('welcomeOverlay');
-            overlay.style.animation = 'slideOut 0.8s ease forwards';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                startMusic();
-            }, 800);
-            
-            // Show main content with fade in
-            const mainContent = document.getElementById('mainContent');
-            mainContent.style.opacity = '0';
-            mainContent.style.display = 'block';
-            setTimeout(() => {
-                mainContent.style.transition = 'opacity 0.8s ease';
-                mainContent.style.opacity = '1';
-            }, 100);
-        });
+        // ============================================================
+        //  FREEMIUS CHECKOUT LINKS (UPDATED WITH YOUR PROVIDED URLS)
+        // ============================================================
+        const FREEMIUS_CHECKOUT_LINKS = {
+            1: "https://checkout.freemius.com/app/31267/plan/51326/",   // CyberSight AI
+            2: "https://checkout.freemius.com/app/31279/plan/51346/",   // Synapse Engine
+            3: "https://checkout.freemius.com/app/31269/plan/51331/",   // QuantumFX
+            4: null,   // CodeWeaver - COMING SOON (in 2 days)
+            5: "https://checkout.freemius.com/app/31280/plan/51347/",   // NeuralLink
+            6: null,   // PhantomDrive - COMING SOON (in 2 days)
+            7: null,   // NeoShader - COMING SOON (in 2 days)
+            8: "https://checkout.freemius.com/product/31277/plan/51344/", // TimelineAI
+            9: "https://checkout.freemius.com/app/31281/plan/51348/",   // FaceSync AI
+            10: null,  // SonicNeuron - COMING SOON (in 2 days)
+            11: "https://checkout.freemius.com/product/31278/plan/51345/", // FluxEngine
+            12: "https://checkout.freemius.com/app/31263/plan/51350/"    // CyberHUD
+        };
 
-        // Music control
-        const bgMusic = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        let isPlaying = false;
-
-        function startMusic() {
-            bgMusic.volume = 0.3;
-            bgMusic.play().then(() => {
-                isPlaying = true;
-                musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-            }).catch(e => {
-                console.log("Audio requires user interaction");
-                musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-            });
+        // Helper function to check if a product is available for purchase
+        function isProductAvailable(productId) {
+            const link = FREEMIUS_CHECKOUT_LINKS[productId];
+            return link !== null && link !== undefined && link !== "";
         }
 
-        musicToggle.addEventListener('click', function() {
-            if (isPlaying) {
-                bgMusic.pause();
-                musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-            } else {
-                bgMusic.play();
-                musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+        // Freemius checkout function - DIRECT REDIRECT (NO EMAIL PROMPT)
+        function processFreemiusCheckout(product, isCartCheckout = false, cartItems = []) {
+            try {
+                let checkoutUrl = null;
+                let unavailableProducts = [];
+                
+                if (isCartCheckout && cartItems.length > 0) {
+                    // For cart checkout, check each item
+                    for (let item of cartItems) {
+                        if (isProductAvailable(item.id)) {
+                            checkoutUrl = FREEMIUS_CHECKOUT_LINKS[item.id];
+                            break;
+                        } else {
+                            unavailableProducts.push(item.name);
+                        }
+                    }
+                    
+                    if (unavailableProducts.length === cartItems.length) {
+                        alert(`⚠️ The following products are not yet available:\n\n${unavailableProducts.join('\n')}\n\nThey will be ready for purchase in approximately 2 days.\n\nPlease check back soon!`);
+                        return;
+                    } else if (unavailableProducts.length > 0) {
+                        alert(`⚠️ Some items in your cart are not yet available:\n\n${unavailableProducts.join('\n')}\n\nThese will be ready in approximately 2 days.\n\nProceeding with the available items.`);
+                    }
+                } else {
+                    // Single product checkout
+                    if (!isProductAvailable(product.id)) {
+                        alert(`⚠️ "${product.name}" is coming soon!\n\nThis neural plugin will be available for purchase in approximately 2 days.\n\nStay tuned for the official release! 🚀`);
+                        return;
+                    }
+                    checkoutUrl = FREEMIUS_CHECKOUT_LINKS[product.id];
+                }
+                
+                if (!checkoutUrl) {
+                    alert(`⚠️ Checkout link not configured for: ${product ? product.name : 'selected items'}\n\nPlease contact support.`);
+                    return;
+                }
+                
+                // Show loading state on the button
+                const activeButton = document.activeElement;
+                const originalText = activeButton?.innerHTML;
+                if (activeButton && activeButton.classList.contains('btn-buy')) {
+                    activeButton.innerHTML = '<span class="loading-spinner"></span> Redirecting...';
+                    activeButton.disabled = true;
+                    
+                    setTimeout(() => {
+                        if (activeButton.innerHTML !== originalText) {
+                            activeButton.innerHTML = originalText;
+                            activeButton.disabled = false;
+                        }
+                    }, 3000);
+                }
+                
+                // DIRECT REDIRECT to Freemius checkout (NO EMAIL PROMPT - Freemius handles it)
+                window.location.href = checkoutUrl;
+                
+                // Log the purchase attempt
+                console.log('Redirecting to Freemius checkout:', checkoutUrl);
+                
+            } catch (error) {
+                console.error('Freemius checkout error:', error);
+                alert(`⚠️ Checkout error: ${error.message}\n\nPlease try again or contact support.`);
             }
-            isPlaying = !isPlaying;
-        });
+        }
 
-        // Gallery functionality
-        const slides = [
-            {
-                image: "https://images.unsplash.com/photo-1548366086-2c9b259d1e2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                title: "Christmas Magic",
-                desc: "Every moment with you feels magical"
-            },
-            {
-                image: "https://images.unsplash.com/photo-1484807352052-23338990c6c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                title: "Winter Wonderland",
-                desc: "My world is brighter with you in it"
-            },
-            {
-                image: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                title: "Cozy Nights",
-                desc: "The best nights are spent with you"
-            },
-            {
-                image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                title: "New Beginnings",
-                desc: "Looking forward to our future together"
+        // Add to cart function
+        function addToCart(product) {
+            if (!isProductAvailable(product.id)) {
+                const addAnyway = confirm(`⚠️ "${product.name}" is coming soon!\n\nThis plugin will be available in approximately 2 days.\n\nWould you like to add it to your cart as a reminder?`);
+                if (!addAnyway) return;
             }
+            cart.push({ ...product, quantity: 1 });
+            updateCart();
+            alert(`🧠 ${product.name} added to neural cart!`);
+        }
+
+        // Single product checkout
+        function buyNow(product) {
+            processFreemiusCheckout(product);
+        }
+
+        // Cart checkout
+        function cartCheckout() {
+            if (cart.length === 0) {
+                alert("Neural cart is empty!");
+                return;
+            }
+            const cartProduct = { id: 'cart', name: cart.map(i => i.name).join(', ') };
+            processFreemiusCheckout(cartProduct, true, cart);
+        }
+
+        // Rest of the JavaScript - Product data and rendering functions
+        const images = {
+            plugin1: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop",
+            plugin2: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop",
+            plugin3: "https://images.unsplash.com/photo-1488229297570-58520851e868?w=400&h=200&fit=crop",
+            plugin4: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop",
+            plugin5: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop",
+            plugin6: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=200&fit=crop",
+            plugin7: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=200&fit=crop",
+            plugin8: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=200&fit=crop",
+            plugin9: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=400&h=200&fit=crop",
+            plugin10: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=200&fit=crop",
+            plugin11: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&h=200&fit=crop",
+            plugin12: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=400&h=200&fit=crop",
+            blog1: "https://images.unsplash.com/photo-1581092335871-4d314cc8fcbf?w=400&h=160&fit=crop",
+            blog2: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400&h=160&fit=crop",
+            blog3: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=160&fit=crop",
+            avatar1: "https://randomuser.me/api/portraits/men/1.jpg",
+            avatar2: "https://randomuser.me/api/portraits/women/1.jpg",
+            avatar3: "https://randomuser.me/api/portraits/men/2.jpg"
+        };
+
+        const plugins = [
+            { id: 1, name: "NeuralVision", creativeName: "CyberSight AI", category: "camera", price: 14.99, oldPrice: 29.99, rating: 5, sales: 2340, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin1, desc: "AI-powered neural camera with predictive angle tracking" },
+            { id: 2, name: "NeuroFlow", creativeName: "Synapse Engine", category: "gameplay", price: 24.99, oldPrice: 49.99, rating: 5, sales: 1890, hot: true, new: true, discount: false, image: images.plugin2, desc: "Real-time neural response system for fluid gameplay" },
+            { id: 3, name: "CyberRender", creativeName: "QuantumFX", category: "graphics", price: 19.99, oldPrice: 39.99, rating: 4.9, sales: 2100, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin3, desc: "Ray-traced quantum rendering engine" },
+            { id: 4, name: "NeuralForge", creativeName: "CodeWeaver", category: "tools", price: 9.99, oldPrice: 19.99, rating: 4.8, sales: 1560, hot: false, new: false, discount: true, discountPercent: 50, image: images.plugin4, desc: "AI-assisted plugin development environment" },
+            { id: 5, name: "SoulSync", creativeName: "NeuralLink", category: "camera", price: 12.99, oldPrice: 24.99, rating: 4.7, sales: 980, hot: false, new: true, discount: false, image: images.plugin5, desc: "Mind-controlled camera interface" },
+            { id: 6, name: "MirageCore", creativeName: "PhantomDrive", category: "gameplay", price: 7.99, oldPrice: 15.99, rating: 4.9, sales: 3200, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin6, desc: "Neural skill enhancer with predictive moves" },
+            { id: 7, name: "AuroraMatrix", creativeName: "NeoShader", category: "graphics", price: 15.99, oldPrice: 29.99, rating: 4.8, sales: 1200, hot: false, new: true, discount: false, image: images.plugin7, desc: "Dynamic cyberpunk lighting system" },
+            { id: 8, name: "LegacyCore", creativeName: "TimelineAI", category: "tools", price: 18.99, oldPrice: 34.99, rating: 4.9, sales: 980, hot: true, new: false, discount: true, discountPercent: 46, image: images.plugin8, desc: "AI career progression analyzer" },
+            { id: 9, name: "IdentityMatrix", creativeName: "FaceSync AI", category: "tools", price: 22.99, oldPrice: 44.99, rating: 4.8, sales: 750, hot: false, new: true, discount: false, image: images.plugin9, desc: "Neural face mapping technology" },
+            { id: 10, name: "AudioCore", creativeName: "SonicNeuron", category: "audio", price: 11.99, oldPrice: 23.99, rating: 4.7, sales: 890, hot: false, new: true, discount: true, discountPercent: 50, image: images.plugin10, desc: "3D neural audio positioning" },
+            { id: 11, name: "MotionMatrix", creativeName: "FluxEngine", category: "gameplay", price: 29.99, oldPrice: 59.99, rating: 4.9, sales: 1450, hot: true, new: false, discount: false, image: images.plugin11, desc: "Advanced neural physics processor" },
+            { id: 12, name: "AetherUI", creativeName: "CyberHUD", category: "interface", price: 8.99, oldPrice: 17.99, rating: 4.6, sales: 2100, hot: false, new: true, discount: true, discountPercent: 50, image: images.plugin12, desc: "Holographic neural interface" }
         ];
 
-        let currentSlide = 0;
-        let slideInterval;
+        const discountedPlugins = plugins.filter(p => p.discount === true);
 
-        function initGallery() {
-            const slider = document.getElementById('gallerySlider');
+        let cart = [];
+        let currentFilter = "all";
+        let discountIndex = 0;
+        let discountInterval;
+
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('active');
+            document.getElementById('mobileMenuOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
+            document.getElementById('mobileMenuOverlay').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function renderCategoryFilters() {
+            const categories = ["all", "camera", "gameplay", "graphics", "tools", "audio", "interface"];
+            const container = document.getElementById("categoryFilters");
+            container.innerHTML = categories.map(cat => `<button class="filter-btn ${cat === currentFilter ? 'active' : ''}" data-category="${cat}">${cat.toUpperCase()}</button>`).join("");
+            document.querySelectorAll(".filter-btn").forEach(btn => btn.addEventListener("click", (e) => { currentFilter = btn.dataset.category; renderCategoryFilters(); renderHotPlugins(); renderLatestPlugins(); }));
+        }
+
+        function renderDiscountedCarousel() {
+            const container = document.getElementById("discountSlider");
+            container.innerHTML = discountedPlugins.map(p => renderDiscountedCard(p)).join("");
+            attachBuyEvents();
+        }
+
+        function renderDiscountedCard(p) {
+            const isAvailable = isProductAvailable(p.id);
+            const buttonHtml = isAvailable 
+                ? `<button class="btn-buy" data-id="${p.id}" data-name="${p.creativeName}" data-price="${p.price}">Buy Now</button>`
+                : `<button class="btn-coming-soon" disabled>🚀 Coming Soon (2 days)</button>`;
             
-            slides.forEach(slide => {
-                const slideElement = document.createElement('div');
-                slideElement.className = 'gallery-slide';
-                slideElement.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('${slide.image}')`;
+            return `<div class="discount-slide">
+                <div class="plugin-card glass">
+                    <div class="plugin-image" style="background-image: url('${p.image}')">
+                        <span class="plugin-badge discount">🔥 ${p.discountPercent}% OFF</span>
+                        ${!isAvailable ? '<span class="plugin-badge coming-soon" style="left:12px; right:auto;">⏳ SOON</span>' : ''}
+                    </div>
+                    <div class="plugin-info">
+                        <h3 class="plugin-title">${p.creativeName}</h3>
+                        <p class="plugin-category">${p.category.toUpperCase()}</p>
+                        <p class="plugin-description">${p.desc}</p>
+                        <div class="plugin-features"><span><i class="fas fa-download"></i> ${p.sales}+ neural links</span><span><i class="fas fa-star"></i> ${p.rating}</span></div>
+                        <div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div>
+                        <div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${buttonHtml}</div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function renderHotPlugins() {
+            const hotPlugins = plugins.filter(p => p.hot && (currentFilter === "all" || p.category === currentFilter));
+            const container = document.getElementById("hotPluginsGrid");
+            container.innerHTML = hotPlugins.map(p => renderPluginCard(p)).join("");
+            attachBuyEvents();
+        }
+
+        function renderLatestPlugins() {
+            const latestPlugins = plugins.filter(p => p.new && (currentFilter === "all" || p.category === currentFilter));
+            const container = document.getElementById("latestPluginsGrid");
+            container.innerHTML = latestPlugins.map(p => renderPluginCard(p)).join("");
+            attachBuyEvents();
+        }
+
+        function renderPluginCard(p) {
+            const isAvailable = isProductAvailable(p.id);
+            const buttonHtml = isAvailable 
+                ? `<button class="btn-buy" data-id="${p.id}" data-name="${p.creativeName}" data-price="${p.price}">Buy Now</button>`
+                : `<button class="btn-coming-soon" disabled>🚀 Coming Soon (2 days)</button>`;
+            
+            return `<div class="plugin-card glass">
+                <div class="plugin-image" style="background-image: url('${p.image}')">
+                    ${p.hot ? '<span class="plugin-badge hot">⚡ HOT</span>' : p.new ? '<span class="plugin-badge new">🆕 NEW</span>' : ''}
+                    ${!isAvailable && !p.hot && !p.new ? '<span class="plugin-badge coming-soon" style="left:12px; right:auto;">⏳ SOON</span>' : ''}
+                </div>
+                <div class="plugin-info">
+                    <h3 class="plugin-title">${p.creativeName}</h3>
+                    <p class="plugin-category">${p.category.toUpperCase()}</p>
+                    <p class="plugin-description">${p.desc}</p>
+                    <div class="plugin-features"><span><i class="fas fa-download"></i> ${p.sales}+ neural links</span><span><i class="fas fa-star"></i> ${p.rating}</span></div>
+                    <div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div>
+                    <div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${buttonHtml}</div>
+                </div>
+            </div>`;
+        }
+
+        function renderTestimonials() {
+            const testimonials = [
+                { name: "Alex Thompson", text: "CyberSight AI transformed my neural interface! The predictive tracking is mind-blowing.", rating: 5, avatar: images.avatar1 },
+                { name: "Maria Garcia", text: "Synapse Engine makes my gameplay flow like liquid code. Best neural purchase ever!", rating: 5, avatar: images.avatar2 },
+                { name: "David Kim", text: "QuantumFX turned my game into a cyberpunk masterpiece. 10/10 neural rating!", rating: 5, avatar: images.avatar3 }
+            ];
+            document.getElementById("testimonialsGrid").innerHTML = testimonials.map(t => `<div class="testimonial-card glass"><div class="testimonial-avatar" style="background-image: url('${t.avatar}')"></div><div class="stars">${'★'.repeat(t.rating)}</div><p class="testimonial-text">"${t.text}"</p><p class="testimonial-name">${t.name}</p></div>`).join("");
+        }
+
+        function renderBlog() {
+            const blogs = [
+                { title: "Neural Interface Guide", date: "Dec 15, 2024", excerpt: "How to optimize your cybernetic setup", image: images.blog1 },
+                { title: "Quantum Rendering Explained", date: "Dec 10, 2024", excerpt: "Deep dive into our neural graphics engine", image: images.blog2 },
+                { title: "AI-Powered Gaming Future", date: "Dec 5, 2024", excerpt: "What's coming in neural gaming 2025", image: images.blog3 }
+            ];
+            document.getElementById("blogGrid").innerHTML = blogs.map(b => `<div class="blog-card glass"><div class="blog-image" style="background-image: url('${b.image}')"></div><div class="blog-info"><div class="blog-date">${b.date}</div><h3 class="blog-title">${b.title}</h3><p class="blog-excerpt">${b.excerpt}</p><a href="#" class="read-more">Read More →</a></div></div>`).join("");
+        }
+
+        function renderFAQ() {
+            const faqs = [
+                { q: "How do I receive my plugins after purchase?", a: "After completing your payment on Freemius, you will receive an email with your license keys and direct download links within 2-5 minutes." },
+                { q: "Are neural plugins safe?", a: "Yes! All plugins are scanned by our AI security system." },
+                { q: "Do I get lifetime updates?", a: "Absolutely! All purchases include neural updates." },
+                { q: "What's your refund policy?", a: "30-day neural money-back guarantee." },
+                { q: "Didn't receive the email?", a: "Check your SPAM/JUNK folder. Still missing? Contact support@neural-overdrive.com with your payment receipt." },
+                { q: "Which versions are supported?", a: "Compatible with eFootball 2024+ and neural interfaces." }
+            ];
+            document.getElementById("faqGrid").innerHTML = faqs.map(f => `<div class="faq-item glass"><div class="faq-question">❓ ${f.q}</div><div class="faq-answer">${f.a}</div></div>`).join("");
+        }
+
+        function attachBuyEvents() { 
+            document.querySelectorAll(".btn-buy").forEach(btn => btn.addEventListener("click", (e) => { 
+                const id = parseInt(btn.dataset.id);
+                const name = btn.dataset.name;
+                const price = parseFloat(btn.dataset.price);
+                const product = { id, name, price };
                 
-                const content = document.createElement('div');
-                content.className = 'slide-content';
-                content.innerHTML = `
-                    <h3 class="slide-title">${slide.title}</h3>
-                    <p class="slide-desc">${slide.desc}</p>
-                `;
+                const action = confirm(`${name}\n\nPrice: $${price}\n\n📧 You will receive download links via email after purchase.\n\nChoose:\n• OK = Buy Now\n• Cancel = Add to Cart`);
                 
-                slideElement.appendChild(content);
-                slider.appendChild(slideElement);
-            });
-            
-            // Auto-play
-            startAutoPlay();
-        }
-
-        function showSlide(index) {
-            const slider = document.getElementById('gallerySlider');
-            const totalSlides = slides.length;
-            
-            if (index >= totalSlides) currentSlide = 0;
-            else if (index < 0) currentSlide = totalSlides - 1;
-            else currentSlide = index;
-            
-            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        function startAutoPlay() {
-            if (slideInterval) clearInterval(slideInterval);
-            slideInterval = setInterval(() => {
-                showSlide(currentSlide + 1);
-            }, 4000);
-            
-            document.getElementById('playBtn').innerHTML = '<i class="fas fa-pause"></i>';
-        }
-
-        function stopAutoPlay() {
-            clearInterval(slideInterval);
-            slideInterval = null;
-            document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i>';
-        }
-
-        // Event listeners for gallery controls
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            showSlide(currentSlide - 1);
-            stopAutoPlay();
-            setTimeout(startAutoPlay, 10000);
-        });
-
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            showSlide(currentSlide + 1);
-            stopAutoPlay();
-            setTimeout(startAutoPlay, 10000);
-        });
-
-        document.getElementById('playBtn').addEventListener('click', () => {
-            if (slideInterval) {
-                stopAutoPlay();
-            } else {
-                startAutoPlay();
-            }
-        });
-
-        // Add interactive elements
-        document.querySelectorAll('.memory-card').forEach(card => {
-            card.addEventListener('click', function() {
-                this.style.transform = 'scale(0.95)';
-                this.style.backgroundColor = 'rgba(255, 90, 141, 0.1)';
-                
-                setTimeout(() => {
-                    this.style.transform = '';
-                    this.style.backgroundColor = '';
-                }, 300);
-            });
-        });
-
-        // Add snow effect
-        function createSnow() {
-            const snowflakes = ['❄️', '✨', '❅', '❆'];
-            for (let i = 0; i < 15; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-                snowflake.style.position = 'fixed';
-                snowflake.style.top = '-20px';
-                snowflake.style.left = Math.random() * 100 + 'vw';
-                snowflake.style.fontSize = Math.random() * 20 + 10 + 'px';
-                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
-                snowflake.style.zIndex = '999';
-                snowflake.style.pointerEvents = 'none';
-                snowflake.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`;
-                
-                document.body.appendChild(snowflake);
-            }
-        }
-
-        // Add CSS for snow animation
-        const snowStyle = document.createElement('style');
-        snowStyle.textContent = `
-            @keyframes fall {
-                to {
-                    transform: translateY(100vh) rotate(360deg);
+                if (action) {
+                    buyNow(product);
+                } else {
+                    addToCart(product);
                 }
-            }
-        `;
-        document.head.appendChild(snowStyle);
+            })); 
+        }
 
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function() {
-            initGallery();
-            createSnow();
-            
-            // Hide main content initially
-            document.getElementById('mainContent').style.display = 'none';
-            
-            // Add floating animation to welcome content
-            document.querySelector('.welcome-content').classList.add('floating');
+        function updateCart() { 
+            document.getElementById("cartCount").innerHTML = cart.length; 
+            let total = cart.reduce((s, i) => s + i.price, 0); 
+            document.getElementById("cartTotal").innerHTML = `$${total.toFixed(2)}`; 
+            document.getElementById("cartItems").innerHTML = cart.length ? cart.map((i, idx) => `<div class="cart-item"><span>${i.name}</span><span>$${i.price.toFixed(2)}</span><button class="remove-item" data-idx="${idx}" style="background:none;border:none;color:#ff2e63;"><i class="fas fa-trash"></i></button></div>`).join("") : '<p style="color:#888;text-align:center;">Your neural cart is empty</p>'; 
+            document.querySelectorAll(".remove-item").forEach(btn => btn.addEventListener("click", () => { cart.splice(parseInt(btn.dataset.idx), 1); updateCart(); })); 
+        }
+
+        function updateDiscountCarousel() {
+            const container = document.getElementById("discountSlider");
+            const slides = document.querySelectorAll(".discount-slide");
+            const totalSlides = slides.length;
+            const slidesPerView = window.innerWidth > 992 ? 3 : 1;
+            const maxIndex = Math.max(0, totalSlides - slidesPerView);
+            if (discountIndex > maxIndex) discountIndex = maxIndex;
+            if (discountIndex < 0) discountIndex = 0;
+            container.style.transform = `translateX(-${discountIndex * (100 / slidesPerView)}%)`;
+        }
+
+        function nextDiscountSlide() {
+            const slides = document.querySelectorAll(".discount-slide");
+            const slidesPerView = window.innerWidth > 992 ? 3 : 1;
+            const maxIndex = Math.max(0, slides.length - slidesPerView);
+            discountIndex = Math.min(discountIndex + 1, maxIndex);
+            updateDiscountCarousel();
+            resetDiscountInterval();
+        }
+
+        function prevDiscountSlide() {
+            discountIndex = Math.max(discountIndex - 1, 0);
+            updateDiscountCarousel();
+            resetDiscountInterval();
+        }
+
+        function resetDiscountInterval() {
+            clearInterval(discountInterval);
+            discountInterval = setInterval(nextDiscountSlide, 6000);
+        }
+
+        function searchPlugins() {
+            const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+            const allHotCards = document.querySelectorAll("#hotPluginsGrid .plugin-card");
+            const allLatestCards = document.querySelectorAll("#latestPluginsGrid .plugin-card");
+            const filterBySearch = (card) => {
+                const title = card.querySelector(".plugin-title").textContent.toLowerCase();
+                const desc = card.querySelector(".plugin-description").textContent.toLowerCase();
+                return title.includes(searchTerm) || desc.includes(searchTerm);
+            };
+            allHotCards.forEach(card => { card.style.display = filterBySearch(card) ? "block" : "none"; });
+            allLatestCards.forEach(card => { card.style.display = filterBySearch(card) ? "block" : "none"; });
+        }
+
+        // Event listeners
+        document.getElementById("searchBtn").addEventListener("click", searchPlugins);
+        document.getElementById("searchInput").addEventListener("keyup", (e) => { if (e.key === "Enter") searchPlugins(); });
+        document.getElementById("discountPrev").addEventListener("click", prevDiscountSlide);
+        document.getElementById("discountNext").addEventListener("click", nextDiscountSlide);
+        document.getElementById("cartIcon").onclick = () => document.getElementById("cartModal").style.display = "block";
+        document.getElementById("closeCart").onclick = () => document.getElementById("cartModal").style.display = "none";
+        document.getElementById("checkoutBtn").onclick = () => cartCheckout();
+        document.getElementById("loginBtn").onclick = (e) => { e.preventDefault(); document.getElementById("loginModal").style.display = "block"; };
+        document.getElementById("mobileLoginBtn").onclick = (e) => { e.preventDefault(); document.getElementById("loginModal").style.display = "block"; closeMobileMenu(); };
+        document.getElementById("cancelLogin").onclick = () => document.getElementById("loginModal").style.display = "none";
+        document.getElementById("confirmLogin").onclick = () => { let pwd = document.getElementById("loginPassword").value; if(pwd === "efootball_cloud@1256") { alert("🧠 Neural login successful!"); document.getElementById("loginModal").style.display = "none"; } else alert("Incorrect neural password!"); };
+        document.getElementById("hamburger").onclick = openMobileMenu;
+        document.getElementById("closeMenuBtn").onclick = closeMobileMenu;
+        document.getElementById("mobileMenuOverlay").onclick = closeMobileMenu;
+        document.querySelectorAll("#mobileMenu a").forEach(link => {
+            link.addEventListener("click", (e) => {
+                if(link.id !== "mobileLoginBtn") e.preventDefault();
+                closeMobileMenu();
+            });
         });
+        window.onclick = (e) => { if(e.target === document.getElementById("loginModal")) document.getElementById("loginModal").style.display = "none"; if(e.target === document.getElementById("cartModal")) document.getElementById("cartModal").style.display = "none"; };
+        window.addEventListener('resize', () => { updateDiscountCarousel(); });
+
+        renderCategoryFilters(); 
+        renderDiscountedCarousel(); 
+        setTimeout(() => { updateDiscountCarousel(); }, 100);
+        renderHotPlugins(); 
+        renderLatestPlugins(); 
+        renderTestimonials(); 
+        renderBlog(); 
+        renderFAQ(); 
+        updateCart();
+        discountInterval = setInterval(nextDiscountSlide, 6000);
+
+        console.log('%c⚡ NEURAL OVERDRIVE - Freemius Direct Checkout Active', 'color: #00d9ff; font-size: 16px; font-weight: bold;');
+        console.log('%c📧 Freemius handles email delivery automatically after purchase', 'color: #00ff88; font-size: 12px;');
     </script>
 </body>
 </html>
