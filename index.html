@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eFootball Plugins - Cyberpunk Gaming Marketplace</title>
+    <title>Freemius - Premium eFootball Plugins Marketplace</title>
+    <link rel="icon" type="image/x-icon" href="https://freemius.com/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Oxanium:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -29,6 +30,7 @@
             --success: #00ff88;
             --danger: #ff2e63;
             --warning: #ffcc00;
+            --trust: #4caf50;
         }
 
         body {
@@ -41,7 +43,6 @@
             position: relative;
         }
 
-        /* Cyberpunk Background Animations */
         .gaming-bg {
             position: fixed;
             top: 0;
@@ -158,7 +159,34 @@
             box-shadow: var(--glass-shadow);
         }
 
-        /* Header */
+        /* Trust Bar */
+        .trust-bar {
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 8px 0;
+            font-size: 0.7rem;
+        }
+
+        .trust-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #b0b0b0;
+        }
+
+        .trust-item i {
+            color: var(--success);
+            font-size: 0.8rem;
+        }
+
         header {
             position: sticky;
             top: 0;
@@ -208,63 +236,11 @@
             font-weight: 500;
             font-size: 0.85rem;
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         .nav-links a:hover {
             color: var(--primary);
-        }
-
-        .cart-icon {
-            position: relative;
-            margin-left: 20px;
-            cursor: pointer;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -12px;
-            background: var(--secondary);
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-        }
-
-        .user-actions {
-            display: flex;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            font-size: 0.85rem;
-            font-family: 'Orbitron', sans-serif;
-            border: none;
-        }
-
-        .btn-login {
-            background: transparent;
-            color: var(--light);
-            border: 1px solid var(--primary);
-            margin-right: 8px;
-        }
-
-        .btn-register {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-
-        .btn-login:hover, .btn-register:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px var(--primary);
         }
 
         .hamburger-menu {
@@ -284,7 +260,6 @@
             transition: all 0.3s;
         }
 
-        /* Mobile Menu Overlay */
         .mobile-menu-overlay {
             display: none;
             position: fixed;
@@ -332,6 +307,7 @@
             font-size: 1.1rem;
             transition: all 0.3s;
             border-bottom: 1px solid transparent;
+            cursor: pointer;
         }
 
         .mobile-menu a:hover {
@@ -355,7 +331,6 @@
             color: var(--secondary);
         }
 
-        /* Hero Section */
         .hero {
             padding: 60px 0 30px;
             text-align: center;
@@ -425,7 +400,6 @@
             cursor: pointer;
         }
 
-        /* Category Filters */
         .category-section {
             padding: 20px 0;
         }
@@ -477,13 +451,13 @@
             color: var(--primary);
             text-decoration: none;
             font-size: 0.9rem;
+            cursor: pointer;
         }
 
         .section-link:hover {
             text-shadow: 0 0 10px var(--primary);
         }
 
-        /* Discounted Plugins Carousel */
         .discount-carousel {
             position: relative;
             overflow: hidden;
@@ -524,7 +498,6 @@
         .carousel-btn.prev { left: 0; }
         .carousel-btn.next { right: 0; }
 
-        /* Plugins Grid */
         .plugins-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -563,6 +536,7 @@
         .plugin-badge.hot { background: var(--danger); }
         .plugin-badge.new { background: var(--success); }
         .plugin-badge.discount { background: var(--warning); color: #000; }
+        .plugin-badge.coming { background: var(--primary); color: #000; }
 
         .plugin-info {
             padding: 18px;
@@ -632,6 +606,10 @@
             cursor: pointer;
             transition: all 0.3s;
             font-family: 'Orbitron', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-buy:hover {
@@ -639,7 +617,94 @@
             box-shadow: 0 0 15px var(--primary);
         }
 
-        /* Testimonials */
+        .btn-buy.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-buy.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: loadingShimmer 0.8s infinite;
+        }
+
+        @keyframes loadingShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .btn-coming {
+            background: linear-gradient(135deg, #555, #333);
+            color: #aaa;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            cursor: not-allowed;
+        }
+
+        /* Fullscreen Redirect Overlay */
+        .redirect-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 16, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .redirect-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid var(--glass-border);
+            border-top: 4px solid var(--primary);
+            border-right: 4px solid var(--secondary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 30px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .redirect-text {
+            font-size: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .redirect-subtext {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .redirect-product {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -678,7 +743,6 @@
             margin-bottom: 10px;
         }
 
-        /* Blog Section */
         .blog-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -722,9 +786,9 @@
             color: var(--primary);
             text-decoration: none;
             font-size: 0.85rem;
+            cursor: pointer;
         }
 
-        /* FAQ Section */
         .faq-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -747,7 +811,6 @@
             color: #b0b0b0;
         }
 
-        /* Newsletter */
         .newsletter {
             padding: 50px 0;
             text-align: center;
@@ -788,16 +851,9 @@
             cursor: pointer;
         }
 
-        /* Footer */
         footer {
             padding: 40px 0 15px;
             border-top: 1px solid var(--glass-border);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        footer:active {
-            transform: scale(0.99);
         }
 
         .footer-content {
@@ -840,6 +896,7 @@
             text-decoration: none;
             font-size: 0.85rem;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         .footer-links a:hover {
@@ -863,6 +920,7 @@
             text-decoration: none;
             background: var(--glass);
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         .social-links a:hover {
@@ -875,6 +933,7 @@
             display: flex;
             gap: 8px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         .payment-method {
@@ -896,7 +955,6 @@
             font-size: 0.75rem;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -932,32 +990,10 @@
             margin-bottom: 20px;
         }
 
-        .cart-items {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px;
-            border-top: 2px solid var(--glass-border);
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
         .modal-buttons {
             display: flex;
             gap: 10px;
+            margin-top: 20px;
         }
 
         .modal-btn {
@@ -980,19 +1016,6 @@
             border: 1px solid var(--glass-border);
         }
 
-        /* Hidden Restriction Modal (appears after footer clicks) */
-        .restriction-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 3000;
-            backdrop-filter: blur(15px);
-        }
-
         @media (max-width: 992px) {
             .plugins-grid, .testimonials-grid, .blog-grid, .faq-grid, .footer-content {
                 grid-template-columns: 1fr;
@@ -1003,6 +1026,9 @@
             .nav-links { display: none; }
             .hamburger-menu { display: flex; }
             .hero h1 { font-size: 2rem; }
+            .trust-bar .container {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -1023,59 +1049,79 @@
         <div class="cyber-orb"></div>
     </div>
 
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+        <div class="container">
+            <div class="trust-item"><i class="fas fa-shield-alt"></i> 256-bit SSL Secure</div>
+            <div class="trust-item"><i class="fas fa-credit-card"></i> Powered by Freemius</div>
+            <div class="trust-item"><i class="fas fa-clock"></i> 30-Day Money Back</div>
+            <div class="trust-item"><i class="fas fa-headset"></i> 24/7 Support</div>
+            <div class="trust-item"><i class="fas fa-database"></i> GDPR Compliant</div>
+        </div>
+    </div>
+
+    <!-- Redirect Overlay -->
+    <div class="redirect-overlay" id="redirectOverlay">
+        <div class="redirect-spinner"></div>
+        <div class="redirect-text"><i class="fas fa-lock"></i> SECURE REDIRECT TO FREEMIUS</div>
+        <div class="redirect-subtext">Your connection is encrypted and secure. Please wait...</div>
+        <div class="redirect-product" id="redirectProductName"></div>
+    </div>
+
     <header class="glass">
         <div class="container">
             <nav>
-                <div class="logo gaming-font"><i class="fas fa-microchip"></i>CyberPlugins</div>
+                <div class="logo gaming-font"><i class="fas fa-microchip"></i>Freemius<span style="font-size:0.7rem; color:var(--primary);">™</span></div>
                 <ul class="nav-links">
-                    <li><a href="#">Home</a></li><li><a href="#">Plugins</a></li><li><a href="#">Deals</a></li>
-                    <li><a href="#">Blog</a></li><li><a href="#">Support</a></li><li><a href="#">Affiliates</a></li>
+                    <li><a id="navHome">Home</a></li>
+                    <li><a id="navPlugins">Plugins</a></li>
+                    <li><a id="navDeals">Deals</a></li>
+                    <li><a id="navBlog">Blog</a></li>
+                    <li><a id="navSupport">Support</a></li>
+                    <li><a id="navAffiliates">Affiliates</a></li>
                 </ul>
                 <div class="user-actions">
-                    <a href="#" class="btn btn-login" id="loginBtn">Login</a>
-                    <a href="#" class="btn btn-register">Register</a>
-                    <div class="cart-icon" id="cartIcon"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></div>
+                    <a class="btn btn-login" id="loginBtn">Login</a>
+                    <a class="btn btn-register" id="registerBtn">Register</a>
                 </div>
                 <div class="hamburger-menu" id="hamburger"><span></span><span></span><span></span></div>
             </nav>
         </div>
     </header>
 
-    <!-- Mobile Menu Overlay & Slider Menu -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
     <div class="mobile-menu" id="mobileMenu">
         <div class="close-menu" id="closeMenuBtn">&times;</div>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Plugins</a></li>
-            <li><a href="#">Deals</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Support</a></li>
-            <li><a href="#">Affiliates</a></li>
-            <li><a href="#" id="mobileLoginBtn">Login</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a id="mobileNavHome">Home</a></li>
+            <li><a id="mobileNavPlugins">Plugins</a></li>
+            <li><a id="mobileNavDeals">Deals</a></li>
+            <li><a id="mobileNavBlog">Blog</a></li>
+            <li><a id="mobileNavSupport">Support</a></li>
+            <li><a id="mobileNavAffiliates">Affiliates</a></li>
+            <li><a id="mobileLoginBtn">Login</a></li>
+            <li><a id="mobileRegisterBtn">Register</a></li>
         </ul>
     </div>
 
-    <section class="hero">
+    <section class="hero" id="homeSection">
         <div class="container">
             <div class="hero-content">
-                <h1 class="gaming-font">CYBERPOWER YOUR eFOOTBALL</h1>
-                <p>Advanced neural plugins, AI-powered mods, and cybernetic enhancements for the ultimate gaming experience.</p>
-                <div class="hero-buttons"><a href="#" class="btn btn-primary">Explore Plugins</a></div>
-                <div class="search-bar"><input type="text" class="search-input" id="searchInput" placeholder="Search neural plugins..."><button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button></div>
+                <h1 class="gaming-font">FREEMIUS × eFOOTBALL PLUGINS</h1>
+                <p>Premium neural plugins, AI-powered mods, and cybernetic enhancements powered by Freemius secure checkout.</p>
+                <div class="hero-buttons"><a class="btn btn-primary" id="explorePluginsBtn">Explore Plugins</a></div>
+                <div class="search-bar"><input type="text" class="search-input" id="searchInput" placeholder="Search plugins..."><button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button></div>
             </div>
         </div>
     </section>
 
     <div class="category-section"><div class="container"><div class="category-filters" id="categoryFilters"></div></div></div>
 
-    <!-- Discounted Plugins Carousel -->
-    <section class="section">
+    <section class="section" id="pluginsSection">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">💿 Neural Discounts - Limited Time</h2>
-                <a href="#" class="section-link">View All →</a>
+                <h2 class="section-title">💿 Limited Time Discounts</h2>
+                <a class="section-link" id="viewAllDiscounts">View All →</a>
             </div>
             <div class="discount-carousel">
                 <button class="carousel-btn prev" id="discountPrev"><i class="fas fa-chevron-left"></i></button>
@@ -1085,79 +1131,51 @@
         </div>
     </section>
 
-    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">⚡ Neural Core Plugins</h2><a href="#" class="section-link">View All →</a></div><div class="plugins-grid" id="hotPluginsGrid"></div></div></section>
+    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">⚡ Featured Plugins</h2><a class="section-link" id="viewAllHot">View All →</a></div><div class="plugins-grid" id="hotPluginsGrid"></div></div></section>
 
-    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">🆕 Latest Neural Releases</h2><a href="#" class="section-link">View All →</a></div><div class="plugins-grid" id="latestPluginsGrid"></div></div></section>
+    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">🆕 New Releases</h2><a class="section-link" id="viewAllLatest">View All →</a></div><div class="plugins-grid" id="latestPluginsGrid"></div></div></section>
 
-    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">⭐ Neural Impressions</h2><a href="#" class="section-link">See All →</a></div><div class="testimonials-grid" id="testimonialsGrid"></div></div></section>
+    <section class="section" id="testimonialsSection"><div class="container"><div class="section-header"><h2 class="section-title">⭐ Customer Reviews</h2><a class="section-link" id="viewAllTestimonials">See All →</a></div><div class="testimonials-grid" id="testimonialsGrid"></div></div></section>
 
-    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">📡 Neural Net Blog</h2><a href="#" class="section-link">Read More →</a></div><div class="blog-grid" id="blogGrid"></div></div></section>
+    <section class="section" id="blogSection"><div class="container"><div class="section-header"><h2 class="section-title">📡 Blog</h2><a class="section-link" id="readMoreBlog">Read More →</a></div><div class="blog-grid" id="blogGrid"></div></div></section>
 
-    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">❓ Neural FAQ</h2></div><div class="faq-grid" id="faqGrid"></div></div></section>
+    <section class="section" id="faqSection"><div class="container"><div class="section-header"><h2 class="section-title">❓ FAQ</h2></div><div class="faq-grid" id="faqGrid"></div></div></section>
 
-    <section class="newsletter"><div class="container"><div class="newsletter-card glass"><i class="fas fa-satellite-dish" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i><h3>Subscribe to Neural Feed</h3><p>Get exclusive neural updates, cyber deals, and AI insights delivered to your neural interface.</p><div class="newsletter-form"><input type="email" class="newsletter-input" placeholder="Your neural email"><button class="newsletter-btn">Subscribe</button></div></div></div></section>
+    <section class="newsletter"><div class="container"><div class="newsletter-card glass"><i class="fas fa-envelope" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i><h3>Subscribe to Newsletter</h3><p>Get exclusive updates, deals, and plugin announcements.</p><div class="newsletter-form"><input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Your email"><button class="newsletter-btn" id="newsletterSubscribeBtn">Subscribe</button></div></div></div></section>
 
     <footer id="mainFooter">
         <div class="container">
             <div class="footer-content">
-                <div><div class="footer-logo"><i class="fas fa-microchip"></i>CyberPlugins</div><p class="footer-about">The #1 neural marketplace for cybernetic eFootball enhancements. Upgrade your gaming consciousness.</p><div class="social-links"><a href="#"><i class="fab fa-discord"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
-                <div><h3 class="footer-heading">Neural Links</h3><ul class="footer-links"><li><a href="#">Home</a></li><li><a href="#">Plugins</a></li><li><a href="#">Deals</a></li><li><a href="#">Blog</a></li><li><a href="#">Support</a></li></ul></div>
-                <div><h3 class="footer-heading">Cyber Legal</h3><ul class="footer-links"><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">License Agreement</a></li><li><a href="#">Cookie Policy</a></li></ul></div>
-                <div><h3 class="footer-heading">Neural Payments</h3><div class="payment-methods"><div class="payment-method">Visa</div><div class="payment-method">MC</div><div class="payment-method">PayPal</div><div class="payment-method">BTC</div><div class="payment-method">ETH</div></div></div>
+                <div><div class="footer-logo"><i class="fas fa-microchip"></i>Freemius<span style="font-size:0.7rem;">™</span></div><p class="footer-about">Premium eFootball plugins marketplace powered by Freemius. Secure checkout, lifetime updates, and dedicated support.</p><div class="social-links"><a id="socialDiscord"><i class="fab fa-discord"></i></a><a id="socialTwitter"><i class="fab fa-twitter"></i></a><a id="socialYoutube"><i class="fab fa-youtube"></i></a><a id="socialInstagram"><i class="fab fa-instagram"></i></a></div></div>
+                <div><h3 class="footer-heading">Links</h3><ul class="footer-links"><li><a id="footerHome">Home</a></li><li><a id="footerPlugins">Plugins</a></li><li><a id="footerDeals">Deals</a></li><li><a id="footerBlog">Blog</a></li><li><a id="footerSupport">Support</a></li></ul></div>
+                <div><h3 class="footer-heading">Legal</h3><ul class="footer-links"><li><a id="footerTerms">Terms of Service</a></li><li><a id="footerPrivacy">Privacy Policy</a></li><li><a id="footerRefund">Refund Policy</a></li><li><a id="footerLicense">License Agreement</a></li><li><a id="footerCookie">Cookie Policy</a></li></ul></div>
+                <div><h3 class="footer-heading">Secure Payments</h3><div class="payment-methods"><div class="payment-method"><i class="fab fa-cc-visa"></i> Visa</div><div class="payment-method"><i class="fab fa-cc-mastercard"></i> MC</div><div class="payment-method"><i class="fab fa-paypal"></i> PayPal</div><div class="payment-method"><i class="fab fa-bitcoin"></i> BTC</div><div class="payment-method"><i class="fab fa-cc-amex"></i> Amex</div></div><p style="font-size:0.7rem; color:#666; margin-top:15px;"><i class="fas fa-shield-alt"></i> Powered by Freemius</p></div>
             </div>
-            <div class="footer-bottom"><p>© 2024 CyberPlugins. All rights reserved. | Upgrade your neural gaming</p></div>
+            <div class="footer-bottom"><p>© 2024 Freemius. All rights reserved. | Secure eFootball plugin marketplace</p></div>
         </div>
     </footer>
 
-    <div class="modal" id="cartModal"><div class="modal-content glass"><h2>Neural Cart</h2><div class="cart-items" id="cartItems"><p style="color:#888; text-align:center;">Your neural cart is empty</p></div><div class="cart-total"><span>Total:</span><span id="cartTotal">$0.00</span></div><div class="modal-buttons"><button class="modal-btn modal-close" id="closeCart">Close</button><button class="modal-btn modal-checkout" id="checkoutBtn">Checkout</button></div></div></div>
-    <div class="modal" id="loginModal"><div class="modal-content glass"><h2>Neural Login</h2><input type="email" placeholder="Neural Email" id="loginEmail"><input type="password" placeholder="Neural Password" id="loginPassword"><div class="modal-buttons"><button class="modal-btn modal-close" id="cancelLogin">Cancel</button><button class="modal-btn modal-checkout" id="confirmLogin">Login</button></div></div></div>
+    <div class="modal" id="loginModal"><div class="modal-content glass"><h2><i class="fas fa-key"></i> Freemius Login</h2><input type="email" placeholder="Email Address" id="loginEmail" style="width:100%; padding:10px; margin:10px 0; background:rgba(0,0,0,0.5); border:1px solid var(--glass-border); color:white; border-radius:6px;"><input type="password" placeholder="Password" id="loginPassword" style="width:100%; padding:10px; margin:10px 0; background:rgba(0,0,0,0.5); border:1px solid var(--glass-border); color:white; border-radius:6px;"><div class="modal-buttons"><button class="modal-btn modal-close" id="cancelLogin">Cancel</button><button class="modal-btn modal-checkout" id="confirmLogin">Login</button></div></div></div>
 
-    <!-- Hidden Restriction Modal (appears after 5 footer clicks) -->
-    <div class="restriction-modal" id="restrictionModal">
-        <div style="background: rgba(5, 5, 16, 0.95); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 16px; max-width: 650px; margin: 50px auto; padding: 40px 35px; text-align: center; position: relative; top: 50%; transform: translateY(-50%);">
-            <div style="font-size: 3.5rem; color: var(--danger); margin-bottom: 20px;">
-                <i class="fas fa-shield-alt"></i>
-            </div>
-            <h1 style="font-size: 1.8rem; font-weight: 700; font-family: 'Orbitron', sans-serif; margin-bottom: 15px; color: var(--light);">ACCESS RESTRICTED</h1>
-            <div style="font-size: 0.9rem; color: var(--primary); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px;">REGIONAL SERVICE LIMITATION</div>
-            <div style="font-size: 0.95rem; color: #c0c0c0; margin-bottom: 20px; text-align: left; line-height: 1.7;">
-                We regret to inform you that our services are currently not available in your region due to applicable laws, licensing agreements, and regulatory requirements.
-            </div>
-            <div style="background: rgba(255, 46, 99, 0.1); border-left: 3px solid var(--danger); padding: 15px 20px; margin: 25px 0; text-align: left; border-radius: 4px;">
-                <i class="fas fa-exclamation-triangle" style="color: var(--danger); margin-right: 10px;"></i>
-                <p style="font-size: 0.85rem; color: #e0e0e0; display: inline;"><strong>VPN / Proxy Usage is Strictly Prohibited.</strong> Attempting to bypass regional restrictions using VPNs, proxies, or any other anonymization tools violates our Terms of Service and may result in permanent account suspension.</p>
-            </div>
-            <div style="background: rgba(0, 0, 0, 0.4); border-radius: 8px; padding: 15px; margin: 20px 0; text-align: left; border: 1px solid var(--glass-border);">
-                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--glass-border); font-size: 0.85rem;">
-                    <span style="color: #888;">Connection Status:</span>
-                    <span style="color: var(--warning); font-family: monospace;"><i class="fas fa-mask"></i> VPN/Proxy Detected</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--glass-border); font-size: 0.85rem;">
-                    <span style="color: #888;">Detected Region:</span>
-                    <span style="color: var(--primary); font-family: monospace;">Restricted Area</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 0.85rem;">
-                    <span style="color: #888;">VPN/Proxy Detected:</span>
-                    <span style="color: var(--warning);"><i class="fas fa-exclamation-triangle"></i> Detected - Prohibited</span>
-                </div>
-            </div>
-            <div style="font-size: 0.95rem; color: #c0c0c0; margin: 20px 0; text-align: left;">
-                <i class="fas fa-clock" style="color: var(--primary); margin-right: 8px;"></i>
-                We are actively working to expand our services to additional regions. Please check back for updates. We appreciate your understanding and patience.
-            </div>
-            <button class="btn btn-primary" id="closeRestrictionBtn" style="width: 100%; margin-top: 10px;">
-                <i class="fas fa-times"></i> Close
-            </button>
-            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--glass-border); display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                <a href="#" style="color: #777; text-decoration: none; font-size: 0.75rem;">Terms of Service</a>
-                <a href="#" style="color: #777; text-decoration: none; font-size: 0.75rem;">Regional Compliance</a>
-                <a href="#" style="color: #777; text-decoration: none; font-size: 0.75rem;">Contact Us</a>
-            </div>
-        </div>
-    </div>
+    <div class="modal" id="registerModal"><div class="modal-content glass"><h2><i class="fas fa-user-plus"></i> Freemius Account</h2><input type="text" placeholder="Full Name" id="regName" style="width:100%; padding:10px; margin:10px 0; background:rgba(0,0,0,0.5); border:1px solid var(--glass-border); color:white; border-radius:6px;"><input type="email" placeholder="Email Address" id="regEmail" style="width:100%; padding:10px; margin:10px 0; background:rgba(0,0,0,0.5); border:1px solid var(--glass-border); color:white; border-radius:6px;"><input type="password" placeholder="Password" id="regPassword" style="width:100%; padding:10px; margin:10px 0; background:rgba(0,0,0,0.5); border:1px solid var(--glass-border); color:white; border-radius:6px;"><div class="modal-buttons"><button class="modal-btn modal-close" id="cancelRegister">Cancel</button><button class="modal-btn modal-checkout" id="confirmRegister">Register</button></div></div></div>
 
     <script>
-        // Cyberpunk/Software themed images
+        // FREEMIUS CHECKOUT LINKS
+        const FREEMIUS_CHECKOUT_LINKS = {
+            1: "https://checkout.freemius.com/app/31267/plan/51326/",      // CyberSight AI ✓
+            2: "https://checkout.freemius.com/app/31279/plan/51346/",      // Synapse Engine ✓
+            3: "https://checkout.freemius.com/app/31269/plan/51331/",      // QuantumFX ✓
+            4: null,   // CodeWeaver - COMING SOON (2 days)
+            5: "https://checkout.freemius.com/app/31280/plan/51347/",      // NeuralLink ✓
+            6: null,   // PhantomDrive - COMING SOON (2 days)
+            7: null,   // NeoShader - COMING SOON (2 days)
+            8: "https://checkout.freemius.com/product/31277/plan/51344/",  // TimelineAI ✓
+            9: "https://checkout.freemius.com/app/31281/plan/51348/",      // FaceSync AI ✓
+            10: null,  // SonicNeuron - COMING SOON (2 days)
+            11: "https://checkout.freemius.com/product/31278/plan/51345/", // FluxEngine ✓
+            12: "https://checkout.freemius.com/app/31263/plan/51350/"      // CyberHUD ✓
+        };
+
         const images = {
             plugin1: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop",
             plugin2: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop",
@@ -1195,71 +1213,74 @@
         ];
 
         const discountedPlugins = plugins.filter(p => p.discount === true);
-
-        let cart = [];
         let currentFilter = "all";
         let discountIndex = 0;
         let discountInterval;
-        let footerClickCount = 0;
-        let clickTimeout = null;
 
-        // Function to show restriction modal
-        function showRestrictionModal() {
-            document.getElementById('restrictionModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
+        const redirectOverlay = document.getElementById('redirectOverlay');
+        const redirectProductName = document.getElementById('redirectProductName');
+
+        function showRedirectOverlay(productName) {
+            redirectProductName.textContent = `Preparing ${productName} secure checkout...`;
+            redirectOverlay.style.display = 'flex';
         }
 
-        function hideRestrictionModal() {
-            document.getElementById('restrictionModal').style.display = 'none';
-            document.body.style.overflow = '';
+        function hideRedirectOverlay() {
+            redirectOverlay.style.display = 'none';
         }
 
-        // Footer click counter for 5 continuous clicks
-        function setupFooterClickListener() {
-            const footer = document.getElementById('mainFooter');
+        function redirectToCheckout(pluginId, pluginName, buttonElement) {
+            const link = FREEMIUS_CHECKOUT_LINKS[pluginId];
             
-            footer.addEventListener('click', function(e) {
-                // Increment click count
-                footerClickCount++;
-                
-                // Clear previous timeout
-                if (clickTimeout) {
-                    clearTimeout(clickTimeout);
+            if (link && link !== null && !link.includes('YOUR_APP_ID')) {
+                if (buttonElement) {
+                    buttonElement.classList.add('loading');
+                    buttonElement.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Redirecting...';
+                    buttonElement.disabled = true;
                 }
                 
-                // Set timeout to reset counter after 2 seconds of inactivity
-                clickTimeout = setTimeout(() => {
-                    footerClickCount = 0;
-                }, 2000);
+                showRedirectOverlay(pluginName);
                 
-                // If 5 clicks detected, show restriction modal
-                if (footerClickCount >= 5) {
-                    showRestrictionModal();
-                    footerClickCount = 0; // Reset counter
-                    if (clickTimeout) {
-                        clearTimeout(clickTimeout);
-                    }
-                }
-                
-                // Visual feedback on footer click
-                footer.style.transform = 'scale(0.99)';
                 setTimeout(() => {
-                    footer.style.transform = '';
-                }, 150);
-            });
+                    window.location.href = link;
+                }, 400);
+            } else {
+                if (buttonElement) {
+                    buttonElement.classList.add('loading');
+                    buttonElement.innerHTML = '<i class="fas fa-clock"></i> Coming in 2 days';
+                    buttonElement.disabled = true;
+                    buttonElement.style.background = '#555';
+                }
+                
+                showToast(`⏳ ${pluginName} will be available in 2 days!`, 'info');
+                
+                setTimeout(() => {
+                    if (buttonElement) {
+                        buttonElement.classList.remove('loading');
+                        buttonElement.innerHTML = 'Buy Now →';
+                        buttonElement.disabled = false;
+                        buttonElement.style.background = '';
+                    }
+                }, 2000);
+            }
         }
 
-        // Mobile Menu Functions
-        function openMobileMenu() {
-            document.getElementById('mobileMenu').classList.add('active');
-            document.getElementById('mobileMenuOverlay').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeMobileMenu() {
-            document.getElementById('mobileMenu').classList.remove('active');
-            document.getElementById('mobileMenuOverlay').style.display = 'none';
-            document.body.style.overflow = '';
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.backgroundColor = type === 'success' ? '#00ff88' : (type === 'info' ? '#ffcc00' : '#ff2e63');
+            toast.style.color = type === 'info' ? '#000' : '#fff';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '8px';
+            toast.style.fontWeight = 'bold';
+            toast.style.zIndex = '3000';
+            toast.style.animation = 'fadeInUp 0.3s ease';
+            toast.style.fontFamily = "'Oxanium', cursive";
+            toast.innerHTML = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
         }
 
         function renderCategoryFilters() {
@@ -1272,10 +1293,14 @@
         function renderDiscountedCarousel() {
             const container = document.getElementById("discountSlider");
             container.innerHTML = discountedPlugins.map(p => renderDiscountedCard(p)).join("");
-            attachBuyEvents();
         }
 
         function renderDiscountedCard(p) {
+            const hasCheckout = FREEMIUS_CHECKOUT_LINKS[p.id] && FREEMIUS_CHECKOUT_LINKS[p.id] !== null && !FREEMIUS_CHECKOUT_LINKS[p.id].includes('YOUR_APP_ID');
+            const buttonHtml = hasCheckout 
+                ? `<button class="btn-buy" onclick="handleBuyClick(${p.id}, '${p.creativeName.replace(/'/g, "\\'")}', this)">Buy Now →</button>`
+                : `<button class="btn-coming" disabled><i class="fas fa-clock"></i> Coming in 2 days</button>`;
+            
             return `<div class="discount-slide">
                 <div class="plugin-card glass">
                     <div class="plugin-image" style="background-image: url('${p.image}')">
@@ -1285,9 +1310,9 @@
                         <h3 class="plugin-title">${p.creativeName}</h3>
                         <p class="plugin-category">${p.category.toUpperCase()}</p>
                         <p class="plugin-description">${p.desc}</p>
-                        <div class="plugin-features"><span><i class="fas fa-download"></i> ${p.sales}+ neural links</span><span><i class="fas fa-star"></i> ${p.rating}</span></div>
+                        <div class="plugin-features"><span><i class="fas fa-download"></i> ${p.sales}+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div>
                         <div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div>
-                        <div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div><button class="btn-buy" data-id="${p.id}" data-name="${p.creativeName}" data-price="${p.price}">Neural Buy</button></div>
+                        <div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${buttonHtml}</div>
                     </div>
                 </div>
             </div>`;
@@ -1297,75 +1322,67 @@
             const hotPlugins = plugins.filter(p => p.hot && (currentFilter === "all" || p.category === currentFilter));
             const container = document.getElementById("hotPluginsGrid");
             container.innerHTML = hotPlugins.map(p => renderPluginCard(p)).join("");
-            attachBuyEvents();
         }
 
         function renderLatestPlugins() {
             const latestPlugins = plugins.filter(p => p.new && (currentFilter === "all" || p.category === currentFilter));
             const container = document.getElementById("latestPluginsGrid");
             container.innerHTML = latestPlugins.map(p => renderPluginCard(p)).join("");
-            attachBuyEvents();
         }
 
         function renderPluginCard(p) {
+            const hasCheckout = FREEMIUS_CHECKOUT_LINKS[p.id] && FREEMIUS_CHECKOUT_LINKS[p.id] !== null && !FREEMIUS_CHECKOUT_LINKS[p.id].includes('YOUR_APP_ID');
+            const buttonHtml = hasCheckout 
+                ? `<button class="btn-buy" onclick="handleBuyClick(${p.id}, '${p.creativeName.replace(/'/g, "\\'")}', this)">Buy Now →</button>`
+                : `<button class="btn-coming" disabled><i class="fas fa-clock"></i> Coming in 2 days</button>`;
+            
             return `<div class="plugin-card glass">
                 <div class="plugin-image" style="background-image: url('${p.image}')">
                     ${p.hot ? '<span class="plugin-badge hot">⚡ HOT</span>' : p.new ? '<span class="plugin-badge new">🆕 NEW</span>' : ''}
+                    ${!hasCheckout ? '<span class="plugin-badge coming" style="top:12px; left:12px; right:auto; background:var(--primary);">⏳ SOON</span>' : ''}
                 </div>
                 <div class="plugin-info">
                     <h3 class="plugin-title">${p.creativeName}</h3>
                     <p class="plugin-category">${p.category.toUpperCase()}</p>
                     <p class="plugin-description">${p.desc}</p>
-                    <div class="plugin-features"><span><i class="fas fa-download"></i> ${p.sales}+ neural links</span><span><i class="fas fa-star"></i> ${p.rating}</span></div>
+                    <div class="plugin-features"><span><i class="fas fa-download"></i> ${p.sales}+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div>
                     <div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div>
-                    <div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div><button class="btn-buy" data-id="${p.id}" data-name="${p.creativeName}" data-price="${p.price}">Neural Buy</button></div>
+                    <div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${buttonHtml}</div>
                 </div>
             </div>`;
         }
 
+        window.handleBuyClick = function(pluginId, pluginName, buttonElement) {
+            redirectToCheckout(pluginId, pluginName, buttonElement);
+        };
+
         function renderTestimonials() {
             const testimonials = [
-                { name: "Alex Thompson", text: "CyberSight AI transformed my neural interface! The predictive tracking is mind-blowing.", rating: 5, avatar: images.avatar1 },
-                { name: "Maria Garcia", text: "Synapse Engine makes my gameplay flow like liquid code. Best neural purchase ever!", rating: 5, avatar: images.avatar2 },
-                { name: "David Kim", text: "QuantumFX turned my game into a cyberpunk masterpiece. 10/10 neural rating!", rating: 5, avatar: images.avatar3 }
+                { name: "Alex Thompson", text: "Freemius checkout was seamless! CyberSight AI is a game-changer.", rating: 5, avatar: images.avatar1 },
+                { name: "Maria Garcia", text: "Synapse Engine + Freemius = perfect experience. Will buy again!", rating: 5, avatar: images.avatar2 },
+                { name: "David Kim", text: "Secure, fast, and the plugins are incredible. 10/10 recommend!", rating: 5, avatar: images.avatar3 }
             ];
             document.getElementById("testimonialsGrid").innerHTML = testimonials.map(t => `<div class="testimonial-card glass"><div class="testimonial-avatar" style="background-image: url('${t.avatar}')"></div><div class="stars">${'★'.repeat(t.rating)}</div><p class="testimonial-text">"${t.text}"</p><p class="testimonial-name">${t.name}</p></div>`).join("");
         }
 
         function renderBlog() {
             const blogs = [
-                { title: "Neural Interface Guide", date: "Dec 15, 2024", excerpt: "How to optimize your cybernetic setup", image: images.blog1 },
-                { title: "Quantum Rendering Explained", date: "Dec 10, 2024", excerpt: "Deep dive into our neural graphics engine", image: images.blog2 },
-                { title: "AI-Powered Gaming Future", date: "Dec 5, 2024", excerpt: "What's coming in neural gaming 2025", image: images.blog3 }
+                { title: "Getting Started with Freemius", date: "Dec 15, 2024", excerpt: "How to securely purchase and install plugins", image: images.blog1 },
+                { title: "Best eFootball Plugins 2024", date: "Dec 10, 2024", excerpt: "Our top picks for enhancing your gameplay", image: images.blog2 },
+                { title: "Why Freemius for Plugin Purchases?", date: "Dec 5, 2024", excerpt: "Security, updates, and support explained", image: images.blog3 }
             ];
-            document.getElementById("blogGrid").innerHTML = blogs.map(b => `<div class="blog-card glass"><div class="blog-image" style="background-image: url('${b.image}')"></div><div class="blog-info"><div class="blog-date">${b.date}</div><h3 class="blog-title">${b.title}</h3><p class="blog-excerpt">${b.excerpt}</p><a href="#" class="read-more">Read More →</a></div></div>`).join("");
+            document.getElementById("blogGrid").innerHTML = blogs.map(b => `<div class="blog-card glass"><div class="blog-image" style="background-image: url('${b.image}')"></div><div class="blog-info"><div class="blog-date">${b.date}</div><h3 class="blog-title">${b.title}</h3><p class="blog-excerpt">${b.excerpt}</p><a class="read-more">Read More →</a></div></div>`).join("");
+            document.querySelectorAll('.read-more').forEach(el => el.addEventListener('click', () => showToast('📖 Full article coming soon!', 'info')));
         }
 
         function renderFAQ() {
             const faqs = [
-                { q: "Are neural plugins safe?", a: "Yes! All plugins are scanned by our AI security system." },
-                { q: "Do I get lifetime updates?", a: "Absolutely! All purchases include neural updates." },
-                { q: "What's your refund policy?", a: "30-day neural money-back guarantee." },
-                { q: "Which versions are supported?", a: "Compatible with eFootball 2024+ and neural interfaces." }
+                { q: "Is Freemius secure?", a: "Yes! Freemius uses 256-bit SSL encryption and is trusted by thousands of developers worldwide." },
+                { q: "Do I get lifetime updates?", a: "Absolutely! All purchases include lifetime updates and dedicated support." },
+                { q: "What's the refund policy?", a: "30-day money-back guarantee via Freemius secure checkout." },
+                { q: "Which payment methods are accepted?", a: "Visa, Mastercard, PayPal, Bitcoin, and more via Freemius." }
             ];
             document.getElementById("faqGrid").innerHTML = faqs.map(f => `<div class="faq-item glass"><div class="faq-question">❓ ${f.q}</div><div class="faq-answer">${f.a}</div></div>`).join("");
-        }
-
-        function attachBuyEvents() { 
-            document.querySelectorAll(".btn-buy").forEach(btn => btn.addEventListener("click", () => { 
-                let id = btn.dataset.id, name = btn.dataset.name, price = parseFloat(btn.dataset.price); 
-                cart.push({ id, name, price }); 
-                updateCart(); 
-                alert(`🧠 ${name} added to neural cart!`); 
-            })); 
-        }
-
-        function updateCart() { 
-            document.getElementById("cartCount").innerHTML = cart.length; 
-            let total = cart.reduce((s, i) => s + i.price, 0); 
-            document.getElementById("cartTotal").innerHTML = `$${total.toFixed(2)}`; 
-            document.getElementById("cartItems").innerHTML = cart.length ? cart.map((i, idx) => `<div class="cart-item"><span>${i.name}</span><span>$${i.price.toFixed(2)}</span><button class="remove-item" data-idx="${idx}" style="background:none;border:none;color:#ff2e63;"><i class="fas fa-trash"></i></button></div>`).join("") : '<p style="color:#888;text-align:center;">Your neural cart is empty</p>'; 
-            document.querySelectorAll(".remove-item").forEach(btn => btn.addEventListener("click", () => { cart.splice(parseInt(btn.dataset.idx), 1); updateCart(); })); 
         }
 
         function updateDiscountCarousel() {
@@ -1374,10 +1391,8 @@
             const totalSlides = slides.length;
             const slidesPerView = window.innerWidth > 992 ? 3 : 1;
             const maxIndex = Math.max(0, totalSlides - slidesPerView);
-            
             if (discountIndex > maxIndex) discountIndex = maxIndex;
             if (discountIndex < 0) discountIndex = 0;
-            
             container.style.transform = `translateX(-${discountIndex * (100 / slidesPerView)}%)`;
         }
 
@@ -1405,61 +1420,110 @@
             const searchTerm = document.getElementById("searchInput").value.toLowerCase();
             const allHotCards = document.querySelectorAll("#hotPluginsGrid .plugin-card");
             const allLatestCards = document.querySelectorAll("#latestPluginsGrid .plugin-card");
-            
             const filterBySearch = (card) => {
                 const title = card.querySelector(".plugin-title").textContent.toLowerCase();
                 const desc = card.querySelector(".plugin-description").textContent.toLowerCase();
                 return title.includes(searchTerm) || desc.includes(searchTerm);
             };
-            
             allHotCards.forEach(card => { card.style.display = filterBySearch(card) ? "block" : "none"; });
             allLatestCards.forEach(card => { card.style.display = filterBySearch(card) ? "block" : "none"; });
         }
 
-        // Event listeners
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Event Listeners
         document.getElementById("searchBtn").addEventListener("click", searchPlugins);
         document.getElementById("searchInput").addEventListener("keyup", (e) => { if (e.key === "Enter") searchPlugins(); });
         document.getElementById("discountPrev").addEventListener("click", prevDiscountSlide);
         document.getElementById("discountNext").addEventListener("click", nextDiscountSlide);
         
-        document.getElementById("cartIcon").onclick = () => document.getElementById("cartModal").style.display = "block";
-        document.getElementById("closeCart").onclick = () => document.getElementById("cartModal").style.display = "none";
-        document.getElementById("checkoutBtn").onclick = () => { if(cart.length) { alert(`🧠 Neural purchase successful! Total: $${cart.reduce((s,i)=>s+i.price,0).toFixed(2)}`); cart = []; updateCart(); document.getElementById("cartModal").style.display = "none"; } else alert("Neural cart is empty!"); };
-        document.getElementById("loginBtn").onclick = (e) => { e.preventDefault(); document.getElementById("loginModal").style.display = "block"; };
-        document.getElementById("mobileLoginBtn").onclick = (e) => { e.preventDefault(); document.getElementById("loginModal").style.display = "block"; closeMobileMenu(); };
+        document.getElementById("loginBtn").onclick = () => document.getElementById("loginModal").style.display = "block";
+        document.getElementById("registerBtn").onclick = () => document.getElementById("registerModal").style.display = "block";
+        document.getElementById("mobileLoginBtn").onclick = () => { closeMobileMenu(); document.getElementById("loginModal").style.display = "block"; };
+        document.getElementById("mobileRegisterBtn").onclick = () => { closeMobileMenu(); document.getElementById("registerModal").style.display = "block"; };
         document.getElementById("cancelLogin").onclick = () => document.getElementById("loginModal").style.display = "none";
-        document.getElementById("confirmLogin").onclick = () => { let pwd = document.getElementById("loginPassword").value; if(pwd === "efootball_cloud@1256") { alert("🧠 Neural login successful!"); document.getElementById("loginModal").style.display = "none"; } else alert("Incorrect neural password!"); };
+        document.getElementById("cancelRegister").onclick = () => document.getElementById("registerModal").style.display = "none";
         
-        // Restriction modal close button
-        document.getElementById("closeRestrictionBtn").onclick = hideRestrictionModal;
+        document.getElementById("confirmLogin").onclick = () => {
+            showToast("✅ Login successful! Welcome to Freemius.", 'success');
+            document.getElementById("loginModal").style.display = "none";
+            document.getElementById("loginEmail").value = "";
+            document.getElementById("loginPassword").value = "";
+        };
         
-        // Close restriction modal when clicking outside content
-        document.getElementById("restrictionModal").onclick = function(e) {
-            if (e.target === this) {
-                hideRestrictionModal();
+        document.getElementById("confirmRegister").onclick = () => {
+            const email = document.getElementById("regEmail").value;
+            if(email.includes('@')) {
+                showToast(`✅ Account created! Welcome to Freemius.`, 'success');
+                document.getElementById("registerModal").style.display = "none";
+                document.getElementById("regName").value = "";
+                document.getElementById("regEmail").value = "";
+                document.getElementById("regPassword").value = "";
+            } else {
+                showToast("Please enter a valid email address", 'error');
             }
         };
         
-        // Mobile menu event listeners
+        document.getElementById("newsletterSubscribeBtn").onclick = () => {
+            const email = document.getElementById("newsletterEmail").value;
+            if(email.includes('@')) {
+                showToast(`📧 Subscribed! Updates sent to ${email}`, 'success');
+                document.getElementById("newsletterEmail").value = "";
+            } else {
+                showToast("Enter a valid email", 'error');
+            }
+        };
+        
+        document.getElementById("explorePluginsBtn").onclick = () => scrollToSection('pluginsSection');
+        document.getElementById("viewAllDiscounts").onclick = () => scrollToSection('pluginsSection');
+        document.getElementById("viewAllHot").onclick = () => scrollToSection('pluginsSection');
+        document.getElementById("viewAllLatest").onclick = () => scrollToSection('pluginsSection');
+        document.getElementById("viewAllTestimonials").onclick = () => scrollToSection('testimonialsSection');
+        document.getElementById("readMoreBlog").onclick = () => scrollToSection('blogSection');
+        
+        const navLinks = ['navHome', 'navPlugins', 'navDeals', 'navBlog', 'navSupport', 'navAffiliates', 'mobileNavHome', 'mobileNavPlugins', 'mobileNavDeals', 'mobileNavBlog', 'mobileNavSupport', 'mobileNavAffiliates', 'footerHome', 'footerPlugins', 'footerDeals', 'footerBlog', 'footerSupport'];
+        navLinks.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.onclick = () => showToast(`🔗 Navigating to section`, 'info');
+        });
+        
+        const legalLinks = ['footerTerms', 'footerPrivacy', 'footerRefund', 'footerLicense', 'footerCookie'];
+        legalLinks.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.onclick = () => showToast(`📄 Legal information - Powered by Freemius`, 'info');
+        });
+        
+        const socialLinks = ['socialDiscord', 'socialTwitter', 'socialYoutube', 'socialInstagram'];
+        socialLinks.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.onclick = () => showToast(`🌐 Connect with Freemius community!`, 'info');
+        });
+        
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('active');
+            document.getElementById('mobileMenuOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
+            document.getElementById('mobileMenuOverlay').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        
         document.getElementById("hamburger").onclick = openMobileMenu;
         document.getElementById("closeMenuBtn").onclick = closeMobileMenu;
         document.getElementById("mobileMenuOverlay").onclick = closeMobileMenu;
         
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll("#mobileMenu a").forEach(link => {
-            link.addEventListener("click", (e) => {
-                if(link.id !== "mobileLoginBtn") {
-                    e.preventDefault();
-                }
-                closeMobileMenu();
-            });
-        });
+        window.onclick = (e) => { 
+            if(e.target === document.getElementById("loginModal")) document.getElementById("loginModal").style.display = "none";
+            if(e.target === document.getElementById("registerModal")) document.getElementById("registerModal").style.display = "none";
+        };
         
-        window.onclick = (e) => { if(e.target === document.getElementById("loginModal")) document.getElementById("loginModal").style.display = "none"; if(e.target === document.getElementById("cartModal")) document.getElementById("cartModal").style.display = "none"; };
-
         window.addEventListener('resize', () => { updateDiscountCarousel(); });
-
-        // Initialize everything
+        
         renderCategoryFilters(); 
         renderDiscountedCarousel(); 
         setTimeout(() => { updateDiscountCarousel(); }, 100);
@@ -1467,14 +1531,10 @@
         renderLatestPlugins(); 
         renderTestimonials(); 
         renderBlog(); 
-        renderFAQ(); 
-        updateCart();
-        
-        // Start discount interval
+        renderFAQ();
         discountInterval = setInterval(nextDiscountSlide, 6000);
         
-        // Setup footer click listener for 5 continuous clicks
-        setupFooterClickListener();
+        window.redirectToCheckout = redirectToCheckout;
     </script>
 </body>
 </html>
