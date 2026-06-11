@@ -61,12 +61,6 @@
                 linear-gradient(rgba(0, 217, 255, 0.15) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 217, 255, 0.15) 1px, transparent 1px);
             background-size: 60px 60px;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(60px, 60px); }
         }
 
         .glitch-line {
@@ -193,36 +187,62 @@
             align-items: center;
         }
         
+        /* Authentic Google Button with proper G logo */
         .btn-google {
-            background: linear-gradient(135deg, #4285f4, #34a853);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: none;
+            background-color: white;
+            color: #3c4043;
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 1px solid #dadce0;
             cursor: pointer;
-            font-family: 'Oxanium', cursive;
-            font-size: 0.8rem;
-            transition: all 0.3s;
+            font-family: 'Google Sans', 'Roboto', 'Oxanium', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            letter-spacing: 0.25px;
+        }
+        
+        /* Custom Google G Logo with official colors */
+        .google-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            position: relative;
+        }
+        
+        .google-icon svg {
+            width: 18px;
+            height: 18px;
         }
         
         .btn-google:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px #4285f4;
+            background-color: #f8f9fa;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            border-color: #d2e3fc;
+        }
+        
+        .btn-google:active {
+            background-color: #f1f3f4;
+            transform: scale(0.98);
         }
         
         .btn-logout {
             background: linear-gradient(135deg, #dc3545, #c82333);
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 8px 18px;
+            border-radius: 40px;
             border: none;
             color: white;
             cursor: pointer;
             font-family: 'Oxanium', cursive;
             font-size: 0.8rem;
             transition: all 0.3s;
+            font-weight: 500;
         }
         
         .btn-logout:hover {
@@ -333,7 +353,6 @@
             transition: all 0.3s;
         }
 
-        /* FIXED: Mobile menu overlay - now sits above all header elements */
         .mobile-menu-overlay {
             display: none;
             position: fixed;
@@ -346,7 +365,6 @@
             z-index: 2000;
         }
 
-        /* FIXED: Mobile menu panel - higher z-index to slide above Google button and Freemius text */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -414,6 +432,26 @@
             text-shadow: 0 0 8px var(--secondary);
         }
 
+        .mobile-google-btn {
+            background: white;
+            color: #3c4043;
+            border-radius: 40px;
+            padding: 12px 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 500;
+            margin-top: 10px;
+            border: 1px solid #dadce0;
+            width: 100%;
+        }
+        
+        .mobile-google-btn .google-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
         .hero {
             padding: 60px 0 30px;
             text-align: center;
@@ -456,6 +494,11 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         .search-bar {
@@ -541,45 +584,34 @@
             text-shadow: 0 0 10px var(--primary);
         }
 
-        .discount-carousel {
+        .fade-carousel {
             position: relative;
-            overflow: hidden;
-            padding: 20px 0;
-        }
-
-        .discount-slider {
+            min-height: 550px;
             display: flex;
-            transition: transform 0.5s ease;
-            gap: 25px;
+            justify-content: center;
+            align-items: center;
         }
 
-        .discount-slide {
-            min-width: calc(33.333% - 17px);
+        .fade-slider {
+            position: relative;
+            width: 100%;
         }
 
-        .carousel-btn {
+        .fade-slide {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--glass);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 10;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            visibility: hidden;
         }
 
-        .carousel-btn:hover {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 0 20px var(--primary);
+        .fade-slide.active {
+            position: relative;
+            opacity: 1;
+            visibility: visible;
         }
-
-        .carousel-btn.prev { left: 0; }
-        .carousel-btn.next { right: 0; }
 
         .plugins-grid {
             display: grid;
@@ -1041,9 +1073,6 @@
             .plugins-grid, .testimonials-grid, .blog-grid, .faq-grid, .footer-content {
                 grid-template-columns: 1fr;
             }
-            .discount-slide {
-                min-width: calc(100% - 20px);
-            }
             .nav-links { display: none; }
             .hamburger-menu { display: flex; }
             .hero h1 { font-size: 2rem; }
@@ -1055,6 +1084,9 @@
             }
             .user-name {
                 display: none;
+            }
+            .fade-carousel {
+                min-height: 580px;
             }
         }
     </style>
@@ -1107,7 +1139,15 @@
                 </ul>
                 <div class="auth-buttons" id="authButtons">
                     <button class="btn-google" id="googleSignInBtn">
-                        <i class="fab fa-google"></i> Sign in with Google
+                        <span class="google-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                                <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                                <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                                <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                            </svg>
+                        </span>
+                        Sign in with Google
                     </button>
                 </div>
                 <div class="user-profile" id="userProfile" style="display: none;">
@@ -1130,7 +1170,17 @@
             <li><a id="mobileNavBlog">Blog</a></li>
             <li><a id="mobileNavSupport">Support</a></li>
             <li><a id="mobileNavAffiliates">Affiliates</a></li>
-            <li><a id="mobileGoogleSignIn">Sign in with Google</a></li>
+            <li><a id="mobileGoogleSignIn" class="mobile-google-btn">
+                <span class="google-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                    </svg>
+                </span>
+                Sign in with Google
+            </a></li>
         </ul>
     </div>
 
@@ -1139,7 +1189,7 @@
             <div class="hero-content">
                 <h1 class="gaming-font">FREEMIUS × eFOOTBALL PLUGINS</h1>
                 <p>Premium neural plugins, AI-powered mods, and cybernetic enhancements powered by Freemius secure checkout.</p>
-                <div class="hero-buttons"><a class="btn btn-primary" id="explorePluginsBtn">Explore Plugins</a></div>
+                <div class="hero-buttons"><a class="btn-primary" id="explorePluginsBtn">Explore Plugins</a></div>
                 <div class="search-bar"><input type="text" class="search-input" id="searchInput" placeholder="Search plugins..."><button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button></div>
             </div>
         </div>
@@ -1153,10 +1203,8 @@
                 <h2 class="section-title">💿 Limited Time Discounts</h2>
                 <a class="section-link" id="viewAllDiscounts">View All →</a>
             </div>
-            <div class="discount-carousel">
-                <button class="carousel-btn prev" id="discountPrev"><i class="fas fa-chevron-left"></i></button>
-                <div class="discount-slider" id="discountSlider"></div>
-                <button class="carousel-btn next" id="discountNext"><i class="fas fa-chevron-right"></i></button>
+            <div class="fade-carousel">
+                <div class="fade-slider" id="discountFadeSlider"></div>
             </div>
         </div>
     </section>
@@ -1238,11 +1286,17 @@
                 userDisplayName.textContent = user.displayName?.split(' ')[0] || 'User';
                 userProfile.style.display = 'flex';
                 authButtons.style.display = 'none';
-                if (mobileGoogleSignIn) mobileGoogleSignIn.textContent = `👤 ${user.displayName?.split(' ')[0] || 'Account'}`;
+                if (mobileGoogleSignIn) {
+                    mobileGoogleSignIn.innerHTML = `<span class="google-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg></span> ${user.displayName?.split(' ')[0] || 'Account'}`;
+                    mobileGoogleSignIn.style.background = '#f8f9fa';
+                }
             } else {
                 userProfile.style.display = 'none';
                 authButtons.style.display = 'flex';
-                if (mobileGoogleSignIn) mobileGoogleSignIn.textContent = 'Sign in with Google';
+                if (mobileGoogleSignIn) {
+                    mobileGoogleSignIn.innerHTML = `<span class="google-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg></span> Sign in with Google`;
+                    mobileGoogleSignIn.style.background = 'white';
+                }
             }
         };
         function openMobileMenu() { 
@@ -1263,25 +1317,27 @@
         document.getElementById("closeMenuBtn").onclick = closeMobileMenu;
         document.getElementById("mobileMenuOverlay").onclick = closeMobileMenu;
         
-        // All existing marketplace logic (plugins, carousel, etc)
+        // All existing marketplace logic with REAL plugin names
         const FREEMIUS_CHECKOUT_LINKS = { 1: "https://checkout.freemius.com/app/31267/plan/51326/", 2: "https://checkout.freemius.com/app/31279/plan/51346/", 3: "https://checkout.freemius.com/app/31269/plan/51331/", 4: null, 5: "https://checkout.freemius.com/app/31280/plan/51347/", 6: null, 7: null, 8: "https://checkout.freemius.com/product/31277/plan/51344/", 9: "https://checkout.freemius.com/app/31281/plan/51348/", 10: null, 11: "https://checkout.freemius.com/product/31278/plan/51345/", 12: "https://checkout.freemius.com/app/31263/plan/51350/" };
         const images = { plugin1: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop", plugin2: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop", plugin3: "https://images.unsplash.com/photo-1488229297570-58520851e868?w=400&h=200&fit=crop", plugin4: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop", plugin5: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop", plugin6: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=200&fit=crop", plugin7: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=200&fit=crop", plugin8: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=200&fit=crop", plugin9: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=400&h=200&fit=crop", plugin10: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=200&fit=crop", plugin11: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&h=200&fit=crop", plugin12: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=400&h=200&fit=crop", blog1: "https://images.unsplash.com/photo-1581092335871-4d314cc8fcbf?w=400&h=160&fit=crop", blog2: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400&h=160&fit=crop", blog3: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=160&fit=crop", avatar1: "https://randomuser.me/api/portraits/men/1.jpg", avatar2: "https://randomuser.me/api/portraits/women/1.jpg", avatar3: "https://randomuser.me/api/portraits/men/2.jpg" };
+        
+        // Updated plugins with real marketplace names
         const plugins = [
-            { id: 1, name: "NeuralVision", creativeName: "CyberSight AI", category: "camera", price: 14.99, oldPrice: 29.99, rating: 5, sales: 2340, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin1, desc: "AI-powered neural camera" },
-            { id: 2, name: "NeuroFlow", creativeName: "Synapse Engine", category: "gameplay", price: 24.99, oldPrice: 49.99, rating: 5, sales: 1890, hot: true, new: true, discount: false, image: images.plugin2, desc: "Neural response system" },
-            { id: 3, name: "CyberRender", creativeName: "QuantumFX", category: "graphics", price: 19.99, oldPrice: 39.99, rating: 4.9, sales: 2100, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin3, desc: "Quantum rendering" },
-            { id: 4, name: "NeuralForge", creativeName: "CodeWeaver", category: "tools", price: 9.99, oldPrice: 19.99, rating: 4.8, sales: 1560, hot: false, new: false, discount: true, discountPercent: 50, image: images.plugin4, desc: "AI dev environment" },
-            { id: 5, name: "SoulSync", creativeName: "NeuralLink", category: "camera", price: 12.99, oldPrice: 24.99, rating: 4.7, sales: 980, hot: false, new: true, discount: false, image: images.plugin5, desc: "Mind-controlled camera" },
-            { id: 6, name: "MirageCore", creativeName: "PhantomDrive", category: "gameplay", price: 7.99, oldPrice: 15.99, rating: 4.9, sales: 3200, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin6, desc: "Skill enhancer" },
-            { id: 7, name: "AuroraMatrix", creativeName: "NeoShader", category: "graphics", price: 15.99, oldPrice: 29.99, rating: 4.8, sales: 1200, hot: false, new: true, discount: false, image: images.plugin7, desc: "Cyberpunk lighting" },
-            { id: 8, name: "LegacyCore", creativeName: "TimelineAI", category: "tools", price: 18.99, oldPrice: 34.99, rating: 4.9, sales: 980, hot: true, new: false, discount: true, discountPercent: 46, image: images.plugin8, desc: "Career analyzer" },
-            { id: 9, name: "IdentityMatrix", creativeName: "FaceSync AI", category: "tools", price: 22.99, oldPrice: 44.99, rating: 4.8, sales: 750, hot: false, new: true, discount: false, image: images.plugin9, desc: "Face mapping" },
-            { id: 10, name: "AudioCore", creativeName: "SonicNeuron", category: "audio", price: 11.99, oldPrice: 23.99, rating: 4.7, sales: 890, hot: false, new: true, discount: true, discountPercent: 50, image: images.plugin10, desc: "3D neural audio" },
-            { id: 11, name: "MotionMatrix", creativeName: "FluxEngine", category: "gameplay", price: 29.99, oldPrice: 59.99, rating: 4.9, sales: 1450, hot: true, new: false, discount: false, image: images.plugin11, desc: "Neural physics" },
-            { id: 12, name: "AetherUI", creativeName: "CyberHUD", category: "interface", price: 8.99, oldPrice: 17.99, rating: 4.6, sales: 2100, hot: false, new: true, discount: true, discountPercent: 50, image: images.plugin12, desc: "Holographic HUD" }
+            { id: 1, name: "Elementor Pro", creativeName: "Elementor Pro", category: "tools", price: 79.99, oldPrice: 159.99, rating: 5, sales: 12540, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin1, desc: "The ultimate WordPress page builder with AI design tools" },
+            { id: 2, name: "WP Rocket", creativeName: "WP Rocket", category: "tools", price: 89.99, oldPrice: 179.99, rating: 5, sales: 9890, hot: true, new: true, discount: false, discountPercent: 0, image: images.plugin2, desc: "Premium caching & performance optimization plugin" },
+            { id: 3, name: "Advanced Custom Fields", creativeName: "ACF Pro", category: "tools", price: 69.99, oldPrice: 139.99, rating: 4.9, sales: 12100, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin3, desc: "Custom fields framework for professional WordPress sites" },
+            { id: 4, name: "WooCommerce Subscriptions", creativeName: "Woo Subs", category: "ecommerce", price: 199.99, oldPrice: 399.99, rating: 4.8, sales: 8560, hot: false, new: false, discount: true, discountPercent: 50, image: images.plugin4, desc: "Recurring payments & subscription management" },
+            { id: 5, name: "Yoast SEO Premium", creativeName: "Yoast SEO", category: "seo", price: 99.99, oldPrice: 199.99, rating: 4.9, sales: 25800, hot: false, new: true, discount: false, discountPercent: 0, image: images.plugin5, desc: "Complete SEO optimization suite for WordPress" },
+            { id: 6, name: "Gravity Forms", creativeName: "Gravity Forms", category: "forms", price: 129.99, oldPrice: 259.99, rating: 4.9, sales: 13200, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin6, desc: "Advanced form builder with conditional logic" },
+            { id: 7, name: "MemberPress", creativeName: "MemberPress", category: "membership", price: 179.99, oldPrice: 359.99, rating: 4.8, sales: 7200, hot: false, new: true, discount: false, discountPercent: 0, image: images.plugin7, desc: "Complete membership & course platform solution" },
+            { id: 8, name: "LearnDash LMS", creativeName: "LearnDash", category: "lms", price: 199.99, oldPrice: 399.99, rating: 4.9, sales: 6980, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin8, desc: "Powerful Learning Management System for WordPress" },
+            { id: 9, name: "WPML Multilingual", creativeName: "WPML", category: "seo", price: 149.99, oldPrice: 299.99, rating: 4.8, sales: 15750, hot: false, new: true, discount: false, discountPercent: 0, image: images.plugin9, desc: "Multi-language content management system" },
+            { id: 10, name: "Slider Revolution", creativeName: "RevSlider", category: "media", price: 69.99, oldPrice: 139.99, rating: 4.7, sales: 4890, hot: false, new: true, discount: true, discountPercent: 50, image: images.plugin10, desc: "Responsive animated sliders & carousels" },
+            { id: 11, name: "SearchWP", creativeName: "SearchWP", category: "search", price: 99.99, oldPrice: 199.99, rating: 4.9, sales: 5450, hot: true, new: false, discount: false, discountPercent: 0, image: images.plugin11, desc: "Advanced site search engine customization" },
+            { id: 12, name: "ManageWP", creativeName: "ManageWP", category: "tools", price: 79.99, oldPrice: 159.99, rating: 4.6, sales: 12100, hot: false, new: true, discount: true, discountPercent: 50, image: images.plugin12, desc: "Centralized WordPress management dashboard" }
         ];
         const discountedPlugins = plugins.filter(p => p.discount);
-        let currentFilter = "all", discountIndex = 0, discountInterval;
+        let currentFilter = "all", currentFadeIndex = 0, fadeInterval;
         const redirectOverlay = document.getElementById('redirectOverlay'), redirectProductName = document.getElementById('redirectProductName');
         function redirectToCheckout(pluginId, pluginName, btn) {
             const link = FREEMIUS_CHECKOUT_LINKS[pluginId];
@@ -1297,24 +1353,53 @@
             }
         }
         window.redirectToCheckout = redirectToCheckout;
-        function renderCategoryFilters() { /* same as original */ const cats = ["all","camera","gameplay","graphics","tools","audio","interface"]; document.getElementById("categoryFilters").innerHTML = cats.map(c => `<button class="filter-btn ${c===currentFilter?'active':''}" data-category="${c}">${c.toUpperCase()}</button>`).join(""); document.querySelectorAll(".filter-btn").forEach(btn => btn.addEventListener("click",()=>{ currentFilter=btn.dataset.category; renderCategoryFilters(); renderHotPlugins(); renderLatestPlugins(); })); }
-        function renderDiscountedCard(p) { const hasLink = FREEMIUS_CHECKOUT_LINKS[p.id] && !FREEMIUS_CHECKOUT_LINKS[p.id]?.includes('YOUR_APP_ID'); const btnHtml = hasLink ? `<button class="btn-buy" onclick="window.redirectToCheckout(${p.id}, '${p.creativeName.replace(/'/g, "\\'")}', this)">Buy Now →</button>` : `<button class="btn-coming" disabled><i class="fas fa-clock"></i> Coming in 2 days</button>`; return `<div class="discount-slide"><div class="plugin-card glass"><div class="plugin-image" style="background-image:url('${p.image}')"><span class="plugin-badge discount">🔥 ${p.discountPercent}% OFF</span></div><div class="plugin-info"><h3 class="plugin-title">${p.creativeName}</h3><p class="plugin-category">${p.category.toUpperCase()}</p><p class="plugin-description">${p.desc}</p><div class="plugin-features"><span><i class="fas fa-download"></i> ${p.sales}+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div><div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div><div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${btnHtml}</div></div></div></div>`; }
-        function renderPluginCard(p) { const hasLink = FREEMIUS_CHECKOUT_LINKS[p.id] && !FREEMIUS_CHECKOUT_LINKS[p.id]?.includes('YOUR_APP_ID'); const btnHtml = hasLink ? `<button class="btn-buy" onclick="window.redirectToCheckout(${p.id}, '${p.creativeName.replace(/'/g, "\\'")}', this)">Buy Now →</button>` : `<button class="btn-coming" disabled><i class="fas fa-clock"></i> Coming in 2 days</button>`; return `<div class="plugin-card glass"><div class="plugin-image" style="background-image:url('${p.image}')">${p.hot ? '<span class="plugin-badge hot">⚡ HOT</span>' : p.new ? '<span class="plugin-badge new">🆕 NEW</span>' : ''}${!hasLink ? '<span class="plugin-badge coming" style="top:12px;left:12px;right:auto;background:var(--primary);">⏳ SOON</span>' : ''}</div><div class="plugin-info"><h3 class="plugin-title">${p.creativeName}</h3><p class="plugin-category">${p.category.toUpperCase()}</p><p class="plugin-description">${p.desc}</p><div class="plugin-features"><span><i class="fas fa-download"></i> ${p.sales}+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div><div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div><div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${btnHtml}</div></div></div>`; }
+        function renderCategoryFilters() { const cats = ["all","tools","ecommerce","seo","forms","membership","lms","media","search"]; document.getElementById("categoryFilters").innerHTML = cats.map(c => `<button class="filter-btn ${c===currentFilter?'active':''}" data-category="${c}">${c.toUpperCase()}</button>`).join(""); document.querySelectorAll(".filter-btn").forEach(btn => btn.addEventListener("click",()=>{ currentFilter=btn.dataset.category; renderCategoryFilters(); renderHotPlugins(); renderLatestPlugins(); })); }
+        function renderDiscountedCard(p) { const hasLink = FREEMIUS_CHECKOUT_LINKS[p.id] && !FREEMIUS_CHECKOUT_LINKS[p.id]?.includes('YOUR_APP_ID'); const btnHtml = hasLink ? `<button class="btn-buy" onclick="window.redirectToCheckout(${p.id}, '${p.creativeName.replace(/'/g, "\\'")}', this)">Buy Now →</button>` : `<button class="btn-coming" disabled><i class="fas fa-clock"></i> Coming in 2 days</button>`; return `<div class="fade-slide"><div class="plugin-card glass"><div class="plugin-image" style="background-image:url('${p.image}')"><span class="plugin-badge discount">🔥 ${p.discountPercent}% OFF</span></div><div class="plugin-info"><h3 class="plugin-title">${p.creativeName}</h3><p class="plugin-category">${p.category.toUpperCase()}</p><p class="plugin-description">${p.desc}</p><div class="plugin-features"><span><i class="fas fa-download"></i> ${(p.sales/1000).toFixed(1)}k+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div><div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div><div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${btnHtml}</div></div></div></div>`; }
+        function renderPluginCard(p) { const hasLink = FREEMIUS_CHECKOUT_LINKS[p.id] && !FREEMIUS_CHECKOUT_LINKS[p.id]?.includes('YOUR_APP_ID'); const btnHtml = hasLink ? `<button class="btn-buy" onclick="window.redirectToCheckout(${p.id}, '${p.creativeName.replace(/'/g, "\\'")}', this)">Buy Now →</button>` : `<button class="btn-coming" disabled><i class="fas fa-clock"></i> Coming in 2 days</button>`; return `<div class="plugin-card glass"><div class="plugin-image" style="background-image:url('${p.image}')">${p.hot ? '<span class="plugin-badge hot">⚡ HOT</span>' : p.new ? '<span class="plugin-badge new">🆕 NEW</span>' : ''}${!hasLink ? '<span class="plugin-badge coming" style="top:12px;left:12px;right:auto;background:var(--primary);">⏳ SOON</span>' : ''}</div><div class="plugin-info"><h3 class="plugin-title">${p.creativeName}</h3><p class="plugin-category">${p.category.toUpperCase()}</p><p class="plugin-description">${p.desc}</p><div class="plugin-features"><span><i class="fas fa-download"></i> ${(p.sales/1000).toFixed(1)}k+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div><div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div><div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${btnHtml}</div></div></div>`; }
         function renderHotPlugins() { const hot = plugins.filter(p=>p.hot && (currentFilter==='all'||p.category===currentFilter)); document.getElementById("hotPluginsGrid").innerHTML = hot.map(p=>renderPluginCard(p)).join(""); }
         function renderLatestPlugins() { const latest = plugins.filter(p=>p.new && (currentFilter==='all'||p.category===currentFilter)); document.getElementById("latestPluginsGrid").innerHTML = latest.map(p=>renderPluginCard(p)).join(""); }
-        function renderDiscountedCarousel() { document.getElementById("discountSlider").innerHTML = discountedPlugins.map(p=>renderDiscountedCard(p)).join(""); }
-        function updateDiscountCarousel() { const slides = document.querySelectorAll(".discount-slide"); const perView = window.innerWidth > 992 ? 3 : 1; const maxIdx = Math.max(0, slides.length - perView); discountIndex = Math.min(discountIndex, maxIdx); discountIndex = Math.max(0, discountIndex); document.getElementById("discountSlider").style.transform = `translateX(-${discountIndex * (100 / perView)}%)`; }
-        function nextDiscountSlide() { const perView = window.innerWidth > 992 ? 3 : 1; const maxIdx = Math.max(0, document.querySelectorAll(".discount-slide").length - perView); discountIndex = Math.min(discountIndex+1, maxIdx); updateDiscountCarousel(); resetDiscountInterval(); }
-        function prevDiscountSlide() { discountIndex = Math.max(discountIndex-1, 0); updateDiscountCarousel(); resetDiscountInterval(); }
-        function resetDiscountInterval() { clearInterval(discountInterval); discountInterval = setInterval(nextDiscountSlide, 6000); }
+        
+        // Fading Carousel Functions
+        function renderFadingCarousel() {
+            const sliderContainer = document.getElementById("discountFadeSlider");
+            if (!sliderContainer) return;
+            sliderContainer.innerHTML = discountedPlugins.map(p => renderDiscountedCard(p)).join("");
+            const slides = document.querySelectorAll(".fade-slide");
+            if (slides.length > 0) {
+                slides[0].classList.add("active");
+                startFadeInterval();
+            }
+        }
+        
+        function goToSlide(index) {
+            const slides = document.querySelectorAll(".fade-slide");
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            slides[currentFadeIndex]?.classList.remove("active");
+            currentFadeIndex = index;
+            slides[currentFadeIndex]?.classList.add("active");
+        }
+        
+        function nextSlide() {
+            const slides = document.querySelectorAll(".fade-slide");
+            let nextIndex = currentFadeIndex + 1;
+            if (nextIndex >= slides.length) nextIndex = 0;
+            goToSlide(nextIndex);
+        }
+        
+        function startFadeInterval() {
+            if (fadeInterval) clearInterval(fadeInterval);
+            fadeInterval = setInterval(() => {
+                nextSlide();
+            }, 5000);
+        }
+        
         function searchPlugins() { const term = document.getElementById("searchInput").value.toLowerCase(); document.querySelectorAll("#hotPluginsGrid .plugin-card, #latestPluginsGrid .plugin-card").forEach(card => { const title = card.querySelector(".plugin-title")?.innerText.toLowerCase() || ""; const desc = card.querySelector(".plugin-description")?.innerText.toLowerCase() || ""; card.style.display = (title.includes(term) || desc.includes(term)) ? "block" : "none"; }); }
-        function renderTestimonials() { const testimonials = [{ name:"Alex Thompson", text:"Freemius checkout was seamless! CyberSight AI is a game-changer.", rating:5, avatar:images.avatar1 },{ name:"Maria Garcia", text:"Synapse Engine + Freemius = perfect experience.", rating:5, avatar:images.avatar2 },{ name:"David Kim", text:"Secure, fast, and the plugins are incredible. 10/10 recommend!", rating:5, avatar:images.avatar3 }]; document.getElementById("testimonialsGrid").innerHTML = testimonials.map(t=>`<div class="testimonial-card glass"><div class="testimonial-avatar" style="background-image:url('${t.avatar}')"></div><div class="stars">${'★'.repeat(t.rating)}</div><p class="testimonial-text">"${t.text}"</p><p class="testimonial-name">${t.name}</p></div>`).join(""); }
-        function renderBlog() { const blogs = [{ title:"Getting Started with Freemius", date:"Dec 15, 2024", excerpt:"How to securely purchase plugins", image:images.blog1 },{ title:"Best eFootball Plugins 2024", date:"Dec 10, 2024", excerpt:"Top picks for enhancing gameplay", image:images.blog2 },{ title:"Why Freemius for Plugin Purchases?", date:"Dec 5, 2024", excerpt:"Security, updates, and support", image:images.blog3 }]; document.getElementById("blogGrid").innerHTML = blogs.map(b=>`<div class="blog-card glass"><div class="blog-image" style="background-image:url('${b.image}')"></div><div class="blog-info"><div class="blog-date">${b.date}</div><h3 class="blog-title">${b.title}</h3><p class="blog-excerpt">${b.excerpt}</p><a class="read-more">Read More →</a></div></div>`).join(""); document.querySelectorAll('.read-more').forEach(el=>el.addEventListener('click',()=>showToast('📖 Full article coming soon!','info'))); }
+        function renderTestimonials() { const testimonials = [{ name:"Alex Thompson", text:"Freemius checkout was seamless! Elementor Pro is a game-changer.", rating:5, avatar:images.avatar1 },{ name:"Maria Garcia", text:"WP Rocket + Freemius = perfect experience for my site speed.", rating:5, avatar:images.avatar2 },{ name:"David Kim", text:"Secure, fast, and the plugins are incredible. 10/10 recommend!", rating:5, avatar:images.avatar3 }]; document.getElementById("testimonialsGrid").innerHTML = testimonials.map(t=>`<div class="testimonial-card glass"><div class="testimonial-avatar" style="background-image:url('${t.avatar}')"></div><div class="stars">${'★'.repeat(t.rating)}</div><p class="testimonial-text">"${t.text}"</p><p class="testimonial-name">${t.name}</p></div>`).join(""); }
+        function renderBlog() { const blogs = [{ title:"Getting Started with Freemius", date:"Dec 15, 2024", excerpt:"How to securely purchase premium plugins", image:images.blog1 },{ title:"Best WordPress Plugins 2024", date:"Dec 10, 2024", excerpt:"Top picks for enhancing your website", image:images.blog2 },{ title:"Why Freemius for Plugin Purchases?", date:"Dec 5, 2024", excerpt:"Security, updates, and support", image:images.blog3 }]; document.getElementById("blogGrid").innerHTML = blogs.map(b=>`<div class="blog-card glass"><div class="blog-image" style="background-image:url('${b.image}')"></div><div class="blog-info"><div class="blog-date">${b.date}</div><h3 class="blog-title">${b.title}</h3><p class="blog-excerpt">${b.excerpt}</p><a class="read-more">Read More →</a></div></div>`).join(""); document.querySelectorAll('.read-more').forEach(el=>el.addEventListener('click',()=>showToast('📖 Full article coming soon!','info'))); }
         function renderFAQ() { const faqs = [{ q:"Is Freemius secure?", a:"Yes! 256-bit SSL encryption." },{ q:"Lifetime updates?", a:"Absolutely! All purchases include lifetime updates." },{ q:"Refund policy?", a:"30-day money-back guarantee." },{ q:"Payment methods?", a:"Visa, Mastercard, PayPal, Bitcoin & more." }]; document.getElementById("faqGrid").innerHTML = faqs.map(f=>`<div class="faq-item glass"><div class="faq-question">❓ ${f.q}</div><div class="faq-answer">${f.a}</div></div>`).join(""); }
         document.getElementById("searchBtn").addEventListener("click", searchPlugins);
         document.getElementById("searchInput").addEventListener("keyup", (e) => { if (e.key === "Enter") searchPlugins(); });
-        document.getElementById("discountPrev").addEventListener("click", prevDiscountSlide);
-        document.getElementById("discountNext").addEventListener("click", nextDiscountSlide);
         document.getElementById("newsletterSubscribeBtn").onclick = () => { const email = document.getElementById("newsletterEmail").value; if(email.includes('@')) { showToast(`📧 Subscribed!`,'success'); document.getElementById("newsletterEmail").value=""; } else showToast("Valid email",'error'); };
         function scrollToSection(id) { const el = document.getElementById(id); if(el) el.scrollIntoView({ behavior:'smooth' }); }
         document.getElementById("explorePluginsBtn").onclick = () => scrollToSection('pluginsSection');
@@ -1327,10 +1412,14 @@
         navItems.forEach(id => { const el = document.getElementById(id); if(el) el.onclick = () => showToast(`🔗 Navigate`, 'info'); });
         ['footerTerms','footerPrivacy','footerRefund','footerLicense','footerCookie'].forEach(id => { const el = document.getElementById(id); if(el) el.onclick = () => showToast(`📄 Legal info`, 'info'); });
         ['socialDiscord','socialTwitter','socialYoutube','socialInstagram'].forEach(id => { const el = document.getElementById(id); if(el) el.onclick = () => showToast(`🌐 Connect with community`, 'info'); });
-        window.addEventListener('resize', () => updateDiscountCarousel());
-        renderCategoryFilters(); renderDiscountedCarousel(); setTimeout(()=>updateDiscountCarousel(),100);
-        renderHotPlugins(); renderLatestPlugins(); renderTestimonials(); renderBlog(); renderFAQ();
-        discountInterval = setInterval(nextDiscountSlide, 6000);
+        
+        renderCategoryFilters(); 
+        renderFadingCarousel(); 
+        renderHotPlugins(); 
+        renderLatestPlugins(); 
+        renderTestimonials(); 
+        renderBlog(); 
+        renderFAQ();
     </script>
 </body>
 </html>
