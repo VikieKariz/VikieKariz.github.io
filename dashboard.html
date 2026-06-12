@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Oxanium:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ALL YOUR ORIGINAL CSS STYLES REMAIN EXACTLY THE SAME */
         * {
             margin: 0;
             padding: 0;
@@ -1500,7 +1499,11 @@
             window.location.href = 'index.html';
         }
         
-        // Firebase configuration
+        // Import Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+        
+        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCs8TMDV67PfBKZB8-9JroACJqLjTV0sww",
             authDomain: "freemius-plugins-io.firebaseapp.com",
@@ -1510,9 +1513,7 @@
             appId: "1:189261764293:web:0c64bd99ab809af84e02ac"
         };
         
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-        
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
@@ -1543,37 +1544,63 @@
             setTimeout(() => toast.remove(), 3000);
         }
         
-        // Google Sign In
+        // Google Sign In - This will show the Google account selector popup
         const handleGoogleSignIn = async () => {
             try {
+                // Configure provider to always show account selector
+                provider.setCustomParameters({
+                    prompt: 'select_account'
+                });
+                
                 const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
                 // Save to localStorage to maintain session
                 const userInfo = {
-                    email: result.user.email,
-                    name: result.user.displayName,
-                    avatar: result.user.photoURL,
+                    email: user.email,
+                    name: user.displayName,
+                    avatar: user.photoURL,
                     authMethod: 'google',
                     isGuest: false,
                     memberSince: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short' })
                 };
                 localStorage.setItem('freemius_current_user', JSON.stringify(userInfo));
                 localStorage.setItem('freemius_is_authenticated', 'true');
-                showToast(`✨ Welcome ${result.user.displayName?.split(' ')[0] || 'User'}!`, 'success');
-                window.location.reload();
+                showToast(`✨ Welcome ${user.displayName?.split(' ')[0] || 'User'}!`, 'success');
+                
+                // Update UI
+                updateUI();
+                
+                // Reload to show user info
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } catch (error) {
-                showToast('Sign in failed. Please try again.', 'error');
+                console.error('Google Sign-In Error:', error);
+                if (error.code === 'auth/popup-blocked') {
+                    showToast('Popup was blocked. Please allow popups for this site.', 'error');
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                    showToast('Sign in cancelled.', 'info');
+                } else {
+                    showToast('Sign in failed: ' + error.message, 'error');
+                }
             }
         };
         
         // Google Sign Out
         const handleGoogleSignOut = async () => {
-            await signOut(auth);
-            localStorage.removeItem('freemius_current_user');
-            localStorage.removeItem('freemius_is_authenticated');
-            showToast('👋 Signed out successfully', 'info');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
+            try {
+                await signOut(auth);
+                localStorage.removeItem('freemius_current_user');
+                localStorage.removeItem('freemius_is_authenticated');
+                showToast('👋 Signed out successfully', 'info');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            } catch (error) {
+                console.error('Sign Out Error:', error);
+                showToast('Sign out failed. Please try again.', 'error');
+            }
         };
         
         // Update UI based on auth state from localStorage
@@ -1599,6 +1626,29 @@
                 }
             }
         };
+        
+        // Event Listeners for Google Sign In buttons
+        if (googleSignInBtn) googleSignInBtn.addEventListener('click', handleGoogleSignIn);
+        if (googleSignOutBtn) googleSignOutBtn.addEventListener('click', handleGoogleSignOut);
+        if (mobileGoogleSignIn) mobileGoogleSignIn.addEventListener('click', handleGoogleSignIn);
+        
+        // Auth state listener for Firebase
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Update localStorage with Firebase user data
+                const userInfo = {
+                    email: user.email,
+                    name: user.displayName,
+                    avatar: user.photoURL,
+                    authMethod: 'google',
+                    isGuest: false,
+                    memberSince: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short' })
+                };
+                localStorage.setItem('freemius_current_user', JSON.stringify(userInfo));
+                localStorage.setItem('freemius_is_authenticated', 'true');
+            }
+            updateUI();
+        });
         
         // Navigation and page handling
         const pages = {
@@ -1738,11 +1788,6 @@
         if (mobileMenuOverlay) mobileMenuOverlay.onclick = closeMobileMenu;
         
         // Button event listeners
-        if (googleSignInBtn) googleSignInBtn.addEventListener('click', handleGoogleSignIn);
-        if (googleSignOutBtn) googleSignOutBtn.addEventListener('click', handleGoogleSignOut);
-        if (mobileGoogleSignIn) mobileGoogleSignIn.addEventListener('click', handleGoogleSignIn);
-        
-        // Support page buttons
         const liveChatBtn = document.getElementById('liveChatBtn');
         const emailSupportBtn = document.getElementById('emailSupportBtn');
         const docsBtn = document.getElementById('docsBtn');
@@ -1790,8 +1835,13 @@
         
         function renderPluginCard(p, showDiscountBadge = false) { 
             const discountBadge = showDiscountBadge && p.discount ? `<span class="plugin-badge discount">🔥 ${p.discountPercent}% OFF</span>` : '';
-            return `<div class="plugin-card glass"><div class="plugin-image" style="background-image:url('${p.image}'); background-size:cover; background-position:center;">${p.hot ? '<span class="plugin-badge hot">⚡ HOT</span>' : p.new ? '<span class="plugin-badge new">🆕 NEW</span>' : ''}${discountBadge}</div><div class="plugin-info"><h3 class="plugin-title">${p.creativeName}</h3><p class="plugin-category">${p.category.toUpperCase()}</p><p class="plugin-description">${p.desc}</p><div class="plugin-features"><span><i class="fas fa-download"></i> ${(p.sales/1000).toFixed(1)}k+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div><div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div><div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div><button class="btn-buy" onclick="showToast('🛒 Redirecting to secure checkout...', 'info')">Buy Now →</button></div></div></div>`; 
+            return `<div class="plugin-card glass"><div class="plugin-image" style="background-image:url('${p.image}'); background-size:cover; background-position:center;">${p.hot ? '<span class="plugin-badge hot">⚡ HOT</span>' : p.new ? '<span class="plugin-badge new">🆕 NEW</span>' : ''}${discountBadge}</div><div class="plugin-info"><h3 class="plugin-title">${p.creativeName}</h3><p class="plugin-category">${p.category.toUpperCase()}</p><p class="plugin-description">${p.desc}</p><div class="plugin-features"><span><i class="fas fa-download"></i> ${(p.sales/1000).toFixed(1)}k+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div><div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div><div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div><button class="btn-buy" onclick="window.dispatchEvent(new CustomEvent('buyPlugin', { detail: { name: '${p.creativeName}' } }))">Buy Now →</button></div></div></div>`; 
         }
+        
+        // Handle buy button clicks
+        window.addEventListener('buyPlugin', (e) => {
+            showToast(`🛒 Redirecting to secure checkout for ${e.detail.name}...`, 'info');
+        });
         
         function renderHotPlugins() { const hot = plugins.filter(p=>p.hot && (currentFilter==='all'||p.category===currentFilter)); const container = document.getElementById("hotPluginsGrid"); if (container) container.innerHTML = hot.map(p=>renderPluginCard(p, false)).join(""); }
         function renderLatestPlugins() { const latest = plugins.filter(p=>p.new && (currentFilter==='all'||p.category===currentFilter)); const container = document.getElementById("latestPluginsGrid"); if (container) container.innerHTML = latest.map(p=>renderPluginCard(p, false)).join(""); }
@@ -1831,24 +1881,6 @@
         renderHomepageBlog();
         renderBlogListing();
         renderFAQ();
-        
-        // Auth state listener for Firebase
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // Update localStorage with Firebase user data
-                const userInfo = {
-                    email: user.email,
-                    name: user.displayName,
-                    avatar: user.photoURL,
-                    authMethod: 'google',
-                    isGuest: false,
-                    memberSince: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short' })
-                };
-                localStorage.setItem('freemius_current_user', JSON.stringify(userInfo));
-                localStorage.setItem('freemius_is_authenticated', 'true');
-            }
-            updateUI();
-        });
         
         // Initial UI update
         updateUI();
