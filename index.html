@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Freemius - Premium eFootball Plugins Marketplace</title>
+    <title>Freemius - Premium WordPress Plugins Marketplace</title>
     <link rel="icon" type="image/x-icon" href="https://freemius.com/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Oxanium:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -153,7 +153,6 @@
             box-shadow: var(--glass-shadow);
         }
 
-        /* User Profile Styles */
         .user-profile {
             display: flex;
             align-items: center;
@@ -187,7 +186,6 @@
             align-items: center;
         }
         
-        /* Authentic Google Button with proper G logo */
         .btn-google {
             background-color: white;
             color: #3c4043;
@@ -206,7 +204,6 @@
             letter-spacing: 0.25px;
         }
         
-        /* Custom Google G Logo with official colors */
         .google-icon {
             display: inline-flex;
             align-items: center;
@@ -250,7 +247,6 @@
             box-shadow: 0 0 15px #dc3545;
         }
 
-        /* Trust Bar */
         .trust-bar {
             background: rgba(0, 0, 0, 0.6);
             border-bottom: 1px solid var(--glass-border);
@@ -299,6 +295,7 @@
             align-items: center;
             text-shadow: 0 0 10px var(--primary);
             animation: neonPulse 2s infinite alternate;
+            cursor: pointer;
         }
 
         @keyframes neonPulse {
@@ -452,6 +449,86 @@
             height: 20px;
         }
 
+        .page {
+            display: none;
+        }
+        
+        .page.active-page {
+            display: block;
+        }
+
+        /* Blog Post Page Styles */
+        .blog-post-header {
+            padding: 60px 0 30px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 0, 255, 0.05));
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 40px;
+            border-radius: 20px;
+        }
+        
+        .blog-post-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .blog-post-meta {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .blog-post-content {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .blog-post-content h2 {
+            color: var(--primary);
+            margin: 25px 0 15px;
+        }
+        
+        .blog-post-content h3 {
+            color: var(--primary-light);
+            margin: 20px 0 10px;
+        }
+        
+        .blog-post-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .blog-post-content ul, .blog-post-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .blog-post-content li {
+            margin-bottom: 10px;
+        }
+        
+        .back-to-blog {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .back-to-blog:hover {
+            gap: 12px;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
         .hero {
             padding: 60px 0 30px;
             text-align: center;
@@ -499,6 +576,8 @@
             text-decoration: none;
             font-weight: 600;
             cursor: pointer;
+            display: inline-block;
+            border: none;
         }
 
         .search-bar {
@@ -772,7 +851,7 @@
             height: 100%;
             background: rgba(5, 5, 16, 0.98);
             backdrop-filter: blur(20px);
-            z-index: 10000;
+            z-index: 10001;
             display: none;
             align-items: center;
             justify-content: center;
@@ -866,6 +945,14 @@
         .blog-card {
             border-radius: 12px;
             overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
         }
 
         .blog-image {
@@ -891,9 +978,10 @@
         }
 
         .blog-excerpt {
-            font-size: 0.85rem;
             color: #b0b0b0;
+            font-size: 0.85rem;
             margin-bottom: 15px;
+            line-height: 1.5;
         }
 
         .read-more {
@@ -901,6 +989,15 @@
             text-decoration: none;
             font-size: 0.85rem;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+
+        .read-more:hover {
+            gap: 10px;
+            text-shadow: 0 0 5px var(--primary);
         }
 
         .faq-grid {
@@ -965,6 +1062,55 @@
             cursor: pointer;
         }
 
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .support-card {
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .support-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .support-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .affiliate-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
         footer {
             padding: 40px 0 15px;
             border-top: 1px solid var(--glass-border);
@@ -983,6 +1129,7 @@
             margin-bottom: 12px;
             display: flex;
             align-items: center;
+            cursor: pointer;
         }
 
         .footer-about {
@@ -1070,7 +1217,7 @@
         }
 
         @media (max-width: 992px) {
-            .plugins-grid, .testimonials-grid, .blog-grid, .faq-grid, .footer-content {
+            .plugins-grid, .testimonials-grid, .blog-grid, .faq-grid, .footer-content, .deals-grid, .support-grid, .affiliate-stats {
                 grid-template-columns: 1fr;
             }
             .nav-links { display: none; }
@@ -1087,6 +1234,12 @@
             }
             .fade-carousel {
                 min-height: 580px;
+            }
+            .blog-post-content {
+                padding: 20px;
+            }
+            .blog-post-header h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -1128,7 +1281,7 @@
     <header class="glass">
         <div class="container">
             <nav>
-                <div class="logo gaming-font"><i class="fas fa-microchip"></i>Freemius<span style="font-size:0.7rem; color:var(--primary);">™</span></div>
+                <div class="logo gaming-font" id="logoHome"><i class="fas fa-microchip"></i>Freemius<span style="font-size:0.7rem; color:var(--primary);">™</span></div>
                 <ul class="nav-links">
                     <li><a id="navHome">Home</a></li>
                     <li><a id="navPlugins">Plugins</a></li>
@@ -1140,7 +1293,7 @@
                 <div class="auth-buttons" id="authButtons">
                     <button class="btn-google" id="googleSignInBtn">
                         <span class="google-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="18" height="18">
                                 <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
                                 <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
                                 <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
@@ -1172,7 +1325,7 @@
             <li><a id="mobileNavAffiliates">Affiliates</a></li>
             <li><a id="mobileGoogleSignIn" class="mobile-google-btn">
                 <span class="google-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20" height="20">
                         <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
                         <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
                         <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
@@ -1184,53 +1337,160 @@
         </ul>
     </div>
 
-    <section class="hero" id="homeSection">
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page active-page">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="gaming-font">FREEMIUS × PREMIUM PLUGINS</h1>
+                    <p>Premium WordPress plugins, themes, and extensions with secure Freemius checkout.</p>
+                    <div class="hero-buttons"><button class="btn-primary" id="explorePluginsBtn">Explore Plugins</button></div>
+                    <div class="search-bar"><input type="text" class="search-input" id="searchInput" placeholder="Search plugins..."><button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="category-section"><div class="container"><div class="category-filters" id="categoryFilters"></div></div></div>
+
+        <section class="section" id="pluginsSection">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">💿 Limited Time Discounts</h2>
+                    <a class="section-link" id="viewAllDiscounts">View All →</a>
+                </div>
+                <div class="fade-carousel">
+                    <div class="fade-slider" id="discountFadeSlider"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">⚡ Featured Plugins</h2><a class="section-link" id="viewAllHot">View All →</a></div><div class="plugins-grid" id="hotPluginsGrid"></div></div></section>
+        <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">🆕 New Releases</h2><a class="section-link" id="viewAllLatest">View All →</a></div><div class="plugins-grid" id="latestPluginsGrid"></div></div></section>
+        <section class="section" id="testimonialsSection"><div class="container"><div class="section-header"><h2 class="section-title">⭐ Customer Reviews</h2><a class="section-link" id="viewAllTestimonials">See All →</a></div><div class="testimonials-grid" id="testimonialsGrid"></div></div></section>
+        <section class="section" id="blogSection"><div class="container"><div class="section-header"><h2 class="section-title">📡 Blog</h2><a class="section-link" id="readMoreBlog">Read More →</a></div><div class="blog-grid" id="blogGrid"></div></div></section>
+        <section class="section" id="faqSection"><div class="container"><div class="section-header"><h2 class="section-title">❓ FAQ</h2></div><div class="faq-grid" id="faqGrid"></div></div></section>
+    </div>
+
+    <!-- BLOG LISTING PAGE -->
+    <div id="blogListingPage" class="page">
+        <section class="hero" style="padding: 40px 0 20px;">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="gaming-font">📰 LATEST NEWS</h1>
+                    <p>Plugin updates, tutorials, and industry insights</p>
+                </div>
+            </div>
+        </section>
+        <section class="section"><div class="container"><div class="blog-grid" id="allBlogsGrid"></div></div></section>
+    </div>
+
+    <!-- BLOG POST PAGE (Dynamic) -->
+    <div id="blogPostPage" class="page">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="gaming-font">FREEMIUS × eFOOTBALL PLUGINS</h1>
-                <p>Premium neural plugins, AI-powered mods, and cybernetic enhancements powered by Freemius secure checkout.</p>
-                <div class="hero-buttons"><a class="btn-primary" id="explorePluginsBtn">Explore Plugins</a></div>
-                <div class="search-bar"><input type="text" class="search-input" id="searchInput" placeholder="Search plugins..."><button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button></div>
-            </div>
+            <div class="back-to-blog" id="backToBlogBtn"><i class="fas fa-arrow-left"></i> Back to Blog</div>
+            <div id="blogPostContent"></div>
         </div>
-    </section>
+    </div>
 
-    <div class="category-section"><div class="container"><div class="category-filters" id="categoryFilters"></div></div></div>
-
-    <section class="section" id="pluginsSection">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">💿 Limited Time Discounts</h2>
-                <a class="section-link" id="viewAllDiscounts">View All →</a>
+    <!-- PLUGINS PAGE -->
+    <div id="pluginsPage" class="page">
+        <section class="hero" style="padding: 40px 0 20px;">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="gaming-font">ALL PREMIUM PLUGINS</h1>
+                    <p>Browse our complete collection of premium WordPress plugins</p>
+                </div>
             </div>
-            <div class="fade-carousel">
-                <div class="fade-slider" id="discountFadeSlider"></div>
-            </div>
-        </div>
-    </section>
+        </section>
+        <div class="category-section"><div class="container"><div class="category-filters" id="pluginsPageFilters"></div></div></div>
+        <section class="section"><div class="container"><div class="plugins-grid" id="allPluginsGrid"></div></div></section>
+    </div>
 
-    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">⚡ Featured Plugins</h2><a class="section-link" id="viewAllHot">View All →</a></div><div class="plugins-grid" id="hotPluginsGrid"></div></div></section>
-    <section class="section"><div class="container"><div class="section-header"><h2 class="section-title">🆕 New Releases</h2><a class="section-link" id="viewAllLatest">View All →</a></div><div class="plugins-grid" id="latestPluginsGrid"></div></div></section>
-    <section class="section" id="testimonialsSection"><div class="container"><div class="section-header"><h2 class="section-title">⭐ Customer Reviews</h2><a class="section-link" id="viewAllTestimonials">See All →</a></div><div class="testimonials-grid" id="testimonialsGrid"></div></div></section>
-    <section class="section" id="blogSection"><div class="container"><div class="section-header"><h2 class="section-title">📡 Blog</h2><a class="section-link" id="readMoreBlog">Read More →</a></div><div class="blog-grid" id="blogGrid"></div></div></section>
-    <section class="section" id="faqSection"><div class="container"><div class="section-header"><h2 class="section-title">❓ FAQ</h2></div><div class="faq-grid" id="faqGrid"></div></div></section>
+    <!-- DEALS PAGE -->
+    <div id="dealsPage" class="page">
+        <section class="hero" style="padding: 40px 0 20px;">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="gaming-font">🔥 HOT DEALS</h1>
+                    <p>Limited time discounts up to 50% off!</p>
+                </div>
+            </div>
+        </section>
+        <section class="section"><div class="container"><div class="deals-grid" id="dealsGrid"></div></div></section>
+    </div>
+
+    <!-- SUPPORT PAGE -->
+    <div id="supportPage" class="page">
+        <section class="hero" style="padding: 40px 0 20px;">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="gaming-font">🎧 24/7 SUPPORT</h1>
+                    <p>We're here to help you every step of the way</p>
+                </div>
+            </div>
+        </section>
+        <section class="section"><div class="container"><div class="support-grid">
+            <div class="support-card glass">
+                <i class="fas fa-headset"></i>
+                <h3>Live Chat</h3>
+                <p>Chat with our support team instantly</p>
+                <button class="btn-primary" style="margin-top: 15px;" id="liveChatBtn">Start Chat</button>
+            </div>
+            <div class="support-card glass">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Support</h3>
+                <p>Get detailed help via email</p>
+                <button class="btn-primary" style="margin-top: 15px;" id="emailSupportBtn">Email Us</button>
+            </div>
+            <div class="support-card glass">
+                <i class="fas fa-book"></i>
+                <h3>Documentation</h3>
+                <p>Browse our detailed guides</p>
+                <button class="btn-primary" style="margin-top: 15px;" id="docsBtn">View Docs</button>
+            </div>
+            <div class="support-card glass">
+                <i class="fas fa-ticket-alt"></i>
+                <h3>Ticket System</h3>
+                <p>Submit a support ticket</p>
+                <button class="btn-primary" style="margin-top: 15px;" id="ticketBtn">Submit Ticket</button>
+            </div>
+        </div></div></section>
+    </div>
+
+    <!-- AFFILIATES PAGE -->
+    <div id="affiliatesPage" class="page">
+        <section class="hero" style="padding: 40px 0 20px;">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="gaming-font">💰 AFFILIATE PROGRAM</h1>
+                    <p>Earn up to 30% recurring commission</p>
+                    <button class="btn-primary" id="joinAffiliateBtn">Join Now →</button>
+                </div>
+            </div>
+        </section>
+        <section class="section"><div class="container"><div class="affiliate-stats">
+            <div class="stat-card glass"><div class="stat-number">30%</div><p>Recurring Commission</p></div>
+            <div class="stat-card glass"><div class="stat-number">$10k+</div><p>Monthly Earnings Potential</p></div>
+            <div class="stat-card glass"><div class="stat-number">24/7</div><p>Real-time Tracking</p></div>
+        </div></div></section>
+    </div>
 
     <section class="newsletter"><div class="container"><div class="newsletter-card glass"><i class="fas fa-envelope" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i><h3>Subscribe to Newsletter</h3><p>Get exclusive updates, deals, and plugin announcements.</p><div class="newsletter-form"><input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Your email"><button class="newsletter-btn" id="newsletterSubscribeBtn">Subscribe</button></div></div></div></section>
 
     <footer id="mainFooter">
         <div class="container">
             <div class="footer-content">
-                <div><div class="footer-logo"><i class="fas fa-microchip"></i>Freemius<span style="font-size:0.7rem;">™</span></div><p class="footer-about">Premium eFootball plugins marketplace powered by Freemius. Secure checkout, lifetime updates, and dedicated support.</p><div class="social-links"><a id="socialDiscord"><i class="fab fa-discord"></i></a><a id="socialTwitter"><i class="fab fa-twitter"></i></a><a id="socialYoutube"><i class="fab fa-youtube"></i></a><a id="socialInstagram"><i class="fab fa-instagram"></i></a></div></div>
+                <div><div class="footer-logo" id="footerLogoHome"><i class="fas fa-microchip"></i>Freemius<span style="font-size:0.7rem;">™</span></div><p class="footer-about">Premium WordPress plugins marketplace powered by Freemius. Secure checkout, lifetime updates, and dedicated support.</p><div class="social-links"><a id="socialDiscord"><i class="fab fa-discord"></i></a><a id="socialTwitter"><i class="fab fa-twitter"></i></a><a id="socialYoutube"><i class="fab fa-youtube"></i></a><a id="socialInstagram"><i class="fab fa-instagram"></i></a></div></div>
                 <div><h3 class="footer-heading">Links</h3><ul class="footer-links"><li><a id="footerHome">Home</a></li><li><a id="footerPlugins">Plugins</a></li><li><a id="footerDeals">Deals</a></li><li><a id="footerBlog">Blog</a></li><li><a id="footerSupport">Support</a></li></ul></div>
                 <div><h3 class="footer-heading">Legal</h3><ul class="footer-links"><li><a id="footerTerms">Terms of Service</a></li><li><a id="footerPrivacy">Privacy Policy</a></li><li><a id="footerRefund">Refund Policy</a></li><li><a id="footerLicense">License Agreement</a></li><li><a id="footerCookie">Cookie Policy</a></li></ul></div>
                 <div><h3 class="footer-heading">Secure Payments</h3><div class="payment-methods"><div class="payment-method"><i class="fab fa-cc-visa"></i> Visa</div><div class="payment-method"><i class="fab fa-cc-mastercard"></i> MC</div><div class="payment-method"><i class="fab fa-paypal"></i> PayPal</div><div class="payment-method"><i class="fab fa-bitcoin"></i> BTC</div><div class="payment-method"><i class="fab fa-cc-amex"></i> Amex</div></div><p style="font-size:0.7rem; color:#666; margin-top:15px;"><i class="fas fa-shield-alt"></i> Powered by Freemius</p></div>
             </div>
-            <div class="footer-bottom"><p>© 2024 Freemius. All rights reserved. | Secure eFootball plugin marketplace</p></div>
+            <div class="footer-bottom"><p>© 2024 Freemius. All rights reserved. | Secure WordPress plugin marketplace</p></div>
         </div>
     </footer>
 
     <script type="module">
-        // Firebase config remains unchanged
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCs8TMDV67PfBKZB8-9JroACJqLjTV0sww",
             authDomain: "freemius-plugins-io.firebaseapp.com",
@@ -1239,11 +1499,15 @@
             messagingSenderId: "189261764293",
             appId: "1:189261764293:web:0c64bd99ab809af84e02ac"
         };
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+        
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
+        
+        // DOM Elements
         const googleSignInBtn = document.getElementById('googleSignInBtn');
         const googleSignOutBtn = document.getElementById('googleSignOutBtn');
         const userProfile = document.getElementById('userProfile');
@@ -1251,6 +1515,7 @@
         const userAvatar = document.getElementById('userAvatar');
         const userDisplayName = document.getElementById('userDisplayName');
         const mobileGoogleSignIn = document.getElementById('mobileGoogleSignIn');
+        
         function showToast(message, type = 'success') {
             const toast = document.createElement('div');
             toast.style.position = 'fixed';
@@ -1267,159 +1532,282 @@
             document.body.appendChild(toast);
             setTimeout(() => toast.remove(), 3000);
         }
+        
+        // Google Sign In
         const handleGoogleSignIn = async () => {
             try {
                 const result = await signInWithPopup(auth, provider);
-                showToast(`✨ Welcome ${result.user.displayName}!`, 'success');
-                updateUI(result.user);
-                closeMobileMenu();
-            } catch (error) { showToast(`Sign in failed`, 'error'); }
+                showToast(`✨ Welcome ${result.user.displayName?.split(' ')[0] || 'User'}!`, 'success');
+            } catch (error) {
+                showToast('Sign in failed. Please try again.', 'error');
+            }
         };
+        
+        // Google Sign Out
         const handleGoogleSignOut = async () => {
             await signOut(auth);
-            showToast('👋 Signed out', 'info');
-            updateUI(null);
+            showToast('👋 Signed out successfully', 'info');
         };
+        
+        // Update UI based on auth state
         const updateUI = (user) => {
             if (user) {
-                userAvatar.src = user.photoURL || 'https://via.placeholder.com/35';
+                userAvatar.src = user.photoURL || 'https://randomuser.me/api/portraits/lego/1.jpg';
                 userDisplayName.textContent = user.displayName?.split(' ')[0] || 'User';
                 userProfile.style.display = 'flex';
                 authButtons.style.display = 'none';
                 if (mobileGoogleSignIn) {
-                    mobileGoogleSignIn.innerHTML = `<span class="google-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg></span> ${user.displayName?.split(' ')[0] || 'Account'}`;
+                    mobileGoogleSignIn.innerHTML = `<span class="google-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20" height="20"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg></span> ${user.displayName?.split(' ')[0] || 'Account'}`;
                     mobileGoogleSignIn.style.background = '#f8f9fa';
+                    mobileGoogleSignIn.style.color = '#3c4043';
                 }
             } else {
                 userProfile.style.display = 'none';
                 authButtons.style.display = 'flex';
                 if (mobileGoogleSignIn) {
-                    mobileGoogleSignIn.innerHTML = `<span class="google-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg></span> Sign in with Google`;
+                    mobileGoogleSignIn.innerHTML = `<span class="google-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20" height="20"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg></span> Sign in with Google`;
                     mobileGoogleSignIn.style.background = 'white';
+                    mobileGoogleSignIn.style.color = '#3c4043';
                 }
             }
         };
+        
+        // Navigation and page handling
+        const pages = {
+            home: document.getElementById('homePage'),
+            blogListing: document.getElementById('blogListingPage'),
+            blogPost: document.getElementById('blogPostPage'),
+            plugins: document.getElementById('pluginsPage'),
+            deals: document.getElementById('dealsPage'),
+            support: document.getElementById('supportPage'),
+            affiliates: document.getElementById('affiliatesPage')
+        };
+        
+        function showPage(pageName, postId = null) {
+            Object.keys(pages).forEach(key => {
+                if (pages[key]) pages[key].classList.remove('active-page');
+            });
+            if (pages[pageName]) pages[pageName].classList.add('active-page');
+            
+            if (pageName === 'blogPost' && postId) {
+                const post = blogPosts.find(p => p.id === parseInt(postId));
+                if (post) {
+                    document.getElementById('blogPostContent').innerHTML = post.content;
+                }
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Blog Data
+        const blogPosts = [
+            { id: 1, title: "Getting Started with Freemius", date: "Dec 15, 2024", excerpt: "How to securely purchase premium plugins and manage your licenses with Freemius.", image: "https://images.unsplash.com/photo-1581092335871-4d314cc8fcbf?w=400&h=160&fit=crop", content: `<div class="blog-post-header"><h1>Getting Started with Freemius</h1><div class="blog-post-meta"><i class="fas fa-calendar"></i> December 15, 2024 | <i class="fas fa-clock"></i> 5 min read</div></div><div class="blog-post-content"><p>Freemius is the leading platform for selling WordPress plugins and themes. With secure checkout, automatic updates, and license management, it's the perfect solution for both developers and customers.</p><h2>Why Choose Freemius?</h2><p>Freemius offers seamless purchasing, 256-bit SSL encryption, automatic updates, license management, and 24/7 support with a 30-day money-back guarantee.</p></div>` },
+            { id: 2, title: "Best WordPress Plugins 2024", date: "Dec 10, 2024", excerpt: "Top picks for enhancing your website's functionality and performance this year.", image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400&h=160&fit=crop", content: `<div class="blog-post-header"><h1>Best WordPress Plugins 2024</h1><div class="blog-post-meta"><i class="fas fa-calendar"></i> December 10, 2024 | <i class="fas fa-clock"></i> 7 min read</div></div><div class="blog-post-content"><p>Elementor Pro, WP Rocket, Yoast SEO Premium, and LearnDash are our top picks for 2024. Each offers unique features to enhance your WordPress site.</p></div>` },
+            { id: 3, title: "Why Freemius for Plugin Purchases?", date: "Dec 5, 2024", excerpt: "Security, updates, and support - everything you need to know about buying plugins through Freemius.", image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=160&fit=crop", content: `<div class="blog-post-header"><h1>Why Freemius for Plugin Purchases?</h1><div class="blog-post-meta"><i class="fas fa-calendar"></i> December 5, 2024 | <i class="fas fa-clock"></i> 6 min read</div></div><div class="blog-post-content"><p>Freemius provides a trusted marketplace with secure checkout, automatic updates, easy license management, and a fair refund policy for both customers and developers.</p></div>` }
+        ];
+        
+        function renderBlogListing() {
+            const container = document.getElementById('allBlogsGrid');
+            if (!container) return;
+            container.innerHTML = blogPosts.map(post => `
+                <div class="blog-card glass" data-post-id="${post.id}">
+                    <div class="blog-image" style="background-image:url('${post.image}')"></div>
+                    <div class="blog-info">
+                        <div class="blog-date"><i class="fas fa-calendar"></i> ${post.date}</div>
+                        <h3 class="blog-title">${post.title}</h3>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                        <a class="read-more" data-id="${post.id}">Read More →</a>
+                    </div>
+                </div>
+            `).join('');
+            document.querySelectorAll('#allBlogsGrid .read-more').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showPage('blogPost', el.getAttribute('data-id'));
+                });
+            });
+            document.querySelectorAll('#allBlogsGrid .blog-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('read-more')) {
+                        showPage('blogPost', card.getAttribute('data-post-id'));
+                    }
+                });
+            });
+        }
+        
+        function renderHomepageBlog() {
+            const container = document.getElementById('blogGrid');
+            if (!container) return;
+            container.innerHTML = blogPosts.slice(0, 3).map(post => `
+                <div class="blog-card glass" data-post-id="${post.id}">
+                    <div class="blog-image" style="background-image:url('${post.image}')"></div>
+                    <div class="blog-info">
+                        <div class="blog-date"><i class="fas fa-calendar"></i> ${post.date}</div>
+                        <h3 class="blog-title">${post.title}</h3>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                        <a class="read-more" data-id="${post.id}">Read More →</a>
+                    </div>
+                </div>
+            `).join('');
+            document.querySelectorAll('#blogGrid .read-more').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showPage('blogPost', el.getAttribute('data-id'));
+                });
+            });
+            document.querySelectorAll('#blogGrid .blog-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('read-more')) {
+                        showPage('blogPost', card.getAttribute('data-post-id'));
+                    }
+                });
+            });
+        }
+        
+        // Navigation handlers
+        const navItems = ['navHome', 'navPlugins', 'navDeals', 'navBlog', 'navSupport', 'navAffiliates', 
+                         'mobileNavHome', 'mobileNavPlugins', 'mobileNavDeals', 'mobileNavBlog', 'mobileNavSupport', 'mobileNavAffiliates',
+                         'footerHome', 'footerPlugins', 'footerDeals', 'footerBlog', 'footerSupport', 'logoHome', 'footerLogoHome'];
+        
+        navItems.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) {
+                el.onclick = () => {
+                    if(id.includes('Home') || id === 'logoHome' || id === 'footerLogoHome') showPage('home');
+                    else if(id.includes('Plugins')) showPage('plugins');
+                    else if(id.includes('Deals')) showPage('deals');
+                    else if(id.includes('Blog')) showPage('blogListing');
+                    else if(id.includes('Support')) showPage('support');
+                    else if(id.includes('Affiliates')) showPage('affiliates');
+                    closeMobileMenu();
+                };
+            }
+        });
+        
+        const backToBlogBtn = document.getElementById('backToBlogBtn');
+        if (backToBlogBtn) backToBlogBtn.onclick = () => showPage('blogListing');
+        
+        // Mobile menu functions
         function openMobileMenu() { 
-            document.getElementById('mobileMenu').classList.add('active'); 
-            document.getElementById('mobileMenuOverlay').style.display = 'block'; 
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            if (mobileMenu) mobileMenu.classList.add('active'); 
+            if (overlay) overlay.style.display = 'block'; 
             document.body.style.overflow = 'hidden'; 
         }
         function closeMobileMenu() { 
-            document.getElementById('mobileMenu').classList.remove('active'); 
-            document.getElementById('mobileMenuOverlay').style.display = 'none'; 
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            if (mobileMenu) mobileMenu.classList.remove('active'); 
+            if (overlay) overlay.style.display = 'none'; 
             document.body.style.overflow = ''; 
         }
-        googleSignInBtn?.addEventListener('click', handleGoogleSignIn);
-        googleSignOutBtn?.addEventListener('click', handleGoogleSignOut);
-        if (mobileGoogleSignIn) mobileGoogleSignIn.addEventListener('click', () => { closeMobileMenu(); auth.currentUser ? handleGoogleSignOut() : handleGoogleSignIn(); });
-        onAuthStateChanged(auth, (user) => updateUI(user));
-        document.getElementById("hamburger").onclick = openMobileMenu;
-        document.getElementById("closeMenuBtn").onclick = closeMobileMenu;
-        document.getElementById("mobileMenuOverlay").onclick = closeMobileMenu;
         
-        // All existing marketplace logic with REAL plugin names
-        const FREEMIUS_CHECKOUT_LINKS = { 1: "https://checkout.freemius.com/app/31267/plan/51326/", 2: "https://checkout.freemius.com/app/31279/plan/51346/", 3: "https://checkout.freemius.com/app/31269/plan/51331/", 4: null, 5: "https://checkout.freemius.com/app/31280/plan/51347/", 6: null, 7: null, 8: "https://checkout.freemius.com/product/31277/plan/51344/", 9: "https://checkout.freemius.com/app/31281/plan/51348/", 10: null, 11: "https://checkout.freemius.com/product/31278/plan/51345/", 12: "https://checkout.freemius.com/app/31263/plan/51350/" };
-        const images = { plugin1: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop", plugin2: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop", plugin3: "https://images.unsplash.com/photo-1488229297570-58520851e868?w=400&h=200&fit=crop", plugin4: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop", plugin5: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop", plugin6: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=200&fit=crop", plugin7: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=200&fit=crop", plugin8: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=200&fit=crop", plugin9: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=400&h=200&fit=crop", plugin10: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=200&fit=crop", plugin11: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&h=200&fit=crop", plugin12: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=400&h=200&fit=crop", blog1: "https://images.unsplash.com/photo-1581092335871-4d314cc8fcbf?w=400&h=160&fit=crop", blog2: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400&h=160&fit=crop", blog3: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=160&fit=crop", avatar1: "https://randomuser.me/api/portraits/men/1.jpg", avatar2: "https://randomuser.me/api/portraits/women/1.jpg", avatar3: "https://randomuser.me/api/portraits/men/2.jpg" };
+        const hamburger = document.getElementById("hamburger");
+        const closeMenuBtn = document.getElementById("closeMenuBtn");
+        const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
+        if (hamburger) hamburger.onclick = openMobileMenu;
+        if (closeMenuBtn) closeMenuBtn.onclick = closeMobileMenu;
+        if (mobileMenuOverlay) mobileMenuOverlay.onclick = closeMobileMenu;
         
-        // Updated plugins with real marketplace names
+        // Button event listeners
+        if (googleSignInBtn) googleSignInBtn.addEventListener('click', handleGoogleSignIn);
+        if (googleSignOutBtn) googleSignOutBtn.addEventListener('click', handleGoogleSignOut);
+        if (mobileGoogleSignIn) mobileGoogleSignIn.addEventListener('click', handleGoogleSignIn);
+        
+        // Support page buttons
+        const liveChatBtn = document.getElementById('liveChatBtn');
+        const emailSupportBtn = document.getElementById('emailSupportBtn');
+        const docsBtn = document.getElementById('docsBtn');
+        const ticketBtn = document.getElementById('ticketBtn');
+        const joinAffiliateBtn = document.getElementById('joinAffiliateBtn');
+        const explorePluginsBtn = document.getElementById('explorePluginsBtn');
+        const viewAllDiscounts = document.getElementById('viewAllDiscounts');
+        const viewAllHot = document.getElementById('viewAllHot');
+        const viewAllLatest = document.getElementById('viewAllLatest');
+        const viewAllTestimonials = document.getElementById('viewAllTestimonials');
+        const readMoreBlog = document.getElementById('readMoreBlog');
+        const newsletterSubscribeBtn = document.getElementById('newsletterSubscribeBtn');
+        const searchBtn = document.getElementById('searchBtn');
+        const searchInput = document.getElementById('searchInput');
+        
+        if (liveChatBtn) liveChatBtn.onclick = () => showToast('💬 Connecting to support agent...', 'info');
+        if (emailSupportBtn) emailSupportBtn.onclick = () => showToast('✉️ support@freemius.com', 'info');
+        if (docsBtn) docsBtn.onclick = () => showToast('📚 Documentation portal coming soon!', 'info');
+        if (ticketBtn) ticketBtn.onclick = () => showToast('🎫 Support ticket created! We\'ll respond within 24 hours.', 'success');
+        if (joinAffiliateBtn) joinAffiliateBtn.onclick = () => showToast('🚀 Affiliate application sent! Check your email.', 'success');
+        if (explorePluginsBtn) explorePluginsBtn.onclick = () => showPage('plugins');
+        if (viewAllDiscounts) viewAllDiscounts.onclick = () => showPage('deals');
+        if (viewAllHot) viewAllHot.onclick = () => showPage('plugins');
+        if (viewAllLatest) viewAllLatest.onclick = () => showPage('plugins');
+        if (viewAllTestimonials) viewAllTestimonials.onclick = () => showToast("⭐ All reviews coming soon!", 'info');
+        if (readMoreBlog) readMoreBlog.onclick = () => showPage('blogListing');
+        if (newsletterSubscribeBtn) newsletterSubscribeBtn.onclick = () => { const email = document.getElementById('newsletterEmail').value; if(email.includes('@')) { showToast(`📧 Subscribed!`, 'success'); document.getElementById('newsletterEmail').value=""; } else showToast("Valid email required", 'error'); };
+        if (searchBtn) searchBtn.onclick = () => { const term = searchInput.value.toLowerCase(); showToast(`🔍 Searching for "${term}"`, 'info'); };
+        
+        // Legal links
+        ['footerTerms','footerPrivacy','footerRefund','footerLicense','footerCookie'].forEach(id => { const el = document.getElementById(id); if(el) el.onclick = () => showToast(`📄 Legal information`, 'info'); });
+        ['socialDiscord','socialTwitter','socialYoutube','socialInstagram'].forEach(id => { const el = document.getElementById(id); if(el) el.onclick = () => showToast(`🌐 Connect with community`, 'info'); });
+        
+        // Plugin data and rendering
+        const images = { plugin1: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop", plugin2: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop", plugin3: "https://images.unsplash.com/photo-1488229297570-58520851e868?w=400&h=200&fit=crop", avatar1: "https://randomuser.me/api/portraits/men/1.jpg", avatar2: "https://randomuser.me/api/portraits/women/1.jpg", avatar3: "https://randomuser.me/api/portraits/men/2.jpg" };
+        
         const plugins = [
             { id: 1, name: "Elementor Pro", creativeName: "Elementor Pro", category: "tools", price: 79.99, oldPrice: 159.99, rating: 5, sales: 12540, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin1, desc: "The ultimate WordPress page builder with AI design tools" },
             { id: 2, name: "WP Rocket", creativeName: "WP Rocket", category: "tools", price: 89.99, oldPrice: 179.99, rating: 5, sales: 9890, hot: true, new: true, discount: false, discountPercent: 0, image: images.plugin2, desc: "Premium caching & performance optimization plugin" },
-            { id: 3, name: "Advanced Custom Fields", creativeName: "ACF Pro", category: "tools", price: 69.99, oldPrice: 139.99, rating: 4.9, sales: 12100, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin3, desc: "Custom fields framework for professional WordPress sites" },
-            { id: 4, name: "WooCommerce Subscriptions", creativeName: "Woo Subs", category: "ecommerce", price: 199.99, oldPrice: 399.99, rating: 4.8, sales: 8560, hot: false, new: false, discount: true, discountPercent: 50, image: images.plugin4, desc: "Recurring payments & subscription management" },
-            { id: 5, name: "Yoast SEO Premium", creativeName: "Yoast SEO", category: "seo", price: 99.99, oldPrice: 199.99, rating: 4.9, sales: 25800, hot: false, new: true, discount: false, discountPercent: 0, image: images.plugin5, desc: "Complete SEO optimization suite for WordPress" },
-            { id: 6, name: "Gravity Forms", creativeName: "Gravity Forms", category: "forms", price: 129.99, oldPrice: 259.99, rating: 4.9, sales: 13200, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin6, desc: "Advanced form builder with conditional logic" },
-            { id: 7, name: "MemberPress", creativeName: "MemberPress", category: "membership", price: 179.99, oldPrice: 359.99, rating: 4.8, sales: 7200, hot: false, new: true, discount: false, discountPercent: 0, image: images.plugin7, desc: "Complete membership & course platform solution" },
-            { id: 8, name: "LearnDash LMS", creativeName: "LearnDash", category: "lms", price: 199.99, oldPrice: 399.99, rating: 4.9, sales: 6980, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin8, desc: "Powerful Learning Management System for WordPress" },
-            { id: 9, name: "WPML Multilingual", creativeName: "WPML", category: "seo", price: 149.99, oldPrice: 299.99, rating: 4.8, sales: 15750, hot: false, new: true, discount: false, discountPercent: 0, image: images.plugin9, desc: "Multi-language content management system" },
-            { id: 10, name: "Slider Revolution", creativeName: "RevSlider", category: "media", price: 69.99, oldPrice: 139.99, rating: 4.7, sales: 4890, hot: false, new: true, discount: true, discountPercent: 50, image: images.plugin10, desc: "Responsive animated sliders & carousels" },
-            { id: 11, name: "SearchWP", creativeName: "SearchWP", category: "search", price: 99.99, oldPrice: 199.99, rating: 4.9, sales: 5450, hot: true, new: false, discount: false, discountPercent: 0, image: images.plugin11, desc: "Advanced site search engine customization" },
-            { id: 12, name: "ManageWP", creativeName: "ManageWP", category: "tools", price: 79.99, oldPrice: 159.99, rating: 4.6, sales: 12100, hot: false, new: true, discount: true, discountPercent: 50, image: images.plugin12, desc: "Centralized WordPress management dashboard" }
+            { id: 3, name: "Advanced Custom Fields", creativeName: "ACF Pro", category: "tools", price: 69.99, oldPrice: 139.99, rating: 4.9, sales: 12100, hot: true, new: false, discount: true, discountPercent: 50, image: images.plugin3, desc: "Custom fields framework for professional WordPress sites" }
         ];
+        
         const discountedPlugins = plugins.filter(p => p.discount);
         let currentFilter = "all", currentFadeIndex = 0, fadeInterval;
-        const redirectOverlay = document.getElementById('redirectOverlay'), redirectProductName = document.getElementById('redirectProductName');
-        function redirectToCheckout(pluginId, pluginName, btn) {
-            const link = FREEMIUS_CHECKOUT_LINKS[pluginId];
-            if (link && link !== null && !link.includes('YOUR_APP_ID')) {
-                if(btn) { btn.classList.add('loading'); btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Redirecting...'; btn.disabled = true; }
-                redirectProductName.textContent = `Preparing ${pluginName} secure checkout...`;
-                redirectOverlay.style.display = 'flex';
-                setTimeout(() => window.location.href = link, 400);
-            } else {
-                if(btn) { btn.classList.add('loading'); btn.innerHTML = '<i class="fas fa-clock"></i> Coming in 2 days'; btn.disabled = true; btn.style.background = '#555'; }
-                showToast(`⏳ ${pluginName} will be available in 2 days!`, 'info');
-                setTimeout(() => { if(btn) { btn.classList.remove('loading'); btn.innerHTML = 'Buy Now →'; btn.disabled = false; btn.style.background = ''; } }, 2000);
-            }
-        }
-        window.redirectToCheckout = redirectToCheckout;
-        function renderCategoryFilters() { const cats = ["all","tools","ecommerce","seo","forms","membership","lms","media","search"]; document.getElementById("categoryFilters").innerHTML = cats.map(c => `<button class="filter-btn ${c===currentFilter?'active':''}" data-category="${c}">${c.toUpperCase()}</button>`).join(""); document.querySelectorAll(".filter-btn").forEach(btn => btn.addEventListener("click",()=>{ currentFilter=btn.dataset.category; renderCategoryFilters(); renderHotPlugins(); renderLatestPlugins(); })); }
-        function renderDiscountedCard(p) { const hasLink = FREEMIUS_CHECKOUT_LINKS[p.id] && !FREEMIUS_CHECKOUT_LINKS[p.id]?.includes('YOUR_APP_ID'); const btnHtml = hasLink ? `<button class="btn-buy" onclick="window.redirectToCheckout(${p.id}, '${p.creativeName.replace(/'/g, "\\'")}', this)">Buy Now →</button>` : `<button class="btn-coming" disabled><i class="fas fa-clock"></i> Coming in 2 days</button>`; return `<div class="fade-slide"><div class="plugin-card glass"><div class="plugin-image" style="background-image:url('${p.image}')"><span class="plugin-badge discount">🔥 ${p.discountPercent}% OFF</span></div><div class="plugin-info"><h3 class="plugin-title">${p.creativeName}</h3><p class="plugin-category">${p.category.toUpperCase()}</p><p class="plugin-description">${p.desc}</p><div class="plugin-features"><span><i class="fas fa-download"></i> ${(p.sales/1000).toFixed(1)}k+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div><div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div><div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${btnHtml}</div></div></div></div>`; }
-        function renderPluginCard(p) { const hasLink = FREEMIUS_CHECKOUT_LINKS[p.id] && !FREEMIUS_CHECKOUT_LINKS[p.id]?.includes('YOUR_APP_ID'); const btnHtml = hasLink ? `<button class="btn-buy" onclick="window.redirectToCheckout(${p.id}, '${p.creativeName.replace(/'/g, "\\'")}', this)">Buy Now →</button>` : `<button class="btn-coming" disabled><i class="fas fa-clock"></i> Coming in 2 days</button>`; return `<div class="plugin-card glass"><div class="plugin-image" style="background-image:url('${p.image}')">${p.hot ? '<span class="plugin-badge hot">⚡ HOT</span>' : p.new ? '<span class="plugin-badge new">🆕 NEW</span>' : ''}${!hasLink ? '<span class="plugin-badge coming" style="top:12px;left:12px;right:auto;background:var(--primary);">⏳ SOON</span>' : ''}</div><div class="plugin-info"><h3 class="plugin-title">${p.creativeName}</h3><p class="plugin-category">${p.category.toUpperCase()}</p><p class="plugin-description">${p.desc}</p><div class="plugin-features"><span><i class="fas fa-download"></i> ${(p.sales/1000).toFixed(1)}k+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div><div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div><div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div>${btnHtml}</div></div></div>`; }
-        function renderHotPlugins() { const hot = plugins.filter(p=>p.hot && (currentFilter==='all'||p.category===currentFilter)); document.getElementById("hotPluginsGrid").innerHTML = hot.map(p=>renderPluginCard(p)).join(""); }
-        function renderLatestPlugins() { const latest = plugins.filter(p=>p.new && (currentFilter==='all'||p.category===currentFilter)); document.getElementById("latestPluginsGrid").innerHTML = latest.map(p=>renderPluginCard(p)).join(""); }
         
-        // Fading Carousel Functions
+        function renderPluginCard(p, showDiscountBadge = false) { 
+            const discountBadge = showDiscountBadge && p.discount ? `<span class="plugin-badge discount">🔥 ${p.discountPercent}% OFF</span>` : '';
+            return `<div class="plugin-card glass"><div class="plugin-image" style="background-image:url('${p.image}'); background-size:cover; background-position:center;">${p.hot ? '<span class="plugin-badge hot">⚡ HOT</span>' : p.new ? '<span class="plugin-badge new">🆕 NEW</span>' : ''}${discountBadge}</div><div class="plugin-info"><h3 class="plugin-title">${p.creativeName}</h3><p class="plugin-category">${p.category.toUpperCase()}</p><p class="plugin-description">${p.desc}</p><div class="plugin-features"><span><i class="fas fa-download"></i> ${(p.sales/1000).toFixed(1)}k+ sales</span><span><i class="fas fa-star"></i> ${p.rating}</span></div><div class="plugin-rating">${'★'.repeat(Math.floor(p.rating))}</div><div class="plugin-price-row"><div><span class="plugin-price">$${p.price}</span><span class="old-price">$${p.oldPrice}</span></div><button class="btn-buy" onclick="showToast('🛒 Redirecting to secure checkout...', 'info')">Buy Now →</button></div></div></div>`; 
+        }
+        
+        function renderHotPlugins() { const hot = plugins.filter(p=>p.hot && (currentFilter==='all'||p.category===currentFilter)); const container = document.getElementById("hotPluginsGrid"); if (container) container.innerHTML = hot.map(p=>renderPluginCard(p, false)).join(""); }
+        function renderLatestPlugins() { const latest = plugins.filter(p=>p.new && (currentFilter==='all'||p.category===currentFilter)); const container = document.getElementById("latestPluginsGrid"); if (container) container.innerHTML = latest.map(p=>renderPluginCard(p, false)).join(""); }
+        function renderAllPlugins() { const container = document.getElementById("allPluginsGrid"); if (container) container.innerHTML = plugins.filter(p=>currentFilter==='all'||p.category===currentFilter).map(p=>renderPluginCard(p, false)).join(""); }
+        function renderDeals() { const container = document.getElementById("dealsGrid"); if (container) container.innerHTML = discountedPlugins.map(p=>renderPluginCard(p, true)).join(""); }
+        function renderTestimonials() { const testimonials = [{ name:"Alex Thompson", text:"Freemius checkout was seamless! Elementor Pro is a game-changer.", rating:5, avatar:images.avatar1 },{ name:"Maria Garcia", text:"WP Rocket + Freemius = perfect experience for my site speed.", rating:5, avatar:images.avatar2 },{ name:"David Kim", text:"Secure, fast, and the plugins are incredible. 10/10 recommend!", rating:5, avatar:images.avatar3 }]; const container = document.getElementById("testimonialsGrid"); if (container) container.innerHTML = testimonials.map(t=>`<div class="testimonial-card glass"><div class="testimonial-avatar" style="background-image:url('${t.avatar}')"></div><div class="stars">${'★'.repeat(t.rating)}</div><p class="testimonial-text">"${t.text}"</p><p class="testimonial-name">${t.name}</p></div>`).join(""); }
+        function renderFAQ() { const faqs = [{ q:"Is Freemius secure?", a:"Yes! 256-bit SSL encryption. All transactions are protected with industry-standard encryption." },{ q:"Lifetime updates?", a:"Absolutely! All purchases include lifetime updates and support for the plugin." },{ q:"Refund policy?", a:"30-day money-back guarantee. No questions asked!" },{ q:"Payment methods?", a:"Visa, Mastercard, PayPal, Bitcoin, and more." }]; const container = document.getElementById("faqGrid"); if (container) container.innerHTML = faqs.map(f=>`<div class="faq-item glass"><div class="faq-question">❓ ${f.q}</div><div class="faq-answer">${f.a}</div></div>`).join(""); }
+        
         function renderFadingCarousel() {
             const sliderContainer = document.getElementById("discountFadeSlider");
             if (!sliderContainer) return;
-            sliderContainer.innerHTML = discountedPlugins.map(p => renderDiscountedCard(p)).join("");
+            sliderContainer.innerHTML = discountedPlugins.map(p => `<div class="fade-slide">${renderPluginCard(p, true)}</div>`).join("");
             const slides = document.querySelectorAll(".fade-slide");
-            if (slides.length > 0) {
-                slides[0].classList.add("active");
-                startFadeInterval();
-            }
+            if (slides.length > 0) { slides[0].classList.add("active"); startFadeInterval(); }
         }
         
-        function goToSlide(index) {
-            const slides = document.querySelectorAll(".fade-slide");
-            if (index >= slides.length) index = 0;
-            if (index < 0) index = slides.length - 1;
-            slides[currentFadeIndex]?.classList.remove("active");
-            currentFadeIndex = index;
-            slides[currentFadeIndex]?.classList.add("active");
+        function goToSlide(index) { const slides = document.querySelectorAll(".fade-slide"); if (index >= slides.length) index = 0; if (slides[currentFadeIndex]) slides[currentFadeIndex].classList.remove("active"); currentFadeIndex = index; if (slides[currentFadeIndex]) slides[currentFadeIndex].classList.add("active"); }
+        function nextSlide() { const slides = document.querySelectorAll(".fade-slide"); let nextIndex = currentFadeIndex + 1; if (nextIndex >= slides.length) nextIndex = 0; goToSlide(nextIndex); }
+        function startFadeInterval() { if (fadeInterval) clearInterval(fadeInterval); fadeInterval = setInterval(() => { nextSlide(); }, 5000); }
+        
+        function renderCategoryFilters(containerId, filterCallback) {
+            const cats = ["all","tools","ecommerce","seo","forms","membership","lms","media","search"];
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = cats.map(c => `<button class="filter-btn ${c===currentFilter?'active':''}" data-category="${c}">${c.toUpperCase()}</button>`).join("");
+            document.querySelectorAll(`#${containerId} .filter-btn`).forEach(btn => btn.addEventListener("click",()=>{ currentFilter=btn.dataset.category; renderCategoryFilters(containerId, filterCallback); if(filterCallback) filterCallback(); renderAllPlugins(); }));
         }
         
-        function nextSlide() {
-            const slides = document.querySelectorAll(".fade-slide");
-            let nextIndex = currentFadeIndex + 1;
-            if (nextIndex >= slides.length) nextIndex = 0;
-            goToSlide(nextIndex);
-        }
-        
-        function startFadeInterval() {
-            if (fadeInterval) clearInterval(fadeInterval);
-            fadeInterval = setInterval(() => {
-                nextSlide();
-            }, 5000);
-        }
-        
-        function searchPlugins() { const term = document.getElementById("searchInput").value.toLowerCase(); document.querySelectorAll("#hotPluginsGrid .plugin-card, #latestPluginsGrid .plugin-card").forEach(card => { const title = card.querySelector(".plugin-title")?.innerText.toLowerCase() || ""; const desc = card.querySelector(".plugin-description")?.innerText.toLowerCase() || ""; card.style.display = (title.includes(term) || desc.includes(term)) ? "block" : "none"; }); }
-        function renderTestimonials() { const testimonials = [{ name:"Alex Thompson", text:"Freemius checkout was seamless! Elementor Pro is a game-changer.", rating:5, avatar:images.avatar1 },{ name:"Maria Garcia", text:"WP Rocket + Freemius = perfect experience for my site speed.", rating:5, avatar:images.avatar2 },{ name:"David Kim", text:"Secure, fast, and the plugins are incredible. 10/10 recommend!", rating:5, avatar:images.avatar3 }]; document.getElementById("testimonialsGrid").innerHTML = testimonials.map(t=>`<div class="testimonial-card glass"><div class="testimonial-avatar" style="background-image:url('${t.avatar}')"></div><div class="stars">${'★'.repeat(t.rating)}</div><p class="testimonial-text">"${t.text}"</p><p class="testimonial-name">${t.name}</p></div>`).join(""); }
-        function renderBlog() { const blogs = [{ title:"Getting Started with Freemius", date:"Dec 15, 2024", excerpt:"How to securely purchase premium plugins", image:images.blog1 },{ title:"Best WordPress Plugins 2024", date:"Dec 10, 2024", excerpt:"Top picks for enhancing your website", image:images.blog2 },{ title:"Why Freemius for Plugin Purchases?", date:"Dec 5, 2024", excerpt:"Security, updates, and support", image:images.blog3 }]; document.getElementById("blogGrid").innerHTML = blogs.map(b=>`<div class="blog-card glass"><div class="blog-image" style="background-image:url('${b.image}')"></div><div class="blog-info"><div class="blog-date">${b.date}</div><h3 class="blog-title">${b.title}</h3><p class="blog-excerpt">${b.excerpt}</p><a class="read-more">Read More →</a></div></div>`).join(""); document.querySelectorAll('.read-more').forEach(el=>el.addEventListener('click',()=>showToast('📖 Full article coming soon!','info'))); }
-        function renderFAQ() { const faqs = [{ q:"Is Freemius secure?", a:"Yes! 256-bit SSL encryption." },{ q:"Lifetime updates?", a:"Absolutely! All purchases include lifetime updates." },{ q:"Refund policy?", a:"30-day money-back guarantee." },{ q:"Payment methods?", a:"Visa, Mastercard, PayPal, Bitcoin & more." }]; document.getElementById("faqGrid").innerHTML = faqs.map(f=>`<div class="faq-item glass"><div class="faq-question">❓ ${f.q}</div><div class="faq-answer">${f.a}</div></div>`).join(""); }
-        document.getElementById("searchBtn").addEventListener("click", searchPlugins);
-        document.getElementById("searchInput").addEventListener("keyup", (e) => { if (e.key === "Enter") searchPlugins(); });
-        document.getElementById("newsletterSubscribeBtn").onclick = () => { const email = document.getElementById("newsletterEmail").value; if(email.includes('@')) { showToast(`📧 Subscribed!`,'success'); document.getElementById("newsletterEmail").value=""; } else showToast("Valid email",'error'); };
-        function scrollToSection(id) { const el = document.getElementById(id); if(el) el.scrollIntoView({ behavior:'smooth' }); }
-        document.getElementById("explorePluginsBtn").onclick = () => scrollToSection('pluginsSection');
-        document.getElementById("viewAllDiscounts").onclick = () => scrollToSection('pluginsSection');
-        document.getElementById("viewAllHot").onclick = () => scrollToSection('pluginsSection');
-        document.getElementById("viewAllLatest").onclick = () => scrollToSection('pluginsSection');
-        document.getElementById("viewAllTestimonials").onclick = () => scrollToSection('testimonialsSection');
-        document.getElementById("readMoreBlog").onclick = () => scrollToSection('blogSection');
-        const navItems = ['navHome','navPlugins','navDeals','navBlog','navSupport','navAffiliates','mobileNavHome','mobileNavPlugins','mobileNavDeals','mobileNavBlog','mobileNavSupport','mobileNavAffiliates','footerHome','footerPlugins','footerDeals','footerBlog','footerSupport'];
-        navItems.forEach(id => { const el = document.getElementById(id); if(el) el.onclick = () => showToast(`🔗 Navigate`, 'info'); });
-        ['footerTerms','footerPrivacy','footerRefund','footerLicense','footerCookie'].forEach(id => { const el = document.getElementById(id); if(el) el.onclick = () => showToast(`📄 Legal info`, 'info'); });
-        ['socialDiscord','socialTwitter','socialYoutube','socialInstagram'].forEach(id => { const el = document.getElementById(id); if(el) el.onclick = () => showToast(`🌐 Connect with community`, 'info'); });
-        
-        renderCategoryFilters(); 
-        renderFadingCarousel(); 
-        renderHotPlugins(); 
-        renderLatestPlugins(); 
-        renderTestimonials(); 
-        renderBlog(); 
+        renderCategoryFilters('categoryFilters', () => { renderHotPlugins(); renderLatestPlugins(); });
+        renderCategoryFilters('pluginsPageFilters', () => renderAllPlugins());
+        renderFadingCarousel();
+        renderHotPlugins();
+        renderLatestPlugins();
+        renderAllPlugins();
+        renderDeals();
+        renderTestimonials();
+        renderHomepageBlog();
+        renderBlogListing();
         renderFAQ();
+        
+        // Auth state listener
+        onAuthStateChanged(auth, (user) => {
+            updateUI(user);
+        });
     </script>
 </body>
 </html>
