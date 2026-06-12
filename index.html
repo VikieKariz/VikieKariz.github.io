@@ -387,75 +387,6 @@
             text-decoration: underline;
         }
 
-        /* User Info Section (after sign in) */
-        .user-section {
-            padding: 30px;
-            border-bottom: 1px solid rgba(0, 217, 255, 0.15);
-            display: none;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .user-avatar {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            object-fit: cover;
-        }
-
-        .user-details h4 {
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-
-        .user-details p {
-            font-size: 0.75rem;
-            color: #888;
-        }
-
-        .signout-link {
-            color: var(--accent);
-            font-size: 0.75rem;
-            cursor: pointer;
-            text-decoration: underline;
-            margin-left: auto;
-        }
-
-        /* Action Button Section */
-        .action-section {
-            padding: 30px;
-        }
-
-        .btn-complete {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 16px;
-            border: none;
-            border-radius: 60px;
-            width: 100%;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .btn-complete:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(0, 217, 255, 0.5);
-        }
-
-        .btn-complete:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
         /* Footer */
         .checkout-footer {
             padding: 20px 30px;
@@ -553,8 +484,8 @@
 
             <div class="product-info">
                 <div class="product-row">
-                    <span class="product-name" id="productName">Freemius Account</span>
-                    <span class="product-price" id="productPrice">FREE <small>sign in</small></span>
+                    <span class="product-name" id="productName">Freemius Dashboard</span>
+                    <span class="product-price" id="productPrice">FREE <small>access</small></span>
                 </div>
                 <div class="security-badges">
                     <span class="security-badge"><i class="fas fa-shield-alt"></i> 256-bit SSL</span>
@@ -563,7 +494,7 @@
                 </div>
             </div>
 
-            <!-- Sign In Section - Now with email/password form (design unchanged, just new form elements matching existing style) -->
+            <!-- Sign In Section -->
             <div id="signinSection" class="signin-section">
                 <div class="section-title"><i class="fas fa-id-card"></i> SIGN IN TO YOUR ACCOUNT</div>
                 
@@ -599,24 +530,6 @@
                 </div>
             </div>
 
-            <!-- User Info Section (shown after sign in) -->
-            <div id="userSection" class="user-section" style="display: none;">
-                <div class="user-info">
-                    <img id="userAvatar" class="user-avatar" src="" alt="Avatar">
-                    <div class="user-details">
-                        <h4 id="userName">User Name</h4>
-                        <p id="userEmail">user@example.com</p>
-                    </div>
-                    <span id="signoutLink" class="signout-link">Sign Out</span>
-                </div>
-                <div class="section-title"><i class="fas fa-check-circle"></i> VERIFIED ✓</div>
-            </div>
-
-            <!-- Action Button Section - Dashboard Access -->
-            <div class="action-section">
-                <button id="completeBtn" class="btn-complete" disabled>ACCESS DASHBOARD →</button>
-            </div>
-
             <div class="checkout-footer">
                 <i class="fas fa-shield-alt"></i> SECURE CONNECTION • POWERED BY FREEMIUS <i class="fas fa-lock"></i>
             </div>
@@ -630,33 +543,23 @@
     </div>
 
     <script>
-        // DEMO SIGN IN SYSTEM - No design changes, only authentication logic
+        // GitHub Pages Authentication Flow - index.html redirects to dashboard.html
         // All original cyberpunk styling remains 100% intact
         
         // DOM Elements
         const signinSection = document.getElementById('signinSection');
-        const userSection = document.getElementById('userSection');
-        const completeBtn = document.getElementById('completeBtn');
         const googleSignInBtn = document.getElementById('googleSignInBtn');
         const guestBtn = document.getElementById('guestBtn');
-        const signoutLink = document.getElementById('signoutLink');
-        const userAvatar = document.getElementById('userAvatar');
-        const userName = document.getElementById('userName');
-        const userEmail = document.getElementById('userEmail');
         const loadingOverlay = document.getElementById('loadingOverlay');
         const signinForm = document.getElementById('signinForm');
         const loginEmail = document.getElementById('loginEmail');
         const loginPassword = document.getElementById('loginPassword');
         const createAccountLink = document.getElementById('createAccountLink');
         
-        // Demo user database (in-memory for demo - design unchanged)
+        // Demo user database (in-memory for demo)
         let demoUsers = JSON.parse(localStorage.getItem('freemius_demo_users')) || [
-            { email: 'demo@freemius.com', password: 'demo123', name: 'CyberGamer', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' },
-            { email: 'player@test.com', password: 'player123', name: 'NeoPlayer', avatar: 'https://randomuser.me/api/portraits/women/68.jpg' }
+            { email: 'demo@freemius.com', password: 'demo123', name: 'CyberGamer', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' }
         ];
-        
-        let currentUser = null;
-        let isGuest = false;
         
         function saveUsersToLocal() {
             localStorage.setItem('freemius_demo_users', JSON.stringify(demoUsers));
@@ -673,26 +576,19 @@
             setTimeout(() => toast.remove(), 3000);
         }
         
-        function updateUI() {
-            if (currentUser) {
-                signinSection.style.display = 'none';
-                userSection.style.display = 'block';
-                userAvatar.src = currentUser.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg';
-                userName.textContent = currentUser.name || currentUser.email.split('@')[0];
-                userEmail.textContent = currentUser.email;
-                completeBtn.disabled = false;
-                completeBtn.textContent = 'ACCESS DASHBOARD →';
-            } else if (isGuest) {
-                signinSection.style.display = 'none';
-                userSection.style.display = 'none';
-                completeBtn.disabled = false;
-                completeBtn.textContent = 'CONTINUE AS GUEST →';
-            } else {
-                signinSection.style.display = 'block';
-                userSection.style.display = 'none';
-                completeBtn.disabled = true;
-                completeBtn.textContent = 'ACCESS DASHBOARD →';
-            }
+        // Store user data and redirect to dashboard
+        function authenticateAndRedirect(userData) {
+            // Store user info in localStorage for dashboard to access
+            localStorage.setItem('freemius_current_user', JSON.stringify(userData));
+            localStorage.setItem('freemius_is_authenticated', 'true');
+            
+            // Show loading overlay
+            loadingOverlay.style.display = 'flex';
+            
+            // Redirect to dashboard.html after short delay
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
         }
         
         // Email/Password Sign In
@@ -709,10 +605,14 @@
             const user = demoUsers.find(u => u.email === email && u.password === password);
             
             if (user) {
-                currentUser = { ...user };
-                isGuest = false;
-                updateUI();
-                showToast(`✓ Welcome back, ${currentUser.name || currentUser.email.split('@')[0]}!`);
+                const userData = {
+                    email: user.email,
+                    name: user.name || user.email.split('@')[0],
+                    avatar: user.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg',
+                    authMethod: 'email',
+                    isGuest: false
+                };
+                authenticateAndRedirect(userData);
                 loginEmail.value = '';
                 loginPassword.value = '';
             } else {
@@ -720,7 +620,7 @@
             }
         });
         
-        // Google Sign In (demo simulation - preserves design)
+        // Google Sign In (demo simulation)
         googleSignInBtn.addEventListener('click', () => {
             loadingOverlay.style.display = 'flex';
             setTimeout(() => {
@@ -728,34 +628,34 @@
                     email: 'google.user@gmail.com',
                     name: 'GooglePlayer',
                     avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
-                    password: 'google_auth_demo'
+                    authMethod: 'google',
+                    isGuest: false
                 };
+                
+                // Save to demo users if new
                 if (!demoUsers.find(u => u.email === googleUser.email)) {
-                    demoUsers.push(googleUser);
+                    demoUsers.push({...googleUser, password: 'google_auth_demo'});
                     saveUsersToLocal();
                 }
-                currentUser = googleUser;
-                isGuest = false;
-                updateUI();
-                loadingOverlay.style.display = 'none';
-                showToast('✓ Signed in with Google!');
+                
+                authenticateAndRedirect(googleUser);
             }, 1500);
         });
         
         // Guest Mode
         guestBtn.addEventListener('click', () => {
-            isGuest = true;
-            currentUser = null;
-            updateUI();
-            showToast('✓ Continuing as guest. Sign in anytime for full features.');
-        });
-        
-        // Sign Out
-        signoutLink.addEventListener('click', () => {
-            currentUser = null;
-            isGuest = false;
-            updateUI();
-            showToast('Signed out successfully');
+            loadingOverlay.style.display = 'flex';
+            setTimeout(() => {
+                const guestData = {
+                    email: null,
+                    name: 'Guest User',
+                    avatar: 'https://randomuser.me/api/portraits/lego/2.jpg',
+                    authMethod: 'guest',
+                    isGuest: true,
+                    guestId: 'guest_' + Date.now()
+                };
+                authenticateAndRedirect(guestData);
+            }, 1000);
         });
         
         // Create Account (demo signup)
@@ -786,25 +686,12 @@
             }
         });
         
-        // Complete / Dashboard Access Button
-        completeBtn.addEventListener('click', () => {
-            loadingOverlay.style.display = 'flex';
-            setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-                if (currentUser) {
-                    showToast(`✓ Welcome to your dashboard, ${currentUser.name || currentUser.email.split('@')[0]}!`);
-                } else if (isGuest) {
-                    showToast(`✓ Continuing to dashboard in guest mode. Sign up to save progress!`);
-                }
-                // Simulate redirect to dashboard
-                setTimeout(() => {
-                    showToast('Demo: Dashboard access granted.');
-                }, 1000);
-            }, 1500);
-        });
-        
-        // Check for any saved session
-        updateUI();
+        // Check if user is already authenticated and redirect to dashboard
+        const isAuthenticated = localStorage.getItem('freemius_is_authenticated') === 'true';
+        if (isAuthenticated) {
+            // If already logged in, redirect to dashboard
+            window.location.href = 'dashboard.html';
+        }
         
         // Preserve all original animations
         const card = document.querySelector('.checkout-card');
