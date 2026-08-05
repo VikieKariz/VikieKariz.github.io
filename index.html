@@ -889,12 +889,39 @@
       gap: 1.2rem;
     }
 
-    .services-grid .service-card.hidden-service {
-      display: none;
+    /* Default: All service cards hidden */
+    .service-card {
+      display: none !important;
     }
-    .services-grid .service-card.hidden-service.show {
-      display: flex;
-      animation: fadeInService 0.5s ease forwards;
+
+    /* Small screens (below 820px): Show first 2 */
+    @media (max-width: 819px) {
+      .service-card:nth-child(1),
+      .service-card:nth-child(2) {
+        display: flex !important;
+      }
+    }
+
+    /* Large screens (820px and above): Show first 6 */
+    @media (min-width: 820px) {
+      .service-card:nth-child(1),
+      .service-card:nth-child(2),
+      .service-card:nth-child(3),
+      .service-card:nth-child(4),
+      .service-card:nth-child(5),
+      .service-card:nth-child(6) {
+        display: flex !important;
+      }
+    }
+
+    /* Hidden services that can be shown via toggle */
+    .service-card.hidden-service {
+      display: none !important;
+    }
+    
+    /* When show class is added, override everything */
+    .service-card.show {
+      display: flex !important;
     }
 
     @keyframes fadeInService {
@@ -906,6 +933,10 @@
         opacity: 1;
         transform: translateY(0) scale(1);
       }
+    }
+
+    .service-card.show {
+      animation: fadeInService 0.5s ease forwards;
     }
 
     .service-card {
@@ -1008,7 +1039,7 @@
       transform: rotate(180deg);
     }
 
-    /* ----- PROJECTS SECTION ----- */
+    /* ===== PROJECTS SECTION - 6 on large, 4 on tablet, 2 on small ===== */
     .projects-section {
       margin-top: 4rem;
     }
@@ -1037,6 +1068,66 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
+    }
+
+    /* Default: All project cards hidden */
+    .project-card {
+      display: none !important;
+    }
+
+    /* Small screens (below 600px): Show first 2 */
+    @media (max-width: 599px) {
+      .project-card:nth-child(1),
+      .project-card:nth-child(2) {
+        display: block !important;
+      }
+    }
+
+    /* Tablet screens (600px to 819px): Show first 4 */
+    @media (min-width: 600px) and (max-width: 819px) {
+      .project-card:nth-child(1),
+      .project-card:nth-child(2),
+      .project-card:nth-child(3),
+      .project-card:nth-child(4) {
+        display: block !important;
+      }
+    }
+
+    /* Large screens (820px and above): Show first 6 */
+    @media (min-width: 820px) {
+      .project-card:nth-child(1),
+      .project-card:nth-child(2),
+      .project-card:nth-child(3),
+      .project-card:nth-child(4),
+      .project-card:nth-child(5),
+      .project-card:nth-child(6) {
+        display: block !important;
+      }
+    }
+
+    /* Hidden projects that can be shown via toggle */
+    .project-card.hidden-project {
+      display: none !important;
+    }
+    
+    /* When show class is added, override everything */
+    .project-card.show {
+      display: block !important;
+    }
+
+    @keyframes fadeInProject {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .project-card.show {
+      animation: fadeInProject 0.5s ease forwards;
     }
 
     .project-card {
@@ -1131,7 +1222,7 @@
       justify-content: center;
       margin-top: 2rem;
     }
-    .projects-toggle a {
+    .projects-toggle button {
       background: rgba(88, 166, 255, 0.06);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
@@ -1147,22 +1238,21 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      text-decoration: none;
     }
-    .projects-toggle a:hover {
+    .projects-toggle button:hover {
       background: rgba(88, 166, 255, 0.12);
       border-color: rgba(88, 166, 255, 0.2);
       transform: translateY(-2px);
       box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
     }
-    .projects-toggle a i {
+    .projects-toggle button i {
       transition: transform 0.4s ease;
     }
-    .projects-toggle a:hover i {
-      transform: translateX(4px);
+    .projects-toggle button.open i {
+      transform: rotate(180deg);
     }
 
-    /* ----- EXPLORE / BLOG SECTION ----- */
+    /* ===== EXPLORE / BLOG SECTION - 6 on large, 4 on tablet, 2 on small ===== */
     .blog-section {
       margin-top: 4rem;
     }
@@ -1191,6 +1281,66 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
+    }
+
+    /* Default: All blog cards hidden */
+    .blog-card {
+      display: none !important;
+    }
+
+    /* Small screens (below 600px): Show first 2 */
+    @media (max-width: 599px) {
+      .blog-card:nth-child(1),
+      .blog-card:nth-child(2) {
+        display: flex !important;
+      }
+    }
+
+    /* Tablet screens (600px to 819px): Show first 4 */
+    @media (min-width: 600px) and (max-width: 819px) {
+      .blog-card:nth-child(1),
+      .blog-card:nth-child(2),
+      .blog-card:nth-child(3),
+      .blog-card:nth-child(4) {
+        display: flex !important;
+      }
+    }
+
+    /* Large screens (820px and above): Show first 6 */
+    @media (min-width: 820px) {
+      .blog-card:nth-child(1),
+      .blog-card:nth-child(2),
+      .blog-card:nth-child(3),
+      .blog-card:nth-child(4),
+      .blog-card:nth-child(5),
+      .blog-card:nth-child(6) {
+        display: flex !important;
+      }
+    }
+
+    /* Hidden blog posts that can be shown via toggle */
+    .blog-card.hidden-blog {
+      display: none !important;
+    }
+    
+    /* When show class is added, override everything */
+    .blog-card.show {
+      display: flex !important;
+    }
+
+    @keyframes fadeInBlog {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .blog-card.show {
+      animation: fadeInBlog 0.5s ease forwards;
     }
 
     .blog-card {
@@ -1301,8 +1451,46 @@
     .blog-card:nth-child(2) .blog-icon { color: #58a6ff; }
     .blog-card:nth-child(3) .blog-icon { color: #3fb950; }
     .blog-card:nth-child(4) .blog-icon { color: #f0883e; }
+    .blog-card:nth-child(5) .blog-icon { color: #58a6ff; }
+    .blog-card:nth-child(6) .blog-icon { color: #3fb950; }
 
-    /* ----- TESTIMONIALS SECTION ----- */
+    /* Show More Blog Button */
+    .blog-toggle {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .blog-toggle button {
+      background: rgba(88, 166, 255, 0.06);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(88, 166, 255, 0.1);
+      color: #58a6ff;
+      padding: 0.7rem 2.5rem;
+      border-radius: 40px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .blog-toggle button:hover {
+      background: rgba(88, 166, 255, 0.12);
+      border-color: rgba(88, 166, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
+    }
+    .blog-toggle button i {
+      transition: transform 0.4s ease;
+    }
+    .blog-toggle button.open i {
+      transform: rotate(180deg);
+    }
+
+    /* ===== TESTIMONIALS SECTION - 3 on large, 1 on small ===== */
     .testimonials-section {
       margin-top: 4rem;
     }
@@ -1333,12 +1521,35 @@
       gap: 1.5rem;
     }
 
-    .testimonial-card.hidden-testimonial {
-      display: none;
+    /* Default: All testimonials hidden */
+    .testimonial-card {
+      display: none !important;
     }
-    .testimonial-card.hidden-testimonial.show {
-      display: flex;
-      animation: fadeInTestimonial 0.5s ease forwards;
+
+    /* Small screens (below 820px): Show first 1 */
+    @media (max-width: 819px) {
+      .testimonial-card:nth-child(1) {
+        display: flex !important;
+      }
+    }
+
+    /* Large screens (820px and above): Show first 3 */
+    @media (min-width: 820px) {
+      .testimonial-card:nth-child(1),
+      .testimonial-card:nth-child(2),
+      .testimonial-card:nth-child(3) {
+        display: flex !important;
+      }
+    }
+
+    /* Hidden testimonials that can be shown via toggle */
+    .testimonial-card.hidden-testimonial {
+      display: none !important;
+    }
+    
+    /* When show class is added, override everything */
+    .testimonial-card.show {
+      display: flex !important;
     }
 
     @keyframes fadeInTestimonial {
@@ -1350,6 +1561,10 @@
         opacity: 1;
         transform: translateY(0) scale(1);
       }
+    }
+
+    .testimonial-card.show {
+      animation: fadeInTestimonial 0.5s ease forwards;
     }
 
     .testimonial-card {
@@ -1960,7 +2175,8 @@
       border: 1px solid rgba(88, 166, 255, 0.06);
       transition: all 0.4s ease;
       flex: 1;
-      min-height: 400px;
+      min-height: 280px;
+      max-height: 380px;
     }
     .contact-right .map-container:hover {
       border-color: rgba(88, 166, 255, 0.12);
@@ -1969,7 +2185,8 @@
       display: block;
       width: 100%;
       height: 100%;
-      min-height: 400px;
+      min-height: 280px;
+      max-height: 380px;
       border: none;
       filter: invert(0.9) hue-rotate(180deg) saturate(0.5);
       transition: filter 0.5s ease;
@@ -1996,6 +2213,28 @@
     .contact-right .map-address span {
       color: #b1bac4;
       font-size: 0.9rem;
+    }
+
+    /* Map responsive adjustments */
+    @media (max-width: 820px) {
+      .contact-right .map-container {
+        min-height: 300px;
+        max-height: 400px;
+      }
+      .contact-right .map-container iframe {
+        min-height: 300px;
+        max-height: 400px;
+      }
+    }
+    @media (max-width: 500px) {
+      .contact-right .map-container {
+        min-height: 220px;
+        max-height: 300px;
+      }
+      .contact-right .map-container iframe {
+        min-height: 220px;
+        max-height: 300px;
+      }
     }
 
     @media (max-width: 820px) {
@@ -2041,7 +2280,7 @@
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       }
       .testimonials-grid {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: 1fr;
       }
       .impact-values-section {
         grid-template-columns: 1fr;
@@ -2055,12 +2294,6 @@
       .contact-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
-      }
-      .contact-right .map-container {
-        min-height: 300px;
-      }
-      .contact-right .map-container iframe {
-        min-height: 300px;
       }
       .contact-section {
         padding: 1.5rem;
@@ -2100,12 +2333,6 @@
       .contact-section {
         padding: 1rem;
       }
-      .contact-right .map-container {
-        min-height: 220px;
-      }
-      .contact-right .map-container iframe {
-        min-height: 220px;
-      }
     }
 
     /* ----- DETAILED FOOTER ----- */
@@ -2122,9 +2349,35 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr;
       gap: 2rem;
     }
+
+    .footer-brand {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
+    }
+
+    .footer-col-services {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+
+    .footer-col-company {
+      grid-column: 3 / 4;
+      grid-row: 1 / 2;
+    }
+
+    .footer-col-resources {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+
+    .footer-col-contact {
+      grid-column: 3 / 4;
+      grid-row: 2 / 3;
+    }
+
     .footer-brand .logo-text {
       font-size: 1.3rem;
       font-weight: 700;
@@ -2301,10 +2554,31 @@
       color: #58a6ff;
     }
 
+    /* Tablet and small screens: 2-column layout */
     @media (max-width: 820px) {
       .footer-container {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr !important;
         gap: 2rem;
+      }
+      .footer-brand {
+        grid-column: 1 / 3 !important;
+        grid-row: 1 / 2 !important;
+      }
+      .footer-col-services {
+        grid-column: 1 / 2 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-company {
+        grid-column: 2 / 3 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-resources {
+        grid-column: 1 / 2 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-col-contact {
+        grid-column: 2 / 3 !important;
+        grid-row: 3 / 4 !important;
       }
       .footer-brand p {
         max-width: 100%;
@@ -2316,10 +2590,32 @@
         min-width: 200px;
       }
     }
+
+    /* Small screens (600px and below): Same as tablet - 2 columns */
     @media (max-width: 600px) {
       .footer-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr !important;
         gap: 1.5rem;
+      }
+      .footer-brand {
+        grid-column: 1 / 3 !important;
+        grid-row: 1 / 2 !important;
+      }
+      .footer-col-services {
+        grid-column: 1 / 2 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-company {
+        grid-column: 2 / 3 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-resources {
+        grid-column: 1 / 2 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-col-contact {
+        grid-column: 2 / 3 !important;
+        grid-row: 3 / 4 !important;
       }
       .footer-bottom {
         flex-direction: column;
@@ -2690,7 +2986,7 @@
       <p class="subtitle">AI-powered solutions for every business need</p>
 
       <div class="services-grid" id="servicesGrid">
-        <!-- First 4 services (always visible) -->
+        <!-- All services - first 2 show on small, first 6 on large, rest hidden initially -->
         <div class="service-card">
           <div class="icon"><i class="fas fa-globe"></i></div>
           <div class="content">
@@ -2719,22 +3015,22 @@
             <p>Scalable cloud infrastructure with CI/CD and monitoring</p>
           </div>
         </div>
-
-        <!-- Hidden services -->
-        <div class="service-card hidden-service" data-hidden="true">
+        <div class="service-card">
           <div class="icon"><i class="fas fa-shield-alt"></i></div>
           <div class="content">
             <h4>🔐 Cybersecurity & Website Protection</h4>
             <p>Enterprise-grade security, SSL, and threat protection</p>
           </div>
         </div>
-        <div class="service-card hidden-service" data-hidden="true">
+        <div class="service-card">
           <div class="icon"><i class="fas fa-shopping-cart"></i></div>
           <div class="content">
             <h4>🛒 E-commerce Solutions</h4>
             <p>Custom online stores with payment processing and inventory management</p>
           </div>
         </div>
+
+        <!-- Additional services (hidden by default, shown via toggle) -->
         <div class="service-card hidden-service" data-hidden="true">
           <div class="icon"><i class="fas fa-credit-card"></i></div>
           <div class="content">
@@ -2802,12 +3098,12 @@
       </div>
     </div>
 
-    <!-- ===== PROJECTS SECTION ===== -->
+    <!-- ===== PROJECTS SECTION - 6 on large, 4 on tablet, 2 on small ===== -->
     <div class="projects-section" id="projects">
       <h2><i class="fas fa-project-diagram"></i> featured projects</h2>
       <p class="subtitle">Showcasing our deep expertise in household AI, automation, and intelligent systems</p>
 
-      <div class="projects-grid">
+      <div class="projects-grid" id="projectsGrid">
         <!-- Project 1: Smart Home Automation -->
         <div class="project-card">
           <div class="project-icon"><i class="fas fa-home"></i></div>
@@ -2863,22 +3159,78 @@
           <p>AI-driven energy optimization platform that analyzes consumption patterns, integrates with renewable energy sources, and automatically adjusts usage to minimize costs and carbon footprint while maintaining comfort.</p>
           <span class="project-ai-badge"><i class="fas fa-brain"></i> 40% energy reduction · Sustainable</span>
         </div>
+
+        <!-- Project 5: AI-Powered Home Assistant -->
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-smart-home"></i></div>
+          <h4>🏡 AI-Powered Home Assistant</h4>
+          <div class="project-tags">
+            <span>AI</span>
+            <span>Voice</span>
+            <span>Household</span>
+            <span>Automation</span>
+          </div>
+          <p>A comprehensive voice-controlled home assistant that manages everything from climate control to grocery lists, using natural language processing and machine learning.</p>
+          <span class="project-ai-badge"><i class="fas fa-brain"></i> NLP · Voice-controlled</span>
+        </div>
+
+        <!-- Project 6: Smart Irrigation System -->
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-water"></i></div>
+          <h4>💧 Smart Irrigation System</h4>
+          <div class="project-tags">
+            <span>AI</span>
+            <span>IoT</span>
+            <span>Sustainability</span>
+            <span>Household</span>
+          </div>
+          <p>AI-driven irrigation system that analyzes soil moisture, weather forecasts, and plant types to optimize water usage, reducing water waste by up to 50% while maintaining healthy gardens.</p>
+          <span class="project-ai-badge"><i class="fas fa-brain"></i> 50% water savings · Smart</span>
+        </div>
+
+        <!-- Additional projects (hidden by default, shown via toggle) -->
+        <div class="project-card hidden-project" data-hidden="true">
+          <div class="project-icon"><i class="fas fa-wind"></i></div>
+          <h4>🌀 AI Air Quality Monitor</h4>
+          <div class="project-tags">
+            <span>AI</span>
+            <span>Health</span>
+            <span>Household</span>
+            <span>IoT</span>
+          </div>
+          <p>Intelligent air quality monitoring system that detects pollutants, allergens, and CO2 levels, providing real-time recommendations for ventilation and air purification.</p>
+          <span class="project-ai-badge"><i class="fas fa-brain"></i> Health-focused · Real-time</span>
+        </div>
+
+        <div class="project-card hidden-project" data-hidden="true">
+          <div class="project-icon"><i class="fas fa-utensils"></i></div>
+          <h4>🍳 Smart Kitchen Assistant</h4>
+          <div class="project-tags">
+            <span>AI</span>
+            <span>Household</span>
+            <span>Automation</span>
+            <span>IoT</span>
+          </div>
+          <p>AI-powered kitchen assistant that helps with meal planning, inventory management, and recipe suggestions based on dietary preferences and available ingredients.</p>
+          <span class="project-ai-badge"><i class="fas fa-brain"></i> Meal planning · Smart</span>
+        </div>
       </div>
 
-      <!-- Show More Button -->
+      <!-- Show More Projects Button -->
       <div class="projects-toggle">
-        <a href="#" onclick="alert('Redirecting to projects page...'); return false;">
-          View All Projects <i class="fas fa-arrow-right"></i>
-        </a>
+        <button id="projectsToggleBtn">
+          <span id="projectsToggleText">Show More Projects</span>
+          <i class="fas fa-chevron-down" id="projectsToggleIcon"></i>
+        </button>
       </div>
     </div>
 
-    <!-- ===== EXPLORE / BLOG SECTION ===== -->
+    <!-- ===== EXPLORE / BLOG SECTION - 6 on large, 4 on tablet, 2 on small ===== -->
     <div class="blog-section" id="explore">
       <h2><i class="fas fa-compass"></i> explore</h2>
       <p class="subtitle">Insights, tutorials, and thoughts on web development, AI, and digital innovation</p>
 
-      <div class="blog-grid">
+      <div class="blog-grid" id="blogGrid">
         <!-- Blog Post 1 -->
         <div class="blog-card">
           <div class="blog-icon"><i class="fas fa-code"></i></div>
@@ -2934,10 +3286,73 @@
             Read More <i class="fas fa-arrow-right"></i>
           </a>
         </div>
+
+        <!-- Blog Post 5 -->
+        <div class="blog-card">
+          <div class="blog-icon"><i class="fas fa-database"></i></div>
+          <div class="blog-meta">
+            <span class="blog-category">Data Science</span>
+            <span class="blog-date">Nov 20, 2026</span>
+          </div>
+          <h4>AI-Powered Data Analytics</h4>
+          <p>Learn how AI is transforming data analytics with predictive models, automated insights, and intelligent data visualization for better business decisions.</p>
+          <a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">
+            Read More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Blog Post 6 -->
+        <div class="blog-card">
+          <div class="blog-icon"><i class="fas fa-mobile-alt"></i></div>
+          <div class="blog-meta">
+            <span class="blog-category">Mobile Development</span>
+            <span class="blog-date">Nov 15, 2026</span>
+          </div>
+          <h4>AI-Powered Mobile Apps</h4>
+          <p>Discover how AI is enhancing mobile app experiences with intelligent features like personalization, voice recognition, and predictive analytics.</p>
+          <a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">
+            Read More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Additional blog posts (hidden by default, shown via toggle) -->
+        <div class="blog-card hidden-blog" data-hidden="true">
+          <div class="blog-icon"><i class="fas fa-lock"></i></div>
+          <div class="blog-meta">
+            <span class="blog-category">Security</span>
+            <span class="blog-date">Nov 10, 2026</span>
+          </div>
+          <h4>AI-Driven Security Trends</h4>
+          <p>Explore the latest trends in AI-driven security, including automated threat hunting, zero-trust architecture, and intelligent compliance monitoring.</p>
+          <a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">
+            Read More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="blog-card hidden-blog" data-hidden="true">
+          <div class="blog-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="blog-meta">
+            <span class="blog-category">Business</span>
+            <span class="blog-date">Nov 5, 2026</span>
+          </div>
+          <h4>AI ROI: Measuring Success</h4>
+          <p>Learn how to measure the ROI of AI investments in your business, from operational efficiency gains to revenue growth and competitive advantage.</p>
+          <a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">
+            Read More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Show More Blog Button -->
+      <div class="blog-toggle">
+        <button id="blogToggleBtn">
+          <span id="blogToggleText">Show More Posts</span>
+          <i class="fas fa-chevron-down" id="blogToggleIcon"></i>
+        </button>
       </div>
     </div>
 
-    <!-- ===== TESTIMONIALS SECTION ===== -->
+    <!-- ===== TESTIMONIALS SECTION - 3 on large, 1 on small ===== -->
     <div class="testimonials-section">
       <h2><i class="fas fa-quote-right"></i> client testimonials</h2>
       <p class="subtitle">Real feedback from real clients who trusted us with their digital transformation</p>
@@ -2968,7 +3383,7 @@
           </div>
         </div>
 
-        <!-- Testimonial 2 - Always visible -->
+        <!-- Testimonial 2 - Always visible on large, hidden on small -->
         <div class="testimonial-card">
           <div class="testimonial-header">
             <div class="testimonial-avatar"><i class="fas fa-user-astronaut"></i></div>
@@ -2993,8 +3408,8 @@
           </div>
         </div>
 
-        <!-- Testimonial 3 - Hidden initially -->
-        <div class="testimonial-card hidden-testimonial" data-hidden="true">
+        <!-- Testimonial 3 - Always visible on large, hidden on small -->
+        <div class="testimonial-card">
           <div class="testimonial-header">
             <div class="testimonial-avatar"><i class="fas fa-user-graduate"></i></div>
             <div class="testimonial-author">
@@ -3018,7 +3433,7 @@
           </div>
         </div>
 
-        <!-- Testimonial 4 - Hidden initially -->
+        <!-- Testimonial 4 - Hidden initially, shown via toggle -->
         <div class="testimonial-card hidden-testimonial" data-hidden="true">
           <div class="testimonial-header">
             <div class="testimonial-avatar"><i class="fas fa-user-cog"></i></div>
@@ -3208,6 +3623,7 @@
   <!-- ===== DETAILED FOOTER ===== -->
   <footer class="footer">
     <div class="footer-container">
+      <!-- Brand Column - spans 2 rows -->
       <div class="footer-brand">
         <div class="logo-text">
           <span class="highlight">cloud_mikkie</span>
@@ -3231,7 +3647,8 @@
         </div>
       </div>
 
-      <div class="footer-col">
+      <!-- Services - Row 1, Column 1 -->
+      <div class="footer-col footer-col-services">
         <h4>Services</h4>
         <ul>
           <li><a href="#">Web Development</a></li>
@@ -3243,7 +3660,8 @@
         </ul>
       </div>
 
-      <div class="footer-col">
+      <!-- Company - Row 1, Column 2 -->
+      <div class="footer-col footer-col-company">
         <h4>Company</h4>
         <ul>
           <li><a href="#">About Us</a></li>
@@ -3255,7 +3673,8 @@
         </ul>
       </div>
 
-      <div class="footer-col">
+      <!-- Resources - Row 2, Column 1 -->
+      <div class="footer-col footer-col-resources">
         <h4>Resources</h4>
         <ul>
           <li><a href="#">Documentation</a></li>
@@ -3267,7 +3686,8 @@
         </ul>
       </div>
 
-      <div class="footer-col">
+      <!-- Contact Info - Row 2, Column 2 -->
+      <div class="footer-col footer-col-contact">
         <h4>Contact Info</h4>
         <ul>
           <li><a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: #58a6ff;"></i>San Francisco, CA</a></li>
@@ -3423,6 +3843,50 @@
         toggleText.textContent = isOpen ? 'Show Less Services' : 'Show More Services';
         toggleBtn.classList.toggle('open', isOpen);
       });
+
+      // ----- PROJECTS TOGGLE -----
+      const projectsToggleBtn = document.getElementById('projectsToggleBtn');
+      const projectsToggleText = document.getElementById('projectsToggleText');
+      const projectsToggleIcon = document.getElementById('projectsToggleIcon');
+      const hiddenProjects = document.querySelectorAll('.project-card.hidden-project');
+      let projectsOpen = false;
+
+      if (projectsToggleBtn) {
+        projectsToggleBtn.addEventListener('click', function() {
+          projectsOpen = !projectsOpen;
+          hiddenProjects.forEach(project => {
+            if (projectsOpen) {
+              project.classList.add('show');
+            } else {
+              project.classList.remove('show');
+            }
+          });
+          projectsToggleText.textContent = projectsOpen ? 'Show Less Projects' : 'Show More Projects';
+          projectsToggleBtn.classList.toggle('open', projectsOpen);
+        });
+      }
+
+      // ----- BLOG TOGGLE -----
+      const blogToggleBtn = document.getElementById('blogToggleBtn');
+      const blogToggleText = document.getElementById('blogToggleText');
+      const blogToggleIcon = document.getElementById('blogToggleIcon');
+      const hiddenBlogs = document.querySelectorAll('.blog-card.hidden-blog');
+      let blogOpen = false;
+
+      if (blogToggleBtn) {
+        blogToggleBtn.addEventListener('click', function() {
+          blogOpen = !blogOpen;
+          hiddenBlogs.forEach(blog => {
+            if (blogOpen) {
+              blog.classList.add('show');
+            } else {
+              blog.classList.remove('show');
+            }
+          });
+          blogToggleText.textContent = blogOpen ? 'Show Less Posts' : 'Show More Posts';
+          blogToggleBtn.classList.toggle('open', blogOpen);
+        });
+      }
 
       // ----- TESTIMONIALS TOGGLE -----
       const testimonialToggleBtn = document.getElementById('testimonialsToggleBtn');
