@@ -650,7 +650,7 @@
       animation: thinkingPulse 2s ease-in-out infinite;
     }
 
-    /* RIGHT: 70% — slider */
+    /* RIGHT: 70% — slider with 5 slides */
     .slider-panel {
       flex: 1;
       min-width: 0;
@@ -708,9 +708,9 @@
     }
 
     .slide h2 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       color: #f0f6fc;
       display: flex;
       align-items: center;
@@ -720,14 +720,14 @@
     }
     .slide h2 i {
       color: #58a6ff;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       opacity: 0.9;
       animation: thinkingPulse 3s ease-in-out infinite;
     }
     .slide p {
-      line-height: 1.9;
+      line-height: 1.8;
       color: #b1bac4;
-      font-size: 1rem;
+      font-size: 0.95rem;
       max-width: 100%;
     }
     .slide .highlight {
@@ -743,10 +743,10 @@
       padding: 0.3rem 1.2rem;
       border-radius: 40px;
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: #58a6ff;
       border: 1px solid rgba(88, 166, 255, 0.15);
-      margin-top: 0.8rem;
+      margin-top: 0.6rem;
       transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
@@ -764,27 +764,27 @@
     .slide .perk-list {
       list-style: none;
       padding: 0;
-      margin-top: 1.2rem;
+      margin-top: 1rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem 1.8rem;
+      gap: 0.5rem 1.5rem;
     }
     .slide .perk-list li {
       display: flex;
       align-items: center;
       gap: 0.6rem;
       color: #c9d1d9;
-      font-size: 0.92rem;
+      font-size: 0.85rem;
       transition: all 0.4s ease;
       cursor: default;
     }
     .slide .perk-list li:hover {
       color: #f0f6fc;
-      transform: translateX(6px) scale(1.02);
+      transform: translateX(4px) scale(1.02);
     }
     .slide .perk-list li i {
       color: #3fb950;
-      font-size: 1rem;
+      font-size: 0.9rem;
       animation: thinkingPulse 3s ease-in-out infinite;
     }
     .slide .feature-tag {
@@ -792,7 +792,7 @@
       background: rgba(240, 136, 62, 0.08);
       padding: 0.2rem 1rem;
       border-radius: 30px;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
       color: #f0883e;
       border: 1px solid rgba(240, 136, 62, 0.1);
@@ -803,8 +803,14 @@
       background: rgba(240, 136, 62, 0.12);
       border-color: rgba(240, 136, 62, 0.2);
     }
+    .slide .slide-detail {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #8b949e;
+      line-height: 1.6;
+    }
 
-    /* Pagination dots */
+    /* Pagination dots - 5 dots */
     .pagination-dots {
       position: absolute;
       bottom: 1.2rem;
@@ -1156,7 +1162,7 @@
       transform: translateX(4px);
     }
 
-    /* ----- BLOG / EXPLORE SECTION ----- */
+    /* ----- EXPLORE / BLOG SECTION ----- */
     .blog-section {
       margin-top: 4rem;
     }
@@ -1296,7 +1302,7 @@
     .blog-card:nth-child(3) .blog-icon { color: #3fb950; }
     .blog-card:nth-child(4) .blog-icon { color: #f0883e; }
 
-    /* ----- TESTIMONIALS SECTION with expand/collapse ----- */
+    /* ----- TESTIMONIALS SECTION ----- */
     .testimonials-section {
       margin-top: 4rem;
     }
@@ -2012,15 +2018,18 @@
         min-height: 340px;
       }
       .slide h2 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         flex-wrap: wrap;
       }
       .slide p {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
       }
       .slide .perk-list {
         flex-direction: column;
-        gap: 0.4rem;
+        gap: 0.3rem;
+      }
+      .slide .slide-detail {
+        font-size: 0.8rem;
       }
       .services-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -2560,7 +2569,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: Slider -->
+      <!-- RIGHT: Slider with 5 slides -->
       <div class="slider-panel" id="sliderContainer">
 
         <!-- SLIDE 1 -->
@@ -2577,6 +2586,10 @@
             <li><i class="fas fa-check-circle"></i> Intelligent contact forms &amp; booking</li>
           </ul>
           <div class="feature-tag"><i class="fas fa-star"></i> AI limited to first 3 clients</div>
+          <div class="slide-detail">
+            <i class="fas fa-clock" style="color: #58a6ff; margin-right: 4px;"></i> Launch in 48 hours · 
+            <i class="fas fa-users" style="color: #58a6ff; margin-left: 8px; margin-right: 4px;"></i> 100+ businesses served
+          </div>
         </div>
 
         <!-- SLIDE 2 -->
@@ -2593,6 +2606,10 @@
             <li><i class="fas fa-heart"></i> Build a long-term AI-powered relationship</li>
           </ul>
           <div class="feature-tag"><i class="fas fa-handshake"></i> AI · win-win partnership</div>
+          <div class="slide-detail">
+            <i class="fas fa-check-circle" style="color: #3fb950; margin-right: 4px;"></i> 200+ verified reviews · 
+            <i class="fas fa-star" style="color: #f0883e; margin-left: 8px; margin-right: 4px;"></i> 4.9/5 average rating
+          </div>
         </div>
 
         <!-- SLIDE 3 -->
@@ -2609,13 +2626,59 @@
             <li><i class="fas fa-trophy"></i> Badge: "AI cloud_mikkie Certified"</li>
           </ul>
           <div class="feature-tag"><i class="fas fa-bolt"></i> AI boost your visibility</div>
+          <div class="slide-detail">
+            <i class="fas fa-eye" style="color: #58a6ff; margin-right: 4px;"></i> 10K+ monthly visitors · 
+            <i class="fas fa-rocket" style="color: #f0883e; margin-left: 8px; margin-right: 4px;"></i> Featured businesses see 3x growth
+          </div>
         </div>
 
-        <!-- Pagination Dots -->
+        <!-- SLIDE 4 -->
+        <div class="slide" data-index="3">
+          <h2><i class="fas fa-robot"></i> // AI · smart automation</h2>
+          <p>
+            Our <span class="highlight">intelligent automation</span> goes beyond websites. We build
+            <span class="highlight">AI-powered tools</span> that handle your customer inquiries, bookings,
+            and follow-ups automatically — saving you hours every week.
+          </p>
+          <ul class="perk-list">
+            <li><i class="fas fa-robot"></i> AI chatbot for 24/7 customer support</li>
+            <li><i class="fas fa-calendar-check"></i> Smart booking &amp; scheduling system</li>
+            <li><i class="fas fa-envelope"></i> Automated email follow-ups &amp; marketing</li>
+          </ul>
+          <div class="feature-tag"><i class="fas fa-clock"></i> Save 20+ hours weekly</div>
+          <div class="slide-detail">
+            <i class="fas fa-chart-line" style="color: #3fb950; margin-right: 4px;"></i> 85% faster response times · 
+            <i class="fas fa-dollar-sign" style="color: #58a6ff; margin-left: 8px; margin-right: 4px;"></i> 3x ROI increase
+          </div>
+        </div>
+
+        <!-- SLIDE 5 -->
+        <div class="slide" data-index="4">
+          <h2><i class="fas fa-shield-alt"></i> // AI · security & reliability</h2>
+          <p>
+            Your business deserves <span class="highlight">enterprise-grade security</span> and
+            <span class="highlight">99.9% uptime</span>. Our AI monitors your site 24/7, detects threats
+            in real-time, and ensures your customers always have a seamless experience.
+          </p>
+          <ul class="perk-list">
+            <li><i class="fas fa-shield-virus"></i> AI-powered threat detection</li>
+            <li><i class="fas fa-sync-alt"></i> Automated backups &amp; recovery</li>
+            <li><i class="fas fa-cloud"></i> Global CDN &amp; load balancing</li>
+          </ul>
+          <div class="feature-tag"><i class="fas fa-check-circle"></i> 99.9% uptime guaranteed</div>
+          <div class="slide-detail">
+            <i class="fas fa-shield-alt" style="color: #58a6ff; margin-right: 4px;"></i> 24/7 AI monitoring · 
+            <i class="fas fa-bolt" style="color: #f0883e; margin-left: 8px; margin-right: 4px;"></i> 50ms average response time
+          </div>
+        </div>
+
+        <!-- Pagination Dots - 5 dots -->
         <div class="pagination-dots" id="paginationDots">
           <span class="dot active" data-index="0"></span>
           <span class="dot" data-index="1"></span>
           <span class="dot" data-index="2"></span>
+          <span class="dot" data-index="3"></span>
+          <span class="dot" data-index="4"></span>
         </div>
 
       </div>
@@ -3281,7 +3344,7 @@
         if (window.innerWidth > 850 && panel && panel.classList.contains('open')) closeMenu();
       });
 
-      // ----- AUTOMATIC SLIDER -----
+      // ----- AUTOMATIC SLIDER with 5 slides -----
       const container = document.getElementById('sliderContainer');
       const slides = container.querySelectorAll('.slide');
       const dots = container.querySelectorAll('.dot');
@@ -3316,7 +3379,7 @@
       });
 
       function startInterval() {
-        interval = setInterval(nextSlide, 4500);
+        interval = setInterval(nextSlide, 5000);
       }
 
       function resetInterval() {
