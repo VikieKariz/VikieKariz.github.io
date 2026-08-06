@@ -1,0 +1,2848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cloud_mikkie · AI Projects</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0a0e14;
+      background-image: 
+        radial-gradient(ellipse at 10% 20%, rgba(88, 166, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(63, 185, 80, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(88, 166, 255, 0.02) 0%, transparent 70%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #e6edf3;
+      transition: background 0.5s ease;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(88, 166, 255, 0.03) 0%, transparent 3%),
+        radial-gradient(circle at 80% 70%, rgba(63, 185, 80, 0.03) 0%, transparent 3%),
+        radial-gradient(circle at 50% 50%, rgba(88, 166, 255, 0.02) 0%, transparent 4%);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+      animation: neuralPulse 15s ease-in-out infinite alternate;
+    }
+    @keyframes neuralPulse {
+      0% { opacity: 0.3; transform: scale(1); }
+      100% { opacity: 0.8; transform: scale(1.1); }
+    }
+    body:hover::before { animation-duration: 8s; }
+    .ai-thinking {
+      display: inline-block;
+      animation: thinkingPulse 2s ease-in-out infinite;
+    }
+    @keyframes thinkingPulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .data-stream {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .data-stream span {
+      position: absolute; color: rgba(88, 166, 255, 0.03); font-size: 0.6rem;
+      font-family: 'Inter', monospace; animation: dataFlow 20s linear infinite;
+      white-space: nowrap;
+    }
+    @keyframes dataFlow {
+      0% { transform: translateY(-100%) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    .sticky-header {
+      position: sticky; top: 0; z-index: 1000;
+      padding: 0.6rem 1.5rem;
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      background: rgba(10, 14, 20, 0.85);
+      border-bottom: 1px solid rgba(88, 166, 255, 0.15);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(88, 166, 255, 0.05);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+    .sticky-header:hover {
+      background: rgba(10, 14, 20, 0.95);
+      border-bottom-color: rgba(88, 166, 255, 0.3);
+      box-shadow: 0 4px 40px rgba(88, 166, 255, 0.05);
+    }
+    .header-container {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: nowrap; gap: 1.2rem;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      white-space: nowrap; flex-shrink: 0;
+      text-decoration: none;
+      filter: drop-shadow(0 0 20px rgba(88, 166, 255, 0.15));
+      transition: all 0.4s ease;
+    }
+    .logo:hover { filter: drop-shadow(0 0 40px rgba(88, 166, 255, 0.3)); }
+    .logo img {
+      height: 42px; width: auto; display: block; border-radius: 10px;
+      box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.2), 0 4px 20px rgba(0,0,0,0.6);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      filter: brightness(1.1);
+    }
+    .logo:hover img {
+      transform: scale(1.05) rotate(-2deg) scaleX(-1);
+      box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.4), 0 6px 30px rgba(88, 166, 255, 0.2);
+    }
+    .logo-text {
+      font-size: 1.4rem; font-weight: 700; letter-spacing: -0.3px;
+      color: #e6edf3;
+      text-shadow: 0 0 30px rgba(88, 166, 255, 0.1);
+      display: flex; align-items: center; gap: 0.2rem;
+      position: relative;
+    }
+    .logo-text .highlight {
+      background: linear-gradient(135deg, #58a6ff, #3fb950, #58a6ff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(88, 166, 255, 0.2));
+      animation: gradientShift 3s ease-in-out infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .logo-text .ai-badge {
+      font-size: 0.5rem;
+      background: rgba(88, 166, 255, 0.15);
+      padding: 0.1rem 0.5rem; border-radius: 20px;
+      color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.2);
+      font-weight: 600; letter-spacing: 0.5px;
+      animation: thinkingPulse 3s ease-in-out infinite;
+    }
+    @media (max-width: 850px) {
+      .logo-text { display: none; }
+    }
+    .search-wrapper {
+      flex: 1 1 260px; min-width: 160px; max-width: 400px;
+      position: relative;
+    }
+    .search-wrapper i {
+      position: absolute; left: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: #8b949e; font-size: 0.9rem; opacity: 0.6;
+      transition: all 0.4s ease;
+    }
+    .search-wrapper input {
+      width: 100%; padding: 0.7rem 1rem 0.7rem 2.8rem;
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      border-radius: 10px;
+      background: rgba(10, 14, 20, 0.8);
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.4), 0 0 0 1px rgba(88, 166, 255, 0.05);
+      font-size: 0.9rem; transition: all 0.4s ease; outline: none;
+      color: #e6edf3; font-family: 'Inter', sans-serif; font-weight: 400;
+      backdrop-filter: blur(8px);
+    }
+    .search-wrapper input::placeholder { color: #6e7681; opacity: 0.7; letter-spacing: -0.2px; }
+    .search-wrapper input:focus {
+      background: rgba(10, 14, 20, 0.95);
+      border-color: #58a6ff;
+      box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.08), inset 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .search-wrapper:focus-within i { opacity: 1; color: #58a6ff; }
+    @media (max-width: 850px) {
+      .search-wrapper {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: none;
+      }
+      .search-wrapper input {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem 0.6rem 2.6rem;
+      }
+      .search-wrapper i {
+        left: 14px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 0.3rem;
+      list-style: none; margin: 0; padding: 0.3rem 0.8rem;
+      background: rgba(10, 14, 20, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 10px;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(88, 166, 255, 0.05);
+      min-height: 44px;
+      transition: all 0.4s ease;
+    }
+    .nav-links:hover {
+      background: rgba(10, 14, 20, 0.8);
+      border-color: rgba(88, 166, 255, 0.15);
+    }
+    .nav-links li a {
+      text-decoration: none; color: #c9d1d9; font-weight: 500;
+      font-size: 0.82rem; padding: 0.25rem 0.7rem; border-radius: 6px;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+      letter-spacing: 0.2px; white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+      border: 1px solid transparent; position: relative;
+    }
+    .nav-links li a i { margin-right: 5px; font-size: 0.75rem; color: #58a6ff; opacity: 0.6; transition: all 0.3s ease; }
+    .nav-links li a::before {
+      content: ''; position: absolute; bottom: -2px; left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, #58a6ff, transparent);
+      transition: width 0.4s ease;
+    }
+    .nav-links li a:hover::before { width: 70%; }
+    .nav-links li a:hover {
+      color: #f0f6fc; background: rgba(88, 166, 255, 0.05);
+      border-color: rgba(88, 166, 255, 0.1); transform: translateY(-1px);
+    }
+    .nav-links li a:hover i { opacity: 1; }
+    .nav-links li a.active {
+      color: #58a6ff; background: rgba(88, 166, 255, 0.08);
+      border-color: rgba(88, 166, 255, 0.15);
+      box-shadow: 0 0 30px rgba(88, 166, 255, 0.03);
+    }
+    .nav-links li a.active::before { width: 70%; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: rgba(10, 14, 20, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(88, 166, 255, 0.1);
+      border-radius: 10px; padding: 0.5rem 0.7rem;
+      cursor: pointer; transition: all 0.4s ease;
+    }
+    .hamburger:hover {
+      background: rgba(88, 166, 255, 0.05);
+      border-color: rgba(88, 166, 255, 0.2);
+      transform: scale(1.02);
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2.5px;
+      background: #c9d1d9; border-radius: 4px;
+      transition: all 0.3s ease; opacity: 0.8;
+    }
+    .hamburger:hover span { background: #58a6ff; }
+
+    .mobile-menu-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      visibility: hidden; opacity: 0;
+      transition: all 0.5s ease; z-index: 9999;
+    }
+    .mobile-menu-overlay.active { visibility: visible; opacity: 1; }
+    .mobile-menu-panel {
+      position: fixed; top: 0; right: -340px;
+      width: 300px; max-width: 80%; height: 100%;
+      background: rgba(10, 14, 20, 0.95);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border-left: 1px solid rgba(88, 166, 255, 0.1);
+      box-shadow: -8px 0 60px rgba(0,0,0,0.8);
+      padding: 2rem 1.6rem;
+      transition: right 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+      z-index: 10000;
+      display: flex; flex-direction: column; gap: 1.8rem; overflow-y: auto;
+    }
+    .mobile-menu-panel.open { right: 0; }
+    .mobile-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.8rem; width: 100%; flex-shrink: 0;
+      background: rgba(10, 14, 20, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 10px;
+      padding: 0.2rem 0.2rem 0.2rem 0.8rem;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+    }
+    .mobile-search { flex: 1; position: relative; min-width: 0; }
+    .mobile-search i {
+      position: absolute; left: 10px; top: 50%;
+      transform: translateY(-50%);
+      color: #8b949e; font-size: 0.8rem; opacity: 0.5;
+    }
+    .mobile-search input {
+      width: 100%; padding: 0.4rem 0.6rem 0.4rem 2rem;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      border-radius: 8px;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      font-size: 0.85rem; outline: none; color: #e6edf3;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+    .mobile-search input::placeholder { color: #6e7681; opacity: 0.6; }
+    .mobile-search input:focus {
+      background: rgba(0,0,0,0.5);
+      border-color: rgba(88, 166, 255, 0.2);
+    }
+    .mobile-menu-close {
+      background: rgba(10, 14, 20, 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      border-radius: 10px; width: 40px; height: 40px;
+      font-size: 1.2rem; color: #c9d1d9; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease; flex-shrink: 0;
+    }
+    .mobile-menu-close i { font-size: 1.2rem; }
+    .mobile-menu-close:hover {
+      background: rgba(88, 166, 255, 0.05);
+      border-color: rgba(88, 166, 255, 0.2);
+      color: #f0f6fc; transform: rotate(90deg);
+    }
+    .mobile-nav-list { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; padding: 0; margin: 0; margin-top: 0.2rem; }
+    .mobile-nav-list li a {
+      text-decoration: none; color: #c9d1d9; font-weight: 500;
+      font-size: 1rem; display: flex; align-items: center; gap: 0.8rem;
+      padding: 0.6rem 0.8rem; border-radius: 10px;
+      background: rgba(10, 14, 20, 0.4);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(88, 166, 255, 0.04);
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+    }
+    .mobile-nav-list li a i { width: 1.8rem; color: #58a6ff; opacity: 0.7; }
+    .mobile-nav-list li a:hover {
+      background: rgba(88, 166, 255, 0.05);
+      border-color: rgba(88, 166, 255, 0.12);
+      transform: translateX(4px); color: #f0f6fc;
+    }
+    .mobile-nav-list li a.active-mobile {
+      background: rgba(88, 166, 255, 0.08);
+      border-color: rgba(88, 166, 255, 0.15);
+      color: #58a6ff;
+    }
+    .panel-footer {
+      margin-top: auto; font-size: 0.7rem; color: #6e7681;
+      border-top: 1px solid rgba(88, 166, 255, 0.06);
+      padding-top: 1rem; text-align: center;
+      background: rgba(10, 14, 20, 0.3); border-radius: 40px;
+      padding: 0.8rem 0.5rem; backdrop-filter: blur(4px);
+      letter-spacing: 0.3px;
+    }
+    .panel-footer i { color: #3fb950; font-size: 0.5rem; vertical-align: middle; margin-right: 6px; }
+
+    @media (max-width: 850px) {
+      .header-container { gap: 0.8rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .sticky-header { padding: 0.5rem 1rem; }
+    }
+    @media (max-width: 500px) {
+      .logo img { height: 34px; }
+      .search-wrapper input { padding: 0.5rem 0.6rem 0.5rem 2.2rem; font-size: 0.8rem; }
+      .search-wrapper i { left: 12px; font-size: 0.75rem; }
+      .mobile-menu-panel { padding: 1.5rem 1.2rem; width: 270px; }
+    }
+
+    .page-content {
+      max-width: 1200px; margin: 2.8rem auto; padding: 0 1.5rem;
+      color: #e6edf3; position: relative; z-index: 1; flex: 1;
+    }
+    .split-layout {
+      display: flex; gap: 2rem; align-items: stretch; min-height: 420px;
+    }
+    .image-panel {
+      flex: 0 0 30%;
+      background: rgba(10, 14, 20, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid rgba(88, 166, 255, 0.1);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(88, 166, 255, 0.05);
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+      min-height: 380px;
+      position: relative;
+    }
+    .image-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1), filter 0.8s ease;
+      filter: saturate(0.9) contrast(1.1);
+    }
+    .image-panel img {
+      content: url('https://raw.githubusercontent.com/VikieKariz/VikieKariz.github.io/main/ChatGPT%20Image%20Aug%205%2C%202026%2C%2008_08_32%20PM.png');
+    }
+    @media (min-width: 821px) {
+      .image-panel img {
+        content: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&q=80');
+      }
+    }
+    .image-panel:hover img {
+      transform: scale(1.05);
+      filter: saturate(1.1) contrast(1.2) brightness(1.05);
+    }
+    .image-panel .ai-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem 1.5rem 1rem;
+      background: transparent;
+      pointer-events: none;
+    }
+    .image-panel .ai-overlay span {
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-family: 'Inter', monospace;
+      letter-spacing: 1px;
+      background: rgba(10, 14, 20, 0.3);
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      backdrop-filter: blur(2px);
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .image-panel .ai-overlay i {
+      color: #58a6ff;
+      margin-right: 6px;
+      animation: thinkingPulse 2s ease-in-out infinite;
+    }
+
+    .slider-panel {
+      flex: 1; min-width: 0;
+      background: rgba(10, 14, 20, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 16px;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(88, 166, 255, 0.05);
+      padding: 2.2rem 2.2rem 3.5rem 2.2rem;
+      position: relative; overflow: hidden;
+      min-height: 380px;
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+    .slider-panel::before {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(88, 166, 255, 0.02), transparent 60%);
+      pointer-events: none; animation: rotateBg 30s linear infinite;
+    }
+    @keyframes rotateBg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .slider-panel:hover {
+      border-color: rgba(88, 166, 255, 0.15);
+      box-shadow: 0 12px 60px rgba(0,0,0,0.4), 0 0 40px rgba(88, 166, 255, 0.02);
+    }
+    .slide {
+      display: none;
+      animation: fadeUpAI 0.7s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+      position: relative; z-index: 1;
+    }
+    .slide.active { display: block; }
+    @keyframes fadeUpAI {
+      0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .slide h2 {
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;
+      color: #f0f6fc; display: flex; align-items: center; gap: 0.8rem;
+      font-family: 'Inter', sans-serif; letter-spacing: -0.3px;
+    }
+    .slide h2 i { color: #58a6ff; font-size: 1.5rem; opacity: 0.9; animation: thinkingPulse 3s ease-in-out infinite; }
+    .slide p { line-height: 1.8; color: #b1bac4; font-size: 0.95rem; max-width: 100%; }
+    .slide .highlight {
+      color: #58a6ff; font-weight: 600;
+      background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(63, 185, 80, 0.05));
+      padding: 0.05rem 0.3rem; border-radius: 4px;
+    }
+    .slide .price-badge {
+      display: inline-block; background: rgba(88, 166, 255, 0.1);
+      padding: 0.3rem 1.2rem; border-radius: 40px;
+      font-weight: 700; font-size: 1.1rem; color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      margin-top: 0.6rem; transition: all 0.4s ease;
+      position: relative; overflow: hidden;
+    }
+    .price-badge::after { content: '⚡'; margin-left: 6px; animation: thinkingPulse 1.5s ease-in-out infinite; }
+    .slider-panel:hover .price-badge {
+      background: rgba(88, 166, 255, 0.15);
+      border-color: rgba(88, 166, 255, 0.25); transform: scale(1.02);
+    }
+    .slide .perk-list { list-style: none; padding: 0; margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+    .slide .perk-list li {
+      display: flex; align-items: center; gap: 0.6rem;
+      color: #c9d1d9; font-size: 0.85rem; transition: all 0.4s ease; cursor: default;
+    }
+    .slide .perk-list li:hover { color: #f0f6fc; transform: translateX(4px) scale(1.02); }
+    .slide .perk-list li i { color: #3fb950; font-size: 0.9rem; animation: thinkingPulse 3s ease-in-out infinite; }
+    .slide .feature-tag {
+      display: inline-block; background: rgba(240, 136, 62, 0.08);
+      padding: 0.2rem 1rem; border-radius: 30px;
+      font-size: 0.65rem; font-weight: 600; color: #f0883e;
+      border: 1px solid rgba(240, 136, 62, 0.1);
+      margin-top: 0.5rem; transition: all 0.4s ease;
+    }
+    .slider-panel:hover .feature-tag {
+      background: rgba(240, 136, 62, 0.12);
+      border-color: rgba(240, 136, 62, 0.2);
+    }
+    .slide .slide-detail { margin-top: 0.5rem; font-size: 0.85rem; color: #8b949e; line-height: 1.6; }
+
+    .pagination-dots {
+      position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 0.5rem; z-index: 5;
+    }
+    .pagination-dots .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(48, 54, 61, 0.6);
+      border: 1px solid rgba(88, 166, 255, 0.1);
+      cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      box-shadow: 0 0 4px rgba(0,0,0,0.3); position: relative;
+    }
+    .pagination-dots .dot::after {
+      content: ''; position: absolute; inset: -3px; border-radius: 50%;
+      border: 1px solid transparent; transition: all 0.4s ease;
+    }
+    .pagination-dots .dot.active {
+      background: #58a6ff; border-color: #58a6ff;
+      box-shadow: 0 0 20px rgba(88, 166, 255, 0.3); transform: scale(1.4);
+    }
+    .pagination-dots .dot.active::after { border-color: rgba(88, 166, 255, 0.2); }
+    .pagination-dots .dot:hover {
+      background: rgba(88, 166, 255, 0.3);
+      border-color: rgba(88, 166, 255, 0.3); transform: scale(1.2);
+    }
+
+    /* ===== PROJECTS SECTION ===== */
+    .projects-hero {
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+      margin: 4rem 0 2rem;
+      background: rgba(10, 14, 20, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+    }
+    .projects-hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .projects-hero p {
+      color: #8b949e;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    .projects-hero .hero-badge {
+      display: inline-block;
+      background: rgba(88, 166, 255, 0.06);
+      padding: 0.3rem 1.5rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      margin-top: 1rem;
+    }
+
+    .service-project-section {
+      margin-bottom: 3rem;
+    }
+    .service-project-section .service-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .service-project-section .service-title i {
+      color: #58a6ff;
+      font-size: 2rem;
+    }
+    .service-project-section .service-desc {
+      color: #8b949e;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+    .service-project-section .service-desc .highlight {
+      color: #58a6ff;
+      font-weight: 600;
+    }
+
+    .project-card {
+      background: rgba(10, 14, 20, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 16px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #58a6ff, #3fb950, #58a6ff);
+      background-size: 200% 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      animation: gradientShift 3s ease-in-out infinite;
+    }
+    .project-card:hover::before { opacity: 1; }
+    .project-card:hover {
+      border-color: rgba(88, 166, 255, 0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 50px rgba(0,0,0,0.3), 0 0 40px rgba(88, 166, 255, 0.02);
+      background: rgba(10, 14, 20, 0.7);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .project-header h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .project-header h3 i {
+      color: #58a6ff;
+    }
+    .project-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .project-badges .badge {
+      background: rgba(88, 166, 255, 0.06);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .project-badges .badge.restaurant {
+      background: rgba(240, 136, 62, 0.06);
+      color: #f0883e;
+      border-color: rgba(240, 136, 62, 0.06);
+    }
+    .project-badges .badge.ai-powered {
+      background: rgba(63, 185, 80, 0.06);
+      color: #3fb950;
+      border-color: rgba(63, 185, 80, 0.06);
+    }
+
+    .project-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      margin-top: 0.5rem;
+    }
+    .project-description p {
+      color: #b1bac4;
+      line-height: 1.9;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .project-description .project-features {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.3rem 1rem;
+    }
+    .project-description .project-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #c9d1d9;
+      font-size: 0.85rem;
+      padding: 0.2rem 0;
+    }
+    .project-description .project-features li i {
+      color: #3fb950;
+      font-size: 0.7rem;
+    }
+    .project-description .conversion-note {
+      background: rgba(240, 136, 62, 0.05);
+      border-left: 3px solid #f0883e;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    .project-description .conversion-note p {
+      color: #c9d1d9;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+    .project-description .conversion-note i {
+      color: #f0883e;
+      margin-right: 0.5rem;
+    }
+
+    .project-sidebar {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      padding: 1.2rem;
+      border: 1px solid rgba(88, 166, 255, 0.04);
+      align-self: flex-start;
+    }
+    .project-sidebar h4 {
+      color: #f0f6fc;
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+    .project-sidebar .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(88, 166, 255, 0.04);
+      color: #8b949e;
+      font-size: 0.8rem;
+    }
+    .project-sidebar .sidebar-item:last-child {
+      border-bottom: none;
+    }
+    .project-sidebar .sidebar-item i {
+      color: #58a6ff;
+      width: 1.2rem;
+    }
+    .project-sidebar .repo-btn {
+      display: block;
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.8rem;
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      border-radius: 8px;
+      color: #58a6ff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    .project-sidebar .repo-btn:hover {
+      background: rgba(88, 166, 255, 0.15);
+      border-color: rgba(88, 166, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
+    }
+    .project-sidebar .repo-btn i {
+      margin-right: 0.5rem;
+    }
+
+    @media (max-width: 820px) {
+      .split-layout { flex-direction: column; }
+      .image-panel { flex: 0 0 auto; width: 100%; min-height: 200px; max-height: 320px; }
+      .image-panel img { object-fit: cover; width: 100%; height: 100%; }
+      .slider-panel { padding: 1.8rem 1.5rem 3.2rem 1.5rem; min-height: 340px; }
+      .slide h2 { font-size: 1.2rem; flex-wrap: wrap; }
+      .slide p { font-size: 0.9rem; }
+      .slide .perk-list { flex-direction: column; gap: 0.3rem; }
+      .slide .slide-detail { font-size: 0.8rem; }
+      .project-body {
+        grid-template-columns: 1fr;
+      }
+      .project-header {
+        flex-direction: column;
+      }
+      .project-description .project-features {
+        grid-template-columns: 1fr;
+      }
+      .projects-hero h1 {
+        font-size: 2rem;
+      }
+      .service-project-section .service-title {
+        font-size: 1.5rem;
+      }
+    }
+    @media (max-width: 500px) {
+      .image-panel { min-height: 160px; max-height: 220px; }
+      .slider-panel { padding: 1.2rem 1rem 2.8rem 1rem; min-height: 300px; }
+      .pagination-dots .dot { width: 7px; height: 7px; }
+      .projects-hero {
+        padding: 2rem 1rem;
+      }
+      .projects-hero h1 {
+        font-size: 1.6rem;
+      }
+      .service-project-section .service-title {
+        font-size: 1.2rem;
+      }
+      .project-card {
+        padding: 1.2rem;
+      }
+      .project-header h3 {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* ===== TEAM SECTION ===== */
+    .team-section {
+      margin-top: 4rem;
+    }
+    .team-section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .team-section h2 i {
+      color: #58a6ff;
+      font-size: 1.8rem;
+      animation: thinkingPulse 3s ease-in-out infinite;
+    }
+    .team-section .subtitle {
+      color: #8b949e;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .team-card {
+      background: rgba(10, 14, 20, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 16px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 2rem;
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #58a6ff, #f0883e, #3fb950);
+      background-size: 200% 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+    .team-card:hover::before { opacity: 1; }
+    .team-card:hover {
+      border-color: rgba(88, 166, 255, 0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 50px rgba(0,0,0,0.3), 0 0 40px rgba(88, 166, 255, 0.02);
+      background: rgba(10, 14, 20, 0.7);
+    }
+    .team-card .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(63, 185, 80, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #58a6ff;
+      border: 2px solid rgba(88, 166, 255, 0.1);
+      margin-bottom: 1rem;
+      transition: all 0.4s ease;
+    }
+    .team-card:hover .team-avatar {
+      border-color: rgba(88, 166, 255, 0.2);
+      transform: scale(1.05) rotate(-3deg);
+    }
+    .team-card .team-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.2rem;
+    }
+    .team-card .team-role {
+      color: #58a6ff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+    .team-card .team-bio {
+      color: #b1bac4;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .team-card .team-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .team-card .team-skills span {
+      background: rgba(88, 166, 255, 0.06);
+      padding: 0.15rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      color: #8b949e;
+      border: 1px solid rgba(88, 166, 255, 0.04);
+    }
+    .team-card .team-social {
+      display: flex;
+      gap: 0.8rem;
+    }
+    .team-card .team-social a {
+      color: #8b949e;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .team-card .team-social a:hover {
+      color: #58a6ff;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 820px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== TESTIMONIALS SECTION ===== */
+    .testimonials-section {
+      margin-top: 4rem;
+    }
+    .testimonials-section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .testimonials-section h2 i {
+      color: #58a6ff;
+      font-size: 1.8rem;
+      animation: thinkingPulse 3s ease-in-out infinite;
+    }
+    .testimonials-section .subtitle {
+      color: #8b949e;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: rgba(10, 14, 20, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 14px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 1.8rem;
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #f0883e, #58a6ff, #3fb950);
+      background-size: 200% 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+    .testimonial-card:hover::before { opacity: 1; }
+    .testimonial-card:hover {
+      border-color: rgba(88, 166, 255, 0.15);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 50px rgba(0,0,0,0.3), 0 0 40px rgba(88, 166, 255, 0.03);
+      background: rgba(10, 14, 20, 0.7);
+    }
+    .testimonial-card .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .testimonial-card .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(63, 185, 80, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #58a6ff;
+      border: 2px solid rgba(88, 166, 255, 0.1);
+      flex-shrink: 0;
+      transition: all 0.4s ease;
+    }
+    .testimonial-card:hover .testimonial-avatar {
+      border-color: rgba(88, 166, 255, 0.2);
+      transform: scale(1.05);
+    }
+    .testimonial-card .testimonial-author { flex: 1; }
+    .testimonial-card .testimonial-author h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f0f6fc;
+      margin-bottom: 0.1rem;
+    }
+    .testimonial-card .testimonial-author .role {
+      font-size: 0.8rem;
+      color: #8b949e;
+    }
+    .testimonial-card .testimonial-stars {
+      color: #f0883e;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+    .testimonial-card .testimonial-stars .star-filled { color: #f0883e; }
+    .testimonial-card .testimonial-stars .star-empty { color: #30363d; }
+    .testimonial-card .testimonial-text {
+      color: #b1bac4;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      flex: 1;
+      font-style: italic;
+      position: relative;
+      padding-left: 0.5rem;
+    }
+    .testimonial-card .testimonial-text::before {
+      content: '"';
+      font-size: 2.5rem;
+      color: rgba(88, 166, 255, 0.1);
+      position: absolute;
+      top: -0.5rem;
+      left: -0.5rem;
+      font-family: 'Georgia', serif;
+    }
+    .testimonial-card .testimonial-footer {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(88, 166, 255, 0.04);
+    }
+    .testimonial-card .testimonial-footer .project-tag {
+      background: rgba(88, 166, 255, 0.06);
+      padding: 0.1rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .testimonial-card .testimonial-footer .verified {
+      color: #3fb950;
+      font-size: 0.7rem;
+      margin-left: auto;
+    }
+    .testimonial-card .testimonial-footer .verified i { margin-right: 4px; }
+
+    .contact-section {
+      margin-top: 4rem;
+      background: rgba(10, 14, 20, 0.3);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 3rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+    .contact-section:hover {
+      border-color: rgba(88, 166, 255, 0.12);
+      box-shadow: 0 12px 60px rgba(0,0,0,0.3);
+    }
+    .contact-section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .contact-section h2 i {
+      color: #58a6ff;
+      font-size: 1.8rem;
+      animation: thinkingPulse 3s ease-in-out infinite;
+    }
+    .contact-section .subtitle {
+      color: #8b949e;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .contact-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-info .info-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      border: 1px solid rgba(88, 166, 255, 0.04);
+      transition: all 0.3s ease;
+    }
+    .contact-info .info-item:hover {
+      border-color: rgba(88, 166, 255, 0.1);
+      background: rgba(0,0,0,0.3);
+      transform: translateX(4px);
+    }
+    .contact-info .info-item .icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(88, 166, 255, 0.06);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #58a6ff;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+    .contact-info .info-item:hover .icon {
+      background: rgba(88, 166, 255, 0.12);
+      transform: scale(1.05);
+    }
+    .contact-info .info-item .content h4 {
+      font-size: 0.8rem;
+      color: #8b949e;
+      font-weight: 500;
+    }
+    .contact-info .info-item .content p {
+      font-size: 0.95rem;
+      color: #f0f6fc;
+      font-weight: 500;
+    }
+    .contact-info .info-item .content a {
+      color: #f0f6fc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .contact-info .info-item .content a:hover { color: #58a6ff; }
+    .contact-social { margin-top: 0.5rem; }
+    .contact-social h4 {
+      font-size: 0.85rem;
+      color: #8b949e;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+    .contact-social .social-links {
+      display: flex;
+      gap: 0.8rem;
+    }
+    .contact-social .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8b949e;
+      font-size: 1.1rem;
+      border: 1px solid rgba(88, 166, 255, 0.04);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .contact-social .social-links a:hover {
+      background: rgba(88, 166, 255, 0.06);
+      border-color: rgba(88, 166, 255, 0.15);
+      color: #58a6ff;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-form .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .contact-form .form-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #b1bac4;
+    }
+    .contact-form .form-group input,
+    .contact-form .form-group textarea {
+      padding: 0.7rem 1rem;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      border-radius: 10px;
+      color: #e6edf3;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    .contact-form .form-group input::placeholder,
+    .contact-form .form-group textarea::placeholder { color: #6e7681; }
+    .contact-form .form-group input:focus,
+    .contact-form .form-group textarea:focus {
+      border-color: rgba(88, 166, 255, 0.2);
+      background: rgba(0,0,0,0.3);
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.05);
+    }
+    .contact-form .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .contact-form .submit-btn {
+      padding: 0.7rem 2rem;
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      border-radius: 10px;
+      color: #58a6ff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .contact-form .submit-btn:hover {
+      background: rgba(88, 166, 255, 0.15);
+      border-color: rgba(88, 166, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
+    }
+    .contact-form .submit-btn i { transition: transform 0.3s ease; }
+    .contact-form .submit-btn:hover i { transform: translateX(4px); }
+
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-right .map-container {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      transition: all 0.4s ease;
+      flex: 1;
+      min-height: 280px;
+      max-height: 380px;
+    }
+    .contact-right .map-container:hover {
+      border-color: rgba(88, 166, 255, 0.12);
+    }
+    .contact-right .map-container iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      max-height: 380px;
+      border: none;
+      filter: invert(0.9) hue-rotate(180deg) saturate(0.5);
+      transition: filter 0.5s ease;
+    }
+    .contact-right .map-container iframe:hover {
+      filter: invert(0.85) hue-rotate(180deg) saturate(0.6);
+    }
+    .contact-right .map-address {
+      background: rgba(0,0,0,0.2);
+      padding: 0.8rem 1.2rem;
+      border-radius: 10px;
+      border: 1px solid rgba(88, 166, 255, 0.04);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .contact-right .map-address:hover {
+      border-color: rgba(88, 166, 255, 0.1);
+      background: rgba(0,0,0,0.3);
+    }
+    .contact-right .map-address i {
+      color: #58a6ff;
+      margin-right: 0.5rem;
+    }
+    .contact-right .map-address span {
+      color: #b1bac4;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 820px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .contact-section {
+        padding: 1.5rem;
+      }
+      .contact-right .map-container {
+        min-height: 300px;
+        max-height: 400px;
+      }
+      .contact-right .map-container iframe {
+        min-height: 300px;
+        max-height: 400px;
+      }
+    }
+    @media (max-width: 500px) {
+      .contact-section {
+        padding: 1rem;
+      }
+      .contact-right .map-container {
+        min-height: 220px;
+        max-height: 300px;
+      }
+      .contact-right .map-container iframe {
+        min-height: 220px;
+        max-height: 300px;
+      }
+    }
+
+    .footer {
+      margin-top: 4rem;
+      background: rgba(10, 14, 20, 0.9);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border-top: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 4rem 1.5rem 2rem;
+      width: 100%;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2rem;
+    }
+    .footer-brand { grid-column: 1 / 2; grid-row: 1 / 3; }
+    .footer-col-services { grid-column: 2 / 3; grid-row: 1 / 2; }
+    .footer-col-company { grid-column: 3 / 4; grid-row: 1 / 2; }
+    .footer-col-resources { grid-column: 2 / 3; grid-row: 2 / 3; }
+    .footer-col-contact { grid-column: 3 / 4; grid-row: 2 / 3; }
+
+    .footer-brand .logo-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #e6edf3;
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand .logo-text .highlight {
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-brand .logo-text .ai-badge {
+      font-size: 0.5rem;
+      background: rgba(88, 166, 255, 0.15);
+      padding: 0.1rem 0.5rem;
+      border-radius: 20px;
+      color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.2);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-left: 0.3rem;
+      -webkit-text-fill-color: #58a6ff;
+    }
+    .footer-brand p {
+      color: #8b949e;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      max-width: 320px;
+      margin-top: 0.5rem;
+    }
+    .footer-brand .footer-social {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+    .footer-brand .footer-social a {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8b949e;
+      font-size: 1.1rem;
+      border: 1px solid rgba(88, 166, 255, 0.04);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .footer-brand .footer-social a:hover {
+      background: rgba(88, 166, 255, 0.06);
+      border-color: rgba(88, 166, 255, 0.15);
+      color: #58a6ff;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
+    }
+    .footer-brand .footer-newsletter {
+      margin-top: 1.2rem;
+    }
+    .footer-brand .footer-newsletter h4 {
+      font-size: 0.85rem;
+      color: #f0f6fc;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand .footer-newsletter .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .footer-brand .footer-newsletter .newsletter-form input {
+      flex: 1;
+      padding: 0.5rem 0.8rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      border-radius: 8px;
+      color: #e6edf3;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .footer-brand .footer-newsletter .newsletter-form input::placeholder {
+      color: #6e7681;
+    }
+    .footer-brand .footer-newsletter .newsletter-form input:focus {
+      border-color: rgba(88, 166, 255, 0.15);
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .footer-brand .footer-newsletter .newsletter-form button {
+      padding: 0.5rem 1rem;
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.1);
+      border-radius: 8px;
+      color: #58a6ff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .footer-brand .footer-newsletter .newsletter-form button:hover {
+      background: rgba(88, 166, 255, 0.15);
+      border-color: rgba(88, 166, 255, 0.2);
+    }
+    .footer-col h4 {
+      color: #f0f6fc;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+    .footer-col ul li a {
+      color: #8b949e;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .footer-col ul li a:hover {
+      color: #58a6ff;
+      transform: translateX(4px);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid rgba(88, 166, 255, 0.06);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      color: #6e7681;
+      font-size: 0.8rem;
+    }
+    .footer-bottom .footer-ai-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #6e7681;
+      font-size: 0.75rem;
+    }
+    .footer-bottom .footer-ai-status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3fb950;
+      animation: thinkingPulse 1.5s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(63, 185, 80, 0.2);
+    }
+    .footer-bottom .footer-legal {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom .footer-legal a {
+      color: #6e7681;
+      text-decoration: none;
+      font-size: 0.75rem;
+      transition: color 0.3s ease;
+    }
+    .footer-bottom .footer-legal a:hover {
+      color: #58a6ff;
+    }
+
+    @media (max-width: 820px) {
+      .footer-container {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 2rem;
+      }
+      .footer-brand {
+        grid-column: 1 / 3 !important;
+        grid-row: 1 / 2 !important;
+      }
+      .footer-col-services {
+        grid-column: 1 / 2 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-company {
+        grid-column: 2 / 3 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-resources {
+        grid-column: 1 / 2 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-col-contact {
+        grid-column: 2 / 3 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-brand p {
+        max-width: 100%;
+      }
+      .footer-brand .footer-newsletter .newsletter-form {
+        flex-wrap: wrap;
+      }
+      .footer-brand .footer-newsletter .newsletter-form input {
+        min-width: 200px;
+      }
+    }
+    @media (max-width: 600px) {
+      .footer-container {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1.5rem;
+      }
+      .footer-brand {
+        grid-column: 1 / 3 !important;
+        grid-row: 1 / 2 !important;
+      }
+      .footer-col-services {
+        grid-column: 1 / 2 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-company {
+        grid-column: 2 / 3 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-resources {
+        grid-column: 1 / 2 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-col-contact {
+        grid-column: 2 / 3 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+      }
+      .footer-bottom .footer-legal {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+      }
+    }
+
+    .news-ticker-wrap {
+      position: sticky; top: 72px; z-index: 999;
+      background: rgba(10, 14, 20, 0.85);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border-bottom: 1px solid rgba(88, 166, 255, 0.06);
+      border-top: 1px solid rgba(88, 166, 255, 0.04);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+      padding: 0.4rem 0; overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    .news-ticker-wrap:hover {
+      background: rgba(10, 14, 20, 0.95);
+      border-color: rgba(88, 166, 255, 0.1);
+    }
+    .ticker-container {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; gap: 0.8rem; padding: 0 1.5rem;
+    }
+    .ticker-label {
+      flex-shrink: 0; background: rgba(88, 166, 255, 0.06);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      padding: 0.15rem 1rem; border-radius: 30px;
+      font-weight: 600; font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 0.5px; color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      white-space: nowrap; display: flex; align-items: center; gap: 0.4rem;
+      transition: all 0.3s ease;
+    }
+    .ticker-label:hover {
+      background: rgba(88, 166, 255, 0.1);
+      border-color: rgba(88, 166, 255, 0.15);
+    }
+    .ticker-label i { font-size: 0.7rem; color: #f0883e; animation: thinkingPulse 2s ease-in-out infinite; }
+    .ticker-track { flex: 1; overflow: hidden; position: relative; height: 2.2rem; display: flex; align-items: center; }
+    .ticker-slide { display: flex; white-space: nowrap; animation: scrollTicker 28s linear infinite; will-change: transform; width: max-content; }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      padding: 0 2rem; font-weight: 400; color: #b1bac4;
+      font-size: 0.85rem; letter-spacing: 0.2px; flex-shrink: 0;
+      font-family: 'Inter', sans-serif; transition: color 0.3s ease;
+    }
+    .ticker-item:hover { color: #f0f6fc; }
+    .ticker-item i { color: #58a6ff; opacity: 0.6; }
+    .ticker-item .badge-hot {
+      background: rgba(240, 136, 62, 0.08); padding: 0.1rem 0.8rem; border-radius: 30px;
+      font-size: 0.6rem; font-weight: 700; color: #f0883e;
+      border: 1px solid rgba(240, 136, 62, 0.08);
+    }
+    .ticker-item .price-tag {
+      background: rgba(88, 166, 255, 0.04); padding: 0.1rem 0.8rem; border-radius: 30px;
+      font-weight: 600; color: #58a6ff; border: 1px solid rgba(88, 166, 255, 0.06);
+    }
+    @keyframes scrollTicker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-track:hover .ticker-slide { animation-play-state: paused; }
+    @media (max-width: 580px) {
+      .ticker-label span { display: none; }
+      .ticker-label { padding: 0.1rem 0.6rem; font-size: 0.6rem; }
+      .ticker-item { font-size: 0.7rem; padding: 0 1rem; }
+    }
+    @media (max-width: 850px) { .news-ticker-wrap { top: 62px; } }
+
+    .ai-status {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      background: rgba(10, 14, 20, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 30px;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Inter', monospace;
+      transition: all 0.4s ease;
+      pointer-events: none;
+    }
+    .ai-status:hover {
+      border-color: rgba(88, 166, 255, 0.15);
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .ai-status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3fb950;
+      animation: thinkingPulse 1.5s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(63, 185, 80, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="data-stream" id="dataStream"></div>
+
+  <header class="sticky-header">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <img src="https://raw.githubusercontent.com/VikieKariz/VikieKariz.github.io/main/ChatGPT%20Image%20Aug%205%2C%202026%2C%2008_08_32%20PM.png" alt="cloud_mikkie AI" width="42" height="42" />
+        <span class="logo-text">
+          <span class="highlight">cloud_mikkie</span>
+          <span class="ai-badge">AI</span>
+        </span>
+      </a>
+      <div class="search-wrapper">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Ask AI anything..." />
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
+        <li><a href="#" class="active"><i class="fas fa-project-diagram"></i> Projects</a></li>
+        <li><a href="#team"><i class="fas fa-users"></i> Team</a></li>
+        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- NEWS TICKER -->
+  <div class="news-ticker-wrap">
+    <div class="ticker-container">
+      <div class="ticker-label"><i class="fas fa-terminal"></i><span>AI · offer</span></div>
+      <div class="ticker-track">
+        <div class="ticker-slide">
+          <span class="ticker-item"><i class="fas fa-utensils"></i> full restaurant site — <span class="price-tag">$200</span> <span class="badge-hot">AI·optimized</span> <i class="fas fa-star" style="color: #f0883e;"></i> portfolio + review</span>
+          <span class="ticker-item"><i class="fas fa-clock"></i> <strong>first 3</strong> restaurants only <span class="badge-hot">2 left</span></span>
+          <span class="ticker-item"><i class="fas fa-check-circle" style="color: #3fb950;"></i> 100% satisfaction · AI-powered</span>
+          <span class="ticker-item"><i class="fas fa-gem"></i> cloud_mikkie AI: $200 + review exchange</span>
+          <span class="ticker-item"><i class="fas fa-utensils"></i> full restaurant site — <span class="price-tag">$200</span> <span class="badge-hot">AI·optimized</span> <i class="fas fa-star" style="color: #f0883e;"></i> portfolio + review</span>
+          <span class="ticker-item"><i class="fas fa-clock"></i> <strong>first 3</strong> restaurants only <span class="badge-hot">2 left</span></span>
+          <span class="ticker-item"><i class="fas fa-check-circle" style="color: #3fb950;"></i> 100% satisfaction · AI-powered</span>
+          <span class="ticker-item"><i class="fas fa-gem"></i> cloud_mikkie AI: $200 + review exchange</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <!-- SPLIT LAYOUT - MAIN ADVERTISEMENT SECTION -->
+    <div class="split-layout">
+      <div class="image-panel">
+        <img src="https://raw.githubusercontent.com/VikieKariz/VikieKariz.github.io/main/ChatGPT%20Image%20Aug%205%2C%202026%2C%2008_08_32%20PM.png" alt="cloud_mikkie AI showcase" />
+        <div class="ai-overlay">
+          <span><i class="fas fa-circle"></i> AI · neural engine v2.4</span>
+        </div>
+      </div>
+      <div class="slider-panel" id="sliderContainer">
+        <div class="slide active" data-index="0">
+          <h2><i class="fas fa-brain"></i> // AI · build your brand</h2>
+          <p>Our <span class="highlight">AI-powered engine</span> crafts <span class="highlight">full, professional websites</span> for businesses — from restaurants to boutiques. No fluff, just intelligent code and design that converts.</p>
+          <div class="price-badge">$200 flat</div>
+          <ul class="perk-list">
+            <li><i class="fas fa-check-circle"></i> AI-optimized responsive design</li>
+            <li><i class="fas fa-check-circle"></i> Smart domain + hosting setup</li>
+            <li><i class="fas fa-check-circle"></i> Intelligent contact forms &amp; booking</li>
+          </ul>
+          <div class="feature-tag"><i class="fas fa-star"></i> AI limited to first 3 clients</div>
+          <div class="slide-detail"><i class="fas fa-clock" style="color: #58a6ff; margin-right: 4px;"></i> Launch in 48 hours · <i class="fas fa-users" style="color: #58a6ff; margin-left: 8px; margin-right: 4px;"></i> 100+ businesses served</div>
+        </div>
+        <div class="slide" data-index="1">
+          <h2><i class="fas fa-star"></i> // AI · review exchange</h2>
+          <p>In return for our <span class="highlight">AI-crafted $200 website</span>, we ask for an <span class="highlight">honest review</span> about your experience. Your feedback helps our AI learn and refine our craft.</p>
+          <ul class="perk-list">
+            <li><i class="fas fa-pen-fancy"></i> AI-assisted review generation</li>
+            <li><i class="fas fa-smile"></i> We share your business with our AI network</li>
+            <li><i class="fas fa-heart"></i> Build a long-term AI-powered relationship</li>
+          </ul>
+          <div class="feature-tag"><i class="fas fa-handshake"></i> AI · win-win partnership</div>
+          <div class="slide-detail"><i class="fas fa-check-circle" style="color: #3fb950; margin-right: 4px;"></i> 200+ verified reviews · <i class="fas fa-star" style="color: #f0883e; margin-left: 8px; margin-right: 4px;"></i> 4.9/5 average rating</div>
+        </div>
+        <div class="slide" data-index="2">
+          <h2><i class="fas fa-globe"></i> // AI · get featured</h2>
+          <p>Every business we build for gets the <span class="highlight">opportunity to be featured</span> on our <span class="highlight">AI-powered cloud_mikkie showcase</span> page. Thousands of potential customers will see your site through our intelligent recommendation engine.</p>
+          <ul class="perk-list">
+            <li><i class="fas fa-arrow-up"></i> AI-optimized portfolio placement</li>
+            <li><i class="fas fa-share-alt"></i> Smart social media shoutout</li>
+            <li><i class="fas fa-trophy"></i> Badge: "AI cloud_mikkie Certified"</li>
+          </ul>
+          <div class="feature-tag"><i class="fas fa-bolt"></i> AI boost your visibility</div>
+          <div class="slide-detail"><i class="fas fa-eye" style="color: #58a6ff; margin-right: 4px;"></i> 10K+ monthly visitors · <i class="fas fa-rocket" style="color: #f0883e; margin-left: 8px; margin-right: 4px;"></i> Featured businesses see 3x growth</div>
+        </div>
+        <div class="slide" data-index="3">
+          <h2><i class="fas fa-robot"></i> // AI · smart automation</h2>
+          <p>Our <span class="highlight">intelligent automation</span> goes beyond websites. We build <span class="highlight">AI-powered tools</span> that handle your customer inquiries, bookings, and follow-ups automatically — saving you hours every week.</p>
+          <ul class="perk-list">
+            <li><i class="fas fa-robot"></i> AI chatbot for 24/7 customer support</li>
+            <li><i class="fas fa-calendar-check"></i> Smart booking &amp; scheduling system</li>
+            <li><i class="fas fa-envelope"></i> Automated email follow-ups &amp; marketing</li>
+          </ul>
+          <div class="feature-tag"><i class="fas fa-clock"></i> Save 20+ hours weekly</div>
+          <div class="slide-detail"><i class="fas fa-chart-line" style="color: #3fb950; margin-right: 4px;"></i> 85% faster response times · <i class="fas fa-dollar-sign" style="color: #58a6ff; margin-left: 8px; margin-right: 4px;"></i> 3x ROI increase</div>
+        </div>
+        <div class="slide" data-index="4">
+          <h2><i class="fas fa-shield-alt"></i> // AI · security & reliability</h2>
+          <p>Your business deserves <span class="highlight">enterprise-grade security</span> and <span class="highlight">99.9% uptime</span>. Our AI monitors your site 24/7, detects threats in real-time, and ensures your customers always have a seamless experience.</p>
+          <ul class="perk-list">
+            <li><i class="fas fa-shield-virus"></i> AI-powered threat detection</li>
+            <li><i class="fas fa-sync-alt"></i> Automated backups &amp; recovery</li>
+            <li><i class="fas fa-cloud"></i> Global CDN &amp; load balancing</li>
+          </ul>
+          <div class="feature-tag"><i class="fas fa-check-circle"></i> 99.9% uptime guaranteed</div>
+          <div class="slide-detail"><i class="fas fa-shield-alt" style="color: #58a6ff; margin-right: 4px;"></i> 24/7 AI monitoring · <i class="fas fa-bolt" style="color: #f0883e; margin-left: 8px; margin-right: 4px;"></i> 50ms average response time</div>
+        </div>
+        <div class="pagination-dots" id="paginationDots">
+          <span class="dot active" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+          <span class="dot" data-index="3"></span>
+          <span class="dot" data-index="4"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS HERO -->
+    <div class="projects-hero">
+      <h1>Our Projects</h1>
+      <p>Explore our portfolio of AI-powered solutions across various industries. From real estate platforms to mobile applications, we deliver innovative, intelligent systems that solve real-world problems.</p>
+      <span class="hero-badge"><i class="fas fa-rocket"></i> 200+ Projects Delivered · 98% Client Satisfaction</span>
+    </div>
+
+    <!-- FULL-STACK WEB DEVELOPMENT PROJECTS -->
+    <div class="service-project-section">
+      <div class="service-title">
+        <i class="fas fa-globe"></i> Full-Stack Web Development
+      </div>
+      <p class="service-desc">
+        Our full-stack web development expertise spans across multiple industries. While we've built numerous <span class="highlight">real estate platforms</span> with advanced property search, virtual tours, and AI-powered valuation tools, we're now leveraging that same powerful architecture to create <span class="highlight">exceptional restaurant websites</span>. The robust, scalable framework we've perfected for real estate is being adapted to deliver stunning dining experiences online — with menu management, reservation systems, and AI-driven customer engagement features that rival the sophistication of our property platforms.
+      </p>
+
+      <!-- Real Estate Projects (5 shown) -->
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-building"></i> EstateVault Pro</h3>
+          <div class="project-badges">
+            <span class="badge">Real Estate</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Full-Stack</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>A comprehensive real estate platform featuring AI-powered property valuation, advanced search filters, virtual tour integration, and intelligent property recommendations. Built with React, Node.js, and MongoDB, this platform serves over 50,000 active users.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> AI-driven property valuation</li>
+              <li><i class="fas fa-check-circle"></i> Virtual tour integration</li>
+              <li><i class="fas fa-check-circle"></i> Advanced search & filtering</li>
+              <li><i class="fas fa-check-circle"></i> Interactive property maps</li>
+            </ul>
+            <div class="conversion-note">
+              <p><i class="fas fa-utensils"></i> <strong>Restaurant Adaptation:</strong> This powerful real estate platform is being adapted for restaurant websites — replacing property listings with menu items, virtual tours with 360° dining experiences, and valuation algorithms with AI-powered customer preference predictions.</p>
+            </div>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-users"></i> 50K+ Active Users</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> React · Node.js · MongoDB</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI-Powered Features</div>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> 99.9% Uptime</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/estatevault-pro'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-home"></i> HomeFinder AI</h3>
+          <div class="project-badges">
+            <span class="badge">Real Estate</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Full-Stack</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>An intelligent property search platform that uses machine learning to understand user preferences and deliver hyper-personalized property recommendations. Features include neighborhood analysis, school ratings, and commute time calculations.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> ML-powered recommendations</li>
+              <li><i class="fas fa-check-circle"></i> Neighborhood insights</li>
+              <li><i class="fas fa-check-circle"></i> School district ratings</li>
+              <li><i class="fas fa-check-circle"></i> Commute time calculator</li>
+            </ul>
+            <div class="conversion-note">
+              <p><i class="fas fa-utensils"></i> <strong>Restaurant Adaptation:</strong> The recommendation engine powering HomeFinder AI is being repurposed for restaurant discovery — matching diners with restaurants based on cuisine preferences, dietary needs, and dining history.</p>
+            </div>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-users"></i> 35K+ Active Users</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Next.js · Python · PostgreSQL</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> ML-Powered</div>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> 4.9★ Rating</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/homefinder-ai'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-map-marked-alt"></i> RealtyConnect</h3>
+          <div class="project-badges">
+            <span class="badge">Real Estate</span>
+            <span class="badge">Full-Stack</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>A real estate agent platform connecting buyers, sellers, and agents with intelligent lead generation, automated follow-ups, and AI-powered property matching. Built with Vue.js and Django.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> Lead generation engine</li>
+              <li><i class="fas fa-check-circle"></i> Automated email follow-ups</li>
+              <li><i class="fas fa-check-circle"></i> Agent-client matching</li>
+              <li><i class="fas fa-check-circle"></i> Analytics dashboard</li>
+            </ul>
+            <div class="conversion-note">
+              <p><i class="fas fa-utensils"></i> <strong>Restaurant Adaptation:</strong> The lead generation and customer relationship management features are being adapted for restaurant reservation and customer retention systems.</p>
+            </div>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-users"></i> 10K+ Agents</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Vue.js · Django · Redis</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI Lead Generation</div>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> 4.8★ Rating</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/realty-connect'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-chart-line"></i> MarketIntel Pro</h3>
+          <div class="project-badges">
+            <span class="badge">Real Estate</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Full-Stack</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>An advanced real estate analytics platform providing market trend analysis, price predictions, and investment insights using machine learning models trained on historical data from over 100 markets.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> Price prediction models</li>
+              <li><i class="fas fa-check-circle"></i> Market trend analysis</li>
+              <li><i class="fas fa-check-circle"></i> Investment scoring</li>
+              <li><i class="fas fa-check-circle"></i> Interactive visualizations</li>
+            </ul>
+            <div class="conversion-note">
+              <p><i class="fas fa-utensils"></i> <strong>Restaurant Adaptation:</strong> The market analytics engine is being repurposed for restaurant industry insights — predicting customer traffic, analyzing dining trends, and optimizing menu pricing.</p>
+            </div>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-users"></i> 15K+ Business Users</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Python · Django · React</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> ML Analytics</div>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> 95% Accuracy</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/marketintel-pro'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-video"></i> VirtuTour 3D</h3>
+          <div class="project-badges">
+            <span class="badge">Real Estate</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Full-Stack</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>A virtual tour platform for real estate properties featuring 3D walkthroughs, interactive floor plans, and AI-guided property exploration. Powered by WebGL and Three.js.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> 3D virtual walkthroughs</li>
+              <li><i class="fas fa-check-circle"></i> Interactive floor plans</li>
+              <li><i class="fas fa-check-circle"></i> AI-guided tours</li>
+              <li><i class="fas fa-check-circle"></i> Browser-based (no app needed)</li>
+            </ul>
+            <div class="conversion-note">
+              <p><i class="fas fa-utensils"></i> <strong>Restaurant Adaptation:</strong> The 3D virtual tour technology is being adapted for restaurants — offering immersive 360° dining experiences, virtual table selection, and interactive menu exploration.</p>
+            </div>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-users"></i> 25K+ Monthly Tours</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Three.js · WebGL · Node.js</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI-Guided Tours</div>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> 4.9★ Rating</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/virtutour-3d'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <p style="color: #58a6ff; text-align: center; margin-top: 0.5rem; font-style: italic;">
+        <i class="fas fa-utensils"></i> Our real estate expertise is being transformed into exceptional restaurant websites. 
+        <span style="color: #f0883e;">Ask us about our restaurant conversion packages!</span>
+      </p>
+    </div>
+
+    <!-- MOBILE APP DEVELOPMENT PROJECTS -->
+    <div class="service-project-section">
+      <div class="service-title">
+        <i class="fas fa-mobile-alt"></i> Mobile App Development
+      </div>
+      <p class="service-desc">
+        We build native and cross-platform mobile applications with intelligent features that engage users and drive business growth. Our apps leverage AI to deliver personalized experiences across iOS and Android platforms.
+      </p>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-utensils"></i> DineWise AI</h3>
+          <div class="project-badges">
+            <span class="badge">Restaurant</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Mobile App</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>An AI-powered restaurant discovery app that learns user preferences, recommends personalized dining experiences, and handles reservations. Features intelligent cuisine matching, dietary filtering, and smart waitlist management.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> AI restaurant recommendations</li>
+              <li><i class="fas fa-check-circle"></i> Smart reservation system</li>
+              <li><i class="fas fa-check-circle"></i> Dietary preference filtering</li>
+              <li><i class="fas fa-check-circle"></i> Waitlist management</li>
+            </ul>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-download"></i> 50K+ Downloads</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> React Native · Firebase</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI-Powered</div>
+            <div class="sidebar-item"><i class="fas fa-star"></i> 4.8★ Rating</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/dinewise-ai'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-running"></i> FitTrack Pro</h3>
+          <div class="project-badges">
+            <span class="badge">Health & Fitness</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Mobile App</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>A comprehensive fitness tracking app with AI-powered workout planning, nutrition tracking, and performance analytics. Features personalized workout recommendations and real-time progress monitoring.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> AI workout planning</li>
+              <li><i class="fas fa-check-circle"></i> Nutrition tracking</li>
+              <li><i class="fas fa-check-circle"></i> Performance analytics</li>
+              <li><i class="fas fa-check-circle"></i> Wearable integration</li>
+            </ul>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-download"></i> 75K+ Downloads</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Swift · Kotlin · Firebase</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI Training</div>
+            <div class="sidebar-item"><i class="fas fa-star"></i> 4.7★ Rating</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/fittrack-pro'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-hand-holding-usd"></i> FinMate AI</h3>
+          <div class="project-badges">
+            <span class="badge">FinTech</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Mobile App</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>An AI-powered personal finance assistant that helps users manage budgets, track expenses, and make smarter financial decisions with predictive analytics and personalized recommendations.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> AI expense tracking</li>
+              <li><i class="fas fa-check-circle"></i> Budget optimization</li>
+              <li><i class="fas fa-check-circle"></i> Predictive analytics</li>
+              <li><i class="fas fa-check-circle"></i> Bill reminders</li>
+            </ul>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-download"></i> 30K+ Downloads</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Flutter · Python · PostgreSQL</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI Analytics</div>
+            <div class="sidebar-item"><i class="fas fa-star"></i> 4.9★ Rating</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/finmate-ai'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI INTEGRATION & AUTOMATION PROJECTS -->
+    <div class="service-project-section">
+      <div class="service-title">
+        <i class="fas fa-robot"></i> AI Integration & Automation
+      </div>
+      <p class="service-desc">
+        We design and implement intelligent automation systems that streamline workflows, enhance decision-making, and save valuable time. Our AI solutions leverage cutting-edge machine learning algorithms to give businesses a competitive edge.
+      </p>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-comment-dots"></i> ChatGenie AI</h3>
+          <div class="project-badges">
+            <span class="badge">AI Integration</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Automation</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>An intelligent AI chatbot platform for businesses, handling customer inquiries, support tickets, and appointment scheduling with natural language understanding and sentiment analysis.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> Natural language understanding</li>
+              <li><i class="fas fa-check-circle"></i> Sentiment analysis</li>
+              <li><i class="fas fa-check-circle"></i> Multi-channel support</li>
+              <li><i class="fas fa-check-circle"></i> Automated ticket routing</li>
+            </ul>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-users"></i> 100+ Businesses</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Python · NLP · TensorFlow</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI-Powered Chat</div>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> 90% Resolution Rate</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/chatgenie-ai'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-cogs"></i> AutoWorkflow Pro</h3>
+          <div class="project-badges">
+            <span class="badge">Automation</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Integration</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>An enterprise automation platform that orchestrates complex workflows across multiple applications, using AI to identify optimization opportunities and automate repetitive tasks.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> Multi-app workflow orchestration</li>
+              <li><i class="fas fa-check-circle"></i> AI optimization suggestions</li>
+              <li><i class="fas fa-check-circle"></i> 500+ integrations</li>
+              <li><i class="fas fa-check-circle"></i> Real-time monitoring</li>
+            </ul>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-clock"></i> 20+ Hours Saved/Week</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Python · Node.js · Redis</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI Optimization</div>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> Enterprise-grade</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/autoworkflow-pro'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLOUD DEPLOYMENT & DEVOPS PROJECTS -->
+    <div class="service-project-section">
+      <div class="service-title">
+        <i class="fas fa-cloud"></i> Cloud Deployment & DevOps
+      </div>
+      <p class="service-desc">
+        We provide scalable, secure, and reliable cloud infrastructure with CI/CD pipelines, automated monitoring, and best-in-class DevOps practices ensuring 99.9% uptime and optimal performance.
+      </p>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-server"></i> CloudScale Infrastructure</h3>
+          <div class="project-badges">
+            <span class="badge">DevOps</span>
+            <span class="badge">Cloud</span>
+            <span class="badge">CI/CD</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>Enterprise-grade cloud infrastructure with automated scaling, load balancing, and AI-powered monitoring. Deployed across AWS and Azure with comprehensive security and disaster recovery.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> Auto-scaling architecture</li>
+              <li><i class="fas fa-check-circle"></i> Multi-cloud deployment</li>
+              <li><i class="fas fa-check-circle"></i> AI-powered monitoring</li>
+              <li><i class="fas fa-check-circle"></i> Disaster recovery</li>
+            </ul>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> 99.9% Uptime</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> AWS · Azure · Terraform</div>
+            <div class="sidebar-item"><i class="fas fa-bolt"></i> 50ms Response Time</div>
+            <div class="sidebar-item"><i class="fas fa-shield-alt"></i> SOC2 Compliant</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/cloudscale-infra'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CYBERSECURITY PROJECTS -->
+    <div class="service-project-section">
+      <div class="service-title">
+        <i class="fas fa-shield-alt"></i> Cybersecurity & Website Protection
+      </div>
+      <p class="service-desc">
+        We implement enterprise-grade security measures with AI-powered threat detection, real-time monitoring, and automated incident response to keep your digital assets safe.
+      </p>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-shield-virus"></i> GuardAI Security Suite</h3>
+          <div class="project-badges">
+            <span class="badge">Cybersecurity</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Protection</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>An AI-powered security suite providing real-time threat detection, vulnerability scanning, automated incident response, and comprehensive compliance monitoring for websites and applications.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> Real-time threat detection</li>
+              <li><i class="fas fa-check-circle"></i> Automated incident response</li>
+              <li><i class="fas fa-check-circle"></i> Vulnerability scanning</li>
+              <li><i class="fas fa-check-circle"></i> Compliance monitoring</li>
+            </ul>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-shield-virus"></i> 99.9% Threat Block</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Python · ML · Node.js</div>
+            <div class="sidebar-item"><i class="fas fa-bolt"></i> 50ms Response</div>
+            <div class="sidebar-item"><i class="fas fa-certificate"></i> GDPR Compliant</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/guardai-suite'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- E-COMMERCE PROJECTS -->
+    <div class="service-project-section">
+      <div class="service-title">
+        <i class="fas fa-shopping-cart"></i> E-commerce Solutions
+      </div>
+      <p class="service-desc">
+        We build custom online stores with AI-powered features including smart product recommendations, personalized shopping experiences, automated marketing integration, and real-time analytics.
+      </p>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-store"></i> ShopSmart AI</h3>
+          <div class="project-badges">
+            <span class="badge">E-commerce</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Full-Stack</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>An AI-powered e-commerce platform with smart product recommendations, personalized shopping experiences, automated marketing campaigns, and real-time analytics. Built with Next.js and Stripe.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> AI product recommendations</li>
+              <li><i class="fas fa-check-circle"></i> Personalized shopping</li>
+              <li><i class="fas fa-check-circle"></i> Automated marketing</li>
+              <li><i class="fas fa-check-circle"></i> Real-time analytics</li>
+            </ul>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-credit-card"></i> 100+ Stores Launched</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Next.js · Stripe · Redis</div>
+            <div class="sidebar-item"><i class="fas fa-chart-line"></i> 2x Avg. Sales</div>
+            <div class="sidebar-item"><i class="fas fa-star"></i> 4.9★ Merchant Rating</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/shopsmart-ai'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI/UX DESIGN PROJECTS -->
+    <div class="service-project-section">
+      <div class="service-title">
+        <i class="fas fa-paint-brush"></i> UI/UX Design
+      </div>
+      <p class="service-desc">
+        We create beautiful, intuitive, and user-centered digital experiences combining design thinking with AI-driven user research to deliver interfaces that users love and that drive conversions.
+      </p>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3><i class="fas fa-pencil-ruler"></i> DesignSystem AI</h3>
+          <div class="project-badges">
+            <span class="badge">UI/UX</span>
+            <span class="badge ai-powered">AI-Powered</span>
+            <span class="badge">Design</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>An AI-powered design system with component libraries, responsive templates, and automated UX optimization. Used by 50+ companies to maintain design consistency and accelerate development.</p>
+            <ul class="project-features">
+              <li><i class="fas fa-check-circle"></i> Component library</li>
+              <li><i class="fas fa-check-circle"></i> Responsive templates</li>
+              <li><i class="fas fa-check-circle"></i> AI UX optimization</li>
+              <li><i class="fas fa-check-circle"></i> Design tokens system</li>
+            </ul>
+          </div>
+          <div class="project-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Project Details</h4>
+            <div class="sidebar-item"><i class="fas fa-smile"></i> 95% User Satisfaction</div>
+            <div class="sidebar-item"><i class="fas fa-code"></i> Figma · React · Storybook</div>
+            <div class="sidebar-item"><i class="fas fa-chart-line"></i> 40% Conversion Increase</div>
+            <div class="sidebar-item"><i class="fas fa-award"></i> Award-Winning Design</div>
+            <a href="#" onclick="alert('Repository: github.com/cloudmikkie/designsystem-ai'); return false;" class="repo-btn"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM SECTION -->
+    <div class="team-section" id="team">
+      <h2><i class="fas fa-users"></i> our team</h2>
+      <p class="subtitle">Meet the talented developers behind cloud_mikkie AI</p>
+      <div class="team-grid">
+        <!-- Developer 1 -->
+        <div class="team-card">
+          <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+          <div class="team-name">Michael Kariz</div>
+          <div class="team-role">Lead Full-Stack Developer & AI Specialist</div>
+          <div class="team-bio">
+            Michael is a seasoned full-stack developer with over 8 years of experience in web development and AI integration. He specializes in building scalable web applications using React, Node.js, and Python. Michael has led the development of over 50 major projects, including the EstateVault Pro and HomeFinder AI platforms. His expertise in AI-powered solutions has helped businesses across real estate, e-commerce, and hospitality sectors achieve digital transformation.
+          </div>
+          <div class="team-skills">
+            <span>React</span>
+            <span>Node.js</span>
+            <span>Python</span>
+            <span>AI/ML</span>
+            <span>Docker</span>
+            <span>AWS</span>
+          </div>
+          <div class="team-social">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Developer 2 -->
+        <div class="team-card">
+          <div class="team-avatar"><i class="fas fa-user-astronaut"></i></div>
+          <div class="team-name">Sarah Wanjiru</div>
+          <div class="team-role">Mobile App Developer & UI/UX Designer</div>
+          <div class="team-bio">
+            Sarah is a creative mobile app developer and UI/UX designer with 6 years of experience in creating intuitive, user-centered digital experiences. She specializes in React Native and Flutter development, having published over 30 apps on the App Store and Google Play. Sarah's passion for design and user research has been instrumental in creating the DesignSystem AI and DineWise AI projects. She believes that great design is the bridge between technology and human connection.
+          </div>
+          <div class="team-skills">
+            <span>React Native</span>
+            <span>Flutter</span>
+            <span>Figma</span>
+            <span>UI/UX</span>
+            <span>Swift</span>
+            <span>Firebase</span>
+          </div>
+          <div class="team-social">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-dribbble"></i></a>
+          </div>
+        </div>
+
+        <!-- Developer 3 -->
+        <div class="team-card">
+          <div class="team-avatar"><i class="fas fa-user-graduate"></i></div>
+          <div class="team-name">David Ochieng</div>
+          <div class="team-role">DevOps Engineer & Cloud Architect</div>
+          <div class="team-bio">
+            David is a highly skilled DevOps engineer and cloud architect with 7 years of experience in building and maintaining robust cloud infrastructure. He specializes in AWS, Azure, and hybrid cloud solutions with expertise in CI/CD pipelines, containerization, and infrastructure as code. David has architected the CloudScale Infrastructure platform and implemented AI-powered monitoring systems that ensure 99.9% uptime for all cloud_mikkie projects. His passion for automation and security keeps our systems running smoothly and securely.
+          </div>
+          <div class="team-skills">
+            <span>AWS</span>
+            <span>Azure</span>
+            <span>Docker</span>
+            <span>Kubernetes</span>
+            <span>Terraform</span>
+            <span>Python</span>
+          </div>
+          <div class="team-social">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-dev"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS SECTION - Expanded to match projects -->
+    <div class="testimonials-section">
+      <h2><i class="fas fa-quote-right"></i> client testimonials</h2>
+      <p class="subtitle">Real feedback from clients who've experienced our AI-powered solutions</p>
+      <div class="testimonials-grid">
+        <!-- Testimonial 1 - Real Estate -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"><i class="fas fa-building"></i></div>
+            <div class="testimonial-author">
+              <h4>Robert Thompson</h4>
+              <div class="role">CEO, Thompson Realty Group</div>
+            </div>
+          </div>
+          <div class="testimonial-stars">
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+          </div>
+          <div class="testimonial-text">
+            cloud_mikkie AI built our entire real estate platform from the ground up. EstateVault Pro has transformed how we do business — our agents can now manage properties, schedule virtual tours, and close deals faster than ever. The AI-powered valuation tool has been a game-changer for our clients. We've seen a 200% increase in leads since launch. Their team's expertise in real estate tech is unmatched.
+          </div>
+          <div class="testimonial-footer">
+            <span class="project-tag">EstateVault Pro</span>
+            <span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 - Restaurant -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"><i class="fas fa-utensils"></i></div>
+            <div class="testimonial-author">
+              <h4>Maria Gonzalez</h4>
+              <div class="role">Owner, La Cocina Restaurant</div>
+            </div>
+          </div>
+          <div class="testimonial-stars">
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+          </div>
+          <div class="testimonial-text">
+            We were hesitant to move our restaurant online until we met the cloud_mikkie team. They took our vision and created a stunning website with online ordering, reservation management, and AI-powered menu recommendations. Our online orders have tripled, and customers love the seamless experience. The team's understanding of the restaurant industry and their AI solutions have been invaluable to our growth.
+          </div>
+          <div class="testimonial-footer">
+            <span class="project-tag">Restaurant Website</span>
+            <span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 - Mobile App -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"><i class="fas fa-mobile-alt"></i></div>
+            <div class="testimonial-author">
+              <h4>James Kim</h4>
+              <div class="role">Founder, FitLife App</div>
+            </div>
+          </div>
+          <div class="testimonial-stars">
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+          </div>
+          <div class="testimonial-text">
+            cloud_mikkie AI developed FitTrack Pro for us, and the results have been phenomenal. The AI-powered workout planning and nutrition tracking features have received rave reviews from our users. We've grown to 75,000 downloads in just 6 months, and user engagement is through the roof. The team's expertise in mobile development and AI integration is world-class. They were with us every step of the way.
+          </div>
+          <div class="testimonial-footer">
+            <span class="project-tag">FitTrack Pro</span>
+            <span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span>
+          </div>
+        </div>
+
+        <!-- Testimonial 4 - E-commerce -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"><i class="fas fa-shopping-cart"></i></div>
+            <div class="testimonial-author">
+              <h4>Lisa Chen</h4>
+              <div class="role">Founder, Bloom & Co.</div>
+            </div>
+          </div>
+          <div class="testimonial-stars">
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+          </div>
+          <div class="testimonial-text">
+            Our e-commerce store built by cloud_mikkie AI has exceeded all expectations. The AI-powered product recommendations have increased our average order value by 40%, and the automated marketing campaigns have significantly boosted customer retention. The platform is fast, secure, and incredibly easy to manage. We've since launched three more stores with them. Simply the best e-commerce developers we've worked with.
+          </div>
+          <div class="testimonial-footer">
+            <span class="project-tag">ShopSmart AI</span>
+            <span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span>
+          </div>
+        </div>
+
+        <!-- Testimonial 5 - AI Automation -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"><i class="fas fa-robot"></i></div>
+            <div class="testimonial-author">
+              <h4>David Patel</h4>
+              <div class="role">CTO, TechForward Solutions</div>
+            </div>
+          </div>
+          <div class="testimonial-stars">
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+          </div>
+          <div class="testimonial-text">
+            The AI automation solutions from cloud_mikkie have completely transformed our operations. ChatGenie AI handles 80% of our customer inquiries automatically, and AutoWorkflow Pro has streamlined our internal processes. Our team now saves 25+ hours per week on repetitive tasks. The ROI has been incredible — we've reduced operational costs by 40% while improving customer satisfaction. Their AI expertise is truly impressive.
+          </div>
+          <div class="testimonial-footer">
+            <span class="project-tag">ChatGenie AI</span>
+            <span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span>
+          </div>
+        </div>
+
+        <!-- Testimonial 6 - Cloud & Security -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"><i class="fas fa-shield-alt"></i></div>
+            <div class="testimonial-author">
+              <h4>Sarah Johnson</h4>
+              <div class="role">Head of IT, SecureCorp</div>
+            </div>
+          </div>
+          <div class="testimonial-stars">
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+            <i class="fas fa-star star-filled"></i>
+          </div>
+          <div class="testimonial-text">
+            cloud_mikkie AI implemented our cloud infrastructure and security suite, and we couldn't be happier. CloudScale Infrastructure has delivered 99.99% uptime, and GuardAI Security Suite protects us against threats we didn't even know existed. Their AI-powered monitoring catches issues before they become problems. Our SOC2 audit was a breeze thanks to their comprehensive security measures. Highly recommended for any enterprise.
+          </div>
+          <div class="testimonial-footer">
+            <span class="project-tag">GuardAI Suite</span>
+            <span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div class="contact-section" id="contact">
+      <h2><i class="fas fa-envelope"></i> get in touch</h2>
+      <p class="subtitle">Have a project in mind? Let's build something amazing together.</p>
+      <div class="contact-grid">
+        <div class="contact-left">
+          <div class="contact-info">
+            <div class="info-item"><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div class="content"><h4>Location</h4><p>San Francisco, CA</p></div></div>
+            <div class="info-item"><div class="icon"><i class="fas fa-envelope"></i></div><div class="content"><h4>Email</h4><p><a href="mailto:hello@cloudmikkie.ai">hello@cloudmikkie.ai</a></p></div></div>
+            <div class="info-item"><div class="icon"><i class="fas fa-phone"></i></div><div class="content"><h4>Phone</h4><p><a href="tel:+15551234567">+1 (555) 123-4567</a></p></div></div>
+            <div class="info-item"><div class="icon"><i class="fas fa-clock"></i></div><div class="content"><h4>Working Hours</h4><p>Mon - Fri: 9:00 AM - 6:00 PM PST</p></div></div>
+          </div>
+          <div class="contact-social"><h4>Connect with us</h4><div class="social-links"><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-discord"></i></a></div></div>
+          <form class="contact-form" id="contactForm">
+            <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" placeholder="John Doe" /></div>
+            <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" placeholder="john@example.com" /></div>
+            <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" placeholder="Project Inquiry" /></div>
+            <div class="form-group"><label for="message">Message</label><textarea id="message" placeholder="Tell us about your project..."></textarea></div>
+            <button type="submit" class="submit-btn">Send Message <i class="fas fa-arrow-right"></i></button>
+          </form>
+        </div>
+        <div class="contact-right">
+          <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.8354345094376!2d-122.41941548468157!3d37.77492977975901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808c4b6a9d6b%3A0x7b4d7b4e8d4f8d4f!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="map-address"><i class="fas fa-location-dot"></i><span>📍 San Francisco, CA — We're here!</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo-text"><span class="highlight">cloud_mikkie</span><span class="ai-badge">AI</span></div>
+        <p>Intelligent web solutions powered by artificial intelligence. Building the future, one line of code at a time.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="footer-newsletter">
+          <h4>Subscribe to our newsletter</h4>
+          <div class="newsletter-form">
+            <input type="email" placeholder="Enter your email" />
+            <button>Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col footer-col-services">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Web Development</a></li>
+          <li><a href="#">AI Integration</a></li>
+          <li><a href="#">Cloud Solutions</a></li>
+          <li><a href="#">UI/UX Design</a></li>
+          <li><a href="#">E-commerce</a></li>
+          <li><a href="#">Cybersecurity</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-company">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Press Kit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-resources">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API Reference</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-contact">
+        <h4>Contact Info</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: #58a6ff;"></i>San Francisco, CA</a></li>
+          <li><a href="#"><i class="fas fa-envelope" style="margin-right: 8px; color: #58a6ff;"></i>hello@cloudmikkie.ai</a></li>
+          <li><a href="#"><i class="fas fa-phone" style="margin-right: 8px; color: #58a6ff;"></i>+1 (555) 123-4567</a></li>
+          <li><a href="#"><i class="fas fa-clock" style="margin-right: 8px; color: #58a6ff;"></i>Mon-Fri 9AM-6PM PST</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 cloud_mikkie AI. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+      <div class="footer-ai-status">
+        <span class="dot"></span>
+        <span>AI neural engine · v2.4 · active</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="ai-status"><span class="dot"></span><span>AI · neural engine active</span></div>
+
+  <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu-panel" id="mobilePanel">
+    <div class="mobile-panel-header">
+      <div class="mobile-search"><i class="fas fa-search"></i><input type="text" placeholder="Ask AI..." /></div>
+      <button class="mobile-menu-close" id="closeMobileMenu" aria-label="Close menu"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-nav-list">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
+      <li><a href="#" class="active-mobile"><i class="fas fa-project-diagram"></i> Projects</a></li>
+      <li><a href="#team"><i class="fas fa-users"></i> Team</a></li>
+      <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <div class="panel-footer"><i class="fas fa-circle"></i> cloud_mikkie AI · v2.4 · neural</div>
+  </div>
+
+  <script>
+    (function() {
+      const hamburger = document.getElementById('hamburgerBtn');
+      const overlay = document.getElementById('mobileOverlay');
+      const panel = document.getElementById('mobilePanel');
+      const closeBtn = document.getElementById('closeMobileMenu');
+      
+      function openMenu() { 
+        panel.classList.add('open'); 
+        overlay.classList.add('active'); 
+        document.body.style.overflow = 'hidden'; 
+      }
+      
+      function closeMenu() { 
+        panel.classList.remove('open'); 
+        overlay.classList.remove('active'); 
+        document.body.style.overflow = ''; 
+      }
+      
+      if (hamburger) hamburger.addEventListener('click', openMenu);
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      if (overlay) overlay.addEventListener('click', closeMenu);
+      
+      document.addEventListener('keydown', function(e) { 
+        if (e.key === 'Escape' && panel && panel.classList.contains('open')) closeMenu(); 
+      });
+      
+      window.addEventListener('resize', function() { 
+        if (window.innerWidth > 850 && panel && panel.classList.contains('open')) closeMenu(); 
+      });
+
+      // Slider functionality
+      const container = document.getElementById('sliderContainer');
+      const slides = container.querySelectorAll('.slide');
+      const dots = container.querySelectorAll('.dot');
+      let current = 0, total = slides.length, interval;
+      
+      function goTo(index) {
+        if (index < 0) index = total - 1;
+        if (index >= total) index = 0;
+        slides.forEach((s, i) => s.classList.toggle('active', i === index));
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        current = index;
+      }
+      
+      function nextSlide() { goTo(current + 1); }
+      
+      dots.forEach(dot => { 
+        dot.addEventListener('click', function() { 
+          const idx = parseInt(this.getAttribute('data-index'), 10); 
+          if (!isNaN(idx)) { goTo(idx); resetInterval(); } 
+        }); 
+      });
+      
+      function startInterval() { interval = setInterval(nextSlide, 5000); }
+      function resetInterval() { clearInterval(interval); startInterval(); }
+      
+      if (container) { 
+        container.addEventListener('mouseenter', function() { clearInterval(interval); }); 
+        container.addEventListener('mouseleave', function() { startInterval(); }); 
+        container.addEventListener('touchstart', function() { clearInterval(interval); }); 
+        container.addEventListener('touchend', function() { startInterval(); }); 
+      }
+      startInterval();
+
+      // Contact form
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) { e.preventDefault(); alert('Thank you for your message! We\'ll get back to you soon.'); this.reset(); });
+      }
+
+      // Data stream
+      const stream = document.getElementById('dataStream');
+      const chars = '01'.split('');
+      for (let i = 0; i < 30; i++) {
+        const span = document.createElement('span');
+        span.textContent = Array.from({ length: 20 }, () => chars[Math.floor(Math.random() * chars.length)]).join(' ');
+        span.style.left = Math.random() * 100 + '%';
+        span.style.animationDelay = Math.random() * 20 + 's';
+        span.style.animationDuration = 15 + Math.random() * 20 + 's';
+        span.style.fontSize = (0.4 + Math.random() * 0.4) + 'rem';
+        stream.appendChild(span);
+      }
+
+      document.body.addEventListener('mousemove', function(e) {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        document.body.style.backgroundImage = `
+          radial-gradient(ellipse at ${x * 100}% ${y * 100}%, rgba(88, 166, 255, 0.06) 0%, transparent 40%),
+          radial-gradient(ellipse at ${(1 - x) * 100}% ${(1 - y) * 100}%, rgba(63, 185, 80, 0.04) 0%, transparent 40%)
+        `;
+      });
+    })();
+  </script>
+
+</body>
+</html>
