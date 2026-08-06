@@ -132,11 +132,8 @@
       font-weight: 600; letter-spacing: 0.5px;
       animation: thinkingPulse 3s ease-in-out infinite;
     }
-    /* Hide logo text and AI badge on small screens */
     @media (max-width: 850px) {
-      .logo-text {
-        display: none;
-      }
+      .logo-text { display: none; }
     }
     .search-wrapper {
       flex: 1 1 260px; min-width: 160px; max-width: 400px;
@@ -165,8 +162,6 @@
       box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.08), inset 0 2px 10px rgba(0,0,0,0.5);
     }
     .search-wrapper:focus-within i { opacity: 1; color: #58a6ff; }
-
-    /* On small screens, expand search bar to fill available space */
     @media (max-width: 850px) {
       .search-wrapper {
         flex: 1 1 auto;
@@ -396,11 +391,9 @@
       transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1), filter 0.8s ease;
       filter: saturate(0.9) contrast(1.1);
     }
-    /* Default image for all screens */
     .image-panel img {
       content: url('https://raw.githubusercontent.com/VikieKariz/VikieKariz.github.io/main/ChatGPT%20Image%20Aug%205%2C%202026%2C%2008_08_32%20PM.png');
     }
-    /* Large screens: change to a different image */
     @media (min-width: 821px) {
       .image-panel img {
         content: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&q=80');
@@ -410,7 +403,6 @@
       transform: scale(1.05);
       filter: saturate(1.1) contrast(1.2) brightness(1.05);
     }
-    /* overlay without blur gradient — clean text */
     .image-panel .ai-overlay {
       position: absolute;
       bottom: 0;
@@ -539,6 +531,255 @@
     .pagination-dots .dot:hover {
       background: rgba(88, 166, 255, 0.3);
       border-color: rgba(88, 166, 255, 0.3); transform: scale(1.2);
+    }
+
+    /* ===== SERVICES DETAIL SECTION ===== */
+    .services-hero {
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+      margin: 4rem 0 2rem;
+      background: rgba(10, 14, 20, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+    }
+    .services-hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .services-hero p {
+      color: #8b949e;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    .services-hero .hero-badge {
+      display: inline-block;
+      background: rgba(88, 166, 255, 0.06);
+      padding: 0.3rem 1.5rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      margin-top: 1rem;
+    }
+
+    .service-detail-card {
+      background: rgba(10, 14, 20, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-detail-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #58a6ff, #3fb950, #58a6ff);
+      background-size: 200% 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+    .service-detail-card:hover::before { opacity: 1; }
+    .service-detail-card:hover {
+      border-color: rgba(88, 166, 255, 0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 50px rgba(0,0,0,0.3), 0 0 40px rgba(88, 166, 255, 0.02);
+      background: rgba(10, 14, 20, 0.7);
+    }
+
+    .service-detail-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .service-detail-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(88, 166, 255, 0.06);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: #58a6ff;
+      flex-shrink: 0;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+    }
+    .service-detail-card:hover .service-detail-icon {
+      background: rgba(88, 166, 255, 0.12);
+      transform: scale(1.05) rotate(-3deg);
+    }
+    .service-detail-title h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.3rem;
+    }
+    .service-detail-title .service-tag {
+      display: inline-block;
+      background: rgba(63, 185, 80, 0.08);
+      padding: 0.15rem 1rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      color: #3fb950;
+      border: 1px solid rgba(63, 185, 80, 0.08);
+      font-weight: 600;
+    }
+    .service-detail-title .service-price {
+      display: inline-block;
+      background: rgba(88, 166, 255, 0.08);
+      padding: 0.15rem 1rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+
+    .service-detail-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    .service-description p {
+      color: #b1bac4;
+      line-height: 1.9;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .service-description .feature-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.5rem;
+      margin-top: 1rem;
+    }
+    .service-description .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #c9d1d9;
+      font-size: 0.85rem;
+      padding: 0.3rem 0;
+      transition: all 0.3s ease;
+    }
+    .service-description .feature-list li:hover {
+      color: #f0f6fc;
+      transform: translateX(4px);
+    }
+    .service-description .feature-list li i {
+      color: #3fb950;
+      font-size: 0.8rem;
+    }
+
+    .service-sidebar {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 14px;
+      padding: 1.5rem;
+      border: 1px solid rgba(88, 166, 255, 0.04);
+      align-self: flex-start;
+    }
+    .service-sidebar h4 {
+      color: #f0f6fc;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+    .service-sidebar .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(88, 166, 255, 0.04);
+      color: #8b949e;
+      font-size: 0.85rem;
+    }
+    .service-sidebar .sidebar-item:last-child {
+      border-bottom: none;
+    }
+    .service-sidebar .sidebar-item i {
+      color: #58a6ff;
+      width: 1.2rem;
+    }
+    .service-sidebar .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 1rem;
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      border-radius: 10px;
+      color: #58a6ff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    .service-sidebar .cta-btn:hover {
+      background: rgba(88, 166, 255, 0.15);
+      border-color: rgba(88, 166, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
+    }
+
+    @media (max-width: 820px) {
+      .service-detail-body {
+        grid-template-columns: 1fr;
+      }
+      .service-detail-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .service-description .feature-list {
+        grid-template-columns: 1fr;
+      }
+      .services-hero h1 {
+        font-size: 2rem;
+      }
+      .service-detail-card {
+        padding: 1.5rem;
+      }
+    }
+    @media (max-width: 500px) {
+      .services-hero {
+        padding: 2rem 1rem;
+      }
+      .services-hero h1 {
+        font-size: 1.6rem;
+      }
+      .service-detail-title h2 {
+        font-size: 1.3rem;
+      }
+      .service-detail-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 1.6rem;
+      }
     }
 
     .services-section { margin-top: 4rem; }
@@ -1127,11 +1368,15 @@
       backdrop-filter: blur(20px) saturate(200%);
       -webkit-backdrop-filter: blur(20px) saturate(200%);
       border-top: 1px solid rgba(88, 166, 255, 0.06);
-      padding: 4rem 1.5rem 2rem; width: 100%;
+      padding: 4rem 1.5rem 2rem;
+      width: 100%;
     }
     .footer-container {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2rem;
     }
     .footer-brand { grid-column: 1 / 2; grid-row: 1 / 3; }
     .footer-col-services { grid-column: 2 / 3; grid-row: 1 / 2; }
@@ -1140,93 +1385,250 @@
     .footer-col-contact { grid-column: 3 / 4; grid-row: 2 / 3; }
 
     .footer-brand .logo-text {
-      font-size: 1.3rem; font-weight: 700; color: #e6edf3; margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #e6edf3;
+      margin-bottom: 0.5rem;
     }
     .footer-brand .logo-text .highlight {
       background: linear-gradient(135deg, #58a6ff, #3fb950);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .footer-brand .logo-text .ai-badge {
-      font-size: 0.5rem; background: rgba(88, 166, 255, 0.15);
-      padding: 0.1rem 0.5rem; border-radius: 20px; color: #58a6ff;
-      border: 1px solid rgba(88, 166, 255, 0.2); font-weight: 600; letter-spacing: 0.5px;
-      margin-left: 0.3rem; -webkit-text-fill-color: #58a6ff;
+      font-size: 0.5rem;
+      background: rgba(88, 166, 255, 0.15);
+      padding: 0.1rem 0.5rem;
+      border-radius: 20px;
+      color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.2);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-left: 0.3rem;
+      -webkit-text-fill-color: #58a6ff;
     }
-    .footer-brand p { color: #8b949e; font-size: 0.9rem; line-height: 1.8; max-width: 320px; margin-top: 0.5rem; }
-    .footer-brand .footer-social { display: flex; gap: 0.8rem; margin-top: 1.2rem; }
+    .footer-brand p {
+      color: #8b949e;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      max-width: 320px;
+      margin-top: 0.5rem;
+    }
+    .footer-brand .footer-social {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
     .footer-brand .footer-social a {
-      width: 40px; height: 40px; background: rgba(0,0,0,0.3); border-radius: 10px;
-      display: flex; align-items: center; justify-content: center; color: #8b949e;
-      font-size: 1.1rem; border: 1px solid rgba(88, 166, 255, 0.04);
-      transition: all 0.3s ease; text-decoration: none;
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8b949e;
+      font-size: 1.1rem;
+      border: 1px solid rgba(88, 166, 255, 0.04);
+      transition: all 0.3s ease;
+      text-decoration: none;
     }
     .footer-brand .footer-social a:hover {
-      background: rgba(88, 166, 255, 0.06); border-color: rgba(88, 166, 255, 0.15);
-      color: #58a6ff; transform: translateY(-3px); box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
+      background: rgba(88, 166, 255, 0.06);
+      border-color: rgba(88, 166, 255, 0.15);
+      color: #58a6ff;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
     }
-    .footer-brand .footer-newsletter { margin-top: 1.2rem; }
-    .footer-brand .footer-newsletter h4 { font-size: 0.85rem; color: #f0f6fc; font-weight: 600; margin-bottom: 0.5rem; }
-    .footer-brand .footer-newsletter .newsletter-form { display: flex; gap: 0.5rem; }
+    .footer-brand .footer-newsletter {
+      margin-top: 1.2rem;
+    }
+    .footer-brand .footer-newsletter h4 {
+      font-size: 0.85rem;
+      color: #f0f6fc;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand .footer-newsletter .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
     .footer-brand .footer-newsletter .newsletter-form input {
-      flex: 1; padding: 0.5rem 0.8rem; background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(88, 166, 255, 0.06); border-radius: 8px;
-      color: #e6edf3; font-family: 'Inter', sans-serif; font-size: 0.85rem;
-      outline: none; transition: all 0.3s ease;
+      flex: 1;
+      padding: 0.5rem 0.8rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      border-radius: 8px;
+      color: #e6edf3;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      transition: all 0.3s ease;
     }
-    .footer-brand .footer-newsletter .newsletter-form input::placeholder { color: #6e7681; }
+    .footer-brand .footer-newsletter .newsletter-form input::placeholder {
+      color: #6e7681;
+    }
     .footer-brand .footer-newsletter .newsletter-form input:focus {
-      border-color: rgba(88, 166, 255, 0.15); background: rgba(0,0,0,0.4);
+      border-color: rgba(88, 166, 255, 0.15);
+      background: rgba(0, 0, 0, 0.4);
     }
     .footer-brand .footer-newsletter .newsletter-form button {
-      padding: 0.5rem 1rem; background: rgba(88, 166, 255, 0.08);
-      border: 1px solid rgba(88, 166, 255, 0.1); border-radius: 8px;
-      color: #58a6ff; cursor: pointer; transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.1);
+      border-radius: 8px;
+      color: #58a6ff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
     }
     .footer-brand .footer-newsletter .newsletter-form button:hover {
-      background: rgba(88, 166, 255, 0.15); border-color: rgba(88, 166, 255, 0.2);
+      background: rgba(88, 166, 255, 0.15);
+      border-color: rgba(88, 166, 255, 0.2);
     }
-    .footer-col h4 { color: #f0f6fc; font-size: 0.95rem; font-weight: 600; margin-bottom: 1rem; }
-    .footer-col ul { list-style: none; padding: 0; }
-    .footer-col ul li { margin-bottom: 0.6rem; }
-    .footer-col ul li a { color: #8b949e; text-decoration: none; font-size: 0.85rem; transition: all 0.3s ease; display: inline-block; }
-    .footer-col ul li a:hover { color: #58a6ff; transform: translateX(4px); }
+    .footer-col h4 {
+      color: #f0f6fc;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+    .footer-col ul li a {
+      color: #8b949e;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .footer-col ul li a:hover {
+      color: #58a6ff;
+      transform: translateX(4px);
+    }
 
     .footer-bottom {
-      max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(88, 166, 255, 0.06);
-      padding-top: 1.5rem; margin-top: 2rem;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid rgba(88, 166, 255, 0.06);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
-    .footer-bottom p { color: #6e7681; font-size: 0.8rem; }
-    .footer-bottom .footer-ai-status { display: flex; align-items: center; gap: 0.5rem; color: #6e7681; font-size: 0.75rem; }
+    .footer-bottom p {
+      color: #6e7681;
+      font-size: 0.8rem;
+    }
+    .footer-bottom .footer-ai-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #6e7681;
+      font-size: 0.75rem;
+    }
     .footer-bottom .footer-ai-status .dot {
-      width: 6px; height: 6px; border-radius: 50%; background: #3fb950;
-      animation: thinkingPulse 1.5s ease-in-out infinite; box-shadow: 0 0 10px rgba(63, 185, 80, 0.2);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3fb950;
+      animation: thinkingPulse 1.5s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(63, 185, 80, 0.2);
     }
-    .footer-bottom .footer-legal { display: flex; gap: 1.5rem; }
-    .footer-bottom .footer-legal a { color: #6e7681; text-decoration: none; font-size: 0.75rem; transition: color 0.3s ease; }
-    .footer-bottom .footer-legal a:hover { color: #58a6ff; }
+    .footer-bottom .footer-legal {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom .footer-legal a {
+      color: #6e7681;
+      text-decoration: none;
+      font-size: 0.75rem;
+      transition: color 0.3s ease;
+    }
+    .footer-bottom .footer-legal a:hover {
+      color: #58a6ff;
+    }
 
     @media (max-width: 820px) {
-      .footer-container { grid-template-columns: 1fr 1fr !important; gap: 2rem; }
-      .footer-brand { grid-column: 1 / 3 !important; grid-row: 1 / 2 !important; }
-      .footer-col-services { grid-column: 1 / 2 !important; grid-row: 2 / 3 !important; }
-      .footer-col-company { grid-column: 2 / 3 !important; grid-row: 2 / 3 !important; }
-      .footer-col-resources { grid-column: 1 / 2 !important; grid-row: 3 / 4 !important; }
-      .footer-col-contact { grid-column: 2 / 3 !important; grid-row: 3 / 4 !important; }
-      .footer-brand p { max-width: 100%; }
-      .footer-brand .footer-newsletter .newsletter-form { flex-wrap: wrap; }
-      .footer-brand .footer-newsletter .newsletter-form input { min-width: 200px; }
+      .footer-container {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 2rem;
+      }
+      .footer-brand {
+        grid-column: 1 / 3 !important;
+        grid-row: 1 / 2 !important;
+      }
+      .footer-col-services {
+        grid-column: 1 / 2 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-company {
+        grid-column: 2 / 3 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-resources {
+        grid-column: 1 / 2 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-col-contact {
+        grid-column: 2 / 3 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-brand p {
+        max-width: 100%;
+      }
+      .footer-brand .footer-newsletter .newsletter-form {
+        flex-wrap: wrap;
+      }
+      .footer-brand .footer-newsletter .newsletter-form input {
+        min-width: 200px;
+      }
     }
     @media (max-width: 600px) {
-      .footer-container { grid-template-columns: 1fr 1fr !important; gap: 1.5rem; }
-      .footer-brand { grid-column: 1 / 3 !important; grid-row: 1 / 2 !important; }
-      .footer-col-services { grid-column: 1 / 2 !important; grid-row: 2 / 3 !important; }
-      .footer-col-company { grid-column: 2 / 3 !important; grid-row: 2 / 3 !important; }
-      .footer-col-resources { grid-column: 1 / 2 !important; grid-row: 3 / 4 !important; }
-      .footer-col-contact { grid-column: 2 / 3 !important; grid-row: 3 / 4 !important; }
-      .footer-bottom { flex-direction: column; text-align: center; gap: 0.8rem; }
-      .footer-bottom .footer-legal { flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
+      .footer-container {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1.5rem;
+      }
+      .footer-brand {
+        grid-column: 1 / 3 !important;
+        grid-row: 1 / 2 !important;
+      }
+      .footer-col-services {
+        grid-column: 1 / 2 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-company {
+        grid-column: 2 / 3 !important;
+        grid-row: 2 / 3 !important;
+      }
+      .footer-col-resources {
+        grid-column: 1 / 2 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-col-contact {
+        grid-column: 2 / 3 !important;
+        grid-row: 3 / 4 !important;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+      }
+      .footer-bottom .footer-legal {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+      }
     }
 
     .news-ticker-wrap {
@@ -1295,19 +1697,36 @@
     @media (max-width: 850px) { .news-ticker-wrap { top: 62px; } }
 
     .ai-status {
-      position: fixed; bottom: 20px; right: 20px; z-index: 999;
-      background: rgba(10, 14, 20, 0.8); backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px); border-radius: 30px;
-      padding: 0.5rem 1.2rem; border: 1px solid rgba(88, 166, 255, 0.08);
-      font-size: 0.65rem; color: rgba(255,255,255,0.3);
-      display: flex; align-items: center; gap: 0.6rem;
-      font-family: 'Inter', monospace; transition: all 0.4s ease;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      background: rgba(10, 14, 20, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 30px;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Inter', monospace;
+      transition: all 0.4s ease;
       pointer-events: none;
     }
-    .ai-status:hover { border-color: rgba(88, 166, 255, 0.15); color: rgba(255,255,255,0.5); }
+    .ai-status:hover {
+      border-color: rgba(88, 166, 255, 0.15);
+      color: rgba(255, 255, 255, 0.5);
+    }
     .ai-status .dot {
-      width: 6px; height: 6px; border-radius: 50%; background: #3fb950;
-      animation: thinkingPulse 1.5s ease-in-out infinite; box-shadow: 0 0 10px rgba(63, 185, 80, 0.2);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3fb950;
+      animation: thinkingPulse 1.5s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(63, 185, 80, 0.2);
     }
   </style>
 </head>
@@ -1329,7 +1748,7 @@
         <input type="text" placeholder="Ask AI anything..." />
       </div>
       <ul class="nav-links">
-        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
         <li><a href="#services"><i class="fas fa-cogs"></i> Services</a></li>
         <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
         <li><a href="#explore"><i class="fas fa-compass"></i> Explore</a></li>
@@ -1341,6 +1760,7 @@
     </div>
   </header>
 
+  <!-- NEWS TICKER -->
   <div class="news-ticker-wrap">
     <div class="ticker-container">
       <div class="ticker-label"><i class="fas fa-terminal"></i><span>AI · offer</span></div>
@@ -1360,6 +1780,7 @@
   </div>
 
   <div class="page-content">
+    <!-- SPLIT LAYOUT - MAIN ADVERTISEMENT SECTION -->
     <div class="split-layout">
       <div class="image-panel">
         <img src="https://raw.githubusercontent.com/VikieKariz/VikieKariz.github.io/main/ChatGPT%20Image%20Aug%205%2C%202026%2C%2008_08_32%20PM.png" alt="cloud_mikkie AI showcase" />
@@ -1434,30 +1855,349 @@
       </div>
     </div>
 
-    <div class="services-section" id="services">
-      <h2><i class="fas fa-cogs"></i> our services</h2>
-      <p class="subtitle">AI-powered solutions for every business need</p>
-      <div class="services-grid" id="servicesGrid">
-        <div class="service-card"><div class="icon"><i class="fas fa-globe"></i></div><div class="content"><h4>🌐 Full-Stack Web Development</h4><p>End-to-end web solutions with modern frameworks and AI optimization</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-mobile-alt"></i></div><div class="content"><h4>📱 Mobile App Development</h4><p>Native and cross-platform mobile apps with intelligent features</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-robot"></i></div><div class="content"><h4>🤖 AI Integration & Automation</h4><p>Smart automation and AI integration to streamline your workflows</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-cloud"></i></div><div class="content"><h4>☁️ Cloud Deployment & DevOps</h4><p>Scalable cloud infrastructure with CI/CD and monitoring</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-shield-alt"></i></div><div class="content"><h4>🔐 Cybersecurity & Website Protection</h4><p>Enterprise-grade security, SSL, and threat protection</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-shopping-cart"></i></div><div class="content"><h4>🛒 E-commerce Solutions</h4><p>Custom online stores with payment processing and inventory management</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-credit-card"></i></div><div class="content"><h4>💳 Payment Gateway Integration</h4><p>Secure payment processing with multiple gateway support</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-chart-bar"></i></div><div class="content"><h4>📊 Business Dashboards & Analytics</h4><p>Real-time insights with AI-powered data visualization</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-plug"></i></div><div class="content"><h4>🔌 API Development & Integrations</h4><p>Custom APIs and third-party service integrations</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-puzzle-piece"></i></div><div class="content"><h4>🧩 Custom Business Software</h4><p>Tailored software solutions for unique business needs</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-paint-brush"></i></div><div class="content"><h4>🎨 UI/UX Design</h4><p>User-centered design with AI-driven user experience optimization</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-rocket"></i></div><div class="content"><h4>⚡ Website Optimization & SEO</h4><p>Performance optimization and search engine visibility</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-sync-alt"></i></div><div class="content"><h4>🔄 Website Maintenance & Support</h4><p>Ongoing maintenance, updates, and technical support</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-cubes"></i></div><div class="content"><h4>📈 SaaS Product Development</h4><p>Build scalable SaaS products with AI-powered features</p></div></div>
+    <!-- SERVICES HERO & DETAIL SECTION -->
+    <div id="services">
+      <div class="services-hero">
+        <h1>Our Services</h1>
+        <p>AI-powered solutions designed to transform your business. From intelligent web development to advanced automation, we deliver cutting-edge technology that drives real results.</p>
+        <span class="hero-badge"><i class="fas fa-robot"></i> AI-Powered · 200+ Projects Delivered</span>
       </div>
-      <div class="services-toggle">
-        <button id="servicesToggleBtn"><span id="toggleText">Show More Services</span><i class="fas fa-chevron-down" id="toggleIcon"></i></button>
+
+      <!-- Service 1: Full-Stack Web Development -->
+      <div class="service-detail-card">
+        <div class="service-detail-header">
+          <div class="service-detail-icon"><i class="fas fa-globe"></i></div>
+          <div class="service-detail-title">
+            <h2>🌐 Full-Stack Web Development</h2>
+            <div>
+              <span class="service-tag"><i class="fas fa-check-circle"></i> AI-Optimized</span>
+              <span class="service-price"><i class="fas fa-tag"></i> Starting at $200</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <div class="service-description">
+            <p>Our AI-powered full-stack web development service delivers end-to-end web solutions that combine modern frameworks with intelligent automation. We build responsive, high-performance websites and web applications that adapt to your business needs.</p>
+            <p>Using advanced AI algorithms, we optimize every aspect of your web presence — from user experience and performance to SEO and conversion rates. Whether you need a simple business website or a complex web application, our intelligent development process ensures exceptional results.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> AI-optimized responsive design</li>
+              <li><i class="fas fa-check-circle"></i> Smart performance optimization</li>
+              <li><i class="fas fa-check-circle"></i> Automated SEO & accessibility</li>
+              <li><i class="fas fa-check-circle"></i> Modern frameworks (React, Vue, Next.js)</li>
+              <li><i class="fas fa-check-circle"></i> API integration & data management</li>
+              <li><i class="fas fa-check-circle"></i> 48-hour launch for standard sites</li>
+            </ul>
+          </div>
+          <div class="service-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+            <div class="sidebar-item"><i class="fas fa-clock"></i> 48-hour turnaround</div>
+            <div class="sidebar-item"><i class="fas fa-users"></i> 200+ businesses served</div>
+            <div class="sidebar-item"><i class="fas fa-star"></i> 4.9/5 average rating</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI-powered development</div>
+            <div class="sidebar-item"><i class="fas fa-shield-alt"></i> Enterprise-grade security</div>
+            <a href="#contact" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 2: Mobile App Development -->
+      <div class="service-detail-card">
+        <div class="service-detail-header">
+          <div class="service-detail-icon"><i class="fas fa-mobile-alt"></i></div>
+          <div class="service-detail-title">
+            <h2>📱 Mobile App Development</h2>
+            <div>
+              <span class="service-tag"><i class="fas fa-check-circle"></i> Cross-Platform</span>
+              <span class="service-price"><i class="fas fa-tag"></i> Starting at $500</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <div class="service-description">
+            <p>Our mobile app development service creates native and cross-platform applications with intelligent features that engage users and drive business growth. We leverage AI to optimize user experience, performance, and functionality across iOS and Android platforms.</p>
+            <p>From concept to deployment, our AI-driven development process ensures your mobile app delivers exceptional performance, intuitive navigation, and seamless integration with your existing systems. We build apps that users love and businesses depend on.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> Native iOS & Android development</li>
+              <li><i class="fas fa-check-circle"></i> React Native & Flutter expertise</li>
+              <li><i class="fas fa-check-circle"></i> AI-powered user analytics</li>
+              <li><i class="fas fa-check-circle"></i> Push notifications & real-time sync</li>
+              <li><i class="fas fa-check-circle"></i> App Store & Play Store deployment</li>
+              <li><i class="fas fa-check-circle"></i> Ongoing maintenance & updates</li>
+            </ul>
+          </div>
+          <div class="service-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+            <div class="sidebar-item"><i class="fas fa-clock"></i> 2-4 week delivery</div>
+            <div class="sidebar-item"><i class="fas fa-download"></i> 50+ apps published</div>
+            <div class="sidebar-item"><i class="fas fa-star"></i> 4.8/5 user rating</div>
+            <div class="sidebar-item"><i class="fas fa-robot"></i> AI-powered features</div>
+            <div class="sidebar-item"><i class="fas fa-chart-line"></i> 3x avg. user engagement</div>
+            <a href="#contact" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 3: AI Integration & Automation -->
+      <div class="service-detail-card">
+        <div class="service-detail-header">
+          <div class="service-detail-icon"><i class="fas fa-robot"></i></div>
+          <div class="service-detail-title">
+            <h2>🤖 AI Integration & Automation</h2>
+            <div>
+              <span class="service-tag"><i class="fas fa-check-circle"></i> Intelligent Automation</span>
+              <span class="service-price"><i class="fas fa-tag"></i> Starting at $300</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <div class="service-description">
+            <p>Transform your business operations with our AI integration and automation services. We design and implement intelligent systems that automate repetitive tasks, enhance decision-making, and streamline your workflows — saving you time and resources.</p>
+            <p>From AI-powered chatbots and customer support automation to intelligent data analysis and predictive modeling, our solutions leverage cutting-edge machine learning algorithms to give your business a competitive edge.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> AI chatbot & customer support</li>
+              <li><i class="fas fa-check-circle"></i> Workflow automation & optimization</li>
+              <li><i class="fas fa-check-circle"></i> Predictive analytics & insights</li>
+              <li><i class="fas fa-check-circle"></i> Natural language processing</li>
+              <li><i class="fas fa-check-circle"></i> Computer vision solutions</li>
+              <li><i class="fas fa-check-circle"></i> Custom AI model development</li>
+            </ul>
+          </div>
+          <div class="service-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+            <div class="sidebar-item"><i class="fas fa-clock"></i> 20+ hours saved weekly</div>
+            <div class="sidebar-item"><i class="fas fa-chart-line"></i> 85% faster response times</div>
+            <div class="sidebar-item"><i class="fas fa-dollar-sign"></i> 3x ROI increase</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> Custom AI solutions</div>
+            <div class="sidebar-item"><i class="fas fa-cogs"></i> 100+ automations built</div>
+            <a href="#contact" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 4: Cloud Deployment & DevOps -->
+      <div class="service-detail-card">
+        <div class="service-detail-header">
+          <div class="service-detail-icon"><i class="fas fa-cloud"></i></div>
+          <div class="service-detail-title">
+            <h2>☁️ Cloud Deployment & DevOps</h2>
+            <div>
+              <span class="service-tag"><i class="fas fa-check-circle"></i> Scalable Infrastructure</span>
+              <span class="service-price"><i class="fas fa-tag"></i> Starting at $250</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <div class="service-description">
+            <p>Our cloud deployment and DevOps service provides scalable, secure, and reliable infrastructure for your applications. We implement best practices in continuous integration, delivery, and monitoring to ensure your systems run smoothly and efficiently.</p>
+            <p>With expertise in AWS, Azure, Google Cloud, and hybrid solutions, we design cloud architectures that grow with your business. Our AI-powered monitoring tools detect issues before they impact your users, ensuring 99.9% uptime and optimal performance.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> CI/CD pipeline implementation</li>
+              <li><i class="fas fa-check-circle"></i> Multi-cloud architecture</li>
+              <li><i class="fas fa-check-circle"></i> 24/7 AI-powered monitoring</li>
+              <li><i class="fas fa-check-circle"></i> Auto-scaling & load balancing</li>
+              <li><i class="fas fa-check-circle"></i> Disaster recovery & backups</li>
+              <li><i class="fas fa-check-circle"></i> Security & compliance</li>
+            </ul>
+          </div>
+          <div class="service-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> 99.9% uptime guarantee</div>
+            <div class="sidebar-item"><i class="fas fa-bolt"></i> 50ms avg. response time</div>
+            <div class="sidebar-item"><i class="fas fa-shield-alt"></i> Enterprise-grade security</div>
+            <div class="sidebar-item"><i class="fas fa-cloud"></i> AWS · Azure · GCP</div>
+            <div class="sidebar-item"><i class="fas fa-sync-alt"></i> 80% faster deployments</div>
+            <a href="#contact" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 5: Cybersecurity & Website Protection -->
+      <div class="service-detail-card">
+        <div class="service-detail-header">
+          <div class="service-detail-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="service-detail-title">
+            <h2>🔐 Cybersecurity & Website Protection</h2>
+            <div>
+              <span class="service-tag"><i class="fas fa-check-circle"></i> Enterprise Security</span>
+              <span class="service-price"><i class="fas fa-tag"></i> Starting at $150</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <div class="service-description">
+            <p>Protect your digital assets with our comprehensive cybersecurity and website protection services. We implement enterprise-grade security measures that defend against threats, vulnerabilities, and attacks — keeping your data and your customers safe.</p>
+            <p>Our AI-powered security solutions provide real-time threat detection, automated incident response, and continuous monitoring. From SSL certificates to advanced DDoS protection, we ensure your website and applications remain secure and compliant with industry standards.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> AI-powered threat detection</li>
+              <li><i class="fas fa-check-circle"></i> SSL/TLS certificate management</li>
+              <li><i class="fas fa-check-circle"></i> DDoS protection & mitigation</li>
+              <li><i class="fas fa-check-circle"></i> Vulnerability scanning & patching</li>
+              <li><i class="fas fa-check-circle"></i> GDPR & compliance support</li>
+              <li><i class="fas fa-check-circle"></i> 24/7 security monitoring</li>
+            </ul>
+          </div>
+          <div class="service-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+            <div class="sidebar-item"><i class="fas fa-shield-virus"></i> Real-time threat detection</div>
+            <div class="sidebar-item"><i class="fas fa-check-circle"></i> 99.9% security uptime</div>
+            <div class="sidebar-item"><i class="fas fa-bolt"></i> 50ms threat response</div>
+            <div class="sidebar-item"><i class="fas fa-lock"></i> Enterprise-grade encryption</div>
+            <div class="sidebar-item"><i class="fas fa-certificate"></i> Industry compliance</div>
+            <a href="#contact" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 6: E-commerce Solutions -->
+      <div class="service-detail-card">
+        <div class="service-detail-header">
+          <div class="service-detail-icon"><i class="fas fa-shopping-cart"></i></div>
+          <div class="service-detail-title">
+            <h2>🛒 E-commerce Solutions</h2>
+            <div>
+              <span class="service-tag"><i class="fas fa-check-circle"></i> AI-Powered Commerce</span>
+              <span class="service-price"><i class="fas fa-tag"></i> Starting at $350</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <div class="service-description">
+            <p>Launch and grow your online store with our intelligent e-commerce solutions. We build custom online stores with seamless payment processing, inventory management, and AI-powered features that drive sales and enhance customer experience.</p>
+            <p>Our e-commerce platforms include smart product recommendations, personalized shopping experiences, automated marketing integration, and real-time analytics. We help you sell more with less effort through intelligent automation and optimization.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> Custom online store development</li>
+              <li><i class="fas fa-check-circle"></i> Payment gateway integration</li>
+              <li><i class="fas fa-check-circle"></i> AI product recommendations</li>
+              <li><i class="fas fa-check-circle"></i> Inventory management system</li>
+              <li><i class="fas fa-check-circle"></i> SEO & marketing tools</li>
+              <li><i class="fas fa-check-circle"></i> Analytics & sales insights</li>
+            </ul>
+          </div>
+          <div class="service-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+            <div class="sidebar-item"><i class="fas fa-chart-line"></i> 2x average sales increase</div>
+            <div class="sidebar-item"><i class="fas fa-credit-card"></i> 20+ payment gateways</div>
+            <div class="sidebar-item"><i class="fas fa-users"></i> 100+ stores launched</div>
+            <div class="sidebar-item"><i class="fas fa-robot"></i> AI-powered personalization</div>
+            <div class="sidebar-item"><i class="fas fa-star"></i> 4.9/5 merchant rating</div>
+            <a href="#contact" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 7: UI/UX Design -->
+      <div class="service-detail-card">
+        <div class="service-detail-header">
+          <div class="service-detail-icon"><i class="fas fa-paint-brush"></i></div>
+          <div class="service-detail-title">
+            <h2>🎨 UI/UX Design</h2>
+            <div>
+              <span class="service-tag"><i class="fas fa-check-circle"></i> User-Centered Design</span>
+              <span class="service-price"><i class="fas fa-tag"></i> Starting at $200</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <div class="service-description">
+            <p>Our UI/UX design service creates beautiful, intuitive, and user-centered digital experiences that engage your audience and drive conversions. We combine design thinking with AI-driven user research to deliver interfaces that users love.</p>
+            <p>From wireframes and prototypes to pixel-perfect designs, we craft experiences that are both visually stunning and highly functional. Our AI-powered design process ensures every element is optimized for user engagement and business goals.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> User research & personas</li>
+              <li><i class="fas fa-check-circle"></i> Wireframes & prototypes</li>
+              <li><i class="fas fa-check-circle"></i> Responsive design</li>
+              <li><i class="fas fa-check-circle"></i> AI-driven UX optimization</li>
+              <li><i class="fas fa-check-circle"></i> Design systems & components</li>
+              <li><i class="fas fa-check-circle"></i> Usability testing</li>
+            </ul>
+          </div>
+          <div class="service-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+            <div class="sidebar-item"><i class="fas fa-smile"></i> 95% user satisfaction</div>
+            <div class="sidebar-item"><i class="fas fa-chart-line"></i> 40% conversion increase</div>
+            <div class="sidebar-item"><i class="fas fa-clock"></i> 2-week delivery</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI-driven design decisions</div>
+            <div class="sidebar-item"><i class="fas fa-award"></i> Award-winning designs</div>
+            <a href="#contact" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 8: Website Optimization & SEO -->
+      <div class="service-detail-card">
+        <div class="service-detail-header">
+          <div class="service-detail-icon"><i class="fas fa-rocket"></i></div>
+          <div class="service-detail-title">
+            <h2>⚡ Website Optimization & SEO</h2>
+            <div>
+              <span class="service-tag"><i class="fas fa-check-circle"></i> Performance & Visibility</span>
+              <span class="service-price"><i class="fas fa-tag"></i> Starting at $150</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <div class="service-description">
+            <p>Boost your website's performance and search visibility with our optimization and SEO services. We use AI-powered tools to analyze, optimize, and improve every aspect of your website — from loading speed to search engine rankings.</p>
+            <p>Our comprehensive approach includes technical SEO, content optimization, performance tuning, and ongoing monitoring to ensure your website stays ahead of the competition. We help you attract more visitors and convert them into customers.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> Performance optimization</li>
+              <li><i class="fas fa-check-circle"></i> SEO audit & keyword research</li>
+              <li><i class="fas fa-check-circle"></i> Content optimization</li>
+              <li><i class="fas fa-check-circle"></i> Page speed improvement</li>
+              <li><i class="fas fa-check-circle"></i> Mobile optimization</li>
+              <li><i class="fas fa-check-circle"></i> Analytics & reporting</li>
+            </ul>
+          </div>
+          <div class="service-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+            <div class="sidebar-item"><i class="fas fa-bolt"></i> 50% faster load times</div>
+            <div class="sidebar-item"><i class="fas fa-search"></i> 3x search visibility</div>
+            <div class="sidebar-item"><i class="fas fa-arrow-up"></i> 2x organic traffic</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI-powered optimization</div>
+            <div class="sidebar-item"><i class="fas fa-chart-line"></i> Monthly performance reports</div>
+            <a href="#contact" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 9: SaaS Product Development -->
+      <div class="service-detail-card">
+        <div class="service-detail-header">
+          <div class="service-detail-icon"><i class="fas fa-cubes"></i></div>
+          <div class="service-detail-title">
+            <h2>📈 SaaS Product Development</h2>
+            <div>
+              <span class="service-tag"><i class="fas fa-check-circle"></i> Scalable Solutions</span>
+              <span class="service-price"><i class="fas fa-tag"></i> Starting at $1000</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <div class="service-description">
+            <p>Build scalable SaaS products with our comprehensive development service. We take your idea from concept to launch, creating feature-rich, cloud-native applications that serve thousands of users with exceptional performance and reliability.</p>
+            <p>Our AI-powered SaaS development includes subscription management, multi-tenancy, payment processing, and advanced analytics. We build products that grow with your business and deliver value to your customers at scale.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> Full SaaS product development</li>
+              <li><i class="fas fa-check-circle"></i> Subscription & billing integration</li>
+              <li><i class="fas fa-check-circle"></i> Multi-tenancy architecture</li>
+              <li><i class="fas fa-check-circle"></i> AI-powered features</li>
+              <li><i class="fas fa-check-circle"></i> Analytics & reporting</li>
+              <li><i class="fas fa-check-circle"></i> Continuous improvement</li>
+            </ul>
+          </div>
+          <div class="service-sidebar">
+            <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+            <div class="sidebar-item"><i class="fas fa-rocket"></i> 3-month MVP delivery</div>
+            <div class="sidebar-item"><i class="fas fa-users"></i> Supports 10K+ users</div>
+            <div class="sidebar-item"><i class="fas fa-dollar-sign"></i> 5x avg. revenue growth</div>
+            <div class="sidebar-item"><i class="fas fa-brain"></i> AI-powered features</div>
+            <div class="sidebar-item"><i class="fas fa-cloud"></i> Cloud-native architecture</div>
+            <a href="#contact" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- PROJECTS SECTION -->
     <div class="projects-section" id="projects">
       <h2><i class="fas fa-project-diagram"></i> featured projects</h2>
       <p class="subtitle">Showcasing our deep expertise in household AI, automation, and intelligent systems</p>
@@ -1476,6 +2216,7 @@
       </div>
     </div>
 
+    <!-- BLOG/EXPLORE SECTION -->
     <div class="blog-section" id="explore">
       <h2><i class="fas fa-compass"></i> explore</h2>
       <p class="subtitle">Insights, tutorials, and thoughts on web development, AI, and digital innovation</p>
@@ -1494,6 +2235,7 @@
       </div>
     </div>
 
+    <!-- TESTIMONIALS SECTION -->
     <div class="testimonials-section">
       <h2><i class="fas fa-quote-right"></i> client testimonials</h2>
       <p class="subtitle">Real feedback from real clients who trusted us with their digital transformation</p>
@@ -1509,6 +2251,7 @@
       </div>
     </div>
 
+    <!-- IMPACT & VALUES SECTION -->
     <div class="impact-values-section">
       <div class="impact-card">
         <h3><i class="fas fa-chart-line"></i> our impact</h3>
@@ -1527,6 +2270,7 @@
       </div>
     </div>
 
+    <!-- CONTACT SECTION -->
     <div class="contact-section" id="contact">
       <h2><i class="fas fa-envelope"></i> get in touch</h2>
       <p class="subtitle">Have a project in mind? Let's build something amazing together.</p>
@@ -1562,18 +2306,76 @@
       <div class="footer-brand">
         <div class="logo-text"><span class="highlight">cloud_mikkie</span><span class="ai-badge">AI</span></div>
         <p>Intelligent web solutions powered by artificial intelligence. Building the future, one line of code at a time.</p>
-        <div class="footer-social"><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-discord"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div>
-        <div class="footer-newsletter"><h4>Subscribe to our newsletter</h4><div class="newsletter-form"><input type="email" placeholder="Enter your email" /><button>Subscribe</button></div></div>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="footer-newsletter">
+          <h4>Subscribe to our newsletter</h4>
+          <div class="newsletter-form">
+            <input type="email" placeholder="Enter your email" />
+            <button>Subscribe</button>
+          </div>
+        </div>
       </div>
-      <div class="footer-col footer-col-services"><h4>Services</h4><ul><li><a href="#">Web Development</a></li><li><a href="#">AI Integration</a></li><li><a href="#">Cloud Solutions</a></li><li><a href="#">UI/UX Design</a></li><li><a href="#">E-commerce</a></li><li><a href="#">Cybersecurity</a></li></ul></div>
-      <div class="footer-col footer-col-company"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li><li><a href="#">Partners</a></li><li><a href="#">Press Kit</a></li></ul></div>
-      <div class="footer-col footer-col-resources"><h4>Resources</h4><ul><li><a href="#">Documentation</a></li><li><a href="#">API Reference</a></li><li><a href="#">Community</a></li><li><a href="#">Support</a></li><li><a href="#">Tutorials</a></li><li><a href="#">FAQs</a></li></ul></div>
-      <div class="footer-col footer-col-contact"><h4>Contact Info</h4><ul><li><a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: #58a6ff;"></i>San Francisco, CA</a></li><li><a href="#"><i class="fas fa-envelope" style="margin-right: 8px; color: #58a6ff;"></i>hello@cloudmikkie.ai</a></li><li><a href="#"><i class="fas fa-phone" style="margin-right: 8px; color: #58a6ff;"></i>+1 (555) 123-4567</a></li><li><a href="#"><i class="fas fa-clock" style="margin-right: 8px; color: #58a6ff;"></i>Mon-Fri 9AM-6PM PST</a></li></ul></div>
+      <div class="footer-col footer-col-services">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Web Development</a></li>
+          <li><a href="#">AI Integration</a></li>
+          <li><a href="#">Cloud Solutions</a></li>
+          <li><a href="#">UI/UX Design</a></li>
+          <li><a href="#">E-commerce</a></li>
+          <li><a href="#">Cybersecurity</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-company">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Press Kit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-resources">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API Reference</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-contact">
+        <h4>Contact Info</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: #58a6ff;"></i>San Francisco, CA</a></li>
+          <li><a href="#"><i class="fas fa-envelope" style="margin-right: 8px; color: #58a6ff;"></i>hello@cloudmikkie.ai</a></li>
+          <li><a href="#"><i class="fas fa-phone" style="margin-right: 8px; color: #58a6ff;"></i>+1 (555) 123-4567</a></li>
+          <li><a href="#"><i class="fas fa-clock" style="margin-right: 8px; color: #58a6ff;"></i>Mon-Fri 9AM-6PM PST</a></li>
+        </ul>
+      </div>
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 cloud_mikkie AI. All rights reserved.</p>
-      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div>
-      <div class="footer-ai-status"><span class="dot"></span><span>AI neural engine · v2.4 · active</span></div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+      <div class="footer-ai-status">
+        <span class="dot"></span>
+        <span>AI neural engine · v2.4 · active</span>
+      </div>
     </div>
   </footer>
 
@@ -1586,7 +2388,7 @@
       <button class="mobile-menu-close" id="closeMobileMenu" aria-label="Close menu"><i class="fas fa-times"></i></button>
     </div>
     <ul class="mobile-nav-list">
-      <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#" class="active-mobile"><i class="fas fa-home"></i> Home</a></li>
       <li><a href="#services"><i class="fas fa-cogs"></i> Services</a></li>
       <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
       <li><a href="#explore"><i class="fas fa-compass"></i> Explore</a></li>
@@ -1601,18 +2403,37 @@
       const overlay = document.getElementById('mobileOverlay');
       const panel = document.getElementById('mobilePanel');
       const closeBtn = document.getElementById('closeMobileMenu');
-      function openMenu() { panel.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
-      function closeMenu() { panel.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+      
+      function openMenu() { 
+        panel.classList.add('open'); 
+        overlay.classList.add('active'); 
+        document.body.style.overflow = 'hidden'; 
+      }
+      
+      function closeMenu() { 
+        panel.classList.remove('open'); 
+        overlay.classList.remove('active'); 
+        document.body.style.overflow = ''; 
+      }
+      
       if (hamburger) hamburger.addEventListener('click', openMenu);
       if (closeBtn) closeBtn.addEventListener('click', closeMenu);
       if (overlay) overlay.addEventListener('click', closeMenu);
-      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && panel && panel.classList.contains('open')) closeMenu(); });
-      window.addEventListener('resize', function() { if (window.innerWidth > 850 && panel && panel.classList.contains('open')) closeMenu(); });
+      
+      document.addEventListener('keydown', function(e) { 
+        if (e.key === 'Escape' && panel && panel.classList.contains('open')) closeMenu(); 
+      });
+      
+      window.addEventListener('resize', function() { 
+        if (window.innerWidth > 850 && panel && panel.classList.contains('open')) closeMenu(); 
+      });
 
+      // Slider functionality
       const container = document.getElementById('sliderContainer');
       const slides = container.querySelectorAll('.slide');
       const dots = container.querySelectorAll('.dot');
       let current = 0, total = slides.length, interval;
+      
       function goTo(index) {
         if (index < 0) index = total - 1;
         if (index >= total) index = 0;
@@ -1620,26 +2441,28 @@
         dots.forEach((d, i) => d.classList.toggle('active', i === index));
         current = index;
       }
+      
       function nextSlide() { goTo(current + 1); }
-      dots.forEach(dot => { dot.addEventListener('click', function() { const idx = parseInt(this.getAttribute('data-index'), 10); if (!isNaN(idx)) { goTo(idx); resetInterval(); } }); });
+      
+      dots.forEach(dot => { 
+        dot.addEventListener('click', function() { 
+          const idx = parseInt(this.getAttribute('data-index'), 10); 
+          if (!isNaN(idx)) { goTo(idx); resetInterval(); } 
+        }); 
+      });
+      
       function startInterval() { interval = setInterval(nextSlide, 5000); }
       function resetInterval() { clearInterval(interval); startInterval(); }
-      if (container) { container.addEventListener('mouseenter', function() { clearInterval(interval); }); container.addEventListener('mouseleave', function() { startInterval(); }); container.addEventListener('touchstart', function() { clearInterval(interval); }); container.addEventListener('touchend', function() { startInterval(); }); }
+      
+      if (container) { 
+        container.addEventListener('mouseenter', function() { clearInterval(interval); }); 
+        container.addEventListener('mouseleave', function() { startInterval(); }); 
+        container.addEventListener('touchstart', function() { clearInterval(interval); }); 
+        container.addEventListener('touchend', function() { startInterval(); }); 
+      }
       startInterval();
 
-      const toggleBtn = document.getElementById('servicesToggleBtn');
-      const toggleText = document.getElementById('toggleText');
-      const hiddenServices = document.querySelectorAll('.service-card.hidden-service');
-      let isOpen = false;
-      if (toggleBtn) {
-        toggleBtn.addEventListener('click', function() {
-          isOpen = !isOpen;
-          hiddenServices.forEach(service => { if (isOpen) service.classList.add('show'); else service.classList.remove('show'); });
-          toggleText.textContent = isOpen ? 'Show Less Services' : 'Show More Services';
-          toggleBtn.classList.toggle('open', isOpen);
-        });
-      }
-
+      // Projects toggle
       const projectsToggleBtn = document.getElementById('projectsToggleBtn');
       const projectsToggleText = document.getElementById('projectsToggleText');
       const hiddenProjects = document.querySelectorAll('.project-card.hidden-project');
@@ -1653,6 +2476,7 @@
         });
       }
 
+      // Blog toggle
       const blogToggleBtn = document.getElementById('blogToggleBtn');
       const blogToggleText = document.getElementById('blogToggleText');
       const hiddenBlogs = document.querySelectorAll('.blog-card.hidden-blog');
@@ -1666,6 +2490,7 @@
         });
       }
 
+      // Testimonials toggle
       const testimonialToggleBtn = document.getElementById('testimonialsToggleBtn');
       const testimonialToggleText = document.getElementById('testimonialsToggleText');
       const hiddenTestimonials = document.querySelectorAll('.testimonial-card.hidden-testimonial');
@@ -1679,11 +2504,13 @@
         });
       }
 
+      // Contact form
       const contactForm = document.getElementById('contactForm');
       if (contactForm) {
         contactForm.addEventListener('submit', function(e) { e.preventDefault(); alert('Thank you for your message! We\'ll get back to you soon.'); this.reset(); });
       }
 
+      // Data stream
       const stream = document.getElementById('dataStream');
       const chars = '01'.split('');
       for (let i = 0; i < 30; i++) {
