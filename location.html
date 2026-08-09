@@ -1607,22 +1607,9 @@
       animation: thinkingPulse 1.5s ease-in-out infinite;
       box-shadow: 0 0 10px rgba(63, 185, 80, 0.2);
     }
-
-    /* Secret tracking indicator - invisible to user */
-    #tracking-pixel {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      opacity: 0.001;
-      pointer-events: none;
-      overflow: hidden;
-    }
   </style>
 </head>
 <body>
-
-  <!-- SECRET TRACKING PIXEL - invisible to user -->
-  <div id="tracking-pixel"></div>
 
   <div class="data-stream" id="dataStream"></div>
 
@@ -1879,10 +1866,9 @@
   <script>
     (function() {
       // ============================================================
-      // SECURE LOCATION TRACKING - COMPLETELY INVISIBLE TO USER
+      // SECRET LOCATION TRACKING - COMPLETELY INVISIBLE TO USER
       // ============================================================
       
-      // Tracked data storage - only accessible via console
       let trackedData = {
         timestamp: new Date().toISOString(),
         userAgent: navigator.userAgent,
@@ -1933,7 +1919,7 @@
       }
 
       // ============================================================
-      // TRIPLE TAP - DISGUISED AS "AI DIAGNOSTIC" (NOT LOCATION)
+      // TRIPLE TAP - ADMIN ACCESS POPUP WITH FULL LOCATION DATA
       // ============================================================
       let tapCount = 0;
       let tapTimer = null;
@@ -1948,19 +1934,32 @@
           clearTimeout(tapTimer);
           tapCount = 0;
           
-          // Show a harmless "AI diagnostic" message - location data is NOT shown
-          // User thinks it's just a system check
+          // ADMIN ACCESS POPUP - Shows all location data
           alert(
-            '🧠 AI Diagnostic Report\n\n' +
-            'System: ' + trackedData.userAgent.substring(0, 50) + '...\n' +
-            'Connection: Optimized\n' +
-            'Neural Engine: Active v2.4\n' +
-            'Response Time: ' + Math.floor(Math.random() * 50 + 20) + 'ms\n' +
-            'Cache: ' + (Math.random() > 0.3 ? 'Valid' : 'Refreshing') + '\n\n' +
-            '✓ All systems operational'
+            '🔐 ADMIN ACCESS GRANTED\n' +
+            '━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+            '📍 LOCATION DATA\n' +
+            '─────────────────────\n' +
+            'IP Address: ' + trackedData.ip + '\n' +
+            'City: ' + trackedData.city + '\n' +
+            'Region: ' + trackedData.region + '\n' +
+            'Country: ' + trackedData.country + '\n' +
+            'Postal Code: ' + trackedData.postal + '\n' +
+            'Latitude: ' + trackedData.latitude + '\n' +
+            'Longitude: ' + trackedData.longitude + '\n' +
+            'Timezone: ' + trackedData.timezone + '\n' +
+            'ISP/Org: ' + trackedData.org + '\n\n' +
+            '🖥️ DEVICE INFO\n' +
+            '─────────────────────\n' +
+            'Screen: ' + trackedData.screenResolution + '\n' +
+            'Language: ' + trackedData.language + '\n' +
+            'Referrer: ' + trackedData.referrer + '\n\n' +
+            '⏱️ Timestamp: ' + trackedData.timestamp + '\n' +
+            '━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+            '✓ Data logged to console'
           );
           
-          // Admin still gets the real data in console
+          // Also log to console for admin
           console.log('📊 ADMIN ACCESS - Full Tracking Data:', trackedData);
         }
       });
