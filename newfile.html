@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>simple · website</title>
+  <!-- clean, minimal styling -->
+  <style>
+    /* reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f9fafc;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #1e1e2a;
+      padding: 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* main card – soft, centered, responsive */
+    .site {
+      max-width: 1000px;
+      width: 100%;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08), 0 8px 24px -6px rgba(0, 0, 0, 0.02);
+      padding: 2rem 2.5rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    /* navigation */
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #eef0f4;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      font-weight: 600;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #2d3a4f;
+      font-weight: 450;
+      transition: color 0.15s ease;
+      font-size: 1rem;
+    }
+
+    .nav-links a:hover {
+      color: #2563eb;
+    }
+
+    .nav-links .btn-outline {
+      border: 1.5px solid #d0d7e2;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      background: transparent;
+      transition: all 0.15s ease;
+      font-weight: 500;
+    }
+
+    .nav-links .btn-outline:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: white;
+    }
+
+    /* hero section */
+    .hero {
+      margin-bottom: 3rem;
+      padding: 0.5rem 0 1rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      color: #0b1120;
+      max-width: 80%;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(145deg, #2563eb, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #475569;
+      max-width: 65%;
+      margin-top: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: #1e293b;
+      color: white;
+      padding: 0.7rem 2.2rem;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid #1e293b;
+      transition: all 0.15s ease;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+      transform: scale(1.02);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #1e293b;
+      padding: 0.7rem 2rem;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid #d0d7e2;
+      transition: all 0.15s ease;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background: #f1f4f9;
+      border-color: #b0baca;
+    }
+
+    /* features / cards */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.8rem;
+      margin: 2.8rem 0 1.5rem;
+    }
+
+    .card {
+      background: #fafbff;
+      padding: 1.6rem 1.4rem;
+      border-radius: 1.8rem;
+      border: 1px solid #eef2f6;
+      transition: all 0.15s ease;
+    }
+
+    .card:hover {
+      background: white;
+      border-color: #cdd9e9;
+      box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.04);
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .card h3 {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+      color: #0b1120;
+    }
+
+    .card p {
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* footer / meta */
+    .footer-meta {
+      margin-top: 3rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid #eef0f4;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    .footer-meta a {
+      color: #334155;
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+      transition: border-color 0.15s;
+    }
+
+    .footer-meta a:hover {
+      border-bottom-color: #2563eb;
+      color: #0b1120;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    /* responsive touches */
+    @media (max-width: 700px) {
+      .site {
+        padding: 1.5rem;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 1.2rem;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+        max-width: 100%;
+      }
+      .hero p {
+        max-width: 100%;
+        font-size: 1.1rem;
+      }
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+      .footer-meta {
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: flex-start;
+      }
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+      .hero-actions a {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    <!-- header / navigation -->
+    <nav>
+      <a href="#" class="logo">✦ simple</a>
+      <div class="nav-links">
+        <a href="#">home</a>
+        <a href="#">explore</a>
+        <a href="#">about</a>
+        <a href="#" class="btn-outline">contact</a>
+      </div>
+    </nav>
+
+    <!-- hero -->
+    <section class="hero">
+      <h1>build something <span>simple</span> &amp; beautiful.</h1>
+      <p>Clean, responsive, and ready to use. A tiny website to start your next idea.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">get started</a>
+        <a href="#" class="btn-secondary">learn more →</a>
+      </div>
+    </section>
+
+    <!-- feature cards -->
+    <div class="features">
+      <div class="card">
+        <span class="card-icon">📄</span>
+        <h3>Pages</h3>
+        <p>Static or dynamic, this layout adapts to any content.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🎨</span>
+        <h3>Style</h3>
+        <p>Soft colors, readable type, and a touch of gradient.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">📱</span>
+        <h3>Responsive</h3>
+        <p>Looks great on desktop, tablet, or mobile screen.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⚡</span>
+        <h3>Lightweight</h3>
+        <p>Only HTML &amp; CSS — no frameworks, no clutter.</p>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-meta">
+      <span>© 2026 · simple website</span>
+      <div class="footer-links">
+        <a href="#">privacy</a>
+        <a href="#">terms</a>
+        <a href="#">support</a>
+      </div>
+    </div>
+  </div>
+  <!-- end site -->
+</body>
+</html>
