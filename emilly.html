@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free header & navigation bar</title>
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- global reset & base ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: #f4f7fc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ----- header / navbar container ----- */
+    .header-nav {
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    /* flex layout: logo + nav + right actions */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1280px;
+      margin: 0 auto;
+      height: 70px;
+    }
+
+    /* ----- logo / brand ----- */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .logo i {
+      color: #2a7de1;
+      font-size: 2rem;
+    }
+
+    .logo span {
+      background: linear-gradient(145deg, #1a4c7a, #0f2f4f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ----- navigation links (desktop) ----- */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.2rem;
+      font-weight: 500;
+      color: #1e2f3d;
+      text-decoration: none;
+      border-radius: 40px;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+    }
+
+    .nav-links li a i {
+      font-size: 1.1rem;
+      color: #4b6a8b;
+      transition: color 0.2s;
+    }
+
+    .nav-links li a:hover {
+      background: #eef3fa;
+      color: #0b2b4a;
+    }
+
+    .nav-links li a:hover i {
+      color: #2a7de1;
+    }
+
+    /* active state example */
+    .nav-links li a.active {
+      background: #e3ecf9;
+      color: #0b2b4a;
+      font-weight: 600;
+    }
+
+    .nav-links li a.active i {
+      color: #2a7de1;
+    }
+
+    /* ----- right side (actions / profile) ----- */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .nav-actions .icon-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.3rem;
+      color: #2d4a66;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-actions .icon-btn:hover {
+      background: #e8eef6;
+      color: #0b2b4a;
+    }
+
+    .nav-actions .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #d0ddee;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234a6a8a"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>');
+      background-size: 70%;
+      background-position: center 55%;
+      background-repeat: no-repeat;
+      border: 2px solid transparent;
+      transition: border 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-actions .avatar:hover {
+      border-color: #2a7de1;
+    }
+
+    /* ----- mobile toggle (hamburger) ----- */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 0.5rem;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: #1e3b57;
+      border-radius: 6px;
+      transition: all 0.25s ease;
+    }
+
+    /* ----- responsive design ----- */
+    @media screen and (max-width: 820px) {
+      .header-nav {
+        padding: 0 1.2rem;
+      }
+
+      .navbar {
+        height: auto;
+        padding: 0.8rem 0;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        background: white;
+        padding: 1rem 0 1.2rem;
+        border-top: 1px solid #e3eaf2;
+        margin-top: 0.8rem;
+        gap: 0.2rem;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links li a {
+        padding: 0.7rem 1rem;
+        border-radius: 12px;
+        justify-content: flex-start;
+        font-size: 1.05rem;
+      }
+
+      .nav-links li a i {
+        width: 2rem;
+        text-align: center;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      /* hide avatar text on small screens, keep icon */
+      .nav-actions .icon-btn span {
+        display: none;
+      }
+
+      .nav-actions {
+        gap: 0.3rem;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .logo {
+        font-size: 1.3rem;
+      }
+      .logo i {
+        font-size: 1.6rem;
+      }
+      .header-nav {
+        padding: 0 0.8rem;
+      }
+    }
+
+    /* ----- page content (demo) ----- */
+    .hero {
+      max-width: 1280px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      flex: 1;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 600;
+      color: #0b2b4a;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #2f4b66;
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2.5rem;
+    }
+
+    .card {
+      background: white;
+      padding: 1.8rem 1.2rem;
+      border-radius: 24px;
+      box-shadow: 0 8px 24px rgba(0, 20, 40, 0.04);
+      border: 1px solid rgba(0,0,0,0.02);
+      transition: transform 0.15s;
+    }
+
+    .card i {
+      font-size: 2.4rem;
+      color: #2a7de1;
+      margin-bottom: 0.6rem;
+    }
+
+    .card h3 {
+      font-weight: 600;
+      color: #0b2b4a;
+      margin-bottom: 0.2rem;
+    }
+
+    .card p {
+      color: #3d5b77;
+      font-size: 0.95rem;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #5a738b;
+      border-top: 1px solid #dce5ef;
+      background: white;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER + NAVIGATION ========== -->
+  <header class="header-nav">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+
+      <!-- Logo / brand -->
+      <a href="#" class="logo">
+        <i class="fas fa-layer-group"></i>
+        <span>freeHeader</span>
+      </a>
+
+      <!-- Navigation links (desktop & mobile) -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#" class="active"><i class="fas fa-compass"></i> Explore</a></li>
+        <li><a href="#"><i class="fas fa-chart-line"></i> Insights</a></li>
+        <li><a href="#"><i class="fas fa-code"></i> Projects</a></li>
+        <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+
+      <!-- Right side actions + avatar -->
+      <div class="nav-actions">
+        <button class="icon-btn" aria-label="Search">
+          <i class="fas fa-search"></i>
+        </button>
+        <button class="icon-btn" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+        </button>
+        <div class="avatar" role="img" aria-label="User avatar"></div>
+
+        <!-- Hamburger toggle (mobile) -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ========== demo page content ========== -->
+  <main class="hero">
+    <h1>Free, clean header & navbar</h1>
+    <p>Fully responsive · sticky · icons · mobile hamburger · ready to use.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <i class="fas fa-palette"></i>
+        <h3>Modern look</h3>
+        <p>Subtle gradients, soft shadows, and a fresh color palette.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Responsive</h3>
+        <p>Collapses neatly on tablets and phones with a hamburger menu.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-code"></i>
+        <h3>Free to use</h3>
+        <p>No licenses, no strings — just copy and customize.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-arrow-right"></i>
+        <h3>Navigation</h3>
+        <p>Includes icons, hover states, and an active link example.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>✨ Free header & navigation bar — built with HTML, CSS, vanilla JS</p>
+  </footer>
+
+  <!-- ========== mobile menu toggle script ========== -->
+  <script>
+    (function() {
+      const toggleBtn = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (toggleBtn && navLinks) {
+        toggleBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isOpen = navLinks.classList.toggle('open');
+          toggleBtn.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close menu when a link is clicked (optional but good UX)
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', function() {
+            navLinks.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+          });
+        });
+
+        // Close menu if user clicks outside (optional)
+        document.addEventListener('click', function(event) {
+          const isClickInside = navLinks.contains(event.target) || toggleBtn.contains(event.target);
+          if (!isClickInside && navLinks.classList.contains('open')) {
+            navLinks.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
