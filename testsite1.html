@@ -7,57 +7,51 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
   <style>
-    /* ----- RESET & BASE (mobile-first) ----- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; overflow: hidden; }
+    html { scroll-behavior: smooth; }
     body {
       background: #0a0e14;
       background-image: radial-gradient(ellipse at 10% 20%, rgba(88,166,255,0.05) 0%, transparent 50%),
                         radial-gradient(ellipse at 90% 80%, rgba(63,185,80,0.05) 0%, transparent 50%);
+      min-height: 100vh;
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
       color: #e6edf3;
       display: flex;
       flex-direction: column;
     }
-    .dashboard-wrapper {
-      display: flex;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      position: relative;
-    }
+    .dashboard-wrapper { display: flex; min-height: 100vh; position: relative; }
 
-    /* ----- SIDEBAR (overlay) ----- */
+    /* ----- SIDEBAR ----- */
     .sidebar {
       width: 280px;
-      background: rgba(10,14,20,0.98);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(10,14,20,0.95);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
       border-right: 1px solid rgba(88,166,255,0.08);
-      padding: 1.2rem 0.8rem;
+      padding: 1.5rem 1rem;
       display: flex;
       flex-direction: column;
       position: fixed;
       top: 0; left: 0; bottom: 0;
       z-index: 100;
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1);
       overflow-y: auto;
     }
-    .sidebar.open { transform: translateX(0); }
-    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
     .sidebar::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
     .sidebar-logo {
       display: flex; align-items: center; gap: 0.6rem;
-      margin-bottom: 1.5rem; padding-bottom: 0.8rem;
+      margin-bottom: 2rem; padding-bottom: 1rem;
       border-bottom: 1px solid rgba(88,166,255,0.06);
+      text-decoration: none;
     }
     .sidebar-logo img {
-      height: 32px; width: auto; border-radius: 8px;
+      height: 38px; width: auto; border-radius: 10px;
       box-shadow: 0 0 0 1px rgba(88,166,255,0.15);
     }
     .sidebar-logo-text {
-      font-size: 1rem; font-weight: 700; color: #e6edf3;
+      font-size: 1.2rem; font-weight: 700; color: #e6edf3;
     }
     .sidebar-logo-text .highlight {
       background: linear-gradient(135deg, #58a6ff, #3fb950);
@@ -66,617 +60,1727 @@
       background-clip: text;
     }
     .sidebar-logo-text .ai-badge {
-      font-size: 0.4rem; background: rgba(88,166,255,0.15); padding: 0.05rem 0.4rem;
+      font-size: 0.45rem; background: rgba(88,166,255,0.15); padding: 0.1rem 0.5rem;
       border-radius: 20px; color: #58a6ff; border: 1px solid rgba(88,166,255,0.2);
-      font-weight: 600; -webkit-text-fill-color: #58a6ff;
+      font-weight: 600; -webkit-text-fill-color: #58a6ff; margin-left: 2px;
     }
     .sidebar-nav { list-style: none; flex: 1; }
-    .sidebar-nav li { margin-bottom: 0.1rem; }
+    .sidebar-nav li { margin-bottom: 0.2rem; }
     .sidebar-nav li a {
-      display: flex; align-items: center; gap: 0.7rem;
-      padding: 0.5rem 0.8rem; border-radius: 8px;
-      color: #8b949e; text-decoration: none; font-size: 0.8rem; font-weight: 500;
-      transition: all 0.2s ease; border: 1px solid transparent;
+      display: flex; align-items: center; gap: 0.8rem;
+      padding: 0.7rem 1rem; border-radius: 10px;
+      color: #8b949e; text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      transition: all 0.3s ease; border: 1px solid transparent;
     }
-    .sidebar-nav li a i { width: 1.2rem; font-size: 0.9rem; color: #6e7681; }
-    .sidebar-nav li a:hover { background: rgba(88,166,255,0.05); color: #f0f6fc; }
+    .sidebar-nav li a i { width: 1.4rem; font-size: 1rem; color: #6e7681; transition: all 0.3s ease; }
+    .sidebar-nav li a:hover { background: rgba(88,166,255,0.05); color: #f0f6fc; border-color: rgba(88,166,255,0.06); }
+    .sidebar-nav li a:hover i { color: #58a6ff; }
     .sidebar-nav li a.active { background: rgba(88,166,255,0.08); color: #58a6ff; border-color: rgba(88,166,255,0.1); }
     .sidebar-nav li a.active i { color: #58a6ff; }
     .sidebar-nav .nav-label {
-      font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.8px;
-      color: #6e7681; padding: 0.6rem 0.8rem 0.2rem; font-weight: 600;
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;
+      color: #6e7681; padding: 0.8rem 1rem 0.4rem; font-weight: 600;
     }
     .sidebar-user {
-      padding-top: 0.8rem; border-top: 1px solid rgba(88,166,255,0.06);
-      display: flex; align-items: center; gap: 0.6rem;
+      padding-top: 1rem; border-top: 1px solid rgba(88,166,255,0.06);
+      display: flex; align-items: center; gap: 0.8rem;
     }
     .sidebar-user .avatar {
-      width: 34px; height: 34px; border-radius: 50%;
+      width: 40px; height: 40px; border-radius: 50%;
       background: linear-gradient(135deg, #58a6ff, #3fb950);
       display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.85rem; color: #fff; flex-shrink: 0;
+      font-weight: 700; font-size: 1rem; color: #fff; flex-shrink: 0;
     }
-    .sidebar-user .user-info .name { font-weight: 600; font-size: 0.8rem; color: #f0f6fc; }
-    .sidebar-user .user-info .email { font-size: 0.65rem; color: #6e7681; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .sidebar-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
-      z-index: 99; display: none;
-    }
-    .sidebar-overlay.active { display: block; }
+    .sidebar-user .user-info { flex: 1; min-width: 0; }
+    .sidebar-user .user-info .name { font-weight: 600; font-size: 0.9rem; color: #f0f6fc; }
+    .sidebar-user .user-info .email { font-size: 0.75rem; color: #6e7681; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-    /* ----- MAIN CONTENT (full height, flex column) ----- */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
-      padding: 0.3rem 0.3rem 0;
-    }
+    /* ----- MAIN CONTENT ----- */
+    .main-content { margin-left: 280px; flex: 1; padding: 0.8rem 0.8rem 1.5rem; min-height: 100vh; }
 
-    /* ----- TOP BAR (comfortable) ----- */
+    /* ----- TOP BAR  ----- */
     .top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.3rem;
-      padding: 0.3rem 0.5rem;
+      gap: 0.5rem;
+      padding: 0.6rem 0.8rem;
       background: rgba(10,14,20,0.85);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
       border-bottom: 1px solid rgba(88,166,255,0.08);
-      border-radius: 12px 12px 0 0;
-      flex-shrink: 0;
-      min-height: 48px;
+      border-radius: 14px 14px 0 0;
+      width: 100%;
+      min-height: 64px;
+      position: relative;
+      z-index: 50;
+      flex-wrap: nowrap;
     }
-    .top-bar-left { display: flex; align-items: center; gap: 0.3rem; }
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex: 0 0 auto;
+    }
     .hamburger-dash {
-      display: flex; flex-direction: column; gap: 3px;
-      background: rgba(10,14,20,0.6); border: 1px solid rgba(88,166,255,0.08);
-      border-radius: 6px; padding: 0.25rem 0.4rem; cursor: pointer;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: rgba(10,14,20,0.6);
+      border: 1px solid rgba(88,166,255,0.08);
+      border-radius: 8px;
+      padding: 0.4rem 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-    .hamburger-dash span { display: block; width: 18px; height: 2px; background: #c9d1d9; border-radius: 3px; }
+    .hamburger-dash:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.15); }
+    .hamburger-dash span { display: block; width: 24px; height: 2.5px; background: #c9d1d9; border-radius: 4px; transition: all 0.3s ease; }
     .site-name {
-      font-size: 0.85rem; font-weight: 700; color: #e6edf3;
-      display: flex; align-items: center; gap: 0.2rem; white-space: nowrap;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #e6edf3;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
     }
     .site-name .highlight {
       background: linear-gradient(135deg, #58a6ff, #3fb950);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .site-name .ai-badge { display: none; }
+    .site-name .ai-badge {
+      font-size: 0.5rem;
+      background: rgba(88,166,255,0.15);
+      padding: 0.1rem 0.5rem;
+      border-radius: 20px;
+      color: #58a6ff;
+      border: 1px solid rgba(88,166,255,0.2);
+      font-weight: 600;
+      -webkit-text-fill-color: #58a6ff;
+    }
     .top-bar-center {
-      display: flex; align-items: center; gap: 0.3rem;
-      flex: 1 1 auto; justify-content: flex-end; min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1 1 auto;
+      justify-content: flex-end;
+      min-width: 0;
     }
-    .balance-dropdown { position: relative; z-index: 60; flex-shrink: 1; min-width: 0; }
+    .balance-dropdown {
+      position: relative;
+      display: inline-block;
+      z-index: 99999 !important;
+      flex-shrink: 1;
+      min-width: 0;
+    }
     .balance-display {
-      display: flex; align-items: center; gap: 0.2rem;
-      background: rgba(10,14,20,0.6); padding: 0.2rem 0.5rem;
-      border-radius: 6px; border: 1px solid rgba(88,166,255,0.06);
-      cursor: pointer; transition: all 0.2s ease; user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(10,14,20,0.6);
+      padding: 0.35rem 0.8rem;
+      border-radius: 10px;
+      border: 1px solid rgba(88,166,255,0.06);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      position: relative;
+      z-index: 99999;
+      flex-wrap: nowrap;
     }
-    .balance-display .balance-amount {
-      font-size: 0.8rem; font-weight: 700; color: #f0f6fc; white-space: nowrap;
-    }
-    .balance-display .balance-amount .currency { font-size: 0.55rem; color: #6e7681; font-weight: 400; }
+    .balance-display:hover { border-color: rgba(88,166,255,0.15); background: rgba(10,14,20,0.8); }
+    .balance-display .balance-label { display: none; }
+    .balance-display .balance-amount { font-size: 1rem; font-weight: 700; color: #f0f6fc; white-space: nowrap; }
+    .balance-display .balance-amount .currency { font-size: 0.65rem; color: #6e7681; font-weight: 400; }
+    .balance-display .balance-change { display: none; }
     .balance-display .account-badge {
-      font-size: 0.4rem; font-weight: 600; padding: 0.08rem 0.3rem;
-      border-radius: 8px; text-transform: uppercase; letter-spacing: 0.2px;
+      font-size: 0.55rem;
+      font-weight: 600;
+      padding: 0.1rem 0.4rem;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
       flex-shrink: 0;
     }
     .account-badge.demo { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid rgba(88,166,255,0.15); }
     .account-badge.real { background: rgba(63,185,80,0.15); color: #3fb950; border: 1px solid rgba(63,185,80,0.15); }
-    .balance-display .dropdown-arrow { font-size: 0.5rem; color: #6e7681; transition: transform 0.2s ease; }
+    .balance-display .dropdown-arrow { font-size: 0.65rem; color: #6e7681; transition: transform 0.3s ease; flex-shrink: 0; }
     .balance-display .dropdown-arrow.open { transform: rotate(180deg); }
     .dropdown-menu {
-      position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
-      min-width: 160px; background: rgba(10,14,20,0.98); backdrop-filter: blur(20px);
-      border: 1px solid rgba(88,166,255,0.08); border-radius: 10px; padding: 0.3rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.9); display: none; animation: dropdownFade 0.2s ease;
-      z-index: 999; pointer-events: auto;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 200px;
+      background: rgba(10,14,20,0.98);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border: 1px solid rgba(88,166,255,0.08);
+      border-radius: 14px;
+      padding: 0.4rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(88,166,255,0.05);
+      display: none;
+      animation: dropdownFade 0.25s ease;
+      z-index: 999999 !important;
+      pointer-events: auto;
     }
     .dropdown-menu.open { display: block !important; }
     @keyframes dropdownFade {
-      0% { opacity: 0; transform: translateX(-50%) translateY(-5px) scale(0.97); }
+      0% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.98); }
       100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
     }
     .dropdown-menu .dropdown-item {
-      display: flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.5rem;
-      border-radius: 6px; color: #c9d1d9; font-size: 0.7rem; font-weight: 500;
-      cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent;
+      display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.7rem;
+      border-radius: 10px; color: #c9d1d9; font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent;
     }
-    .dropdown-menu .dropdown-item.active { background: rgba(88,166,255,0.08); color: #58a6ff; border-color: rgba(88,166,255,0.1); }
-    .dropdown-menu .dropdown-item .item-icon {
-      width: 24px; height: 24px; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem; flex-shrink: 0;
-    }
+    .dropdown-menu .dropdown-item:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.06); }
+    .dropdown-menu .dropdown-item.active { background: rgba(88,166,255,0.08); border-color: rgba(88,166,255,0.1); color: #58a6ff; }
+    .dropdown-menu .dropdown-item .item-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
     .dropdown-menu .dropdown-item .item-icon.demo-icon { background: rgba(88,166,255,0.1); color: #58a6ff; }
     .dropdown-menu .dropdown-item .item-icon.real-icon { background: rgba(63,185,80,0.1); color: #3fb950; }
-    .dropdown-menu .dropdown-item .item-info .item-title { font-weight: 600; font-size: 0.7rem; color: #f0f6fc; }
-    .dropdown-menu .dropdown-item .item-info .item-sub { font-size: 0.55rem; color: #6e7681; }
-    .dropdown-menu .dropdown-item .item-check { color: #3fb950; font-size: 0.7rem; }
-    .dropdown-menu .dropdown-divider { height: 1px; background: rgba(88,166,255,0.06); margin: 0.15rem 0.3rem; }
+    .dropdown-menu .dropdown-item .item-info .item-title { font-weight: 600; font-size: 0.85rem; color: #f0f6fc; }
+    .dropdown-menu .dropdown-item .item-info .item-sub { font-size: 0.65rem; color: #6e7681; }
+    .dropdown-menu .dropdown-item .item-check { color: #3fb950; font-size: 0.85rem; }
+    .dropdown-menu .dropdown-divider { height: 1px; background: rgba(88,166,255,0.06); margin: 0.2rem 0.4rem; }
     .deposit-btn {
-      padding: 0.2rem 0.6rem; background: linear-gradient(135deg, #3fb950, #2d8f47);
-      border: none; border-radius: 6px; color: #fff; font-weight: 700;
-      font-size: 0.6rem; cursor: pointer; font-family: 'Inter', sans-serif;
-      display: flex; align-items: center; gap: 0.2rem; white-space: nowrap;
+      padding: 0.35rem 1rem;
+      background: linear-gradient(135deg, #3fb950, #2d8f47);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .deposit-btn i { font-size: 0.6rem; }
-    .deposit-btn .btn-text { font-size: 0.55rem; }
-    .top-bar-right { display: flex; align-items: center; gap: 0.3rem; }
+    .deposit-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(63,185,80,0.3); }
+    .deposit-btn i { font-size: 0.75rem; }
+    .deposit-btn .btn-text { display: inline; font-size: 0.75rem; }
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex: 0 0 auto;
+    }
     .notif-btn {
-      width: 30px; height: 30px; border-radius: 6px;
-      background: rgba(10,14,20,0.6); border: 1px solid rgba(88,166,255,0.06);
-      color: #8b949e; font-size: 0.75rem; cursor: pointer; position: relative;
-      display: flex; align-items: center; justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(10,14,20,0.6);
+      border: 1px solid rgba(88,166,255,0.06);
+      color: #8b949e;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
+    .notif-btn:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.12); color: #f0f6fc; }
     .notif-btn .badge {
-      position: absolute; top: -2px; right: -2px; width: 14px; height: 14px;
-      background: #f0883e; border-radius: 50%; font-size: 0.4rem; font-weight: 700;
-      color: #fff; display: flex; align-items: center; justify-content: center;
-      border: 1.5px solid #0a0e14;
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 18px;
+      height: 18px;
+      background: #f0883e;
+      border-radius: 50%;
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0a0e14;
     }
 
-    /* ----- TRADING OPTIONS BAR (comfortable) ----- */
+    /* ----- TRADING OPTIONS BAR (mobile friendly) ----- */
     .trading-options-bar {
-      display: flex; align-items: center; gap: 0.2rem;
-      padding: 0.25rem 0.3rem; background: rgba(10,14,20,0.5);
-      backdrop-filter: blur(16px); border-bottom: 1px solid rgba(88,166,255,0.06);
-      flex-shrink: 0; overflow-x: auto; scrollbar-width: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      padding: 0.5rem 0.6rem;
+      background: rgba(10,14,20,0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(88,166,255,0.06);
+      width: 100%;
+      border-radius: 0;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
     .trading-options-bar::-webkit-scrollbar { display: none; }
     .option-btn-combined {
-      padding: 0.25rem 0.5rem; border-radius: 6px;
-      border: 1px solid rgba(88,166,255,0.08); background: rgba(10,14,20,0.4);
-      color: #8b949e; font-size: 0.55rem; font-weight: 500; cursor: pointer;
-      font-family: 'Inter', sans-serif; white-space: nowrap;
-      display: flex; align-items: center; gap: 0.15rem; flex: 1; justify-content: center;
+      padding: 0.4rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid rgba(88,166,255,0.08);
+      background: rgba(10,14,20,0.4);
+      color: #8b949e;
+      font-size: 0.65rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      flex: 1;
+      justify-content: center;
+      min-width: 0;
     }
-    .option-btn-combined i { font-size: 0.5rem; opacity: 0.6; }
-    .option-btn-combined .slash { color: #6e7681; font-size: 0.4rem; opacity: 0.5; }
+    .option-btn-combined:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.15); color: #f0f6fc; }
+    .option-btn-combined i { font-size: 0.6rem; opacity: 0.6; }
+    .option-btn-combined .slash { color: #6e7681; font-size: 0.5rem; opacity: 0.5; margin: 0 0.1rem; }
     .option-btn-combined.active-blue { background: rgba(88,166,255,0.12); border-color: rgba(88,166,255,0.2); color: #58a6ff; }
     .option-btn-combined.active-green { background: rgba(63,185,80,0.12); border-color: rgba(63,185,80,0.2); color: #3fb950; }
     .option-btn-combined.active-orange { background: rgba(240,136,62,0.12); border-color: rgba(240,136,62,0.2); color: #f0883e; }
 
-    /* ----- SCROLLABLE MIDDLE (chart + controls) ----- */
-    .scrollable-middle {
-      flex: 1 1 auto;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 0.2rem 0.1rem 0.3rem;
-      -webkit-overflow-scrolling: touch;
+    /* ----- CHART SECTION (mobile optimized) ----- */
+    .chart-section {
+      padding: 0.5rem 0.3rem 0.5rem;
+      margin-bottom: 0;
     }
-    .scrollable-middle::-webkit-scrollbar { width: 3px; }
-    .scrollable-middle::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
-
-    /* ----- CHART SECTION (balanced size) ----- */
-    .chart-section { padding: 0.1rem 0; }
     .chart-container {
-      background: rgba(10,14,20,0.6); backdrop-filter: blur(16px);
-      border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);
-      padding: 0.4rem; width: 100%; height: 280px;
-      display: flex; flex-direction: column;
+      background: rgba(10,14,20,0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.7rem;
+      width: 100%;
+      height: 450px;
+      position: relative;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
     }
+    .chart-container:hover { border-color: rgba(255,255,255,0.08); }
     .chart-container canvas {
-      display: block; width: 100% !important; flex: 1;
-      border-radius: 4px; min-height: 0;
+      display: block;
+      width: 100% !important;
+      flex: 1;
+      border-radius: 4px;
+      min-height: 0;
     }
     .chart-header-inner {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 0.1rem; flex-shrink: 0; gap: 0.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+      flex-shrink: 0;
+      padding: 0;
+      flex-wrap: wrap;
+      gap: 0.3rem;
     }
-    .chart-header-inner .chart-title { display: flex; align-items: center; gap: 0.25rem; }
+    .chart-header-inner .chart-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
     .chart-header-inner .chart-title h2 {
-      font-size: 0.65rem; font-weight: 600; color: #f0f6fc;
-      display: flex; align-items: center; gap: 0.15rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f0f6fc;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
-    .chart-header-inner .chart-title h2 i { font-size: 0.6rem; }
+    .chart-header-inner .chart-title h2 i { font-size: 0.8rem; }
     .chart-header-inner .chart-title .symbol-badge {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 4px; padding: 0.1rem 0.4rem; color: #fff;
-      font-size: 0.5rem; font-weight: 600;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 0.15rem 0.6rem;
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
     }
-    .chart-header-inner .chart-controls { display: flex; gap: 0.15rem; align-items: center; flex-wrap: wrap; }
+    .chart-header-inner .chart-controls {
+      display: flex;
+      gap: 0.3rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
     .chart-header-inner .chart-controls select {
-      background: rgba(10,14,20,0.6); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 4px; padding: 0.1rem 0.3rem; color: #f0f6fc;
-      font-size: 0.5rem; font-weight: 500; outline: none; cursor: pointer;
-      max-width: 60px;
+      background: rgba(10,14,20,0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 0.15rem 0.5rem;
+      color: #f0f6fc;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+      max-width: 90px;
     }
+    .chart-header-inner .chart-controls select:hover { border-color: rgba(255,255,255,0.2); }
     .chart-header-inner .chart-controls select option { background: #0a0e14; color: #f0f6fc; }
-    .chart-header-inner .chart-timeframe { display: flex; gap: 0.1rem; }
+    .chart-header-inner .chart-timeframe {
+      display: flex;
+      gap: 0.2rem;
+    }
     .chart-header-inner .chart-timeframe button {
-      background: rgba(10,14,20,0.4); border: 1px solid rgba(255,255,255,0.06);
-      color: #8b949e; font-size: 0.45rem; padding: 0.1rem 0.3rem;
-      border-radius: 4px; cursor: pointer; font-family: 'Inter', sans-serif;
+      background: rgba(10,14,20,0.4);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #8b949e;
+      font-size: 0.6rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    .chart-header-inner .chart-timeframe button:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.12);
+      color: #f0f6fc;
     }
     .chart-header-inner .chart-timeframe button.active {
-      background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15);
-      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.15);
+      color: #ffffff;
     }
+
     .chart-stats-row {
-      display: flex; gap: 0.3rem; padding: 0.2rem 0.05rem 0.05rem;
-      flex-wrap: wrap; flex-shrink: 0;
+      display: flex;
+      gap: 0.6rem;
+      padding: 0.4rem 0.1rem 0.2rem;
+      flex-wrap: wrap;
+      flex-shrink: 0;
       border-top: 1px solid rgba(255,255,255,0.04);
     }
-    .chart-stats-row .stat-item { display: flex; flex-direction: column; flex: 1; min-width: 30px; }
-    .chart-stats-row .stat-item .label { font-size: 0.4rem; color: #6e7681; text-transform: uppercase; letter-spacing: 0.2px; }
-    .chart-stats-row .stat-item .value { font-size: 0.65rem; font-weight: 700; color: #f0f6fc; line-height: 1.2; }
+    .chart-stats-row .stat-item {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 50px;
+    }
+    .chart-stats-row .stat-item .label {
+      font-size: 0.55rem;
+      color: #6e7681;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .chart-stats-row .stat-item .value {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      line-height: 1.2;
+    }
     .chart-stats-row .stat-item .value.up { color: #3fb950; }
     .chart-stats-row .stat-item .value.down { color: #f0883e; }
 
-    /* ----- DIGIT CIRCLES (balanced) ----- */
+    /* ----- DIGIT CIRCLES (mobile) ----- */
     .digit-circles-container {
-      display: flex; justify-content: center; gap: 0.2rem;
-      padding: 0.15rem 0.05rem; flex-shrink: 0; flex-wrap: wrap;
-      border-top: 1px solid rgba(255,255,255,0.04); margin-top: 0.05rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.1rem 0.15rem;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      margin-top: 0.1rem;
     }
-    .digit-circle-wrapper { display: flex; flex-direction: column; align-items: center; gap: 0.05rem; }
+    .digit-circle-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.05rem;
+    }
     .digit-circle {
-      width: 22px; height: 22px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.55rem; font-weight: 700; color: #fff;
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
-      transition: all 0.2s ease;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s ease;
+      cursor: default;
     }
-    .digit-circle.active { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.2); }
+    .digit-circle.active {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+    }
     .digit-circle.highlight {
-      background: rgba(88,166,255,0.25); border-color: #58a6ff;
-      box-shadow: 0 0 14px rgba(88,166,255,0.2); transform: scale(1.1);
+      background: rgba(88,166,255,0.25);
+      border-color: #58a6ff;
+      box-shadow: 0 0 20px rgba(88,166,255,0.25);
+      transform: scale(1.1);
     }
-    .digit-percentage { font-size: 0.35rem; color: #6e7681; font-weight: 600; min-width: 16px; text-align: center; }
+    .digit-percentage {
+      font-size: 0.5rem;
+      color: #6e7681;
+      font-weight: 600;
+      min-width: 24px;
+      text-align: center;
+    }
     .digit-percentage.high { color: #3fb950; }
     .digit-percentage.low { color: #f0883e; }
     .digit-percentage.peak { color: #ff6b6b; font-weight: 700; }
 
-    /* ----- TRADING CONTROLS (comfortable) ----- */
+    /* ----- TRADING CONTROLS (mobile first) ----- */
     .trading-controls {
-      background: rgba(10,14,20,0.6); backdrop-filter: blur(16px);
-      border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);
-      padding: 0.5rem 0.5rem; margin: 0.25rem 0;
-      display: flex; flex-direction: column; gap: 0.35rem;
+      background: rgba(10,14,20,0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,0.05);
+      padding: 0.7rem 0.8rem;
+      margin: 0.4rem 0.3rem 0.5rem 0.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
       flex-shrink: 0;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .balance-flash { border-color: #ffd700 !important; box-shadow: 0 0 20px rgba(255,215,0,0.25); }
-    .trading-controls .top-row { display: flex; flex-direction: column; gap: 0.3rem; }
+    .balance-flash {
+      border-color: #ffd700 !important;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.05) !important;
+    }
+    .trading-controls .top-row {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.7rem;
+    }
     .trading-controls .mode-section {
-      display: flex; align-items: center; gap: 0.3rem; width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      width: 100%;
+      flex-wrap: wrap;
     }
     .trading-controls .mode-section .label {
-      font-size: 0.5rem; color: #6e7681; text-transform: uppercase;
-      letter-spacing: 0.3px; font-weight: 600; flex-shrink: 0;
+      font-size: 0.65rem;
+      color: #6e7681;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+      flex-shrink: 0;
     }
+
     .mode-btn {
-      padding: 0.3rem 1rem; border-radius: 30px; border: none;
-      font-weight: 700; font-size: 0.6rem; cursor: pointer;
+      padding: 0.5rem 1.4rem;
+      border-radius: 40px;
+      border: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff; box-shadow: 0 2px 10px rgba(63,185,80,0.2);
-      display: inline-flex; align-items: center; gap: 4px;
-      flex: 1; justify-content: center; min-width: 60px;
+      color: #fff;
+      box-shadow: 0 3px 12px rgba(63,185,80,0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+      min-width: 90px;
     }
-    .mode-btn i { font-size: 0.6rem; }
-    .mode-btn.active-auto { background: linear-gradient(135deg, #3fb950, #2d8f47); color: #fff; box-shadow: 0 2px 12px rgba(63,185,80,0.35); }
-    .mode-btn.active-manual { background: rgba(240,136,62,0.2); color: #f0883e; border: 1px solid rgba(240,136,62,0.35); }
-    .stake-section { display: flex; flex-direction: column; gap: 0.2rem; width: 100%; }
+    .mode-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(63,185,80,0.35);
+    }
+    .mode-btn i { font-size: 0.8rem; }
+    .mode-btn.active-auto {
+      background: linear-gradient(135deg, #3fb950, #2d8f47);
+      color: #fff;
+      box-shadow: 0 3px 16px rgba(63,185,80,0.35);
+    }
+    .mode-btn.active-auto:hover {
+      box-shadow: 0 6px 24px rgba(63,185,80,0.45);
+    }
+    .mode-btn.active-manual {
+      background: rgba(240,136,62,0.2);
+      color: #f0883e;
+      border: 1px solid rgba(240,136,62,0.35);
+      box-shadow: 0 3px 16px rgba(240,136,62,0.15);
+    }
+    .mode-btn.active-manual:hover {
+      background: rgba(240,136,62,0.25);
+      box-shadow: 0 6px 24px rgba(240,136,62,0.25);
+    }
+
+    .stake-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      width: 100%;
+    }
     .stake-section .label {
-      font-size: 0.5rem; color: #6e7681; text-transform: uppercase;
-      letter-spacing: 0.3px; font-weight: 600; text-align: center;
+      font-size: 0.65rem;
+      color: #6e7681;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+      text-align: center;
     }
     .stake-control-row {
-      display: flex !important; align-items: center; gap: 0.3rem;
-      width: 100%; justify-content: space-between;
+      display: flex !important;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      justify-content: space-between;
     }
     .stake-adjust-btn {
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 1px solid rgba(88,166,255,0.15); background: rgba(10,14,20,0.6);
-      color: #f0f6fc; font-size: 1rem; font-weight: 700;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      font-family: 'Inter', sans-serif; flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(88,166,255,0.15);
+      background: rgba(10,14,20,0.6);
+      color: #f0f6fc;
+      font-size: 1.4rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      flex-shrink: 0;
+    }
+    .stake-adjust-btn:hover {
+      background: rgba(88,166,255,0.05);
+      border-color: rgba(88,166,255,0.3);
     }
     .stake-adjust-btn.minus { color: #f0883e; border-color: rgba(240,136,62,0.25); }
+    .stake-adjust-btn.minus:hover { background: rgba(240,136,62,0.05); border-color: rgba(240,136,62,0.4); }
     .stake-adjust-btn.plus { color: #3fb950; border-color: rgba(63,185,80,0.25); }
-    .stake-display { display: flex; flex-direction: column; align-items: center; min-width: 36px; }
-    .stake-display .stake-value { font-size: 1.1rem; font-weight: 700; color: #f0f6fc; line-height: 1.2; }
-    .stake-display .stake-currency { font-size: 0.45rem; color: #6e7681; }
+    .stake-adjust-btn.plus:hover { background: rgba(63,185,80,0.05); border-color: rgba(63,185,80,0.4); }
+    .stake-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 55px;
+    }
+    .stake-display .stake-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      line-height: 1.1;
+    }
+    .stake-display .stake-currency {
+      font-size: 0.6rem;
+      color: #6e7681;
+    }
     .stake-presets {
-      display: flex !important; gap: 0.15rem; flex-wrap: wrap;
-      justify-content: center; width: 100%;
+      display: flex !important;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
     }
     .stake-preset-btn {
-      padding: 0.15rem 0.35rem; border-radius: 4px;
-      border: 1px solid rgba(88,166,255,0.08); background: rgba(10,14,20,0.4);
-      color: #8b949e; font-size: 0.45rem; font-weight: 600;
-      cursor: pointer; font-family: 'Inter', sans-serif;
-      min-width: 24px; text-align: center; flex: 1;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid rgba(88,166,255,0.08);
+      background: rgba(10,14,20,0.4);
+      color: #8b949e;
+      font-size: 0.6rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      min-width: 36px;
+      text-align: center;
+      flex: 1;
     }
-    .stake-preset-btn.active { background: rgba(63,185,80,0.15); border-color: #3fb950; color: #3fb950; }
+    .stake-preset-btn:hover {
+      background: rgba(88,166,255,0.05);
+      border-color: rgba(88,166,255,0.15);
+      color: #f0f6fc;
+    }
+    .stake-preset-btn.active {
+      background: rgba(63,185,80,0.15);
+      border-color: #3fb950;
+      color: #3fb950;
+    }
+
     .three-params {
-      display: flex; gap: 0.15rem; width: 100%; justify-content: space-between;
+      display: flex;
+      gap: 0.4rem;
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: nowrap;
     }
     .param-btn-group {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 0.05rem; background: rgba(10,14,20,0.4);
-      border: 1px solid rgba(255,255,255,0.06); border-radius: 6px;
-      padding: 0.25rem 0.1rem; flex: 1; min-width: 0; min-height: 40px;
-      cursor: pointer; transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.1rem;
+      background: rgba(10,14,20,0.4);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 0.5rem 0.1rem;
+      flex: 1;
+      min-width: 0;
+      min-height: 56px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .param-btn-group:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.15);
     }
     .param-btn-group .param-label {
-      font-size: 0.4rem; text-transform: uppercase; letter-spacing: 0.2px;
-      color: #6e7681; font-weight: 600; white-space: nowrap;
-      display: flex; align-items: center; gap: 0.1rem;
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+      color: #6e7681;
+      font-weight: 600;
+      white-space: nowrap;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
     }
-    .param-btn-group .param-label i { font-size: 0.4rem; color: #58a6ff; }
+    .param-btn-group .param-label i { font-size: 0.5rem; color: #58a6ff; }
     .param-btn-group .param-value {
-      font-size: 0.75rem; font-weight: 700; color: #f0f6fc;
-      min-width: 28px; text-align: center; background: transparent;
-      border: none; outline: none; font-family: 'Inter', sans-serif;
-      padding: 0; pointer-events: none; width: 100%;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      min-width: 40px;
+      text-align: center;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      pointer-events: none;
+      width: 100%;
     }
     .param-btn-group .param-value .dollar { color: #3fb950; font-weight: 700; }
 
-    /* ----- EVEN / ODD BUTTONS (comfortable) ----- */
     .match-differ-row {
-      display: flex; gap: 0.3rem; width: 100%; justify-content: space-between;
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+      justify-content: space-between;
     }
     .even-btn, .odd-btn {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 0.1rem;
-      padding: 0.35rem 0.4rem; border-radius: 8px;
-      background: rgba(10,14,20,0.4); color: #c9d1d9;
-      font-family: 'Inter', sans-serif; font-size: 0.55rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s ease; min-height: 50px;
-      border-width: 2.5px; border-style: solid;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      padding: 0.6rem 0.7rem;
+      border-radius: 12px;
+      background: rgba(10,14,20,0.4);
+      color: #c9d1d9;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-height: 64px;
+      border-width: 2.5px;
+      border-style: solid;
     }
-    .even-btn { border-color: rgba(0, 255, 200, 0.35); box-shadow: 0 0 10px rgba(0, 255, 200, 0.06); }
+    .even-btn {
+      border-color: rgba(0, 255, 200, 0.35);
+      box-shadow: 0 0 12px rgba(0, 255, 200, 0.08);
+    }
+    .even-btn:hover {
+      background: rgba(0, 255, 200, 0.06);
+      border-color: #00ffc8;
+      box-shadow: 0 0 24px rgba(0, 255, 200, 0.2);
+      transform: translateY(-1px);
+    }
     .even-btn .btn-label {
-      display: flex; align-items: center; gap: 0.2rem;
-      font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.2px;
-      color: #6e7681; pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: #6e7681;
+      pointer-events: none;
     }
-    .even-btn .btn-label i { font-size: 0.5rem; color: #00ffc8; }
+    .even-btn .btn-label i { font-size: 0.65rem; color: #00ffc8; }
     .even-btn .payout-value {
-      font-size: 0.95rem; font-weight: 700; color: #00ffc8;
-      pointer-events: none; text-shadow: 0 0 12px rgba(0,255,200,0.1);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #00ffc8;
+      pointer-events: none;
+      text-shadow: 0 0 20px rgba(0, 255, 200, 0.15);
     }
     .even-btn .payout-value .dollar { color: #00ffc8; font-weight: 700; }
-    .even-btn.active { background: rgba(0,255,200,0.10); border-color: #00ffc8; box-shadow: 0 0 20px rgba(0,255,200,0.2); color: #00ffc8; }
+    .even-btn.active {
+      background: rgba(0, 255, 200, 0.10);
+      border-color: #00ffc8;
+      box-shadow: 0 0 30px rgba(0, 255, 200, 0.25);
+      color: #00ffc8;
+    }
     .even-btn.active .btn-label { color: #00ffc8; }
     .even-btn.active .btn-label i { color: #00ffc8; }
 
-    .odd-btn { border-color: rgba(255,20,147,0.35); box-shadow: 0 0 10px rgba(255,20,147,0.06); }
-    .odd-btn .btn-label {
-      display: flex; align-items: center; gap: 0.2rem;
-      font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.2px;
-      color: #6e7681; pointer-events: none;
+    .odd-btn {
+      border-color: rgba(255, 20, 147, 0.35);
+      box-shadow: 0 0 12px rgba(255, 20, 147, 0.08);
     }
-    .odd-btn .btn-label i { font-size: 0.5rem; color: #ff1493; }
+    .odd-btn:hover {
+      background: rgba(255, 20, 147, 0.06);
+      border-color: #ff1493;
+      box-shadow: 0 0 24px rgba(255, 20, 147, 0.2);
+      transform: translateY(-1px);
+    }
+    .odd-btn .btn-label {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: #6e7681;
+      pointer-events: none;
+    }
+    .odd-btn .btn-label i { font-size: 0.65rem; color: #ff1493; }
     .odd-btn .payout-value {
-      font-size: 0.95rem; font-weight: 700; color: #ff1493;
-      pointer-events: none; text-shadow: 0 0 12px rgba(255,20,147,0.1);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ff1493;
+      pointer-events: none;
+      text-shadow: 0 0 20px rgba(255, 20, 147, 0.15);
     }
     .odd-btn .payout-value .dollar { color: #ff1493; font-weight: 700; }
-    .odd-btn.active { background: rgba(255,20,147,0.10); border-color: #ff1493; box-shadow: 0 0 20px rgba(255,20,147,0.2); color: #ff1493; }
+    .odd-btn.active {
+      background: rgba(255, 20, 147, 0.10);
+      border-color: #ff1493;
+      box-shadow: 0 0 30px rgba(255, 20, 147, 0.25);
+      color: #ff1493;
+    }
     .odd-btn.active .btn-label { color: #ff1493; }
     .odd-btn.active .btn-label i { color: #ff1493; }
 
-    /* ----- BOT CARD (sticky bottom, comfortable) ----- */
-    .bot-card-wrapper {
-      flex-shrink: 0;
-      padding: 0.2rem 0.1rem 0.3rem;
-      background: rgba(10,14,20,0.3);
-      backdrop-filter: blur(4px);
-      border-top: 1px solid rgba(88,166,255,0.05);
-    }
-    .bot-card {
-      background: rgba(10,14,20,0.6); backdrop-filter: blur(16px);
-      border-radius: 10px; border: 1px solid rgba(88,166,255,0.05);
-      padding: 0.5rem 0.6rem;
-    }
-    .bot-card .card-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 0.3rem;
-    }
-    .bot-card .card-header h3 {
-      font-size: 0.7rem; font-weight: 600; color: #f0f6fc;
-      display: flex; align-items: center; gap: 0.25rem;
-    }
-    .bot-card .card-header h3 i { color: #58a6ff; }
-    .bot-card .card-header .card-action {
-      color: #58a6ff; font-size: 0.55rem; font-weight: 500;
-      cursor: pointer; text-decoration: none;
-    }
-    .bot-controls {
-      display: flex; gap: 0.4rem; align-items: center;
-      justify-content: stretch;
-    }
-    .btn-activate {
-      padding: 0.4rem 1rem; border-radius: 30px; border: none;
-      font-weight: 700; font-size: 0.65rem; cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff; box-shadow: 0 2px 10px rgba(63,185,80,0.2);
-      display: inline-flex; align-items: center; gap: 5px;
-      flex: 1; justify-content: center;
-    }
-    .btn-activate.active {
-      background: rgba(240,136,62,0.2); color: #f0883e;
-      border: 1px solid rgba(240,136,62,0.35);
-      box-shadow: 0 2px 12px rgba(240,136,62,0.15);
-    }
-    .btn-live-chat {
-      padding: 0.4rem 1rem; border-radius: 30px;
-      border: 1px solid rgba(88,166,255,0.25); background: rgba(10,14,20,0.4);
-      color: #58a6ff; font-weight: 600; font-size: 0.6rem;
-      cursor: pointer; font-family: 'Inter', sans-serif;
-      display: inline-flex; align-items: center; gap: 5px;
-      backdrop-filter: blur(8px); flex: 1; justify-content: center;
-    }
-    .btn-live-chat i { font-size: 0.7rem; animation: pulseGlow 2s infinite; }
-    @keyframes pulseGlow {
-      0% { text-shadow: 0 0 0 rgba(88,166,255,0.3); }
-      50% { text-shadow: 0 0 10px rgba(88,166,255,0.6); }
-      100% { text-shadow: 0 0 0 rgba(88,166,255,0.3); }
-    }
-
-    /* ----- POPUPS (comfortable) ----- */
+    /* POPUP mobile */
     .param-popup-overlay {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-      z-index: 999999; display: none; align-items: center; justify-content: center;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 999999;
+      display: none;
+      align-items: center;
+      justify-content: center;
       padding: 1rem;
     }
     .param-popup-overlay.active { display: flex; }
     .param-popup {
-      background: #1a1f2a; border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px; padding: 1.2rem; max-width: 320px; width: 100%;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.9); animation: popupIn 0.2s ease;
+      background: #1a1f2a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5rem 1.5rem;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+      animation: popupIn 0.3s ease;
     }
     @keyframes popupIn {
-      0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+      0% { opacity: 0; transform: scale(0.95) translateY(20px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
-    .param-popup .popup-title { font-size: 0.9rem; font-weight: 700; color: #f0f6fc; text-align: center; }
-    .param-popup .popup-sub { font-size: 0.6rem; color: #6e7681; text-align: center; margin-bottom: 0.6rem; }
-    .param-popup .popup-presets { display: flex; flex-wrap: wrap; gap: 0.25rem; justify-content: center; margin-bottom: 0.6rem; }
+    .param-popup .popup-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.2rem;
+      text-align: center;
+    }
+    .param-popup .popup-sub {
+      font-size: 0.75rem;
+      color: #6e7681;
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+    .param-popup .popup-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+    }
     .param-popup .popup-preset-btn {
-      padding: 0.25rem 0.5rem; border-radius: 5px; border: 1px solid rgba(88,166,255,0.08);
-      background: rgba(10,14,20,0.6); color: #c9d1d9; font-size: 0.65rem;
-      font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif;
-      min-width: 32px;
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid rgba(88,166,255,0.08);
+      background: rgba(10,14,20,0.6);
+      color: #c9d1d9;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      min-width: 44px;
     }
-    .param-popup .popup-preset-btn.active { background: rgba(63,185,80,0.15); border-color: #3fb950; color: #3fb950; }
-    .param-popup .popup-manual { display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.6rem; }
-    .param-popup .popup-manual label { font-size: 0.55rem; color: #6e7681; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 600; white-space: nowrap; }
+    .param-popup .popup-preset-btn:hover {
+      background: rgba(88,166,255,0.08);
+      border-color: rgba(88,166,255,0.2);
+      color: #f0f6fc;
+    }
+    .param-popup .popup-preset-btn.active {
+      background: rgba(63,185,80,0.15);
+      border-color: #3fb950;
+      color: #3fb950;
+    }
+    .param-popup .popup-manual {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+    .param-popup .popup-manual label {
+      font-size: 0.7rem;
+      color: #6e7681;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
     .param-popup .popup-manual input {
-      flex: 1; background: rgba(10,14,20,0.6); border: 1px solid rgba(88,166,255,0.08);
-      border-radius: 5px; padding: 0.25rem 0.5rem; color: #f0f6fc;
-      font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500;
-      outline: none; width: 100%; min-width: 0;
+      flex: 1;
+      background: rgba(10,14,20,0.6);
+      border: 1px solid rgba(88,166,255,0.08);
+      border-radius: 6px;
+      padding: 0.4rem 0.6rem;
+      color: #f0f6fc;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.3s ease;
+      min-width: 0;
+      width: 100%;
     }
-    .param-popup .popup-actions { display: flex; gap: 0.4rem; justify-content: flex-end; }
+    .param-popup .popup-manual input:focus { border-color: rgba(88,166,255,0.3); }
+    .param-popup .popup-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
     .param-popup .popup-actions button {
-      padding: 0.3rem 1rem; border-radius: 5px; border: none;
-      font-weight: 600; font-size: 0.6rem; cursor: pointer;
+      padding: 0.4rem 1.4rem;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
       font-family: 'Inter', sans-serif;
     }
-    .param-popup .popup-actions .btn-cancel { background: rgba(10,14,20,0.6); color: #8b949e; border: 1px solid rgba(88,166,255,0.08); }
-    .param-popup .popup-actions .btn-apply { background: linear-gradient(135deg, #3fb950, #2d8f47); color: #fff; }
+    .param-popup .popup-actions .btn-cancel {
+      background: rgba(10,14,20,0.6);
+      color: #8b949e;
+      border: 1px solid rgba(88,166,255,0.08);
+    }
+    .param-popup .popup-actions .btn-cancel:hover { background: rgba(255,255,255,0.05); }
+    .param-popup .popup-actions .btn-apply {
+      background: linear-gradient(135deg, #3fb950, #2d8f47);
+      color: #fff;
+    }
+    .param-popup .popup-actions .btn-apply:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(63,185,80,0.3);
+    }
 
-    /* History, Win, Loss, Deposit popups (comfortable) */
-    .history-popup-overlay, .win-popup-overlay, .loss-popup-overlay, .deposit-popup-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
-      z-index: 9999999; display: none; align-items: center; justify-content: center;
-      padding: 0.8rem; animation: fadeIn 0.2s ease;
+    /* ----- BOT CARD (mobile) ----- */
+    .bot-card {
+      background: rgba(10,14,20,0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 14px;
+      border: 1px solid rgba(88,166,255,0.05);
+      padding: 0.9rem;
+      transition: all 0.4s ease;
+      margin-top: 0.3rem;
     }
-    .history-popup-overlay.active, .win-popup-overlay.active, .loss-popup-overlay.active, .deposit-popup-overlay.active { display: flex; }
-    @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+    .bot-card:hover { border-color: rgba(88,166,255,0.08); }
+    .bot-card .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .bot-card .card-header h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #f0f6fc;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .bot-card .card-header h3 i { color: #58a6ff; }
+    .bot-card .card-header .card-action {
+      color: #58a6ff;
+      font-size: 0.7rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .bot-card .card-header .card-action:hover { color: #3fb950; }
+    .bot-card .card-header .card-action i { font-size: 0.65rem; margin-left: 3px; }
+
+    .bot-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-activate {
+      padding: 0.5rem 1.4rem;
+      border-radius: 40px;
+      border: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #3fb950, #2d8f47);
+      color: #fff;
+      box-shadow: 0 3px 12px rgba(63,185,80,0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+    }
+    .btn-activate:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(63,185,80,0.35);
+    }
+    .btn-activate.active {
+      background: rgba(240,136,62,0.2);
+      color: #f0883e;
+      border: 1px solid rgba(240,136,62,0.35);
+      box-shadow: 0 3px 16px rgba(240,136,62,0.15);
+    }
+    .btn-activate.active:hover {
+      background: rgba(240,136,62,0.25);
+      box-shadow: 0 6px 24px rgba(240,136,62,0.25);
+    }
+
+    .btn-live-chat {
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      border: 1px solid rgba(88,166,255,0.25);
+      background: rgba(10,14,20,0.4);
+      color: #58a6ff;
+      font-weight: 600;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 10px rgba(88,166,255,0.08);
+      flex: 1;
+      justify-content: center;
+    }
+    .btn-live-chat:hover {
+      background: rgba(88,166,255,0.12);
+      border-color: #58a6ff;
+      box-shadow: 0 0 20px rgba(88,166,255,0.18);
+      transform: scale(1.02);
+    }
+    .btn-live-chat i {
+      font-size: 0.85rem;
+      animation: pulseGlow 2s infinite;
+    }
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 0 rgba(88,166,255,0.3); }
+      50% { text-shadow: 0 0 14px rgba(88,166,255,0.7); }
+      100% { text-shadow: 0 0 0 rgba(88,166,255,0.3); }
+    }
+
+    .trade-history {
+      display: none;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 99;
+      display: none;
+    }
+    .sidebar-overlay.active { display: block; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: rgba(10,14,20,0.5); }
+    ::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(88,166,255,0.3); }
+
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+    /* ----- HISTORY POPUP (full page overlay) ----- */
+    .history-popup-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 9999999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .history-popup-overlay.active { display: flex; }
     .history-popup-content {
-      background: #1a1f2a; border: 1px solid rgba(88,166,255,0.1);
-      border-radius: 16px; padding: 1.2rem; max-width: 95%; width: 100%;
-      max-height: 90vh; box-shadow: 0 40px 120px rgba(0,0,0,0.9);
-      animation: popIn 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
-      display: flex; flex-direction: column;
+      background: #1a1f2a;
+      border: 1px solid rgba(88,166,255,0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      display: flex;
+      flex-direction: column;
     }
-    .history-popup-content .history-popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-shrink: 0; }
-    .history-popup-content .history-popup-header h2 { font-size: 0.95rem; font-weight: 700; color: #f0f6fc; display: flex; align-items: center; gap: 0.4rem; }
-    .history-popup-content .history-popup-header h2 i { color: #58a6ff; }
+    .history-popup-content .history-popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-shrink: 0;
+    }
+    .history-popup-content .history-popup-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .history-popup-content .history-popup-header h2 i {
+      color: #58a6ff;
+    }
     .history-popup-content .history-popup-header .close-history-btn {
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
-      color: #8b949e; width: 30px; height: 30px; border-radius: 50%;
-      font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #8b949e;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .history-popup-content .history-popup-table-wrap { overflow-x: auto; overflow-y: auto; max-height: 60vh; flex: 1; }
-    .history-popup-content .history-popup-table-wrap::-webkit-scrollbar { width: 3px; }
+    .history-popup-content .history-popup-header .close-history-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: #f0f6fc;
+      border-color: rgba(255,255,255,0.2);
+    }
+    .history-popup-content .history-popup-table-wrap {
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 65vh;
+      flex: 1;
+    }
+    .history-popup-content .history-popup-table-wrap::-webkit-scrollbar { width: 4px; }
+    .history-popup-content .history-popup-table-wrap::-webkit-scrollbar-track { background: transparent; }
     .history-popup-content .history-popup-table-wrap::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
-    .history-popup-content .history-popup-table { width: 100%; border-collapse: collapse; font-size: 0.65rem; }
+    
+    .history-popup-content .history-popup-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
     .history-popup-content .history-popup-table th {
-      text-align: left; padding: 0.35rem 0.5rem 0.35rem 0;
-      color: #6e7681; font-weight: 600; font-size: 0.5rem; text-transform: uppercase;
-      letter-spacing: 0.3px; border-bottom: 1px solid rgba(88,166,255,0.08);
-      position: sticky; top: 0; background: #1a1f2a; z-index: 2;
+      text-align: left;
+      padding: 0.6rem 0.7rem 0.6rem 0;
+      color: #6e7681;
+      font-weight: 600;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(88,166,255,0.08);
+      position: sticky;
+      top: 0;
+      background: #1a1f2a;
+      z-index: 2;
     }
     .history-popup-content .history-popup-table td {
-      padding: 0.3rem 0.5rem 0.3rem 0; border-bottom: 1px solid rgba(88,166,255,0.04);
-      color: #c9d1d9; font-size: 0.6rem;
+      padding: 0.5rem 0.7rem 0.5rem 0;
+      border-bottom: 1px solid rgba(88,166,255,0.04);
+      color: #c9d1d9;
+      font-size: 0.75rem;
     }
+    .history-popup-content .history-popup-table td:last-child { padding-right: 0; }
     .history-popup-content .history-popup-table .status-badge {
-      padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.5rem; font-weight: 600;
+      padding: 0.1rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.6rem;
+      font-weight: 600;
     }
     .history-popup-content .history-popup-table .status-badge.win { background: rgba(63,185,80,0.15); color: #3fb950; }
     .history-popup-content .history-popup-table .status-badge.loss { background: rgba(240,136,62,0.15); color: #f0883e; }
     .history-popup-content .history-popup-table .profit-pos { color: #3fb950; font-weight: 600; }
     .history-popup-content .history-popup-table .profit-neg { color: #f0883e; font-weight: 600; }
-    .history-popup-content .history-popup-empty { text-align: center; color: #6e7681; font-size: 0.8rem; padding: 2rem 0; }
-    .history-popup-content .history-popup-empty i { font-size: 2.2rem; display: block; margin-bottom: 0.5rem; color: #3fb950; opacity: 0.3; }
-
-    .win-popup, .loss-popup, .deposit-popup {
-      border-radius: 20px; padding: 1.5rem 1.2rem; max-width: 360px; width: 100%;
-      text-align: center; box-shadow: 0 40px 120px rgba(0,0,0,0.9);
-      animation: popIn 0.4s cubic-bezier(0.2,0.9,0.4,1);
+    .history-popup-content .history-popup-empty {
+      text-align: center;
+      color: #6e7681;
+      font-size: 0.9rem;
+      padding: 3rem 0;
+      font-style: italic;
     }
-    .win-popup { background: linear-gradient(145deg,#1a2a1f,#0d1a12); border: 2px solid rgba(63,185,80,0.4); }
-    .loss-popup { background: linear-gradient(145deg,#2a1a1a,#1a0d0d); border: 2px solid rgba(240,136,62,0.4); }
-    .deposit-popup { background: linear-gradient(145deg,#1a1f2a,#0d121c); border: 2px solid rgba(88,166,255,0.3); }
-    .win-popup .win-icon, .loss-popup .loss-icon, .deposit-popup .deposit-icon { font-size: 3rem; margin-bottom: 0.2rem; }
-    .win-popup .win-icon { color: #3fb950; }
-    .loss-popup .loss-icon { color: #f0883e; }
-    .deposit-popup .deposit-icon { color: #f0883e; }
-    .win-popup .win-title { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg,#3fb950,#8bc34a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .loss-popup .loss-title { font-size: 1.6rem; font-weight: 800; color: #f0883e; }
-    .deposit-popup .deposit-title { font-size: 1.3rem; font-weight: 800; color: #f0f6fc; }
-    .win-popup .win-sub, .loss-popup .loss-sub, .deposit-popup .deposit-sub { color: #8b949e; font-size: 0.7rem; margin-bottom: 0.6rem; }
-    .win-popup .win-profit, .loss-popup .loss-amount, .deposit-popup .deposit-balance .bal-amount { font-size: 1.8rem; font-weight: 800; }
-    .win-popup .win-profit { color: #3fb950; }
-    .loss-popup .loss-amount { color: #f0883e; }
-    .win-popup .win-stats, .loss-popup .loss-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.6rem 0 0.8rem; }
-    .win-popup .win-stat-box, .loss-popup .loss-stat-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 0.5rem 0.2rem; }
-    .win-popup .win-stat-box .stat-label, .loss-popup .loss-stat-box .stat-label { font-size: 0.4rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.3px; font-weight: 600; }
-    .win-popup .win-stat-box .stat-value, .loss-popup .loss-stat-box .stat-value { font-size: 0.9rem; font-weight: 700; color: #f0f6fc; margin-top: 0.05rem; }
-    .win-popup .win-stat-box .stat-value.gold { color: #ffd700; }
-    .win-popup .win-stat-box .stat-value.cyan { color: #00ffc8; }
+    .history-popup-content .history-popup-empty i {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #3fb950;
+      opacity: 0.3;
+    }
+
+    /* ----- WIN POPUP (custom) ----- */
+    .win-popup-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 9999998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .win-popup-overlay.active { display: flex; }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .win-popup {
+      background: linear-gradient(145deg, #1a2a1f, #0d1a12);
+      border: 2px solid rgba(63,185,80,0.4);
+      border-radius: 24px;
+      padding: 2rem 2rem 1.8rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 60px rgba(63,185,80,0.15);
+      animation: popIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .win-popup::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(63,185,80,0.05) 0%, transparent 70%);
+      animation: glowPulse 3s infinite;
+      pointer-events: none;
+    }
+    @keyframes glowPulse {
+      0% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.5; }
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.8) translateY(30px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .win-popup .win-icon {
+      font-size: 3.5rem;
+      color: #3fb950;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 0 40px rgba(63,185,80,0.3);
+      animation: bounceIn 0.6s ease;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0) rotate(-10deg); }
+      50% { transform: scale(1.3) rotate(5deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+    .win-popup .win-title {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3fb950, #8bc34a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.2rem;
+      letter-spacing: -0.5px;
+      position: relative;
+    }
+    .win-popup .win-sub {
+      color: #8b949e;
+      font-size: 0.8rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+    .win-popup .win-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin: 0.8rem 0 1.2rem;
+      position: relative;
+    }
+    .win-popup .win-stat-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 0.6rem 0.4rem;
+    }
+    .win-popup .win-stat-box .stat-label {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      color: #6e7681;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .win-popup .win-stat-box .stat-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-top: 0.1rem;
+    }
     .win-popup .win-stat-box .stat-value.green { color: #3fb950; }
+    .win-popup .win-stat-box .stat-value.cyan { color: #00ffc8; }
     .win-popup .win-stat-box .stat-value.pink { color: #ff1493; }
+    .win-popup .win-stat-box .stat-value.gold { color: #ffd700; }
+    .win-popup .win-profit {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #3fb950;
+      text-shadow: 0 0 40px rgba(63,185,80,0.2);
+      margin: 0.2rem 0 0.6rem;
+      position: relative;
+    }
+    .win-popup .win-profit .currency {
+      font-size: 1.2rem;
+      color: #8b949e;
+    }
+    .win-popup .win-time {
+      font-size: 0.65rem;
+      color: #6e7681;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .win-popup .win-time i { color: #58a6ff; }
+    .win-popup .btn-close-win {
+      background: linear-gradient(135deg, #3fb950, #2d8f47);
+      border: none;
+      padding: 0.6rem 2.5rem;
+      border-radius: 40px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 20px rgba(63,185,80,0.3);
+      position: relative;
+    }
+    .win-popup .btn-close-win:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 30px rgba(63,185,80,0.5);
+    }
+
+    /* ----- LOSS POPUP (custom) ----- */
+    .loss-popup-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 9999998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .loss-popup-overlay.active { display: flex; }
+    .loss-popup {
+      background: linear-gradient(145deg, #2a1a1a, #1a0d0d);
+      border: 2px solid rgba(240,136,62,0.4);
+      border-radius: 24px;
+      padding: 2rem 2rem 1.8rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 60px rgba(240,136,62,0.15);
+      animation: popIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .loss-popup::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(240,136,62,0.05) 0%, transparent 70%);
+      animation: glowPulse 3s infinite;
+      pointer-events: none;
+    }
+    .loss-popup .loss-icon {
+      font-size: 3.5rem;
+      color: #f0883e;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 0 40px rgba(240,136,62,0.3);
+      animation: bounceIn 0.6s ease;
+    }
+    .loss-popup .loss-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #f0883e;
+      margin-bottom: 0.2rem;
+      letter-spacing: -0.5px;
+      position: relative;
+    }
+    .loss-popup .loss-sub {
+      color: #8b949e;
+      font-size: 0.8rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+    .loss-popup .loss-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin: 0.8rem 0 1.2rem;
+      position: relative;
+    }
+    .loss-popup .loss-stat-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 0.6rem 0.4rem;
+    }
+    .loss-popup .loss-stat-box .stat-label {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      color: #6e7681;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .loss-popup .loss-stat-box .stat-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-top: 0.1rem;
+    }
     .loss-popup .loss-stat-box .stat-value.gold { color: #ffd700; }
     .loss-popup .loss-stat-box .stat-value.pink { color: #ff1493; }
     .loss-popup .loss-stat-box .stat-value.red { color: #f0883e; }
-    .win-popup .win-time, .loss-popup .loss-time, .deposit-popup .deposit-sub { font-size: 0.55rem; color: #6e7681; display: flex; align-items: center; justify-content: center; gap: 0.3rem; margin-bottom: 0.6rem; }
-    .deposit-popup .deposit-balance { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 0.5rem; margin-bottom: 0.6rem; }
-    .deposit-popup .deposit-balance .bal-label { font-size: 0.4rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.3px; }
-    .deposit-popup .deposit-balance .bal-amount { color: #f0883e; font-size: 1.4rem; }
-    .deposit-popup .deposit-amounts { display: flex; flex-wrap: wrap; gap: 0.3rem; justify-content: center; margin: 0.5rem 0; }
-    .deposit-popup .deposit-amount-btn { padding: 0.35rem 0.7rem; border-radius: 8px; border: 1px solid rgba(88,166,255,0.15); background: rgba(10,14,20,0.6); color: #c9d1d9; font-size: 0.7rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; flex: 1; min-width: 45px; }
-    .deposit-popup .deposit-amount-btn.active { background: rgba(63,185,80,0.15); border-color: #3fb950; color: #3fb950; }
-    .deposit-popup .deposit-actions { display: flex; gap: 0.3rem; justify-content: center; margin-top: 0.4rem; }
-    .deposit-popup .deposit-actions button { padding: 0.35rem 1.2rem; border-radius: 30px; border: none; font-weight: 700; font-size: 0.65rem; cursor: pointer; font-family: 'Inter', sans-serif; flex: 1; }
-    .deposit-popup .deposit-actions .btn-deposit-confirm { background: linear-gradient(135deg,#3fb950,#2d8f47); color: #fff; box-shadow: 0 2px 12px rgba(63,185,80,0.3); }
-    .deposit-popup .deposit-actions .btn-deposit-cancel { background: rgba(10,14,20,0.6); color: #8b949e; border: 1px solid rgba(88,166,255,0.08); }
-    .win-popup .btn-close-win, .loss-popup .btn-close-loss { border: none; padding: 0.4rem 2rem; border-radius: 30px; color: #fff; font-weight: 700; font-size: 0.7rem; cursor: pointer; font-family: 'Inter', sans-serif; }
-    .win-popup .btn-close-win { background: linear-gradient(135deg,#3fb950,#2d8f47); box-shadow: 0 2px 16px rgba(63,185,80,0.3); }
-    .loss-popup .btn-close-loss { background: linear-gradient(135deg,#f0883e,#d4732a); box-shadow: 0 2px 16px rgba(240,136,62,0.3); }
-
-    .two-col-grid { display: none; }
-    .dashboard-card { display: none !important; }
-    ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: rgba(10,14,20,0.5); }
-    ::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
-
-    /* small extra tweaks for very small screens */
-    @media (max-width: 380px) {
-      .chart-container { height: 220px; }
-      .digit-circle { width: 18px; height: 18px; font-size: 0.45rem; }
-      .digit-percentage { font-size: 0.3rem; min-width: 14px; }
-      .stake-display .stake-value { font-size: 0.95rem; }
-      .even-btn .payout-value, .odd-btn .payout-value { font-size: 0.8rem; }
-      .balance-display .balance-amount { font-size: 0.7rem; }
-      .deposit-btn { font-size: 0.5rem; padding: 0.15rem 0.4rem; }
+    .loss-popup .loss-amount {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #f0883e;
+      text-shadow: 0 0 40px rgba(240,136,62,0.2);
+      margin: 0.2rem 0 0.6rem;
+      position: relative;
     }
+    .loss-popup .loss-amount .currency {
+      font-size: 1.2rem;
+      color: #8b949e;
+    }
+    .loss-popup .loss-time {
+      font-size: 0.65rem;
+      color: #6e7681;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .loss-popup .loss-time i { color: #f0883e; }
+    .loss-popup .btn-close-loss {
+      background: linear-gradient(135deg, #f0883e, #d4732a);
+      border: none;
+      padding: 0.6rem 2.5rem;
+      border-radius: 40px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 20px rgba(240,136,62,0.3);
+      position: relative;
+    }
+    .loss-popup .btn-close-loss:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 30px rgba(240,136,62,0.5);
+    }
+
+    /* ----- DEPOSIT POPUP (compact & friendly) ----- */
+    .deposit-popup-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: fadeIn 0.2s ease;
+    }
+    .deposit-popup-overlay.active { display: flex; }
+    .deposit-popup {
+      background: #1a1f2a;
+      border: 1px solid rgba(88,166,255,0.15);
+      border-radius: 18px;
+      padding: 2rem;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative;
+    }
+    .deposit-popup .deposit-icon {
+      font-size: 3rem;
+      color: #ffd700;
+      margin-bottom: 0.3rem;
+    }
+    .deposit-popup .deposit-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.1rem;
+    }
+    .deposit-popup .deposit-sub {
+      color: #8b949e;
+      font-size: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+    .deposit-popup .deposit-balance {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .deposit-popup .deposit-balance .bal-label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      color: #6e7681;
+      letter-spacing: 0.3px;
+    }
+    .deposit-popup .deposit-balance .bal-amount {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f0883e;
+    }
+    .deposit-popup .deposit-amounts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: center;
+      margin: 0.5rem 0;
+    }
+    .deposit-popup .deposit-amount-btn {
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid rgba(88,166,255,0.1);
+      background: rgba(10,14,20,0.4);
+      color: #c9d1d9;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      flex: 1;
+      min-width: 52px;
+    }
+    .deposit-popup .deposit-amount-btn:hover {
+      background: rgba(88,166,255,0.08);
+      border-color: rgba(88,166,255,0.2);
+      color: #f0f6fc;
+    }
+    .deposit-popup .deposit-amount-btn.active {
+      background: rgba(63,185,80,0.12);
+      border-color: #3fb950;
+      color: #3fb950;
+    }
+    .deposit-popup .deposit-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .deposit-popup .deposit-actions button {
+      padding: 0.4rem 1.4rem;
+      border-radius: 24px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      flex: 1;
+    }
+    .deposit-popup .deposit-actions .btn-deposit-confirm {
+      background: linear-gradient(135deg, #3fb950, #2d8f47);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(63,185,80,0.2);
+    }
+    .deposit-popup .deposit-actions .btn-deposit-confirm:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 20px rgba(63,185,80,0.3);
+    }
+    .deposit-popup .deposit-actions .btn-deposit-cancel {
+      background: rgba(10,14,20,0.4);
+      color: #8b949e;
+      border: 1px solid rgba(88,166,255,0.06);
+    }
+    .deposit-popup .deposit-actions .btn-deposit-cancel:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* ----- RESPONSIVE: Mobile First ----- */
+    @media (max-width: 820px) {
+      .sidebar { transform: translateX(-100%); width: 300px; }
+      .sidebar.open { transform: translateX(0); }
+      .main-content { margin-left: 0; padding: 0.5rem; }
+      .hamburger-dash { display: flex; }
+      .top-bar { padding: 0.5rem 0.5rem; border-radius: 0; min-height: 56px; flex-wrap: nowrap; z-index: 60; }
+      .site-name { font-size: 1rem; }
+      .site-name .ai-badge { font-size: 0.45rem; padding: 0.05rem 0.35rem; }
+      .balance-display .balance-amount { font-size: 0.85rem; }
+      .balance-display .account-badge { font-size: 0.45rem; padding: 0.05rem 0.3rem; }
+      .balance-display { padding: 0.25rem 0.6rem; gap: 0.3rem; }
+      .dropdown-menu { min-width: 180px; left: 50%; transform: translateX(-50%); top: calc(100% + 4px); }
+      .deposit-btn { padding: 0.25rem 0.7rem; font-size: 0.7rem; }
+      .deposit-btn .btn-text { font-size: 0.65rem; }
+      .deposit-btn i { font-size: 0.65rem; }
+      .notif-btn { width: 34px; height: 34px; font-size: 0.85rem; }
+      .notif-btn .badge { width: 16px; height: 16px; font-size: 0.5rem; border-width: 1.5px; }
+      .trading-options-bar { padding: 0.35rem 0.4rem; }
+      .option-btn-combined { font-size: 0.6rem; padding: 0.3rem 0.5rem; }
+      .chart-container { height: 360px; padding: 0.6rem; }
+      .chart-header-inner .chart-title h2 { font-size: 0.8rem; }
+      .chart-header-inner .chart-title .symbol-badge { font-size: 0.6rem; padding: 0.1rem 0.5rem; }
+      .chart-header-inner .chart-controls select { font-size: 0.6rem; max-width: 75px; }
+      .chart-header-inner .chart-timeframe button { font-size: 0.55rem; padding: 0.1rem 0.4rem; }
+      .chart-stats-row .stat-item .value { font-size: 0.75rem; }
+      .digit-circle { width: 28px; height: 28px; font-size: 0.65rem; }
+      .digit-percentage { font-size: 0.45rem; min-width: 20px; }
+      .trading-controls { padding: 0.6rem; margin: 0.35rem 0.2rem; gap: 0.6rem; }
+      .trading-controls .mode-section .label { font-size: 0.6rem; }
+      .mode-btn { font-size: 0.7rem; padding: 0.4rem 1rem; min-width: 80px; }
+      .stake-display .stake-value { font-size: 1.2rem; }
+      .stake-adjust-btn { width: 42px; height: 42px; font-size: 1.2rem; }
+      .stake-preset-btn { font-size: 0.55rem; padding: 0.2rem 0.4rem; min-width: 30px; }
+      .param-btn-group .param-value { font-size: 0.85rem; }
+      .even-btn .payout-value, .odd-btn .payout-value { font-size: 1.1rem; }
+      .even-btn, .odd-btn { min-height: 54px; padding: 0.4rem 0.5rem; font-size: 0.65rem; }
+      .param-popup { padding: 1.2rem; max-width: 360px; }
+      .bot-card { padding: 0.7rem; }
+      .btn-activate { font-size: 0.7rem; padding: 0.4rem 1rem; }
+      .btn-live-chat { font-size: 0.65rem; padding: 0.4rem 0.7rem; }
+      .dashboard-card { display: none !important; }
+      .history-popup-content { padding: 1.2rem !important; max-width: 95% !important; }
+      .history-popup-content .history-popup-table-wrap { max-height: 60vh !important; }
+      .deposit-popup { padding: 1.5rem !important; max-width: 95% !important; }
+      .history-popup-content .history-popup-table { font-size: 0.7rem; }
+      .history-popup-content .history-popup-table th { font-size: 0.6rem; }
+      .history-popup-content .history-popup-table td { font-size: 0.65rem; }
+    }
+
+    @media (max-width: 480px) {
+      .main-content { padding: 0.4rem; }
+      .top-bar { padding: 0.35rem 0.4rem; min-height: 50px; }
+      .site-name { font-size: 0.85rem; }
+      .site-name .ai-badge { display: none; }
+      .balance-display .balance-amount { font-size: 0.75rem; }
+      .balance-display .account-badge { font-size: 0.4rem; padding: 0.05rem 0.25rem; }
+      .deposit-btn { padding: 0.2rem 0.5rem; font-size: 0.65rem; }
+      .deposit-btn .btn-text { font-size: 0.55rem; }
+      .notif-btn { width: 30px; height: 30px; font-size: 0.75rem; }
+      .notif-btn .badge { width: 14px; height: 14px; font-size: 0.45rem; border-width: 1px; }
+      .option-btn-combined { font-size: 0.5rem; padding: 0.25rem 0.35rem; }
+      .chart-container { height: 300px; padding: 0.5rem; }
+      .chart-header-inner .chart-title h2 { font-size: 0.7rem; }
+      .chart-header-inner .chart-title .symbol-badge { font-size: 0.5rem; padding: 0.08rem 0.4rem; }
+      .chart-header-inner .chart-controls select { font-size: 0.5rem; max-width: 60px; padding: 0.1rem 0.3rem; }
+      .chart-header-inner .chart-timeframe button { font-size: 0.45rem; padding: 0.08rem 0.3rem; }
+      .chart-stats-row .stat-item .value { font-size: 0.65rem; }
+      .digit-circle { width: 24px; height: 24px; font-size: 0.55rem; }
+      .digit-percentage { font-size: 0.4rem; min-width: 18px; }
+      .trading-controls { padding: 0.5rem; margin: 0.25rem 0.15rem; gap: 0.5rem; }
+      .mode-btn { font-size: 0.65rem; padding: 0.35rem 0.7rem; min-width: 65px; }
+      .stake-display .stake-value { font-size: 1.1rem; }
+      .stake-adjust-btn { width: 38px; height: 38px; font-size: 1.1rem; }
+      .stake-preset-btn { font-size: 0.5rem; padding: 0.15rem 0.3rem; min-width: 26px; }
+      .param-btn-group .param-value { font-size: 0.75rem; }
+      .even-btn .payout-value, .odd-btn .payout-value { font-size: 1rem; }
+      .even-btn, .odd-btn { min-height: 46px; padding: 0.3rem 0.35rem; font-size: 0.6rem; }
+      .param-popup { padding: 1rem; max-width: 320px; }
+      .btn-activate { font-size: 0.65rem; padding: 0.35rem 0.7rem; }
+      .btn-live-chat { font-size: 0.6rem; padding: 0.35rem 0.6rem; }
+      .bot-card { padding: 0.5rem; }
+      .dashboard-card { display: none !important; }
+      .history-popup-content { padding: 0.8rem !important; }
+      .history-popup-content .history-popup-table-wrap { max-height: 50vh !important; }
+      .history-popup-content .history-popup-table { font-size: 0.6rem; }
+      .history-popup-content .history-popup-table th { font-size: 0.55rem; padding: 0.35rem 0.4rem 0.35rem 0; }
+      .history-popup-content .history-popup-table td { font-size: 0.55rem; padding: 0.3rem 0.4rem 0.3rem 0; }
+      .deposit-popup { padding: 1.2rem !important; }
+      .deposit-popup .deposit-title { font-size: 1.1rem; }
+      .deposit-popup .deposit-amount-btn { font-size: 0.7rem; padding: 0.3rem 0.6rem; min-width: 44px; }
+    }
+
+    .dashboard-card { display: none !important; }
   </style>
 </head>
 <body>
@@ -703,7 +1807,7 @@
     <div class="sidebar-user">
       <div class="avatar">JD</div>
       <div class="user-info"><div class="name">John Doe</div><div class="email">john.doe@email.com</div></div>
-      <a href="#" style="color:#6e7681; font-size:0.8rem;"><i class="fas fa-sign-out-alt"></i></a>
+      <a href="#" style="color:#6e7681; font-size:0.9rem; transition: color 0.3s;" onmouseover="this.style.color='#58a6ff'" onmouseout="this.style.color='#6e7681'"><i class="fas fa-sign-out-alt"></i></a>
     </div>
   </aside>
 
@@ -749,116 +1853,132 @@
       <button class="option-btn-combined active-orange" data-option="high-low"><i class="fas fa-arrow-up"></i> High <span class="slash">/</span> Low</button>
     </div>
 
-    <!-- SCROLLABLE MIDDLE -->
-    <div class="scrollable-middle">
-      <!-- CHART SECTION -->
-      <section class="chart-section">
-        <div class="chart-container">
-          <div class="chart-header-inner">
-            <div class="chart-title">
-              <h2><i class="fas fa-chart-line"></i> Volatility</h2>
-              <span class="symbol-badge" id="currentSymbol">VIX 1T</span>
-            </div>
-            <div class="chart-controls">
-              <select id="volatilitySelector">
-                <option value="VIX">VIX</option>
-                <option value="VXN">VXN</option>
-                <option value="VXD">VXD</option>
-                <option value="VXF">VXF</option>
-              </select>
-              <div class="chart-timeframe">
-                <button class="active" data-tf="1T">1T</button>
-                <button data-tf="5T">5T</button>
-                <button data-tf="15T">15T</button>
-                <button data-tf="1H">1H</button>
-                <button data-tf="4H">4H</button>
-                <button data-tf="1D">1D</button>
-              </div>
-            </div>
+    <!-- CHART SECTION -->
+    <section class="chart-section">
+      <div class="chart-container">
+        <div class="chart-header-inner">
+          <div class="chart-title">
+            <h2><i class="fas fa-chart-line"></i> Volatility</h2>
+            <span class="symbol-badge" id="currentSymbol">VIX 1T</span>
           </div>
-          <canvas id="mainChartCanvas"></canvas>
-          <div class="chart-stats-row" id="chartStats">
-            <div class="stat-item"><span class="label">Price</span><span class="value" id="statPrice">--</span></div>
-            <div class="stat-item"><span class="label">Change</span><span class="value" id="statChange">--</span></div>
-            <div class="stat-item"><span class="label">High</span><span class="value" id="statHigh">--</span></div>
-            <div class="stat-item"><span class="label">Low</span><span class="value" id="statLow">--</span></div>
-            <div class="stat-item"><span class="label">Vol</span><span class="value" id="statVolume">--</span></div>
-            <div class="stat-item"><span class="label">Time</span><span class="value" id="statTime" style="font-size:0.5rem;color:#8b949e;">--</span></div>
-          </div>
-          <div class="digit-circles-container" id="digitCircles">
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="0">0</div><span class="digit-percentage" data-percent="0">0%</span></div>
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="1">1</div><span class="digit-percentage" data-percent="0">0%</span></div>
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="2">2</div><span class="digit-percentage" data-percent="0">0%</span></div>
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="3">3</div><span class="digit-percentage" data-percent="0">0%</span></div>
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="4">4</div><span class="digit-percentage" data-percent="0">0%</span></div>
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="5">5</div><span class="digit-percentage" data-percent="0">0%</span></div>
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="6">6</div><span class="digit-percentage" data-percent="0">0%</span></div>
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="7">7</div><span class="digit-percentage" data-percent="0">0%</span></div>
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="8">8</div><span class="digit-percentage" data-percent="0">0%</span></div>
-            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="9">9</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TRADING CONTROLS -->
-      <div class="trading-controls" id="tradingControls">
-        <div class="top-row">
-          <div class="mode-section">
-            <span class="label"><i class="fas fa-cog"></i> Mode</span>
-            <button class="mode-btn active-auto" id="autoBtn"><i class="fas fa-play"></i> Auto</button>
-            <button class="mode-btn" id="manualBtn"><i class="fas fa-hand"></i> Manual</button>
-          </div>
-          <div class="stake-section">
-            <span class="label">Stake</span>
-            <div class="stake-control-row">
-              <button class="stake-adjust-btn minus" id="stakeMinus">−</button>
-              <div class="stake-display">
-                <span class="stake-value" id="stakeDisplay">25</span>
-                <span class="stake-currency">USD</span>
-              </div>
-              <button class="stake-adjust-btn plus" id="stakePlus">+</button>
-            </div>
-            <div class="stake-presets">
-              <button class="stake-preset-btn" data-stake="1">$1</button>
-              <button class="stake-preset-btn" data-stake="5">$5</button>
-              <button class="stake-preset-btn" data-stake="10">$10</button>
-              <button class="stake-preset-btn active" data-stake="25">$25</button>
-              <button class="stake-preset-btn" data-stake="50">$50</button>
-              <button class="stake-preset-btn" data-stake="100">$100</button>
+          <div class="chart-controls">
+            <select id="volatilitySelector">
+              <option value="VIX">VIX</option>
+              <option value="VXN">VXN</option>
+              <option value="VXD">VXD</option>
+              <option value="VXF">VXF</option>
+            </select>
+            <div class="chart-timeframe">
+              <button class="active" data-tf="1T">1T</button>
+              <button data-tf="5T">5T</button>
+              <button data-tf="15T">15T</button>
+              <button data-tf="1H">1H</button>
+              <button data-tf="4H">4H</button>
+              <button data-tf="1D">1D</button>
             </div>
           </div>
         </div>
+        <canvas id="mainChartCanvas"></canvas>
 
-        <div class="three-params">
-          <div class="param-btn-group" data-param="target">
-            <span class="param-label"><i class="fas fa-bullseye"></i> Target</span>
-            <span class="param-value" id="targetValue"><span class="dollar">$</span>30</span>
-          </div>
-          <div class="param-btn-group" data-param="stoploss">
-            <span class="param-label"><i class="fas fa-shield-alt"></i> Stop</span>
-            <span class="param-value" id="stoplossValue"><span class="dollar">$</span>20</span>
-          </div>
-          <div class="param-btn-group" data-param="multiplier">
-            <span class="param-label"><i class="fas fa-times"></i> Mult</span>
-            <span class="param-value" id="multiplierValue">2.0<span style="font-size:0.5rem;color:#6e7681;">x</span></span>
-          </div>
+        <div class="chart-stats-row" id="chartStats">
+          <div class="stat-item"><span class="label">Price</span><span class="value" id="statPrice">--</span></div>
+          <div class="stat-item"><span class="label">Change</span><span class="value" id="statChange">--</span></div>
+          <div class="stat-item"><span class="label">High</span><span class="value" id="statHigh">--</span></div>
+          <div class="stat-item"><span class="label">Low</span><span class="value" id="statLow">--</span></div>
+          <div class="stat-item"><span class="label">Vol</span><span class="value" id="statVolume">--</span></div>
+          <div class="stat-item"><span class="label">Time</span><span class="value" id="statTime" style="font-size:0.6rem; color:#8b949e;">--</span></div>
         </div>
 
-        <div class="match-differ-row">
-          <button class="even-btn" id="evenBtn" data-param="even">
-            <span class="btn-label"><i class="fas fa-check-circle"></i> Even</span>
-            <span class="payout-value" id="evenPayout"><span class="dollar">$</span>30.00</span>
-          </button>
-          <button class="odd-btn" id="oddBtn" data-param="odd">
-            <span class="btn-label"><i class="fas fa-times-circle"></i> Odd</span>
-            <span class="payout-value" id="oddPayout"><span class="dollar">$</span>28.00</span>
-          </button>
+        <div class="digit-circles-container" id="digitCircles">
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="0">0</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="1">1</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="2">2</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="3">3</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="4">4</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="5">5</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="6">6</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="7">7</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="8">8</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="9">9</div><span class="digit-percentage" data-percent="0">0%</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRADING CONTROLS -->
+    <div class="trading-controls" id="tradingControls">
+      <div class="top-row">
+        <div class="mode-section">
+          <span class="label"><i class="fas fa-cog"></i> Mode</span>
+          <button class="mode-btn active-auto" id="autoBtn"><i class="fas fa-play"></i> Auto</button>
+          <button class="mode-btn" id="manualBtn"><i class="fas fa-hand"></i> Manual</button>
+        </div>
+        <div class="stake-section">
+          <span class="label">Stake</span>
+          <div class="stake-control-row">
+            <button class="stake-adjust-btn minus" id="stakeMinus">−</button>
+            <div class="stake-display">
+              <span class="stake-value" id="stakeDisplay">25</span>
+              <span class="stake-currency">USD</span>
+            </div>
+            <button class="stake-adjust-btn plus" id="stakePlus">+</button>
+          </div>
+          <div class="stake-presets">
+            <button class="stake-preset-btn" data-stake="1">$1</button>
+            <button class="stake-preset-btn" data-stake="5">$5</button>
+            <button class="stake-preset-btn" data-stake="10">$10</button>
+            <button class="stake-preset-btn active" data-stake="25">$25</button>
+            <button class="stake-preset-btn" data-stake="50">$50</button>
+            <button class="stake-preset-btn" data-stake="100">$100</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="three-params">
+        <div class="param-btn-group" data-param="target">
+          <span class="param-label"><i class="fas fa-bullseye"></i> Target</span>
+          <span class="param-value" id="targetValue"><span class="dollar">$</span>30</span>
+        </div>
+        <div class="param-btn-group" data-param="stoploss">
+          <span class="param-label"><i class="fas fa-shield-alt"></i> Stop</span>
+          <span class="param-value" id="stoplossValue"><span class="dollar">$</span>20</span>
+        </div>
+        <div class="param-btn-group" data-param="multiplier">
+          <span class="param-label"><i class="fas fa-times"></i> Mult</span>
+          <span class="param-value" id="multiplierValue">2.0<span style="font-size:0.55rem;color:#6e7681;">x</span></span>
+        </div>
+      </div>
+
+      <div class="match-differ-row">
+        <button class="even-btn" id="evenBtn" data-param="even">
+          <span class="btn-label"><i class="fas fa-check-circle"></i> Even</span>
+          <span class="payout-value" id="evenPayout"><span class="dollar">$</span>30.00</span>
+        </button>
+        <button class="odd-btn" id="oddBtn" data-param="odd">
+          <span class="btn-label"><i class="fas fa-times-circle"></i> Odd</span>
+          <span class="payout-value" id="oddPayout"><span class="dollar">$</span>28.00</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- POPUP -->
+    <div class="param-popup-overlay" id="paramPopupOverlay">
+      <div class="param-popup">
+        <div class="popup-title" id="popupTitle">Target</div>
+        <div class="popup-sub" id="popupSub">Select or enter a value</div>
+        <div class="popup-presets" id="popupPresets"></div>
+        <div class="popup-manual">
+          <label>Manual</label>
+          <input type="number" id="popupManualInput" step="1" min="1" />
+        </div>
+        <div class="popup-actions">
+          <button class="btn-cancel" id="popupCancel">Cancel</button>
+          <button class="btn-apply" id="popupApply">Apply</button>
         </div>
       </div>
     </div>
 
-    <!-- BOT CARD (fixed bottom) -->
-    <div class="bot-card-wrapper">
+    <!-- TWO COLUMN GRID – only AI Bot remains -->
+    <div class="two-col-grid">
       <div class="bot-card">
         <div class="card-header">
           <h3><i class="fas fa-robot"></i> AI Bot</h3>
@@ -873,23 +1993,7 @@
   </main>
 </div>
 
-<!-- POPUPS -->
-<div class="param-popup-overlay" id="paramPopupOverlay">
-  <div class="param-popup">
-    <div class="popup-title" id="popupTitle">Target</div>
-    <div class="popup-sub" id="popupSub">Select or enter a value</div>
-    <div class="popup-presets" id="popupPresets"></div>
-    <div class="popup-manual">
-      <label>Manual</label>
-      <input type="number" id="popupManualInput" step="1" min="1" />
-    </div>
-    <div class="popup-actions">
-      <button class="btn-cancel" id="popupCancel">Cancel</button>
-      <button class="btn-apply" id="popupApply">Apply</button>
-    </div>
-  </div>
-</div>
-
+<!-- HISTORY POPUP -->
 <div class="history-popup-overlay" id="historyPopupOverlay">
   <div class="history-popup-content">
     <div class="history-popup-header">
@@ -902,35 +2006,38 @@
         <tbody id="historyPopupBody"></tbody>
       </table>
       <div id="historyPopupEmpty" class="history-popup-empty">
-        <i class="fas fa-inbox"></i> No trades recorded yet.
+        <i class="fas fa-inbox"></i>
+        No trades recorded yet.<br>Start trading to see your history here!
       </div>
     </div>
   </div>
 </div>
 
+<!-- DEPOSIT POPUP -->
 <div class="deposit-popup-overlay" id="depositPopupOverlay">
   <div class="deposit-popup">
-    <div class="deposit-icon"><i class="fas fa-exclamation-triangle"></i></div>
-    <div class="deposit-title">Insufficient Balance</div>
-    <div class="deposit-sub">Your Real account balance is zero. Please deposit.</div>
+    <div class="deposit-icon"><i class="fas fa-coins"></i></div>
+    <div class="deposit-title">Need Funds?</div>
+    <div class="deposit-sub">Your Real account needs a top-up to trade</div>
     <div class="deposit-balance">
       <div class="bal-label">Current Balance</div>
       <div class="bal-amount">$0.00</div>
     </div>
     <div class="deposit-amounts">
+      <button class="deposit-amount-btn" data-amount="25">$25</button>
       <button class="deposit-amount-btn" data-amount="50">$50</button>
       <button class="deposit-amount-btn active" data-amount="100">$100</button>
       <button class="deposit-amount-btn" data-amount="250">$250</button>
       <button class="deposit-amount-btn" data-amount="500">$500</button>
-      <button class="deposit-amount-btn" data-amount="1000">$1,000</button>
     </div>
     <div class="deposit-actions">
-      <button class="btn-deposit-cancel" id="depositCancel">Cancel</button>
+      <button class="btn-deposit-cancel" id="depositCancel">Later</button>
       <button class="btn-deposit-confirm" id="depositConfirm"><i class="fas fa-plus-circle" style="margin-right:4px;"></i> Deposit</button>
     </div>
   </div>
 </div>
 
+<!-- WIN POPUP -->
 <div class="win-popup-overlay" id="winPopupOverlay">
   <div class="win-popup">
     <div class="win-icon"><i class="fas fa-trophy"></i></div>
@@ -943,11 +2050,12 @@
       <div class="win-stat-box"><div class="stat-label">Profit</div><div class="stat-value green">+$<span id="winProfit">0.00</span></div></div>
       <div class="win-stat-box"><div class="stat-label">Time</div><div class="stat-value pink"><span id="winTime">0s</span></div></div>
     </div>
-    <div class="win-time"><i class="fas fa-clock"></i> Completed in <span id="winDuration">0</span>s</div>
-    <button class="btn-close-win" id="closeWinPopup"><i class="fas fa-check-circle" style="margin-right:4px;"></i> Awesome!</button>
+    <div class="win-time"><i class="fas fa-clock"></i> Completed in <span id="winDuration">0</span> seconds</div>
+    <button class="btn-close-win" id="closeWinPopup"><i class="fas fa-check-circle" style="margin-right:6px;"></i> Awesome!</button>
   </div>
 </div>
 
+<!-- LOSS POPUP -->
 <div class="loss-popup-overlay" id="lossPopupOverlay">
   <div class="loss-popup">
     <div class="loss-icon"><i class="fas fa-times-circle"></i></div>
@@ -960,14 +2068,14 @@
       <div class="loss-stat-box"><div class="stat-label">Wins Streak</div><div class="stat-value pink"><span id="lossStreak">0</span> wins</div></div>
       <div class="loss-stat-box"><div class="stat-label">Time</div><div class="stat-value pink"><span id="lossTime">0s</span></div></div>
     </div>
-    <div class="loss-time"><i class="fas fa-clock"></i> Trade ended in <span id="lossDuration">0</span>s</div>
-    <button class="btn-close-loss" id="closeLossPopup"><i class="fas fa-redo" style="margin-right:4px;"></i> Try Again</button>
+    <div class="loss-time"><i class="fas fa-clock"></i> Trade ended in <span id="lossDuration">0</span> seconds</div>
+    <button class="btn-close-loss" id="closeLossPopup"><i class="fas fa-redo" style="margin-right:6px;"></i> Try Again</button>
   </div>
 </div>
 
 <script>
   (function() {
-    // ----- SIDEBAR -----
+    // SIDEBAR
     const hamburger = document.getElementById('hamburgerDash');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
@@ -976,16 +2084,23 @@
       overlay.classList.toggle('active');
       document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
     }
-    hamburger.addEventListener('click', toggleSidebar);
-    overlay.addEventListener('click', toggleSidebar);
+    if (hamburger) hamburger.addEventListener('click', toggleSidebar);
+    if (overlay) overlay.addEventListener('click', toggleSidebar);
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && sidebar.classList.contains('open')) toggleSidebar(); });
     window.addEventListener('resize', function() {
       if (window.innerWidth > 820 && sidebar.classList.contains('open')) {
         sidebar.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = '';
       }
     });
+    document.querySelectorAll('.sidebar-nav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        if (window.innerWidth <= 820 && sidebar.classList.contains('open')) toggleSidebar();
+      });
+    });
 
-    // ----- HISTORY POPUP -----
+    // HISTORY POPUP
     const historyNavLink = document.getElementById('historyNavLink');
     const historyPopupOverlay = document.getElementById('historyPopupOverlay');
     const closeHistoryPopup = document.getElementById('closeHistoryPopup');
@@ -994,8 +2109,9 @@
     historyNavLink.addEventListener('click', function(e) { e.preventDefault(); openHistoryPopup(); });
     closeHistoryPopup.addEventListener('click', closeHistoryPopupFn);
     historyPopupOverlay.addEventListener('click', function(e) { if (e.target === this) closeHistoryPopupFn(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && historyPopupOverlay.classList.contains('active')) closeHistoryPopupFn(); });
 
-    // ----- DEPOSIT POPUP -----
+    // DEPOSIT POPUP
     const depositPopupOverlay = document.getElementById('depositPopupOverlay');
     const depositCancel = document.getElementById('depositCancel');
     const depositConfirm = document.getElementById('depositConfirm');
@@ -1013,11 +2129,11 @@
       realBalance += selectedDepositAmount;
       updateBalanceDisplay();
       depositPopupOverlay.classList.remove('active');
-      alert('💰 Deposited $' + selectedDepositAmount + ' to Real account! New balance: $' + realBalance.toFixed(2));
+      alert('💚 Awesome! $' + selectedDepositAmount + ' added to your Real account.\nNew balance: $' + realBalance.toFixed(2));
     });
     depositPopupOverlay.addEventListener('click', function(e) { if (e.target === this) depositPopupOverlay.classList.remove('active'); });
 
-    // ----- BALANCE DROPDOWN -----
+    // BALANCE DROPDOWN
     const balanceDisplay = document.getElementById('balanceDisplay');
     const dropdownMenu = document.getElementById('dropdownMenu');
     const dropdownArrow = document.getElementById('dropdownArrow');
@@ -1029,6 +2145,7 @@
     let isRealAccount = false;
     let balance = 1000;
     let realBalance = 0;
+    
     balanceDisplay.addEventListener('click', function(e) {
       e.stopPropagation();
       isDropdownOpen = !isDropdownOpen;
@@ -1043,6 +2160,7 @@
         isDropdownOpen = false;
       }
     });
+    
     function updateBalanceDisplay() {
       if (isRealAccount) {
         balanceAmount.innerHTML = `$${realBalance.toFixed(2)} <span class="currency">USD</span>`;
@@ -1050,6 +2168,7 @@
         balanceAmount.innerHTML = `$${balance.toFixed(2)} <span class="currency">USD</span>`;
       }
     }
+    
     demoOption.addEventListener('click', function(e) {
       e.stopPropagation();
       demoOption.classList.add('active');
@@ -1066,6 +2185,7 @@
       updateBalanceDisplay();
       alert('✅ Switched to Demo Account');
     });
+    
     realOption.addEventListener('click', function(e) {
       e.stopPropagation();
       realOption.classList.add('active');
@@ -1082,15 +2202,16 @@
       updateBalanceDisplay();
       alert('💰 Switched to Real Account');
     });
+    
     document.getElementById('depositBtn')?.addEventListener('click', function() {
-      if (isRealAccount) depositPopupOverlay.classList.add('active');
-      else alert('💰 Demo account: practice with virtual funds.');
+      if (isRealAccount) { depositPopupOverlay.classList.add('active'); }
+      else { alert('💰 Demo account: You can practice with virtual funds.\nSwitch to Real account for live trading.'); }
     });
     document.getElementById('notifBtn')?.addEventListener('click', function() {
       alert('🔔 3 notifications:\n1. BTC trade won (+$112.50)\n2. ETH trade won (+$210.00)\n3. EUR trade lost (-$85.00)');
     });
 
-    // ----- TRADING OPTIONS -----
+    // TRADING OPTIONS
     document.querySelectorAll('.option-btn-combined').forEach(btn => {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.option-btn-combined').forEach(b => b.classList.remove('active-blue','active-green','active-orange'));
@@ -1101,7 +2222,7 @@
       });
     });
 
-    // ----- ACTIVATE -----
+    // ACTIVATE
     const activateBtn = document.getElementById('activateBtn');
     let isActive = false;
     activateBtn.addEventListener('click', function() {
@@ -1120,13 +2241,14 @@
       alert('💬 Live chat connecting...');
     });
 
-    // ----- DIGIT CYCLE -----
+    // DIGIT CYCLE
     const digitProgress = Array(10).fill(0);
     const INCREMENT = 0.08;
     const PEAK = 10.0;
     const RESET_TO = 5.70;
     let currentMode = 'auto';
     let autoInterval = null;
+
     function updateDigitCircles() {
       const circles = document.querySelectorAll('.digit-circle');
       const percentages = document.querySelectorAll('.digit-percentage');
@@ -1159,6 +2281,7 @@
         else circle.classList.remove('highlight');
       });
     }
+
     function stepDigitCycle() {
       for (let i = 0; i < 10; i++) {
         digitProgress[i] += INCREMENT;
@@ -1169,7 +2292,7 @@
     for (let i = 0; i < 10; i++) digitProgress[i] = (i * 0.85) % 10;
     updateDigitCircles();
 
-    // ----- MODE -----
+    // MODE BUTTONS
     const autoBtn = document.getElementById('autoBtn');
     const manualBtn = document.getElementById('manualBtn');
     function setMode(mode) {
@@ -1188,7 +2311,7 @@
     manualBtn.addEventListener('click', function() { setMode('manual'); });
     setMode('auto');
 
-    // ----- STAKE -----
+    // STAKE
     const stakeDisplay = document.getElementById('stakeDisplay');
     const stakeMinus = document.getElementById('stakeMinus');
     const stakePlus = document.getElementById('stakePlus');
@@ -1199,9 +2322,11 @@
     const multiplierDisplay = document.getElementById('multiplierValue');
     const evenPayout = document.getElementById('evenPayout');
     const oddPayout = document.getElementById('oddPayout');
+
     function getNumericValue(el) {
       return parseFloat(el.textContent.replace(/[^0-9.]/g, '')) || 0;
     }
+
     function updatePayouts() {
       const target = getNumericValue(targetDisplay);
       const evenVal = target;
@@ -1210,6 +2335,7 @@
       evenPayout.innerHTML = `<span class="dollar">$</span>${evenVal.toFixed(2)}`;
       oddPayout.innerHTML = `<span class="dollar">$</span>${oddVal.toFixed(2)}`;
     }
+
     function updateStakeDisplay(value) {
       currentStake = value;
       stakeDisplay.textContent = value;
@@ -1221,6 +2347,7 @@
       stoplossDisplay.innerHTML = `<span class="dollar">$</span>${newStoploss}`;
       updatePayouts();
     }
+
     presetBtns.forEach(btn => {
       btn.addEventListener('click', function() {
         updateStakeDisplay(parseFloat(this.dataset.stake));
@@ -1240,6 +2367,7 @@
       if (newStake > 1000) newStake = 1000;
       updateStakeDisplay(newStake);
     });
+
     function updateParamsFromMultiplier() {
       const mult = getNumericValue(multiplierDisplay) || 1;
       const newTarget = Math.round(currentStake * mult);
@@ -1249,7 +2377,7 @@
       updatePayouts();
     }
 
-    // ----- POPUP -----
+    // POPUP
     const popupOverlay = document.getElementById('paramPopupOverlay');
     const popupTitle = document.getElementById('popupTitle');
     const popupSub = document.getElementById('popupSub');
@@ -1258,11 +2386,13 @@
     const popupCancel = document.getElementById('popupCancel');
     const popupApply = document.getElementById('popupApply');
     let activeParam = 'target';
+
     const paramConfigs = {
       target: { label: 'Target', sub: 'Set target profit', presets: [10,20,30,50,100], step:1, min:1, display:targetDisplay, isDollar:true },
       stoploss: { label: 'Stop Loss', sub: 'Set stop loss', presets: [5,10,20,30,50], step:1, min:1, display:stoplossDisplay, isDollar:true },
       multiplier: { label: 'Multiplier', sub: 'Set multiplier', presets: [0.5,1.0,1.5,2.0,3.0,5.0], step:0.1, min:0.1, display:multiplierDisplay, isDollar:false }
     };
+
     function openPopup(param) {
       activeParam = param;
       const config = paramConfigs[param];
@@ -1290,7 +2420,9 @@
       popupManual.focus();
       popupManual.select();
     }
+
     function closePopup() { popupOverlay.classList.remove('active'); }
+
     function applyPopup() {
       let val = parseFloat(popupManual.value);
       const config = paramConfigs[activeParam];
@@ -1302,11 +2434,13 @@
       const step = config.step;
       val = Math.round(val / step) * step;
       if (val < config.min) val = config.min;
+      
       if (config.isDollar) {
         config.display.innerHTML = `<span class="dollar">$</span>${val}`;
       } else {
         config.display.textContent = val + (activeParam === 'multiplier' ? 'x' : '');
       }
+      
       if (activeParam === 'target') {
         updatePayouts();
         const target = getNumericValue(targetDisplay);
@@ -1316,20 +2450,26 @@
         evenPayout.innerHTML = `<span class="dollar">$</span>${evenVal.toFixed(2)}`;
         oddPayout.innerHTML = `<span class="dollar">$</span>${oddVal.toFixed(2)}`;
       }
-      if (activeParam === 'multiplier') updateParamsFromMultiplier();
+      if (activeParam === 'multiplier') {
+        updateParamsFromMultiplier();
+      }
       closePopup();
     }
+
     document.querySelectorAll('.param-btn-group').forEach(group => {
       group.addEventListener('click', function() {
         const param = this.dataset.param;
         if (paramConfigs[param]) {
-          stopIncrement();
-          document.getElementById('evenBtn')?.classList.remove('active');
-          document.getElementById('oddBtn')?.classList.remove('active');
+          if (typeof stopIncrement === 'function') {
+            stopIncrement();
+            document.getElementById('evenBtn').classList.remove('active');
+            document.getElementById('oddBtn').classList.remove('active');
+          }
           openPopup(param);
         }
       });
     });
+
     popupCancel.addEventListener('click', closePopup);
     popupApply.addEventListener('click', applyPopup);
     popupOverlay.addEventListener('click', function(e) { if (e.target === this) closePopup(); });
@@ -1341,6 +2481,7 @@
     // ----- TRADING ENGINE -----
     const evenBtn = document.getElementById('evenBtn');
     const oddBtn = document.getElementById('oddBtn');
+    const balanceEl = document.getElementById('balanceAmount');
     const balanceDisplayContainer = document.getElementById('balanceDisplay');
     const winPopupOverlay = document.getElementById('winPopupOverlay');
     const closeWinBtn = document.getElementById('closeWinPopup');
@@ -1358,61 +2499,75 @@
     const lossDuration = document.getElementById('lossDuration');
     const historyPopupBody = document.getElementById('historyPopupBody');
     const historyPopupEmpty = document.getElementById('historyPopupEmpty');
+
     let incrementInterval = null;
     let targetProfit = 30;
     let currentIncrement = 0;
     let isRunning = false;
     let startTime = 0;
-    let currentModeType = 'even';
     let lastPrice = 18.50;
     let winCounter = 0;
     const MAX_WINS_BEFORE_LOSS = 4;
     let tradeHistory = [];
+
     function getBalance() { return isRealAccount ? realBalance : balance; }
     function setBalance(newBalance) {
       if (isRealAccount) { realBalance = newBalance; } else { balance = newBalance; }
       updateBalanceDisplay();
     }
+
     function getCurrentPrice() {
       const priceEl = document.getElementById('statPrice');
-      return parseFloat(priceEl?.textContent) || 18.50;
+      return priceEl ? parseFloat(priceEl.textContent) || 18.50 : 18.50;
     }
+
     let audioCtx = null;
     function playSingleBeep() {
       try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.frequency.value = 1200; osc.type = 'square';
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
-        osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.08);
-      } catch(e) {}
+        if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.frequency.value = 1200;
+        oscillator.type = 'square';
+        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+        oscillator.start(audioCtx.currentTime);
+        oscillator.stop(audioCtx.currentTime + 0.08);
+      } catch(e) { /* silent fallback */ }
     }
+
     function playLossSound() {
       try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.frequency.value = 300; osc.type = 'sawtooth';
-        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-        osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.3);
-      } catch(e) {}
+        if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.frequency.value = 300;
+        oscillator.type = 'sawtooth';
+        gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        oscillator.start(audioCtx.currentTime);
+        oscillator.stop(audioCtx.currentTime + 0.3);
+      } catch(e) { /* silent fallback */ }
     }
+
     function flashBalance() {
       balanceDisplayContainer.classList.add('balance-flash');
-      setTimeout(() => balanceDisplayContainer.classList.remove('balance-flash'), 400);
+      setTimeout(() => { balanceDisplayContainer.classList.remove('balance-flash'); }, 400);
     }
+
     function stopIncrement() {
       if (incrementInterval) { clearInterval(incrementInterval); incrementInterval = null; }
       isRunning = false;
       evenBtn.classList.remove('active');
       oddBtn.classList.remove('active');
     }
+
     function isEven(num) { return num % 2 === 0; }
+
     function updateHistoryPopup() {
       if (tradeHistory.length === 0) {
         historyPopupBody.innerHTML = '';
@@ -1426,11 +2581,12 @@
             <td>$${t.amount}</td>
             <td><span class="status-badge ${t.result.toLowerCase()}">${t.result}</span></td>
             <td class="${t.pl >= 0 ? 'profit-pos' : 'profit-neg'}">${t.pl >= 0 ? '+' : ''}$${Math.abs(t.pl).toFixed(2)}</td>
-            <td style="font-size:0.5rem;color:#6e7681;">${t.time}</td>
+            <td style="font-size:0.6rem; color:#6e7681;">${t.time}</td>
           </tr>
         `).join('');
       }
     }
+
     function addTradeToHistory(asset, type, amount, result, pl) {
       const now = new Date();
       const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -1438,6 +2594,7 @@
       if (tradeHistory.length > 50) tradeHistory.pop();
       updateHistoryPopup();
     }
+
     function checkRealBalanceAndDeposit() {
       if (isRealAccount && realBalance <= 0) {
         depositPopupOverlay.classList.add('active');
@@ -1445,6 +2602,7 @@
       }
       return false;
     }
+
     function showWinPopup(profit, stake, payout, timeTaken, type) {
       winProfitAmount.textContent = profit.toFixed(2);
       winStake.textContent = stake;
@@ -1453,9 +2611,9 @@
       winDuration.textContent = timeTaken;
       winPopupOverlay.classList.add('active');
       playSingleBeep();
-      const asset = isRealAccount ? 'REAL' : 'DEMO';
-      addTradeToHistory(asset + '/USD', type, stake, 'Won', profit);
+      addTradeToHistory(isRealAccount ? 'REAL' : 'DEMO' + '/USD', type, stake, 'Won', profit);
     }
+
     function showLossPopup(stake, lossAmountValue, streak, timeTaken, type) {
       lossAmount.textContent = lossAmountValue.toFixed(2);
       lossStake.textContent = stake;
@@ -1464,9 +2622,9 @@
       lossDuration.textContent = timeTaken;
       lossPopupOverlay.classList.add('active');
       playLossSound();
-      const asset = isRealAccount ? 'REAL' : 'DEMO';
-      addTradeToHistory(asset + '/USD', type, stake, 'Lost', -lossAmountValue);
+      addTradeToHistory(isRealAccount ? 'REAL' : 'DEMO' + '/USD', type, stake, 'Lost', -lossAmountValue);
     }
+
     closeWinBtn.addEventListener('click', function() { winPopupOverlay.classList.remove('active'); });
     winPopupOverlay.addEventListener('click', function(e) { if (e.target === this) winPopupOverlay.classList.remove('active'); });
     closeLossBtn.addEventListener('click', function() { lossPopupOverlay.classList.remove('active'); winCounter = 0; });
@@ -1474,9 +2632,11 @@
 
     function startIncrement(mode) {
       if (checkRealBalanceAndDeposit()) return;
+
       const targetStr = document.getElementById('targetValue').textContent.replace(/[^0-9.]/g, '');
       targetProfit = parseFloat(targetStr) || 30;
       if (targetProfit <= 0) targetProfit = 1;
+
       currentIncrement = 0;
       let currentBalance = getBalance();
       if (currentBalance < 0) {
@@ -1490,12 +2650,13 @@
       isRunning = true;
       startTime = Date.now();
       lastPrice = getCurrentPrice();
+
       let highlighted = document.querySelector('.digit-circle.highlight');
       let currentDigit = highlighted ? parseInt(highlighted.dataset.digit) : Math.floor(Math.random() * 10);
+      
       const shouldIncrement = mode === 'even' ? isEven(currentDigit) : !isEven(currentDigit);
       if (shouldIncrement) {
-        const newBalance = getBalance() + 5;
-        setBalance(newBalance);
+        setBalance(getBalance() + 5);
         currentIncrement += 5;
         const currentPrice = getCurrentPrice();
         if (mode === 'even' && currentPrice > lastPrice) playSingleBeep();
@@ -1503,10 +2664,15 @@
         lastPrice = currentPrice;
         flashBalance();
       }
+
       incrementInterval = setInterval(() => {
         if (!isRunning) return;
+        
         const highlighted = document.querySelector('.digit-circle.highlight');
-        let currentDigit = highlighted ? parseInt(highlighted.dataset.digit) : Math.floor(Math.random() * 10);
+        let currentDigit = -1;
+        if (highlighted) { currentDigit = parseInt(highlighted.dataset.digit); } 
+        else { currentDigit = Math.floor(Math.random() * 10); }
+
         if (currentIncrement >= targetProfit) {
           stopIncrement();
           const timeTaken = Math.floor((Date.now() - startTime) / 1000);
@@ -1516,8 +2682,7 @@
           winCounter++;
           if (winCounter >= MAX_WINS_BEFORE_LOSS) {
             const lossAmountValue = stake;
-            const newBalance = getBalance() - lossAmountValue;
-            setBalance(newBalance);
+            setBalance(getBalance() - lossAmountValue);
             showLossPopup(stake, lossAmountValue, winCounter, timeTaken, mode.charAt(0).toUpperCase() + mode.slice(1));
             winCounter = 0;
           } else {
@@ -1525,10 +2690,10 @@
           }
           return;
         }
+
         const shouldIncrement = mode === 'even' ? isEven(currentDigit) : !isEven(currentDigit);
         if (shouldIncrement) {
-          const newBalance = getBalance() + 5;
-          setBalance(newBalance);
+          setBalance(getBalance() + 5);
           currentIncrement += 5;
           const currentPrice = getCurrentPrice();
           if (mode === 'even' && currentPrice > lastPrice) playSingleBeep();
@@ -1543,23 +2708,25 @@
       e.stopPropagation();
       if (oddBtn.classList.contains('active')) { oddBtn.classList.remove('active'); stopIncrement(); }
       this.classList.toggle('active');
-      if (this.classList.contains('active')) startIncrement('even');
-      else stopIncrement();
+      if (this.classList.contains('active')) { startIncrement('even'); } 
+      else { stopIncrement(); }
     });
+
     oddBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       if (evenBtn.classList.contains('active')) { evenBtn.classList.remove('active'); stopIncrement(); }
       this.classList.toggle('active');
-      if (this.classList.contains('active')) startIncrement('odd');
-      else stopIncrement();
+      if (this.classList.contains('active')) { startIncrement('odd'); } 
+      else { stopIncrement(); }
     });
 
-    // ----- CHART -----
+    // CHART
     let currentSymbol = 'VIX';
     let currentTF = '1T';
     let dataPoints = 60;
     let priceData = [];
     let chartInterval = null;
+
     function generateData(points, volatility = 0.025) {
       const data = [];
       let price = 18.50;
@@ -1573,25 +2740,21 @@
       return data;
     }
     priceData = generateData(dataPoints);
+
     function getTimeLabels() {
       const now = new Date();
       const labels = [];
-      const interval = currentTF === '1T' ? 60000 :
-                       currentTF === '5T' ? 300000 :
-                       currentTF === '15T' ? 900000 :
-                       currentTF === '1H' ? 3600000 :
-                       currentTF === '4H' ? 14400000 : 86400000;
-      for (let i = dataPoints - 1; i >= 0; i--) {
-        labels.push(new Date(now.getTime() - i * interval));
-      }
+      const interval = currentTF === '1T' ? 60000 : currentTF === '5T' ? 300000 : currentTF === '15T' ? 900000 : currentTF === '1H' ? 3600000 : currentTF === '4H' ? 14400000 : 86400000;
+      for (let i = dataPoints - 1; i >= 0; i--) { labels.push(new Date(now.getTime() - i * interval)); }
       return labels;
     }
+
     function renderChart() {
       const canvas = document.getElementById('mainChartCanvas');
       const ctx = canvas.getContext('2d');
       const container = canvas.parentElement;
-      const w = container.clientWidth - 8;
-      const h = container.clientHeight - 150;
+      const w = container.clientWidth - 12;
+      const h = container.clientHeight - 140;
       const dpr = window.devicePixelRatio || 1;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
@@ -1603,11 +2766,11 @@
       const min = Math.min(...data);
       const max = Math.max(...data);
       const range = max - min || 0.001;
-      const pad = { top: 8, bottom: 16, left: 14, right: 30 };
+      const pad = { top: 10, bottom: 18, left: 18, right: 40 };
       const chartW = w - pad.left - pad.right;
       const chartH = h - pad.top - pad.bottom;
       ctx.clearRect(0, 0, w, h);
-      const xSteps = 5, ySteps = 4;
+      const xSteps = 6, ySteps = 5;
       ctx.strokeStyle = 'rgba(255,255,255,0.06)';
       ctx.lineWidth = 0.5;
       for (let i = 0; i <= xSteps; i++) {
@@ -1619,24 +2782,24 @@
         ctx.beginPath(); ctx.moveTo(pad.left, yPos); ctx.lineTo(pad.left + chartW, yPos); ctx.stroke();
       }
       ctx.fillStyle = '#8b949e';
-      ctx.font = '7px Inter, sans-serif';
+      ctx.font = '8px Inter, sans-serif';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
       for (let i = 0; i <= ySteps; i++) {
         const yPos = pad.top + (i / ySteps) * chartH;
         const value = max - (i / ySteps) * range;
-        ctx.fillText(value.toFixed(1), pad.left + chartW + 3, yPos);
+        ctx.fillText(value.toFixed(1), pad.left + chartW + 4, yPos);
       }
       const timeLabels = getTimeLabels();
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
       ctx.fillStyle = '#8b949e';
-      ctx.font = '6px Inter, sans-serif';
+      ctx.font = '7px Inter, sans-serif';
       for (let i = 0; i <= xSteps; i++) {
         const idx = Math.floor((i / xSteps) * (len - 1));
         const xPos = pad.left + (idx / (len - 1)) * chartW;
         const d = timeLabels[idx] || new Date();
-        const timeStr = d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+        const timeStr = d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
         ctx.fillText(timeStr, xPos, pad.top + chartH + 2);
       }
       const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + chartH);
@@ -1662,20 +2825,23 @@
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
-      ctx.shadowColor = 'rgba(255,255,255,0.15)';
-      ctx.shadowBlur = 5;
+      ctx.shadowColor = 'rgba(255,255,255,0.2)';
+      ctx.shadowBlur = 8;
       ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 1.8;
+      ctx.lineWidth = 2;
       ctx.stroke();
       ctx.shadowBlur = 0;
       const lastX = pad.left + chartW;
       const lastY = pad.top + chartH - ((data[len-1] - min) / range) * chartH;
-      ctx.beginPath(); ctx.arc(lastX, lastY, 4, 0, 2 * Math.PI);
-      ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.fill();
-      ctx.beginPath(); ctx.arc(lastX, lastY, 2.5, 0, 2 * Math.PI);
+      ctx.beginPath();
+      ctx.arc(lastX, lastY, 5, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(255,255,255,0.06)';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(lastX, lastY, 3, 0, 2 * Math.PI);
       ctx.fillStyle = '#ffffff';
-      ctx.shadowColor = 'rgba(255,255,255,0.3)';
-      ctx.shadowBlur = 6;
+      ctx.shadowColor = 'rgba(255,255,255,0.4)';
+      ctx.shadowBlur = 10;
       ctx.fill();
       ctx.shadowBlur = 0;
       const currentPriceVal = data[len-1];
@@ -1695,6 +2861,7 @@
       document.getElementById('statVolume').textContent = volume.toLocaleString();
       document.getElementById('statTime').textContent = timeStr;
     }
+
     function updateChart() {
       const volatility = currentSymbol === 'VIX' ? 0.025 : currentSymbol === 'VXN' ? 0.030 : currentSymbol === 'VXD' ? 0.020 : 0.028;
       const change = (Math.random() - 0.48) * volatility;
@@ -1706,6 +2873,7 @@
       if (priceData.length > dataPoints) priceData.shift();
       renderChart();
     }
+
     document.getElementById('volatilitySelector').addEventListener('change', function() {
       currentSymbol = this.value;
       document.getElementById('currentSymbol').textContent = currentSymbol + ' 1T';
@@ -1736,6 +2904,7 @@
     });
     renderChart();
     chartInterval = setInterval(updateChart, 1000);
+
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
@@ -1747,6 +2916,7 @@
       stopIncrement();
       if (audioCtx) { try { audioCtx.close(); } catch(e) {} }
     });
+
     updatePayouts();
     updateHistoryPopup();
   })();
