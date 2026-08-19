@@ -65,40 +65,50 @@
       font-weight: 600; -webkit-text-fill-color: #58a6ff; margin-left: 2px;
     }
     .sidebar-nav { list-style: none; flex: 1; }
-    .sidebar-nav li { margin-bottom: 0.3rem; }
+    .sidebar-nav li { margin-bottom: 0.2rem; }
     .sidebar-nav li a {
       display: flex; align-items: center; gap: 0.8rem;
-      padding: 0.8rem 1rem; border-radius: 12px;
-      color: #8b949e; text-decoration: none; font-size: 1rem; font-weight: 500;
+      padding: 0.7rem 1rem; border-radius: 12px;
+      color: #8b949e; text-decoration: none; font-size: 0.95rem; font-weight: 500;
       transition: all 0.3s ease; border: 1px solid transparent;
     }
-    .sidebar-nav li a i { width: 1.6rem; font-size: 1.1rem; color: #6e7681; transition: all 0.3s ease; }
+    .sidebar-nav li a i { width: 1.6rem; font-size: 1.05rem; color: #6e7681; transition: all 0.3s ease; }
     .sidebar-nav li a:hover { background: rgba(88,166,255,0.05); color: #f0f6fc; border-color: rgba(88,166,255,0.06); }
     .sidebar-nav li a:hover i { color: #58a6ff; }
     .sidebar-nav li a.active { background: rgba(88,166,255,0.08); color: #58a6ff; border-color: rgba(88,166,255,0.1); }
     .sidebar-nav li a.active i { color: #58a6ff; }
     .sidebar-nav .nav-label {
-      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;
       color: #6e7681; padding: 0.8rem 1rem 0.4rem; font-weight: 600;
+    }
+    .sidebar-nav .nav-divider {
+      height: 1px;
+      background: rgba(88,166,255,0.06);
+      margin: 0.5rem 0.8rem;
     }
     .sidebar-user {
       padding-top: 1rem; border-top: 1px solid rgba(88,166,255,0.06);
       display: flex; align-items: center; gap: 0.8rem;
+      justify-content: flex-end;
     }
-    .sidebar-user .avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: linear-gradient(135deg, #58a6ff, #3fb950);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 1.1rem; color: #fff; flex-shrink: 0;
+    .sidebar-user .avatar { display: none; }
+    .sidebar-user .user-info { display: none; }
+    .sidebar-user a {
+      color: #6e7681;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(88,166,255,0.06);
+      text-decoration: none;
     }
-    .sidebar-user .user-info { flex: 1; min-width: 0; }
-    .sidebar-user .user-info .name { font-weight: 600; font-size: 1rem; color: #f0f6fc; }
-    .sidebar-user .user-info .email { font-size: 0.8rem; color: #6e7681; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sidebar-user a:hover { color: #f0883e; background: rgba(255,255,255,0.05); border-color: rgba(88,166,255,0.12); }
 
     /* ----- MAIN CONTENT ----- */
     .main-content { margin-left: 300px; flex: 1; padding: 1rem; min-height: 100vh; }
 
-    /* ----- TOP BAR - LARGER HEADER ----- */
+    /* ----- TOP BAR ----- */
     .top-bar {
       display: flex;
       align-items: center;
@@ -116,16 +126,10 @@
       z-index: 50;
       flex-wrap: nowrap;
     }
-    .top-bar-left {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex: 0 0 auto;
-    }
+    .top-bar-left { display: flex; align-items: center; gap: 0.6rem; flex: 0 0 auto; }
     .hamburger-dash {
       display: none;
-      flex-direction: column;
-      gap: 5px;
+      flex-direction: column; gap: 5px;
       background: rgba(10,14,20,0.6);
       border: 1px solid rgba(88,166,255,0.08);
       border-radius: 12px;
@@ -135,96 +139,33 @@
     }
     .hamburger-dash:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.15); }
     .hamburger-dash span { display: block; width: 28px; height: 3.5px; background: #c9d1d9; border-radius: 4px; transition: all 0.3s ease; }
-    .site-name {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #e6edf3;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      white-space: nowrap;
-    }
-    .site-name .highlight {
-      background: linear-gradient(135deg, #58a6ff, #3fb950);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .site-name .ai-badge {
-      font-size: 0.6rem;
-      background: rgba(88,166,255,0.15);
-      padding: 0.15rem 0.7rem;
-      border-radius: 20px;
-      color: #58a6ff;
-      border: 1px solid rgba(88,166,255,0.2);
-      font-weight: 600;
-      -webkit-text-fill-color: #58a6ff;
-    }
-    .top-bar-center {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex: 1 1 auto;
-      justify-content: flex-end;
-      min-width: 0;
-    }
-    .balance-dropdown {
-      position: relative;
-      display: inline-block;
-      z-index: 99999 !important;
-      flex-shrink: 1;
-      min-width: 0;
-    }
+    .site-name { font-size: 1.6rem; font-weight: 700; color: #e6edf3; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
+    .site-name .highlight { background: linear-gradient(135deg, #58a6ff, #3fb950); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .site-name .ai-badge { font-size: 0.6rem; background: rgba(88,166,255,0.15); padding: 0.15rem 0.7rem; border-radius: 20px; color: #58a6ff; border: 1px solid rgba(88,166,255,0.2); font-weight: 600; -webkit-text-fill-color: #58a6ff; }
+    .top-bar-center { display: flex; align-items: center; gap: 0.6rem; flex: 1 1 auto; justify-content: flex-end; min-width: 0; }
+    .balance-dropdown { position: relative; display: inline-block; z-index: 99999 !important; flex-shrink: 1; min-width: 0; }
     .balance-display {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(10,14,20,0.6);
-      padding: 0.5rem 1rem;
-      border-radius: 12px;
-      border: 1px solid rgba(88,166,255,0.06);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      user-select: none;
-      position: relative;
-      z-index: 99999;
-      flex-wrap: nowrap;
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(10,14,20,0.6); padding: 0.5rem 1rem;
+      border-radius: 12px; border: 1px solid rgba(88,166,255,0.06);
+      cursor: pointer; transition: all 0.3s ease; user-select: none;
+      position: relative; z-index: 99999; flex-wrap: nowrap;
     }
     .balance-display:hover { border-color: rgba(88,166,255,0.15); background: rgba(10,14,20,0.8); }
-    .balance-display .balance-label { display: none; }
     .balance-display .balance-amount { font-size: 1.2rem; font-weight: 700; color: #f0f6fc; white-space: nowrap; }
     .balance-display .balance-amount .currency { font-size: 0.7rem; color: #6e7681; font-weight: 400; }
-    .balance-display .balance-change { display: none; }
-    .balance-display .account-badge {
-      font-size: 0.65rem;
-      font-weight: 600;
-      padding: 0.15rem 0.5rem;
-      border-radius: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      flex-shrink: 0;
-    }
+    .balance-display .account-badge { font-size: 0.65rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0; }
     .account-badge.demo { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid rgba(88,166,255,0.15); }
     .account-badge.real { background: rgba(63,185,80,0.15); color: #3fb950; border: 1px solid rgba(63,185,80,0.15); }
     .balance-display .dropdown-arrow { font-size: 0.75rem; color: #6e7681; transition: transform 0.3s ease; flex-shrink: 0; }
     .balance-display .dropdown-arrow.open { transform: rotate(180deg); }
     .dropdown-menu {
-      position: absolute;
-      top: calc(100% + 10px);
-      left: 50%;
-      transform: translateX(-50%);
-      min-width: 230px;
-      background: rgba(10,14,20,0.98);
-      backdrop-filter: blur(20px) saturate(200%);
+      position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+      min-width: 230px; background: rgba(10,14,20,0.98); backdrop-filter: blur(20px) saturate(200%);
       -webkit-backdrop-filter: blur(20px) saturate(200%);
-      border: 1px solid rgba(88,166,255,0.08);
-      border-radius: 16px;
-      padding: 0.5rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(88,166,255,0.05);
-      display: none;
-      animation: dropdownFade 0.25s ease;
-      z-index: 999999 !important;
-      pointer-events: auto;
+      border: 1px solid rgba(88,166,255,0.08); border-radius: 16px;
+      padding: 0.5rem; box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(88,166,255,0.05);
+      display: none; animation: dropdownFade 0.25s ease; z-index: 999999 !important; pointer-events: auto;
     }
     .dropdown-menu.open { display: block !important; }
     @keyframes dropdownFade {
@@ -246,102 +187,49 @@
     .dropdown-menu .dropdown-item .item-check { color: #3fb950; font-size: 0.95rem; }
     .dropdown-menu .dropdown-divider { height: 1px; background: rgba(88,166,255,0.06); margin: 0.3rem 0.4rem; }
     .deposit-btn {
-      padding: 0.5rem 1.2rem;
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      border: none;
-      border-radius: 12px;
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      white-space: nowrap;
-      flex-shrink: 0;
+      padding: 0.5rem 1.2rem; background: linear-gradient(135deg, #3fb950, #2d8f47);
+      border: none; border-radius: 12px; color: #fff; font-weight: 700;
+      font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif; display: flex; align-items: center;
+      gap: 0.4rem; white-space: nowrap; flex-shrink: 0;
     }
     .deposit-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(63,185,80,0.3); }
     .deposit-btn i { font-size: 0.85rem; }
     .deposit-btn .btn-text { display: inline; font-size: 0.85rem; }
-    .top-bar-right {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex: 0 0 auto;
-    }
+    .top-bar-right { display: flex; align-items: center; gap: 0.5rem; flex: 0 0 auto; }
     .notif-btn {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: rgba(10,14,20,0.6);
-      border: 1px solid rgba(88,166,255,0.06);
-      color: #8b949e;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      width: 46px; height: 46px; border-radius: 12px;
+      background: rgba(10,14,20,0.6); border: 1px solid rgba(88,166,255,0.06);
+      color: #8b949e; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease;
+      position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .notif-btn:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.12); color: #f0f6fc; }
     .notif-btn .badge {
-      position: absolute;
-      top: -3px;
-      right: -3px;
-      width: 22px;
-      height: 22px;
-      background: #f0883e;
-      border-radius: 50%;
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute; top: -3px; right: -3px; width: 22px; height: 22px;
+      background: #f0883e; border-radius: 50%; font-size: 0.65rem; font-weight: 700;
+      color: #fff; display: flex; align-items: center; justify-content: center;
       border: 2px solid #0a0e14;
     }
 
     /* ----- TRADING OPTIONS BAR ----- */
     .trading-options-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-      padding: 0.6rem 0.7rem;
-      background: rgba(10,14,20,0.5);
-      backdrop-filter: blur(16px);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.5rem; padding: 0.6rem 0.7rem;
+      background: rgba(10,14,20,0.5); backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(88,166,255,0.06);
-      width: 100%;
-      border-radius: 0;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      width: 100%; border-radius: 0; flex-wrap: nowrap;
+      overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
     }
     .trading-options-bar::-webkit-scrollbar { display: none; }
     .option-btn-combined {
-      padding: 0.5rem 0.9rem;
-      border-radius: 10px;
-      border: 1px solid rgba(88,166,255,0.08);
-      background: rgba(10,14,20,0.4);
-      color: #8b949e;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      flex: 1;
-      justify-content: center;
-      min-width: 0;
+      padding: 0.5rem 0.9rem; border-radius: 10px;
+      border: 1px solid rgba(88,166,255,0.08); background: rgba(10,14,20,0.4);
+      color: #8b949e; font-size: 0.75rem; font-weight: 500;
+      cursor: pointer; transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif; white-space: nowrap;
+      display: flex; align-items: center; gap: 0.4rem;
+      flex: 1; justify-content: center; min-width: 0;
     }
     .option-btn-combined:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.15); color: #f0f6fc; }
     .option-btn-combined i { font-size: 0.7rem; opacity: 0.6; }
@@ -351,791 +239,842 @@
     .option-btn-combined.active-orange { background: rgba(240,136,62,0.12); border-color: rgba(240,136,62,0.2); color: #f0883e; }
 
     /* ----- CHART SECTION ----- */
-    .chart-section {
-      padding: 0.6rem 0.4rem 0.6rem;
-      margin-bottom: 0;
-    }
+    .chart-section { padding: 0.6rem 0.4rem 0.6rem; margin-bottom: 0; }
     .chart-container {
-      background: rgba(10,14,20,0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 0.8rem;
-      width: 100%;
-      height: 480px;
-      position: relative;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
+      background: rgba(10,14,20,0.6); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px); border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05); padding: 0.8rem;
+      width: 100%; height: 480px; position: relative; transition: all 0.3s ease;
+      display: flex; flex-direction: column;
     }
     .chart-container:hover { border-color: rgba(255,255,255,0.08); }
-    .chart-container canvas {
-      display: block;
-      width: 100% !important;
-      flex: 1;
-      border-radius: 4px;
-      min-height: 0;
-    }
+    .chart-container canvas { display: block; width: 100% !important; flex: 1; border-radius: 4px; min-height: 0; }
     .chart-header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-      flex-shrink: 0;
-      padding: 0;
-      flex-wrap: wrap;
-      gap: 0.4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.5rem; flex-shrink: 0; padding: 0; flex-wrap: wrap; gap: 0.4rem;
     }
-    .chart-header-inner .chart-title {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-    .chart-header-inner .chart-title h2 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #f0f6fc;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .chart-header-inner .chart-title h2 i { font-size: 0.9rem; }
+    .chart-header-inner .chart-title { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .chart-header-inner .chart-title h2 { font-size: 1rem; font-weight: 600; color: #f0f6fc; display: flex; align-items: center; gap: 0.4rem; }
+    .chart-header-inner .chart-title h2 i { font-size: 0.9rem; color: #58a6ff; }
     .chart-header-inner .chart-title .symbol-badge {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 6px;
-      padding: 0.2rem 0.7rem;
-      color: #ffffff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px; padding: 0.2rem 0.7rem; color: #ffffff;
+      font-size: 0.75rem; font-weight: 600; font-family: 'Inter', sans-serif;
     }
-    .chart-header-inner .chart-controls {
-      display: flex;
-      gap: 0.4rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+    .chart-header-inner .chart-controls { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
     .chart-header-inner .chart-controls select {
-      background: rgba(10,14,20,0.6);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px;
-      padding: 0.2rem 0.6rem;
-      color: #f0f6fc;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 500;
-      outline: none;
-      cursor: pointer;
-      max-width: 100px;
+      background: rgba(10,14,20,0.6); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; padding: 0.2rem 0.6rem; color: #f0f6fc;
+      font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500;
+      outline: none; cursor: pointer; max-width: 100px;
     }
     .chart-header-inner .chart-controls select:hover { border-color: rgba(255,255,255,0.2); }
     .chart-header-inner .chart-controls select option { background: #0a0e14; color: #f0f6fc; }
-    .chart-header-inner .chart-timeframe {
-      display: flex;
-      gap: 0.25rem;
-    }
+    .chart-header-inner .chart-timeframe { display: flex; gap: 0.25rem; }
     .chart-header-inner .chart-timeframe button {
-      background: rgba(10,14,20,0.4);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: #8b949e;
-      font-size: 0.65rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      background: rgba(10,14,20,0.4); border: 1px solid rgba(255,255,255,0.06);
+      color: #8b949e; font-size: 0.65rem; padding: 0.2rem 0.6rem;
+      border-radius: 4px; cursor: pointer; transition: all 0.3s ease;
       font-family: 'Inter', sans-serif;
     }
-    .chart-header-inner .chart-timeframe button:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.12);
-      color: #f0f6fc;
-    }
-    .chart-header-inner .chart-timeframe button.active {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.15);
-      color: #ffffff;
-    }
+    .chart-header-inner .chart-timeframe button:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); color: #f0f6fc; }
+    .chart-header-inner .chart-timeframe button.active { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: #ffffff; }
 
     .chart-stats-row {
-      display: flex;
-      gap: 0.7rem;
-      padding: 0.5rem 0.1rem 0.25rem;
-      flex-wrap: wrap;
-      flex-shrink: 0;
-      border-top: 1px solid rgba(255,255,255,0.04);
+      display: flex; gap: 0.7rem; padding: 0.5rem 0.1rem 0.25rem;
+      flex-wrap: wrap; flex-shrink: 0; border-top: 1px solid rgba(255,255,255,0.04);
     }
-    .chart-stats-row .stat-item {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      min-width: 55px;
-    }
-    .chart-stats-row .stat-item .label {
-      font-size: 0.6rem;
-      color: #6e7681;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-    .chart-stats-row .stat-item .value {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      line-height: 1.2;
-    }
+    .chart-stats-row .stat-item { display: flex; flex-direction: column; flex: 1; min-width: 55px; }
+    .chart-stats-row .stat-item .label { font-size: 0.6rem; color: #6e7681; text-transform: uppercase; letter-spacing: 0.3px; }
+    .chart-stats-row .stat-item .value { font-size: 0.95rem; font-weight: 700; color: #f0f6fc; line-height: 1.2; }
     .chart-stats-row .stat-item .value.up { color: #3fb950; }
     .chart-stats-row .stat-item .value.down { color: #f0883e; }
 
     /* ----- DIGIT CIRCLES ----- */
     .digit-circles-container {
-      display: flex;
-      justify-content: center;
-      gap: 0.6rem;
-      padding: 0.5rem 0.1rem 0.2rem;
-      flex-shrink: 0;
-      flex-wrap: wrap;
-      border-top: 1px solid rgba(255,255,255,0.04);
+      display: flex; justify-content: center; gap: 0.6rem;
+      padding: 0.5rem 0.1rem 0.2rem; flex-shrink: 0;
+      flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.04);
       margin-top: 0.1rem;
     }
-    .digit-circle-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.05rem;
-    }
+    .digit-circle-wrapper { display: flex; flex-direction: column; align-items: center; gap: 0.05rem; }
     .digit-circle {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #fff;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: all 0.3s ease;
-      cursor: default;
+      width: 38px; height: 38px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 0.85rem;
+      font-weight: 700; color: #fff; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease; cursor: default;
     }
-    .digit-circle.active {
-      background: rgba(255,255,255,0.12);
-      border-color: rgba(255,255,255,0.25);
-    }
+    .digit-circle.active { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); }
     .digit-circle.highlight {
-      background: rgba(88,166,255,0.25);
-      border-color: #58a6ff;
-      box-shadow: 0 0 24px rgba(88,166,255,0.25);
-      transform: scale(1.1);
+      background: rgba(88,166,255,0.25); border-color: #58a6ff;
+      box-shadow: 0 0 24px rgba(88,166,255,0.25); transform: scale(1.1);
     }
-    .digit-percentage {
-      font-size: 0.55rem;
-      color: #6e7681;
-      font-weight: 600;
-      min-width: 28px;
-      text-align: center;
-    }
+    .digit-percentage { font-size: 0.55rem; color: #6e7681; font-weight: 600; min-width: 28px; text-align: center; }
     .digit-percentage.high { color: #3fb950; }
     .digit-percentage.low { color: #f0883e; }
     .digit-percentage.peak { color: #ff6b6b; font-weight: 700; }
 
     /* ----- TRADING CONTROLS ----- */
     .trading-controls {
-      background: rgba(10,14,20,0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 16px;
-      border: 2px solid rgba(255,255,255,0.05);
-      padding: 0.9rem 1rem;
-      margin: 0.5rem 0.3rem 0.6rem 0.3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      flex-shrink: 0;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(10,14,20,0.6); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px); border-radius: 16px;
+      border: 2px solid rgba(255,255,255,0.05); padding: 0.9rem 1rem;
+      margin: 0.5rem 0.3rem 0.6rem 0.3rem; display: flex; flex-direction: column;
+      gap: 0.8rem; flex-shrink: 0; transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .balance-flash {
-      border-color: #ffd700 !important;
-      box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.05) !important;
-    }
-    .trading-controls .top-row {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.8rem;
-    }
-    .trading-controls .mode-section {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      width: 100%;
-      flex-wrap: wrap;
-    }
-    .trading-controls .mode-section .label {
-      font-size: 0.7rem;
-      color: #6e7681;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
+    .balance-flash { border-color: #ffd700 !important; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.05) !important; }
+    .trading-controls .top-row { display: flex; flex-direction: column; align-items: stretch; gap: 0.8rem; }
+    .trading-controls .mode-section { display: flex; align-items: center; gap: 0.8rem; width: 100%; flex-wrap: wrap; }
+    .trading-controls .mode-section .label { font-size: 0.7rem; color: #6e7681; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 600; flex-shrink: 0; }
 
     .mode-btn {
-      padding: 0.6rem 1.6rem;
-      border-radius: 40px;
-      border: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.2px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff;
+      padding: 0.6rem 1.6rem; border-radius: 40px; border: none;
+      font-weight: 700; font-size: 0.9rem; letter-spacing: 0.2px;
+      cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #3fb950, #2d8f47); color: #fff;
       box-shadow: 0 3px 12px rgba(63,185,80,0.2);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-      justify-content: center;
-      min-width: 100px;
+      display: inline-flex; align-items: center; gap: 8px;
+      flex: 1; justify-content: center; min-width: 100px;
     }
-    .mode-btn:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 20px rgba(63,185,80,0.35);
-    }
+    .mode-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 20px rgba(63,185,80,0.35); }
     .mode-btn i { font-size: 0.9rem; }
-    .mode-btn.active-auto {
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff;
-      box-shadow: 0 3px 16px rgba(63,185,80,0.35);
-    }
-    .mode-btn.active-auto:hover {
-      box-shadow: 0 6px 24px rgba(63,185,80,0.45);
-    }
-    .mode-btn.active-manual {
-      background: rgba(240,136,62,0.2);
-      color: #f0883e;
-      border: 1px solid rgba(240,136,62,0.35);
-      box-shadow: 0 3px 16px rgba(240,136,62,0.15);
-    }
-    .mode-btn.active-manual:hover {
-      background: rgba(240,136,62,0.25);
-      box-shadow: 0 6px 24px rgba(240,136,62,0.25);
-    }
+    .mode-btn.active-auto { background: linear-gradient(135deg, #3fb950, #2d8f47); color: #fff; box-shadow: 0 3px 16px rgba(63,185,80,0.35); }
+    .mode-btn.active-auto:hover { box-shadow: 0 6px 24px rgba(63,185,80,0.45); }
+    .mode-btn.active-manual { background: rgba(240,136,62,0.2); color: #f0883e; border: 1px solid rgba(240,136,62,0.35); box-shadow: 0 3px 16px rgba(240,136,62,0.15); }
+    .mode-btn.active-manual:hover { background: rgba(240,136,62,0.25); box-shadow: 0 6px 24px rgba(240,136,62,0.25); }
 
-    .stake-section {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      width: 100%;
-    }
-    .stake-section .label {
-      font-size: 0.7rem;
-      color: #6e7681;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      font-weight: 600;
-      text-align: center;
-    }
-    .stake-control-row {
-      display: flex !important;
-      align-items: center;
-      gap: 0.6rem;
-      width: 100%;
-      justify-content: space-between;
-    }
+    .stake-section { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+    .stake-section .label { font-size: 0.7rem; color: #6e7681; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 600; text-align: center; }
+    .stake-control-row { display: flex !important; align-items: center; gap: 0.6rem; width: 100%; justify-content: space-between; }
     .stake-adjust-btn {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      border: 1px solid rgba(88,166,255,0.15);
-      background: rgba(10,14,20,0.6);
-      color: #f0f6fc;
-      font-size: 1.6rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-      flex-shrink: 0;
+      width: 54px; height: 54px; border-radius: 50%;
+      border: 1px solid rgba(88,166,255,0.15); background: rgba(10,14,20,0.6);
+      color: #f0f6fc; font-size: 1.6rem; font-weight: 700;
+      cursor: pointer; transition: all 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif; flex-shrink: 0;
     }
-    .stake-adjust-btn:hover {
-      background: rgba(88,166,255,0.05);
-      border-color: rgba(88,166,255,0.3);
-    }
+    .stake-adjust-btn:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.3); }
     .stake-adjust-btn.minus { color: #f0883e; border-color: rgba(240,136,62,0.25); }
     .stake-adjust-btn.minus:hover { background: rgba(240,136,62,0.05); border-color: rgba(240,136,62,0.4); }
     .stake-adjust-btn.plus { color: #3fb950; border-color: rgba(63,185,80,0.25); }
     .stake-adjust-btn.plus:hover { background: rgba(63,185,80,0.05); border-color: rgba(63,185,80,0.4); }
-    .stake-display {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 65px;
-    }
-    .stake-display .stake-value {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      line-height: 1.1;
-    }
-    .stake-display .stake-currency {
-      font-size: 0.65rem;
-      color: #6e7681;
-    }
-    .stake-presets {
-      display: flex !important;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-    }
+    .stake-display { display: flex; flex-direction: column; align-items: center; min-width: 65px; }
+    .stake-display .stake-value { font-size: 1.6rem; font-weight: 700; color: #f0f6fc; line-height: 1.1; }
+    .stake-display .stake-currency { font-size: 0.65rem; color: #6e7681; }
+    .stake-presets { display: flex !important; gap: 0.4rem; flex-wrap: wrap; justify-content: center; width: 100%; }
     .stake-preset-btn {
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-      border: 1px solid rgba(88,166,255,0.08);
-      background: rgba(10,14,20,0.4);
-      color: #8b949e;
-      font-size: 0.7rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      min-width: 40px;
-      text-align: center;
-      flex: 1;
+      padding: 0.3rem 0.7rem; border-radius: 6px; border: 1px solid rgba(88,166,255,0.08);
+      background: rgba(10,14,20,0.4); color: #8b949e; font-size: 0.7rem;
+      font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif; min-width: 40px; text-align: center; flex: 1;
     }
-    .stake-preset-btn:hover {
-      background: rgba(88,166,255,0.05);
-      border-color: rgba(88,166,255,0.15);
-      color: #f0f6fc;
-    }
-    .stake-preset-btn.active {
-      background: rgba(63,185,80,0.15);
-      border-color: #3fb950;
-      color: #3fb950;
-    }
+    .stake-preset-btn:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.15); color: #f0f6fc; }
+    .stake-preset-btn.active { background: rgba(63,185,80,0.15); border-color: #3fb950; color: #3fb950; }
 
-    .three-params {
-      display: flex;
-      gap: 0.5rem;
-      width: 100%;
-      justify-content: space-between;
-      flex-wrap: nowrap;
-    }
+    .three-params { display: flex; gap: 0.5rem; width: 100%; justify-content: space-between; flex-wrap: nowrap; }
     .param-btn-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.1rem;
-      background: rgba(10,14,20,0.4);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 0.6rem 0.1rem;
-      flex: 1;
-      min-width: 0;
-      min-height: 64px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.1rem; background: rgba(10,14,20,0.4); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 0.6rem 0.1rem; flex: 1; min-width: 0; min-height: 64px;
+      cursor: pointer; transition: all 0.3s ease;
     }
-    .param-btn-group:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.15);
-    }
-    .param-btn-group .param-label {
-      font-size: 0.55rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2px;
-      color: #6e7681;
-      font-weight: 600;
-      white-space: nowrap;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 0.15rem;
-    }
+    .param-btn-group:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15); }
+    .param-btn-group .param-label { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.2px; color: #6e7681; font-weight: 600; white-space: nowrap; pointer-events: none; display: flex; align-items: center; gap: 0.15rem; }
     .param-btn-group .param-label i { font-size: 0.55rem; color: #58a6ff; }
-    .param-btn-group .param-value {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      min-width: 45px;
-      text-align: center;
-      background: transparent;
-      border: none;
-      outline: none;
-      font-family: 'Inter', sans-serif;
-      padding: 0;
-      pointer-events: none;
-      width: 100%;
-    }
+    .param-btn-group .param-value { font-size: 1.1rem; font-weight: 700; color: #f0f6fc; min-width: 45px; text-align: center; background: transparent; border: none; outline: none; font-family: 'Inter', sans-serif; padding: 0; pointer-events: none; width: 100%; }
     .param-btn-group .param-value .dollar { color: #3fb950; font-weight: 700; }
 
-    .match-differ-row {
-      display: flex;
-      gap: 0.6rem;
-      width: 100%;
-      justify-content: space-between;
-    }
+    .match-differ-row { display: flex; gap: 0.6rem; width: 100%; justify-content: space-between; }
     .even-btn, .odd-btn {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.15rem;
-      padding: 0.7rem 0.8rem;
-      border-radius: 14px;
-      background: rgba(10,14,20,0.4);
-      color: #c9d1d9;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-height: 72px;
-      border-width: 2.5px;
-      border-style: solid;
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 0.15rem; padding: 0.7rem 0.8rem;
+      border-radius: 14px; background: rgba(10,14,20,0.4);
+      color: #c9d1d9; font-family: 'Inter', sans-serif; font-size: 0.75rem;
+      font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+      min-height: 72px; border-width: 2.5px; border-style: solid;
     }
-    .even-btn {
-      border-color: rgba(0, 255, 200, 0.35);
-      box-shadow: 0 0 12px rgba(0, 255, 200, 0.08);
-    }
-    .even-btn:hover {
-      background: rgba(0, 255, 200, 0.06);
-      border-color: #00ffc8;
-      box-shadow: 0 0 24px rgba(0, 255, 200, 0.2);
-      transform: translateY(-1px);
-    }
-    .even-btn .btn-label {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      color: #6e7681;
-      pointer-events: none;
-    }
+    .even-btn { border-color: rgba(0, 255, 200, 0.35); box-shadow: 0 0 12px rgba(0, 255, 200, 0.08); }
+    .even-btn:hover { background: rgba(0, 255, 200, 0.06); border-color: #00ffc8; box-shadow: 0 0 24px rgba(0, 255, 200, 0.2); transform: translateY(-1px); }
+    .even-btn .btn-label { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.3px; color: #6e7681; pointer-events: none; }
     .even-btn .btn-label i { font-size: 0.7rem; color: #00ffc8; }
-    .even-btn .payout-value {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #00ffc8;
-      pointer-events: none;
-      text-shadow: 0 0 20px rgba(0, 255, 200, 0.15);
-    }
+    .even-btn .payout-value { font-size: 1.4rem; font-weight: 700; color: #00ffc8; pointer-events: none; text-shadow: 0 0 20px rgba(0, 255, 200, 0.15); }
     .even-btn .payout-value .dollar { color: #00ffc8; font-weight: 700; }
-    .even-btn.active {
-      background: rgba(0, 255, 200, 0.10);
-      border-color: #00ffc8;
-      box-shadow: 0 0 30px rgba(0, 255, 200, 0.25);
-      color: #00ffc8;
-    }
+    .even-btn.active { background: rgba(0, 255, 200, 0.10); border-color: #00ffc8; box-shadow: 0 0 30px rgba(0, 255, 200, 0.25); color: #00ffc8; }
     .even-btn.active .btn-label { color: #00ffc8; }
     .even-btn.active .btn-label i { color: #00ffc8; }
 
-    .odd-btn {
-      border-color: rgba(255, 20, 147, 0.35);
-      box-shadow: 0 0 12px rgba(255, 20, 147, 0.08);
-    }
-    .odd-btn:hover {
-      background: rgba(255, 20, 147, 0.06);
-      border-color: #ff1493;
-      box-shadow: 0 0 24px rgba(255, 20, 147, 0.2);
-      transform: translateY(-1px);
-    }
-    .odd-btn .btn-label {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      color: #6e7681;
-      pointer-events: none;
-    }
+    .odd-btn { border-color: rgba(255, 20, 147, 0.35); box-shadow: 0 0 12px rgba(255, 20, 147, 0.08); }
+    .odd-btn:hover { background: rgba(255, 20, 147, 0.06); border-color: #ff1493; box-shadow: 0 0 24px rgba(255, 20, 147, 0.2); transform: translateY(-1px); }
+    .odd-btn .btn-label { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.3px; color: #6e7681; pointer-events: none; }
     .odd-btn .btn-label i { font-size: 0.7rem; color: #ff1493; }
-    .odd-btn .payout-value {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #ff1493;
-      pointer-events: none;
-      text-shadow: 0 0 20px rgba(255, 20, 147, 0.15);
-    }
+    .odd-btn .payout-value { font-size: 1.4rem; font-weight: 700; color: #ff1493; pointer-events: none; text-shadow: 0 0 20px rgba(255, 20, 147, 0.15); }
     .odd-btn .payout-value .dollar { color: #ff1493; font-weight: 700; }
-    .odd-btn.active {
-      background: rgba(255, 20, 147, 0.10);
-      border-color: #ff1493;
-      box-shadow: 0 0 30px rgba(255, 20, 147, 0.25);
-      color: #ff1493;
-    }
+    .odd-btn.active { background: rgba(255, 20, 147, 0.10); border-color: #ff1493; box-shadow: 0 0 30px rgba(255, 20, 147, 0.25); color: #ff1493; }
     .odd-btn.active .btn-label { color: #ff1493; }
     .odd-btn.active .btn-label i { color: #ff1493; }
 
-    /* POPUP */
+    /* ----- LIVE TRADE POPUP ----- */
+    .live-trade-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px); z-index: 9999999;
+      display: none; align-items: center; justify-content: center;
+      padding: 1.2rem; animation: fadeIn 0.3s ease;
+    }
+    .live-trade-overlay.active { display: flex; }
+    .live-trade-popup {
+      background: linear-gradient(145deg, #1a1f2a, #0d121c);
+      border: 2px solid rgba(255, 20, 147, 0.2);
+      border-radius: 24px; padding: 2rem 2rem 1.8rem;
+      max-width: 420px; width: 100%; text-align: center;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 60px rgba(255,20,147,0.08);
+      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative; overflow: hidden;
+    }
+    .live-trade-popup::before {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(255,20,147,0.03) 0%, transparent 70%);
+      animation: glowPulse 3s infinite; pointer-events: none;
+    }
+    .live-trade-popup .popup-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.8rem; position: relative;
+    }
+    .live-trade-popup .popup-header .trade-type {
+      font-size: 1.1rem; font-weight: 700;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .live-trade-popup .popup-header .trade-type .even-label { color: #00ffc8; }
+    .live-trade-popup .popup-header .trade-type .odd-label { color: #ff1493; }
+    .live-trade-popup .popup-header .trade-status {
+      font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 20px;
+      background: rgba(63,185,80,0.15); color: #3fb950;
+      border: 1px solid rgba(63,185,80,0.2); animation: pulseGlow 1.5s infinite;
+    }
+    .live-trade-popup .progress-section {
+      position: relative; margin: 0.5rem 0 0.8rem;
+    }
+    .live-trade-popup .progress-bar-bg {
+      width: 100%; height: 8px; background: rgba(255,255,255,0.06);
+      border-radius: 10px; overflow: hidden; position: relative;
+    }
+    .live-trade-popup .progress-bar-fill {
+      height: 100%; border-radius: 10px;
+      background: linear-gradient(90deg, #ff1493, #ff6b9d);
+      width: 0%; transition: width 0.5s ease;
+      box-shadow: 0 0 20px rgba(255,20,147,0.3);
+    }
+    .live-trade-popup .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.65rem; color: #8b949e; margin-top: 0.2rem;
+    }
+    .live-trade-popup .balance-display-popup {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 0.6rem; margin: 0.6rem 0;
+      position: relative;
+    }
+    .live-trade-popup .balance-display-popup .bal-label {
+      font-size: 0.5rem; text-transform: uppercase; color: #6e7681;
+      letter-spacing: 0.3px; font-weight: 600;
+    }
+    .live-trade-popup .balance-display-popup .bal-amount {
+      font-size: 1.6rem; font-weight: 700; color: #f0f6fc;
+      transition: color 0.3s ease;
+    }
+    .live-trade-popup .balance-display-popup .bal-amount.increasing {
+      color: #3fb950;
+    }
+    .live-trade-popup .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.4rem; margin: 0.6rem 0 0.8rem;
+      position: relative;
+    }
+    .live-trade-popup .stats-grid .stat-box {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; padding: 0.4rem 0.2rem;
+    }
+    .live-trade-popup .stats-grid .stat-box .stat-label {
+      font-size: 0.4rem; text-transform: uppercase; color: #6e7681;
+      letter-spacing: 0.3px; font-weight: 600;
+    }
+    .live-trade-popup .stats-grid .stat-box .stat-value {
+      font-size: 0.95rem; font-weight: 700; color: #f0f6fc;
+      margin-top: 0.05rem;
+    }
+    .live-trade-popup .stats-grid .stat-box .stat-value.green { color: #3fb950; }
+    .live-trade-popup .stats-grid .stat-box .stat-value.pink { color: #ff1493; }
+    .live-trade-popup .stats-grid .stat-box .stat-value.gold { color: #ffd700; }
+    .live-trade-popup .popup-actions {
+      display: flex; gap: 0.5rem; justify-content: center;
+      margin-top: 0.5rem; position: relative;
+    }
+    .live-trade-popup .popup-actions .btn-stop-trade {
+      padding: 0.6rem 2rem; border-radius: 40px; border: none;
+      font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f0883e, #d4732a);
+      color: #fff; box-shadow: 0 4px 20px rgba(240,136,62,0.3);
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 0.5rem;
+    }
+    .live-trade-popup .popup-actions .btn-stop-trade:hover {
+      transform: scale(1.05); box-shadow: 0 6px 30px rgba(240,136,62,0.4);
+    }
+    .live-trade-popup .popup-actions .btn-close-trade {
+      padding: 0.6rem 1.5rem; border-radius: 40px; border: none;
+      font-weight: 600; font-size: 0.8rem; cursor: pointer;
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: rgba(10,14,20,0.4); color: #8b949e;
+      border: 1px solid rgba(88,166,255,0.06);
+    }
+    .live-trade-popup .popup-actions .btn-close-trade:hover {
+      background: rgba(255,255,255,0.05); color: #f0f6fc;
+    }
+    .live-trade-popup .target-info {
+      font-size: 0.7rem; color: #6e7681; margin: 0.3rem 0 0.2rem;
+      position: relative;
+    }
+    .live-trade-popup .target-info span { color: #ffd700; font-weight: 600; }
+
+    /* ----- SIDEBAR ACTION POPUPS (generic) ----- */
+    .action-popup-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); z-index: 9999999;
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem; animation: fadeIn 0.3s ease;
+    }
+    .action-popup-overlay.active { display: flex; }
+    .action-popup {
+      background: linear-gradient(145deg, #1a1f2a, #0d121c);
+      border: 2px solid rgba(88,166,255,0.15);
+      border-radius: 24px; padding: 2rem 2rem 1.8rem;
+      max-width: 420px; width: 100%; text-align: center;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative; overflow: hidden;
+    }
+    .action-popup::before {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(88,166,255,0.03) 0%, transparent 70%);
+      animation: glowPulse 3s infinite; pointer-events: none;
+    }
+    .action-popup .action-icon {
+      font-size: 3rem; color: #58a6ff; margin-bottom: 0.3rem;
+      text-shadow: 0 0 40px rgba(88,166,255,0.2); animation: bounceIn 0.6s ease;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0) rotate(-10deg); }
+      50% { transform: scale(1.3) rotate(5deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+    .action-popup .action-title {
+      font-size: 1.4rem; font-weight: 700; color: #f0f6fc;
+      margin-bottom: 0.2rem; letter-spacing: -0.3px; position: relative;
+    }
+    .action-popup .action-sub {
+      color: #8b949e; font-size: 0.85rem; margin-bottom: 0.8rem;
+      position: relative;
+    }
+    .action-popup .action-details {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 0.8rem; margin: 0.6rem 0;
+      text-align: left;
+    }
+    .action-popup .action-details .detail-row {
+      display: flex; justify-content: space-between;
+      padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.8rem;
+    }
+    .action-popup .action-details .detail-row:last-child { border-bottom: none; }
+    .action-popup .action-details .detail-row .label { color: #6e7681; }
+    .action-popup .action-details .detail-row .value { color: #f0f6fc; font-weight: 500; }
+    .action-popup .action-email {
+      background: rgba(88,166,255,0.05); border: 1px solid rgba(88,166,255,0.08);
+      border-radius: 10px; padding: 0.5rem; margin: 0.4rem 0;
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.5rem;
+      color: #58a6ff;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .action-popup .action-email i { color: #58a6ff; }
+    .action-popup .action-email .copy-btn {
+      background: rgba(255,255,255,0.05);
+      border: none; border-radius: 6px;
+      padding: 0.2rem 0.6rem;
+      color: #8b949e; font-size: 0.65rem;
+      cursor: pointer; transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    .action-popup .action-email .copy-btn:hover { background: rgba(88,166,255,0.1); color: #f0f6fc; }
+    .action-popup .action-btn-close {
+      background: linear-gradient(135deg, #3fb950, #2d8f47);
+      border: none; padding: 0.6rem 2.5rem; border-radius: 40px;
+      color: #fff; font-weight: 700; font-size: 0.85rem;
+      cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 20px rgba(63,185,80,0.25); position: relative;
+      margin-top: 0.3rem;
+    }
+    .action-popup .action-btn-close:hover {
+      transform: scale(1.05); box-shadow: 0 6px 30px rgba(63,185,80,0.35);
+    }
+
+    /* ----- NOTIFICATION POPUP (Welcome & Notification Center) ----- */
+    .notif-popup-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px); z-index: 9999999;
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem; animation: fadeIn 0.3s ease;
+    }
+    .notif-popup-overlay.active { display: flex; }
+    .notif-popup {
+      background: linear-gradient(145deg, #1a1f2a, #0d121c);
+      border: 2px solid rgba(88,166,255,0.15);
+      border-radius: 24px; padding: 2rem 2rem 1.8rem;
+      max-width: 450px; width: 100%; text-align: center;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative; overflow: hidden;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .notif-popup::before {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(88,166,255,0.03) 0%, transparent 70%);
+      animation: glowPulse 3s infinite; pointer-events: none;
+    }
+    .notif-popup .notif-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.5rem; flex-shrink: 0;
+      position: relative;
+    }
+    .notif-popup .notif-header .notif-title {
+      font-size: 1.3rem; font-weight: 700; color: #f0f6fc;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .notif-popup .notif-header .notif-title i { color: #f0883e; }
+    .notif-popup .notif-header .notif-close {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #8b949e; width: 36px; height: 36px;
+      border-radius: 50%; font-size: 1.1rem;
+      cursor: pointer; transition: all 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .notif-popup .notif-header .notif-close:hover {
+      background: rgba(255,255,255,0.1);
+      color: #f0f6fc; border-color: rgba(255,255,255,0.2);
+    }
+    .notif-popup .notif-welcome {
+      background: rgba(63,185,80,0.05);
+      border: 1px solid rgba(63,185,80,0.08);
+      border-radius: 12px; padding: 0.6rem;
+      margin-bottom: 0.6rem;
+      flex-shrink: 0;
+    }
+    .notif-popup .notif-welcome .welcome-text {
+      font-size: 0.95rem; color: #f0f6fc; font-weight: 500;
+    }
+    .notif-popup .notif-welcome .welcome-text span {
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+    .notif-popup .notif-list {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 350px;
+      margin: 0.2rem 0 0.5rem;
+      text-align: left;
+    }
+    .notif-popup .notif-list::-webkit-scrollbar { width: 3px; }
+    .notif-popup .notif-list::-webkit-scrollbar-track { background: transparent; }
+    .notif-popup .notif-list::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.3); border-radius: 10px; }
+    .notif-popup .notif-item {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      padding: 0.5rem 0.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: all 0.2s ease;
+    }
+    .notif-popup .notif-item:hover { background: rgba(255,255,255,0.02); }
+    .notif-popup .notif-item .notif-icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+    }
+    .notif-popup .notif-item .notif-icon.info { background: rgba(88,166,255,0.15); color: #58a6ff; }
+    .notif-popup .notif-item .notif-icon.success { background: rgba(63,185,80,0.15); color: #3fb950; }
+    .notif-popup .notif-item .notif-icon.warning { background: rgba(255,215,0,0.15); color: #ffd700; }
+    .notif-popup .notif-item .notif-icon.danger { background: rgba(240,136,62,0.15); color: #f0883e; }
+    .notif-popup .notif-item .notif-content { flex: 1; min-width: 0; }
+    .notif-popup .notif-item .notif-content .notif-msg {
+      font-size: 0.8rem; color: #c9d1d9; line-height: 1.3;
+    }
+    .notif-popup .notif-item .notif-content .notif-time {
+      font-size: 0.55rem; color: #6e7681; margin-top: 0.1rem;
+    }
+    .notif-popup .notif-empty {
+      text-align: center; color: #6e7681; padding: 1.5rem 0;
+      font-size: 0.85rem; font-style: italic;
+    }
+    .notif-popup .notif-empty i { font-size: 2rem; display: block; margin-bottom: 0.5rem; opacity: 0.3; }
+    .notif-popup .notif-footer {
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding-top: 0.5rem;
+      display: flex; justify-content: center; gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    .notif-popup .notif-footer .btn-clear-all {
+      padding: 0.3rem 1.2rem; border-radius: 20px; border: none;
+      font-weight: 600; font-size: 0.7rem; cursor: pointer;
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: rgba(240,136,62,0.15); color: #f0883e;
+      border: 1px solid rgba(240,136,62,0.15);
+    }
+    .notif-popup .notif-footer .btn-clear-all:hover {
+      background: rgba(240,136,62,0.25);
+      border-color: rgba(240,136,62,0.3);
+    }
+    .notif-popup .notif-footer .btn-mark-read {
+      padding: 0.3rem 1.2rem; border-radius: 20px; border: none;
+      font-weight: 600; font-size: 0.7rem; cursor: pointer;
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: rgba(88,166,255,0.15); color: #58a6ff;
+      border: 1px solid rgba(88,166,255,0.15);
+    }
+    .notif-popup .notif-footer .btn-mark-read:hover {
+      background: rgba(88,166,255,0.25);
+      border-color: rgba(88,166,255,0.3);
+    }
+
+    /* ----- OTHER POPUPS ----- */
     .param-popup-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 999999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1.2rem;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); z-index: 999999;
+      display: none; align-items: center; justify-content: center; padding: 1.2rem;
     }
     .param-popup-overlay.active { display: flex; }
     .param-popup {
-      background: #1a1f2a;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 1.8rem 1.8rem;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+      background: #1a1f2a; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px; padding: 1.8rem 1.8rem;
+      max-width: 420px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.9);
       animation: popupIn 0.3s ease;
     }
     @keyframes popupIn {
       0% { opacity: 0; transform: scale(0.95) translateY(20px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
-    .param-popup .popup-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      margin-bottom: 0.2rem;
-      text-align: center;
-    }
-    .param-popup .popup-sub {
-      font-size: 0.8rem;
-      color: #6e7681;
-      text-align: center;
-      margin-bottom: 0.8rem;
-    }
-    .param-popup .popup-presets {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      justify-content: center;
-      margin-bottom: 0.8rem;
-    }
-    .param-popup .popup-preset-btn {
-      padding: 0.4rem 0.9rem;
-      border-radius: 8px;
-      border: 1px solid rgba(88,166,255,0.08);
-      background: rgba(10,14,20,0.6);
-      color: #c9d1d9;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      min-width: 48px;
-    }
-    .param-popup .popup-preset-btn:hover {
-      background: rgba(88,166,255,0.08);
-      border-color: rgba(88,166,255,0.2);
-      color: #f0f6fc;
-    }
-    .param-popup .popup-preset-btn.active {
-      background: rgba(63,185,80,0.15);
-      border-color: #3fb950;
-      color: #3fb950;
-    }
-    .param-popup .popup-manual {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      margin-bottom: 0.8rem;
-    }
-    .param-popup .popup-manual label {
-      font-size: 0.75rem;
-      color: #6e7681;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .param-popup .popup-manual input {
-      flex: 1;
-      background: rgba(10,14,20,0.6);
-      border: 1px solid rgba(88,166,255,0.08);
-      border-radius: 8px;
-      padding: 0.5rem 0.7rem;
-      color: #f0f6fc;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      outline: none;
-      transition: all 0.3s ease;
-      min-width: 0;
-      width: 100%;
-    }
+    .param-popup .popup-title { font-size: 1.2rem; font-weight: 700; color: #f0f6fc; margin-bottom: 0.2rem; text-align: center; }
+    .param-popup .popup-sub { font-size: 0.8rem; color: #6e7681; text-align: center; margin-bottom: 0.8rem; }
+    .param-popup .popup-presets { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin-bottom: 0.8rem; }
+    .param-popup .popup-preset-btn { padding: 0.4rem 0.9rem; border-radius: 8px; border: 1px solid rgba(88,166,255,0.08); background: rgba(10,14,20,0.6); color: #c9d1d9; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif; min-width: 48px; }
+    .param-popup .popup-preset-btn:hover { background: rgba(88,166,255,0.08); border-color: rgba(88,166,255,0.2); color: #f0f6fc; }
+    .param-popup .popup-preset-btn.active { background: rgba(63,185,80,0.15); border-color: #3fb950; color: #3fb950; }
+    .param-popup .popup-manual { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.8rem; }
+    .param-popup .popup-manual label { font-size: 0.75rem; color: #6e7681; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 600; white-space: nowrap; }
+    .param-popup .popup-manual input { flex: 1; background: rgba(10,14,20,0.6); border: 1px solid rgba(88,166,255,0.08); border-radius: 8px; padding: 0.5rem 0.7rem; color: #f0f6fc; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; outline: none; transition: all 0.3s ease; min-width: 0; width: 100%; }
     .param-popup .popup-manual input:focus { border-color: rgba(88,166,255,0.3); }
-    .param-popup .popup-actions {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: flex-end;
-    }
-    .param-popup .popup-actions button {
-      padding: 0.5rem 1.6rem;
-      border-radius: 8px;
-      border: none;
-      font-weight: 600;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-    }
-    .param-popup .popup-actions .btn-cancel {
-      background: rgba(10,14,20,0.6);
-      color: #8b949e;
-      border: 1px solid rgba(88,166,255,0.08);
-    }
+    .param-popup .popup-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+    .param-popup .popup-actions button { padding: 0.5rem 1.6rem; border-radius: 8px; border: none; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif; }
+    .param-popup .popup-actions .btn-cancel { background: rgba(10,14,20,0.6); color: #8b949e; border: 1px solid rgba(88,166,255,0.08); }
     .param-popup .popup-actions .btn-cancel:hover { background: rgba(255,255,255,0.05); }
-    .param-popup .popup-actions .btn-apply {
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff;
-    }
-    .param-popup .popup-actions .btn-apply:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(63,185,80,0.3);
-    }
+    .param-popup .popup-actions .btn-apply { background: linear-gradient(135deg, #3fb950, #2d8f47); color: #fff; }
+    .param-popup .popup-actions .btn-apply:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(63,185,80,0.3); }
 
     /* ----- BOT CARD ----- */
     .bot-card {
-      background: rgba(10,14,20,0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 16px;
-      border: 1px solid rgba(88,166,255,0.05);
-      padding: 1rem;
-      transition: all 0.4s ease;
-      margin-top: 0.4rem;
+      background: rgba(10,14,20,0.6); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px); border-radius: 16px;
+      border: 1px solid rgba(88,166,255,0.05); padding: 1rem;
+      transition: all 0.4s ease; margin-top: 0.4rem;
     }
     .bot-card:hover { border-color: rgba(88,166,255,0.08); }
-    .bot-card .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-    }
-    .bot-card .card-header h3 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #f0f6fc;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
+    .bot-card .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+    .bot-card .card-header h3 { font-size: 0.95rem; font-weight: 600; color: #f0f6fc; display: flex; align-items: center; gap: 0.4rem; }
     .bot-card .card-header h3 i { color: #58a6ff; }
-    .bot-card .card-header .card-action {
-      color: #58a6ff;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-    }
+    .bot-card .card-header .card-action { color: #58a6ff; font-size: 0.75rem; font-weight: 500; cursor: pointer; text-decoration: none; }
     .bot-card .card-header .card-action:hover { color: #3fb950; }
     .bot-card .card-header .card-action i { font-size: 0.7rem; margin-left: 3px; }
 
-    .bot-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-
+    .bot-controls { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 0.5rem; }
     .btn-activate {
-      padding: 0.6rem 1.6rem;
-      border-radius: 40px;
-      border: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.2px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff;
+      padding: 0.6rem 1.6rem; border-radius: 40px; border: none;
+      font-weight: 700; font-size: 0.9rem; letter-spacing: 0.2px;
+      cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #3fb950, #2d8f47); color: #fff;
       box-shadow: 0 3px 12px rgba(63,185,80,0.2);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-      justify-content: center;
+      display: inline-flex; align-items: center; gap: 8px; flex: 1; justify-content: center;
     }
-    .btn-activate:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 20px rgba(63,185,80,0.35);
-    }
-    .btn-activate.active {
-      background: rgba(240,136,62,0.2);
-      color: #f0883e;
-      border: 1px solid rgba(240,136,62,0.35);
-      box-shadow: 0 3px 16px rgba(240,136,62,0.15);
-    }
-    .btn-activate.active:hover {
-      background: rgba(240,136,62,0.25);
-      box-shadow: 0 6px 24px rgba(240,136,62,0.25);
-    }
+    .btn-activate:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 20px rgba(63,185,80,0.35); }
+    .btn-activate.active { background: rgba(240,136,62,0.2); color: #f0883e; border: 1px solid rgba(240,136,62,0.35); box-shadow: 0 3px 16px rgba(240,136,62,0.15); }
+    .btn-activate.active:hover { background: rgba(240,136,62,0.25); box-shadow: 0 6px 24px rgba(240,136,62,0.25); }
 
     .btn-live-chat {
-      padding: 0.6rem 1.4rem;
-      border-radius: 40px;
-      border: 1px solid rgba(88,166,255,0.25);
-      background: rgba(10,14,20,0.4);
-      color: #58a6ff;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 10px rgba(88,166,255,0.08);
-      flex: 1;
-      justify-content: center;
+      padding: 0.6rem 1.4rem; border-radius: 40px; border: 1px solid rgba(88,166,255,0.25);
+      background: rgba(10,14,20,0.4); color: #58a6ff; font-weight: 600;
+      font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif; display: inline-flex; align-items: center;
+      gap: 8px; backdrop-filter: blur(8px); box-shadow: 0 0 10px rgba(88,166,255,0.08);
+      flex: 1; justify-content: center;
     }
-    .btn-live-chat:hover {
-      background: rgba(88,166,255,0.12);
-      border-color: #58a6ff;
-      box-shadow: 0 0 20px rgba(88,166,255,0.18);
-      transform: scale(1.02);
-    }
-    .btn-live-chat i {
-      font-size: 0.95rem;
-      animation: pulseGlow 2s infinite;
-    }
+    .btn-live-chat:hover { background: rgba(88,166,255,0.12); border-color: #58a6ff; box-shadow: 0 0 20px rgba(88,166,255,0.18); transform: scale(1.02); }
+    .btn-live-chat i { font-size: 0.95rem; animation: pulseGlow 2s infinite; }
     @keyframes pulseGlow {
       0% { text-shadow: 0 0 0 rgba(88,166,255,0.3); }
       50% { text-shadow: 0 0 14px rgba(88,166,255,0.7); }
       100% { text-shadow: 0 0 0 rgba(88,166,255,0.3); }
     }
 
-    .trade-history {
-      display: none;
+    /* ----- AI SCAN POPUP ----- */
+    .ai-scan-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px); z-index: 9999998;
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem; animation: fadeIn 0.3s ease;
     }
+    .ai-scan-overlay.active { display: flex; }
+    .ai-scan-popup {
+      background: linear-gradient(145deg, #1a1f2a, #0d121c);
+      border: 2px solid rgba(88,166,255,0.2);
+      border-radius: 24px; padding: 2rem 2rem 1.8rem;
+      max-width: 480px; width: 100%; text-align: center;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 60px rgba(88,166,255,0.08);
+      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative; overflow: hidden;
+    }
+    .ai-scan-popup::before {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(88,166,255,0.03) 0%, transparent 70%);
+      animation: glowPulse 3s infinite; pointer-events: none;
+    }
+    .ai-scan-popup .scan-icon { font-size: 3.5rem; color: #58a6ff; margin-bottom: 0.3rem; text-shadow: 0 0 40px rgba(88,166,255,0.3); animation: bounceIn 0.6s ease; }
+    .ai-scan-popup .scan-title { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, #58a6ff, #3fb950); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.2rem; letter-spacing: -0.5px; position: relative; }
+    .ai-scan-popup .scan-sub { color: #8b949e; font-size: 0.8rem; margin-bottom: 0.5rem; position: relative; }
+    .ai-scan-popup .scan-market-info { color: #6e7681; font-size: 0.65rem; margin-bottom: 0.8rem; display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+    .ai-scan-popup .scan-market-info span { display: flex; align-items: center; gap: 0.3rem; }
+    .ai-scan-popup .scan-market-info i { color: #58a6ff; }
+    .ai-scan-popup .scan-results-container {
+      display: flex; flex-direction: column; gap: 0.4rem;
+      margin: 0.6rem 0 1rem; position: relative;
+      max-height: 240px; overflow-y: auto;
+    }
+    .ai-scan-popup .scan-results-container::-webkit-scrollbar { width: 3px; }
+    .ai-scan-popup .scan-results-container::-webkit-scrollbar-track { background: transparent; }
+    .ai-scan-popup .scan-results-container::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.3); border-radius: 10px; }
+    .ai-scan-popup .scan-result-item {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; padding: 0.5rem 0.7rem;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.3s ease;
+    }
+    .ai-scan-popup .scan-result-item:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.12); }
+    .ai-scan-popup .scan-result-item .symbol { font-weight: 600; font-size: 0.85rem; color: #f0f6fc; }
+    .ai-scan-popup .scan-result-item .signal-badge { padding: 0.15rem 0.5rem; border-radius: 20px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; }
+    .ai-scan-popup .scan-result-item .signal-badge.buy { background: rgba(63,185,80,0.15); color: #3fb950; }
+    .ai-scan-popup .scan-result-item .signal-badge.sell { background: rgba(240,136,62,0.15); color: #f0883e; }
+    .ai-scan-popup .scan-result-item .signal-badge.neutral { background: rgba(255,215,0,0.15); color: #ffd700; }
+    .ai-scan-popup .scan-result-item .price-info { font-size: 0.65rem; color: #8b949e; }
+    .ai-scan-popup .scan-result-item .confidence { font-size: 0.6rem; font-weight: 600; color: #ffd700; }
+    .ai-scan-popup .scan-summary {
+      display: flex; justify-content: space-between;
+      background: rgba(255,255,255,0.03); border-radius: 10px;
+      padding: 0.4rem 0.6rem; margin: 0.3rem 0 0.6rem;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .ai-scan-popup .scan-summary .summary-item { display: flex; flex-direction: column; align-items: center; }
+    .ai-scan-popup .scan-summary .summary-item .num { font-size: 1.1rem; font-weight: 700; color: #f0f6fc; }
+    .ai-scan-popup .scan-summary .summary-item .label { font-size: 0.5rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.3px; }
+    .ai-scan-popup .scan-summary .summary-item .num.buy { color: #3fb950; }
+    .ai-scan-popup .scan-summary .summary-item .num.sell { color: #f0883e; }
+    .ai-scan-popup .scan-summary .summary-item .num.neutral { color: #ffd700; }
+    .ai-scan-popup .scan-time { font-size: 0.6rem; color: #6e7681; display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-bottom: 0.5rem; position: relative; }
+    .ai-scan-popup .scan-time i { color: #58a6ff; }
+    .ai-scan-popup .btn-close-scan {
+      background: linear-gradient(135deg, #3fb950, #2d8f47);
+      border: none; padding: 0.6rem 2.5rem; border-radius: 40px;
+      color: #fff; font-weight: 700; font-size: 0.85rem;
+      cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 20px rgba(63,185,80,0.3); position: relative;
+    }
+    .ai-scan-popup .btn-close-scan:hover { transform: scale(1.05); box-shadow: 0 6px 30px rgba(63,185,80,0.5); }
+    .ai-scan-popup .scan-loading { display: flex; justify-content: center; gap: 0.4rem; padding: 1rem 0; }
+    .ai-scan-popup .scan-loading .dot-loader { width: 12px; height: 12px; border-radius: 50%; background: #58a6ff; animation: dotBounce 1.4s infinite ease-in-out both; }
+    .ai-scan-popup .scan-loading .dot-loader:nth-child(1) { animation-delay: -0.32s; }
+    .ai-scan-popup .scan-loading .dot-loader:nth-child(2) { animation-delay: -0.16s; }
+    .ai-scan-popup .scan-loading .dot-loader:nth-child(3) { animation-delay: 0s; }
+    @keyframes dotBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
+    /* ----- LIVE CHAT POPUP (WhatsApp) ----- */
+    .chat-popup-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); z-index: 9999999;
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem; animation: fadeIn 0.3s ease;
+    }
+    .chat-popup-overlay.active { display: flex; }
+    .chat-popup {
+      background: linear-gradient(145deg, #1a1f2a, #0d121c);
+      border: 2px solid rgba(37, 211, 102, 0.25);
+      border-radius: 24px; padding: 2rem 2rem 1.8rem;
+      max-width: 420px; width: 100%; text-align: center;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 60px rgba(37,211,102,0.05);
+      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative; overflow: hidden;
+    }
+    .chat-popup::before {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(37,211,102,0.03) 0%, transparent 70%);
+      animation: glowPulse 3s infinite; pointer-events: none;
+    }
+    .chat-popup .chat-icon { font-size: 3.5rem; color: #25D366; margin-bottom: 0.3rem; text-shadow: 0 0 40px rgba(37,211,102,0.2); animation: bounceIn 0.6s ease; }
+    .chat-popup .chat-title { font-size: 1.5rem; font-weight: 800; color: #f0f6fc; margin-bottom: 0.2rem; letter-spacing: -0.5px; position: relative; }
+    .chat-popup .chat-sub { color: #8b949e; font-size: 0.8rem; margin-bottom: 0.3rem; position: relative; }
+    .chat-popup .chat-agent-info {
+      background: rgba(37,211,102,0.05); border: 1px solid rgba(37,211,102,0.08);
+      border-radius: 12px; padding: 0.6rem; margin: 0.6rem 0;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .chat-popup .chat-agent-info .agent-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; color: #fff;
+    }
+    .chat-popup .chat-agent-info .agent-details { text-align: left; }
+    .chat-popup .chat-agent-info .agent-details .name { font-weight: 600; font-size: 0.8rem; color: #f0f6fc; }
+    .chat-popup .chat-agent-info .agent-details .status { font-size: 0.6rem; color: #25D366; display: flex; align-items: center; gap: 0.3rem; }
+    .chat-popup .chat-agent-info .agent-details .status .dot { width: 6px; height: 6px; border-radius: 50%; background: #25D366; animation: pulseGlow 1.5s infinite; }
+    .chat-popup .chat-features { display: flex; justify-content: center; gap: 0.5rem; margin: 0.4rem 0 0.6rem; flex-wrap: wrap; }
+    .chat-popup .chat-features .feature { background: rgba(255,255,255,0.03); border-radius: 20px; padding: 0.2rem 0.6rem; font-size: 0.55rem; color: #8b949e; display: flex; align-items: center; gap: 0.3rem; }
+    .chat-popup .chat-features .feature i { color: #25D366; }
+    .chat-popup .chat-actions { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; }
+    .chat-popup .chat-actions .btn-whatsapp {
+      padding: 0.6rem 2rem; border-radius: 40px; border: none;
+      font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .chat-popup .chat-actions .btn-whatsapp:hover { transform: scale(1.05); box-shadow: 0 6px 30px rgba(37,211,102,0.35); }
+    .chat-popup .chat-actions .btn-chat-cancel {
+      padding: 0.6rem 1.5rem; border-radius: 40px; border: none;
+      font-weight: 600; font-size: 0.8rem; cursor: pointer;
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: rgba(10,14,20,0.4); color: #8b949e;
+      border: 1px solid rgba(88,166,255,0.06);
+    }
+    .chat-popup .chat-actions .btn-chat-cancel:hover { background: rgba(255,255,255,0.05); color: #f0f6fc; }
+    .chat-popup .chat-disclaimer { font-size: 0.55rem; color: #6e7681; margin-top: 0.5rem; position: relative; }
+
+    /* ----- M-PESA DEPOSIT POPUP ----- */
+    .mpesa-popup-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); z-index: 9999999;
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem; animation: fadeIn 0.3s ease;
+    }
+    .mpesa-popup-overlay.active { display: flex; }
+    .mpesa-popup {
+      background: linear-gradient(145deg, #1a1f2a, #0d121c);
+      border: 2px solid rgba(0, 200, 100, 0.25);
+      border-radius: 24px; padding: 2rem 1.8rem;
+      max-width: 420px; width: 100%; text-align: center;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative; overflow: hidden;
+    }
+    .mpesa-popup::before {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(0,200,100,0.03) 0%, transparent 70%);
+      animation: glowPulse 3s infinite; pointer-events: none;
+    }
+    .mpesa-popup .mpesa-icon { font-size: 2.8rem; color: #00C864; margin-bottom: 0.2rem; text-shadow: 0 0 40px rgba(0,200,100,0.2); animation: bounceIn 0.6s ease; }
+    .mpesa-popup .mpesa-title { font-size: 1.3rem; font-weight: 700; color: #f0f6fc; margin-bottom: 0.1rem; letter-spacing: -0.3px; position: relative; }
+    .mpesa-popup .mpesa-sub { color: #8b949e; font-size: 0.7rem; margin-bottom: 0.5rem; position: relative; }
+    .mpesa-popup .mpesa-denominations { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin: 0.4rem 0; }
+    .mpesa-popup .mpesa-denominations .denom-btn {
+      padding: 0.3rem 0.7rem; border-radius: 8px;
+      border: 1px solid rgba(88,166,255,0.1);
+      background: rgba(10,14,20,0.4); color: #c9d1d9;
+      font-size: 0.75rem; font-weight: 500; cursor: pointer;
+      transition: all 0.2s ease; font-family: 'Inter', sans-serif;
+      min-width: 48px; flex: 1;
+    }
+    .mpesa-popup .mpesa-denominations .denom-btn:hover { background: rgba(88,166,255,0.08); border-color: rgba(88,166,255,0.2); color: #f0f6fc; }
+    .mpesa-popup .mpesa-denominations .denom-btn.active { background: rgba(63,185,80,0.15); border-color: #3fb950; color: #3fb950; box-shadow: 0 0 20px rgba(63,185,80,0.1); }
+    .mpesa-popup .mpesa-custom-amount { display: flex; gap: 0.4rem; align-items: center; margin: 0.3rem 0; }
+    .mpesa-popup .mpesa-custom-amount input {
+      flex: 1; background: rgba(10,14,20,0.6);
+      border: 1px solid rgba(88,166,255,0.08); border-radius: 8px;
+      padding: 0.4rem 0.6rem; color: #f0f6fc;
+      font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500;
+      outline: none; transition: all 0.3s ease; width: 100%;
+    }
+    .mpesa-popup .mpesa-custom-amount input:focus { border-color: rgba(0,200,100,0.3); box-shadow: 0 0 20px rgba(0,200,100,0.05); }
+    .mpesa-popup .mpesa-custom-amount input::placeholder { color: #6e7681; font-size: 0.7rem; }
+    .mpesa-popup .mpesa-amount-display {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; padding: 0.4rem; margin: 0.3rem 0;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .mpesa-popup .mpesa-amount-display .label { font-size: 0.5rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.3px; }
+    .mpesa-popup .mpesa-amount-display .amount { font-size: 1.2rem; font-weight: 700; color: #ffd700; }
+    .mpesa-popup .mpesa-form { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.3rem 0; }
+    .mpesa-popup .mpesa-form .form-group { display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem; }
+    .mpesa-popup .mpesa-form .form-group label { font-size: 0.55rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.3px; font-weight: 600; }
+    .mpesa-popup .mpesa-form .form-group input {
+      width: 100%; background: rgba(10,14,20,0.6);
+      border: 1px solid rgba(88,166,255,0.08); border-radius: 8px;
+      padding: 0.4rem 0.6rem; color: #f0f6fc;
+      font-family: 'Inter', sans-serif; font-size: 0.85rem;
+      font-weight: 500; outline: none; transition: all 0.3s ease;
+    }
+    .mpesa-popup .mpesa-form .form-group input:focus { border-color: rgba(0,200,100,0.3); box-shadow: 0 0 20px rgba(0,200,100,0.05); }
+    .mpesa-popup .mpesa-form .form-group input::placeholder { color: #6e7681; font-size: 0.7rem; }
+    .mpesa-popup .mpesa-form .form-group .input-hint { font-size: 0.45rem; color: #6e7681; display: flex; align-items: center; gap: 0.2rem; }
+    .mpesa-popup .mpesa-actions { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; }
+    .mpesa-popup .mpesa-actions .btn-mpesa-confirm {
+      padding: 0.6rem 2rem; border-radius: 40px; border: none;
+      font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #00C864, #00994E);
+      color: #fff; box-shadow: 0 4px 20px rgba(0,200,100,0.25);
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .mpesa-popup .mpesa-actions .btn-mpesa-confirm:hover { transform: scale(1.05); box-shadow: 0 6px 30px rgba(0,200,100,0.35); }
+    .mpesa-popup .mpesa-actions .btn-mpesa-cancel {
+      padding: 0.6rem 1.5rem; border-radius: 40px; border: none;
+      font-weight: 600; font-size: 0.8rem; cursor: pointer;
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+      background: rgba(10,14,20,0.4); color: #8b949e;
+      border: 1px solid rgba(88,166,255,0.06);
+    }
+    .mpesa-popup .mpesa-actions .btn-mpesa-cancel:hover { background: rgba(255,255,255,0.05); color: #f0f6fc; }
+    .mpesa-popup .mpesa-disclaimer { font-size: 0.5rem; color: #6e7681; margin-top: 0.4rem; position: relative; }
+
+    .trade-history { display: none; }
     .sidebar-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 99;
-      display: none;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); z-index: 99; display: none;
     }
     .sidebar-overlay.active { display: block; }
     ::-webkit-scrollbar { width: 4px; }
@@ -1143,252 +1082,109 @@
     ::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(88,166,255,0.3); }
 
-    .two-col-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
-      margin-top: 0.3rem;
-    }
+    .two-col-grid { display: grid; grid-template-columns: 1fr; gap: 0.5rem; margin-top: 0.3rem; }
 
     /* ----- HISTORY POPUP ----- */
     .history-popup-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      z-index: 9999999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px); z-index: 9999999;
+      display: none; align-items: center; justify-content: center; padding: 1rem;
       animation: fadeIn 0.3s ease;
     }
     .history-popup-overlay.active { display: flex; }
     .history-popup-content {
-      background: #1a1f2a;
-      border: 1px solid rgba(88,166,255,0.1);
-      border-radius: 20px;
-      padding: 2rem;
-      max-width: 800px;
-      width: 100%;
-      max-height: 90vh;
-      box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+      background: #1a1f2a; border: 1px solid rgba(88,166,255,0.1);
+      border-radius: 20px; padding: 2rem; max-width: 800px;
+      width: 100%; max-height: 90vh; box-shadow: 0 40px 120px rgba(0,0,0,0.9);
       animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
     }
     .history-popup-content .history-popup-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      flex-shrink: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem; flex-shrink: 0;
     }
-    .history-popup-content .history-popup-header h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
+    .history-popup-content .history-popup-header h2 { font-size: 1.4rem; font-weight: 700; color: #f0f6fc; display: flex; align-items: center; gap: 0.5rem; }
     .history-popup-content .history-popup-header h2 i { color: #58a6ff; }
     .history-popup-content .history-popup-header .close-history-btn {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #8b949e;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      font-size: 1.3rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      color: #8b949e; width: 42px; height: 42px; border-radius: 50%;
+      font-size: 1.3rem; cursor: pointer; transition: all 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
     }
-    .history-popup-content .history-popup-header .close-history-btn:hover {
-      background: rgba(255,255,255,0.1);
-      color: #f0f6fc;
-      border-color: rgba(255,255,255,0.2);
-    }
-    .history-popup-content .history-popup-table-wrap {
-      overflow-x: auto;
-      overflow-y: auto;
-      max-height: 65vh;
-      flex: 1;
-    }
+    .history-popup-content .history-popup-header .close-history-btn:hover { background: rgba(255,255,255,0.1); color: #f0f6fc; border-color: rgba(255,255,255,0.2); }
+    .history-popup-content .history-popup-table-wrap { overflow-x: auto; overflow-y: auto; max-height: 65vh; flex: 1; }
     .history-popup-content .history-popup-table-wrap::-webkit-scrollbar { width: 4px; }
     .history-popup-content .history-popup-table-wrap::-webkit-scrollbar-track { background: transparent; }
     .history-popup-content .history-popup-table-wrap::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
-    
-    .history-popup-content .history-popup-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-    }
-    .history-popup-content .history-popup-table th {
-      text-align: left;
-      padding: 0.7rem 0.8rem 0.7rem 0;
-      color: #6e7681;
-      font-weight: 600;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid rgba(88,166,255,0.08);
-      position: sticky;
-      top: 0;
-      background: #1a1f2a;
-      z-index: 2;
-    }
-    .history-popup-content .history-popup-table td {
-      padding: 0.6rem 0.8rem 0.6rem 0;
-      border-bottom: 1px solid rgba(88,166,255,0.04);
-      color: #c9d1d9;
-      font-size: 0.8rem;
-    }
+    .history-popup-content .history-popup-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .history-popup-content .history-popup-table th { text-align: left; padding: 0.7rem 0.8rem 0.7rem 0; color: #6e7681; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid rgba(88,166,255,0.08); position: sticky; top: 0; background: #1a1f2a; z-index: 2; }
+    .history-popup-content .history-popup-table td { padding: 0.6rem 0.8rem 0.6rem 0; border-bottom: 1px solid rgba(88,166,255,0.04); color: #c9d1d9; font-size: 0.8rem; }
     .history-popup-content .history-popup-table td:last-child { padding-right: 0; }
-    .history-popup-content .history-popup-table .status-badge {
-      padding: 0.1rem 0.6rem;
-      border-radius: 12px;
-      font-size: 0.65rem;
-      font-weight: 600;
-    }
+    .history-popup-content .history-popup-table .status-badge { padding: 0.1rem 0.6rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; }
     .history-popup-content .history-popup-table .status-badge.win { background: rgba(63,185,80,0.15); color: #3fb950; }
     .history-popup-content .history-popup-table .status-badge.loss { background: rgba(240,136,62,0.15); color: #f0883e; }
     .history-popup-content .history-popup-table .profit-pos { color: #3fb950; font-weight: 600; }
     .history-popup-content .history-popup-table .profit-neg { color: #f0883e; font-weight: 600; }
-    .history-popup-content .history-popup-empty {
-      text-align: center;
-      color: #6e7681;
-      font-size: 1rem;
-      padding: 3rem 0;
-      font-style: italic;
-    }
-    .history-popup-content .history-popup-empty i {
-      font-size: 2.8rem;
-      display: block;
-      margin-bottom: 0.8rem;
-      color: #3fb950;
-      opacity: 0.3;
-    }
+    .history-popup-content .history-popup-empty { text-align: center; color: #6e7681; font-size: 1rem; padding: 3rem 0; font-style: italic; }
+    .history-popup-content .history-popup-empty i { font-size: 2.8rem; display: block; margin-bottom: 0.8rem; color: #3fb950; opacity: 0.3; }
 
     /* ----- WIN POPUP ----- */
     .win-popup-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 9999998;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      animation: fadeIn 0.3s ease;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); z-index: 9999998;
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem; animation: fadeIn 0.3s ease;
     }
     .win-popup-overlay.active { display: flex; }
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
+    @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
     .win-popup {
       background: linear-gradient(145deg, #1a2a1f, #0d1a12);
-      border: 2px solid rgba(63,185,80,0.4);
-      border-radius: 24px;
-      padding: 2rem 2rem 1.8rem;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 60px rgba(63,185,80,0.15);
+      border: 2px solid rgba(63,185,80,0.4); border-radius: 24px;
+      padding: 2rem 2rem 1.8rem; max-width: 420px; width: 100%;
+      text-align: center; box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 60px rgba(63,185,80,0.15);
       animation: popIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
     .win-popup::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
       background: radial-gradient(circle at center, rgba(63,185,80,0.05) 0%, transparent 70%);
-      animation: glowPulse 3s infinite;
-      pointer-events: none;
-    }
-    @keyframes glowPulse {
-      0% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.5; }
-    }
-    @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.8) translateY(30px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
+      animation: glowPulse 3s infinite; pointer-events: none;
     }
     .win-popup .win-icon { font-size: 3.5rem; color: #3fb950; margin-bottom: 0.3rem; text-shadow: 0 0 40px rgba(63,185,80,0.3); animation: bounceIn 0.6s ease; }
-    @keyframes bounceIn {
-      0% { transform: scale(0) rotate(-10deg); }
-      50% { transform: scale(1.3) rotate(5deg); }
-      100% { transform: scale(1) rotate(0); }
-    }
-    .win-popup .win-title {
-      font-size: 2rem; font-weight: 800;
-      background: linear-gradient(135deg, #3fb950, #8bc34a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.2rem; letter-spacing: -0.5px; position: relative;
-    }
+    .win-popup .win-title { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #3fb950, #8bc34a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.2rem; letter-spacing: -0.5px; position: relative; }
     .win-popup .win-sub { color: #8b949e; font-size: 0.85rem; margin-bottom: 1.2rem; position: relative; }
-    .win-popup .win-stats {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;
-      margin: 0.8rem 0 1.2rem; position: relative;
-    }
-    .win-popup .win-stat-box {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px; padding: 0.6rem 0.4rem;
-    }
+    .win-popup .win-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.8rem 0 1.2rem; position: relative; }
+    .win-popup .win-stat-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 0.6rem 0.4rem; }
     .win-popup .win-stat-box .stat-label { font-size: 0.5rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.5px; font-weight: 600; }
     .win-popup .win-stat-box .stat-value { font-size: 1.1rem; font-weight: 700; color: #f0f6fc; margin-top: 0.1rem; }
     .win-popup .win-stat-box .stat-value.green { color: #3fb950; }
     .win-popup .win-stat-box .stat-value.cyan { color: #00ffc8; }
     .win-popup .win-stat-box .stat-value.pink { color: #ff1493; }
     .win-popup .win-stat-box .stat-value.gold { color: #ffd700; }
-    .win-popup .win-profit {
-      font-size: 2.2rem; font-weight: 800; color: #3fb950;
-      text-shadow: 0 0 40px rgba(63,185,80,0.2); margin: 0.2rem 0 0.6rem; position: relative;
-    }
+    .win-popup .win-profit { font-size: 2.2rem; font-weight: 800; color: #3fb950; text-shadow: 0 0 40px rgba(63,185,80,0.2); margin: 0.2rem 0 0.6rem; position: relative; }
     .win-popup .win-profit .currency { font-size: 1.2rem; color: #8b949e; }
-    .win-popup .win-time {
-      font-size: 0.7rem; color: #6e7681;
-      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-      margin-bottom: 1rem; position: relative;
-    }
+    .win-popup .win-time { font-size: 0.7rem; color: #6e7681; display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-bottom: 1rem; position: relative; }
     .win-popup .win-time i { color: #58a6ff; }
-    .win-popup .btn-close-win {
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      border: none; padding: 0.6rem 2.5rem; border-radius: 40px;
-      color: #fff; font-weight: 700; font-size: 0.85rem;
-      cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
-      box-shadow: 0 4px 20px rgba(63,185,80,0.3); position: relative;
-    }
+    .win-popup .btn-close-win { background: linear-gradient(135deg, #3fb950, #2d8f47); border: none; padding: 0.6rem 2.5rem; border-radius: 40px; color: #fff; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif; box-shadow: 0 4px 20px rgba(63,185,80,0.3); position: relative; }
     .win-popup .btn-close-win:hover { transform: scale(1.05); box-shadow: 0 6px 30px rgba(63,185,80,0.5); }
 
     /* ----- LOSS POPUP ----- */
     .loss-popup-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      z-index: 9999998; display: none; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); z-index: 9999998;
+      display: none; align-items: center; justify-content: center;
       padding: 1rem; animation: fadeIn 0.3s ease;
     }
     .loss-popup-overlay.active { display: flex; }
     .loss-popup {
       background: linear-gradient(145deg, #2a1a1a, #1a0d0d);
-      border: 2px solid rgba(240,136,62,0.4);
-      border-radius: 24px; padding: 2rem 2rem 1.8rem;
-      max-width: 420px; width: 100%; text-align: center;
-      box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 60px rgba(240,136,62,0.15);
+      border: 2px solid rgba(240,136,62,0.4); border-radius: 24px;
+      padding: 2rem 2rem 1.8rem; max-width: 420px; width: 100%;
+      text-align: center; box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 60px rgba(240,136,62,0.15);
       animation: popIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
       position: relative; overflow: hidden;
     }
@@ -1401,107 +1197,30 @@
     .loss-popup .loss-icon { font-size: 3.5rem; color: #f0883e; margin-bottom: 0.3rem; text-shadow: 0 0 40px rgba(240,136,62,0.3); animation: bounceIn 0.6s ease; }
     .loss-popup .loss-title { font-size: 2rem; font-weight: 800; color: #f0883e; margin-bottom: 0.2rem; letter-spacing: -0.5px; position: relative; }
     .loss-popup .loss-sub { color: #8b949e; font-size: 0.85rem; margin-bottom: 1.2rem; position: relative; }
-    .loss-popup .loss-stats {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;
-      margin: 0.8rem 0 1.2rem; position: relative;
-    }
-    .loss-popup .loss-stat-box {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px; padding: 0.6rem 0.4rem;
-    }
+    .loss-popup .loss-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.8rem 0 1.2rem; position: relative; }
+    .loss-popup .loss-stat-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 0.6rem 0.4rem; }
     .loss-popup .loss-stat-box .stat-label { font-size: 0.5rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.5px; font-weight: 600; }
     .loss-popup .loss-stat-box .stat-value { font-size: 1.1rem; font-weight: 700; color: #f0f6fc; margin-top: 0.1rem; }
     .loss-popup .loss-stat-box .stat-value.gold { color: #ffd700; }
     .loss-popup .loss-stat-box .stat-value.pink { color: #ff1493; }
     .loss-popup .loss-stat-box .stat-value.red { color: #f0883e; }
-    .loss-popup .loss-amount {
-      font-size: 2.2rem; font-weight: 800; color: #f0883e;
-      text-shadow: 0 0 40px rgba(240,136,62,0.2); margin: 0.2rem 0 0.6rem; position: relative;
-    }
+    .loss-popup .loss-amount { font-size: 2.2rem; font-weight: 800; color: #f0883e; text-shadow: 0 0 40px rgba(240,136,62,0.2); margin: 0.2rem 0 0.6rem; position: relative; }
     .loss-popup .loss-amount .currency { font-size: 1.2rem; color: #8b949e; }
-    .loss-popup .loss-time {
-      font-size: 0.7rem; color: #6e7681;
-      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-      margin-bottom: 1rem; position: relative;
-    }
+    .loss-popup .loss-time { font-size: 0.7rem; color: #6e7681; display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-bottom: 1rem; position: relative; }
     .loss-popup .loss-time i { color: #f0883e; }
-    .loss-popup .btn-close-loss {
-      background: linear-gradient(135deg, #f0883e, #d4732a);
-      border: none; padding: 0.6rem 2.5rem; border-radius: 40px;
-      color: #fff; font-weight: 700; font-size: 0.85rem;
-      cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
-      box-shadow: 0 4px 20px rgba(240,136,62,0.3); position: relative;
-    }
+    .loss-popup .btn-close-loss { background: linear-gradient(135deg, #f0883e, #d4732a); border: none; padding: 0.6rem 2.5rem; border-radius: 40px; color: #fff; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif; box-shadow: 0 4px 20px rgba(240,136,62,0.3); position: relative; }
     .loss-popup .btn-close-loss:hover { transform: scale(1.05); box-shadow: 0 6px 30px rgba(240,136,62,0.5); }
 
-    /* ----- DEPOSIT POPUP ----- */
-    .deposit-popup-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      z-index: 9999999; display: none; align-items: center; justify-content: center;
-      padding: 1rem; animation: fadeIn 0.2s ease;
-    }
-    .deposit-popup-overlay.active { display: flex; }
-    .deposit-popup {
-      background: #1a1f2a; border: 1px solid rgba(88,166,255,0.15);
-      border-radius: 18px; padding: 2rem; max-width: 400px;
-      width: 100%; text-align: center;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.8);
-      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-      position: relative;
-    }
-    .deposit-popup .deposit-icon { font-size: 3.2rem; color: #ffd700; margin-bottom: 0.3rem; }
-    .deposit-popup .deposit-title { font-size: 1.4rem; font-weight: 700; color: #f0f6fc; margin-bottom: 0.1rem; }
-    .deposit-popup .deposit-sub { color: #8b949e; font-size: 0.85rem; margin-bottom: 0.6rem; }
-    .deposit-popup .deposit-balance {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 10px; padding: 0.6rem; margin-bottom: 0.6rem;
-    }
-    .deposit-popup .deposit-balance .bal-label { font-size: 0.6rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.3px; }
-    .deposit-popup .deposit-balance .bal-amount { font-size: 1.4rem; font-weight: 700; color: #f0883e; }
-    .deposit-popup .deposit-amounts {
-      display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin: 0.5rem 0;
-    }
-    .deposit-popup .deposit-amount-btn {
-      padding: 0.4rem 0.9rem; border-radius: 8px;
-      border: 1px solid rgba(88,166,255,0.1); background: rgba(10,14,20,0.4);
-      color: #c9d1d9; font-size: 0.85rem; font-weight: 500;
-      cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif;
-      flex: 1; min-width: 56px;
-    }
-    .deposit-popup .deposit-amount-btn:hover { background: rgba(88,166,255,0.08); border-color: rgba(88,166,255,0.2); color: #f0f6fc; }
-    .deposit-popup .deposit-amount-btn.active { background: rgba(63,185,80,0.12); border-color: #3fb950; color: #3fb950; }
-    .deposit-popup .deposit-actions {
-      display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem;
-    }
-    .deposit-popup .deposit-actions button {
-      padding: 0.5rem 1.6rem; border-radius: 24px; border: none;
-      font-weight: 600; font-size: 0.8rem; cursor: pointer;
-      transition: all 0.2s ease; font-family: 'Inter', sans-serif; flex: 1;
-    }
-    .deposit-popup .deposit-actions .btn-deposit-confirm {
-      background: linear-gradient(135deg, #3fb950, #2d8f47); color: #fff; box-shadow: 0 2px 12px rgba(63,185,80,0.2);
-    }
-    .deposit-popup .deposit-actions .btn-deposit-confirm:hover { transform: scale(1.03); box-shadow: 0 4px 20px rgba(63,185,80,0.3); }
-    .deposit-popup .deposit-actions .btn-deposit-cancel {
-      background: rgba(10,14,20,0.4); color: #8b949e; border: 1px solid rgba(88,166,255,0.06);
-    }
-    .deposit-popup .deposit-actions .btn-deposit-cancel:hover { background: rgba(255,255,255,0.05); }
+    /* ----- DEPOSIT POPUP (original - no longer used directly) ----- */
+    .deposit-popup-overlay { display: none; }
 
-    /* ----- RESPONSIVE: Mobile First with BIGGER everything ----- */
+    /* ----- RESPONSIVE ----- */
     @media (max-width: 820px) {
       .sidebar { transform: translateX(-100%); width: 320px; }
       .sidebar.open { transform: translateX(0); }
       .main-content { margin-left: 0; padding: 0.6rem; }
       .hamburger-dash { display: flex; }
-      .top-bar { 
-        padding: 0.7rem 0.8rem; 
-        border-radius: 0; 
-        min-height: 76px; 
-        flex-wrap: nowrap; 
-        z-index: 60; 
-        gap: 0.5rem;
-      }
+      .top-bar { padding: 0.7rem 0.8rem; border-radius: 0; min-height: 76px; flex-wrap: nowrap; z-index: 60; gap: 0.5rem; }
       .site-name { font-size: 1.4rem; }
       .site-name .ai-badge { font-size: 0.55rem; padding: 0.1rem 0.5rem; }
       .balance-display .balance-amount { font-size: 1.05rem; }
@@ -1532,29 +1251,29 @@
       .param-btn-group .param-value { font-size: 0.95rem; }
       .even-btn .payout-value, .odd-btn .payout-value { font-size: 1.2rem; }
       .even-btn, .odd-btn { min-height: 60px; padding: 0.45rem 0.6rem; font-size: 0.7rem; }
+      .live-trade-popup { padding: 1.6rem; max-width: 380px; }
+      .live-trade-popup .balance-display-popup .bal-amount { font-size: 1.4rem; }
       .param-popup { padding: 1.4rem; max-width: 380px; }
       .bot-card { padding: 0.8rem; }
       .btn-activate { font-size: 0.8rem; padding: 0.5rem 1.2rem; }
       .btn-live-chat { font-size: 0.7rem; padding: 0.5rem 0.9rem; }
-      .dashboard-card { display: none !important; }
       .history-popup-content { padding: 1.4rem !important; max-width: 95% !important; }
       .history-popup-content .history-popup-table-wrap { max-height: 60vh !important; }
-      .deposit-popup { padding: 1.6rem !important; max-width: 95% !important; }
       .history-popup-content .history-popup-table { font-size: 0.75rem; }
       .history-popup-content .history-popup-table th { font-size: 0.65rem; }
       .history-popup-content .history-popup-table td { font-size: 0.7rem; }
-      .sidebar-logo { gap: 0.8rem; }
-      .sidebar-logo img { height: 44px; }
-      .sidebar-logo-text { font-size: 1.3rem; }
+      .ai-scan-popup { padding: 1.6rem; max-width: 380px; }
+      .chat-popup { padding: 1.6rem; max-width: 380px; }
+      .mpesa-popup { padding: 1.6rem; max-width: 380px; }
+      .mpesa-popup .mpesa-denominations .denom-btn { font-size: 0.7rem; padding: 0.25rem 0.5rem; min-width: 40px; }
+      .action-popup { padding: 1.6rem; max-width: 380px; }
+      .notif-popup { padding: 1.6rem; max-width: 380px; }
+      .notif-popup .notif-list { max-height: 250px; }
     }
 
     @media (max-width: 480px) {
       .main-content { padding: 0.4rem; }
-      .top-bar { 
-        padding: 0.5rem 0.5rem; 
-        min-height: 64px; 
-        gap: 0.35rem;
-      }
+      .top-bar { padding: 0.5rem 0.5rem; min-height: 64px; gap: 0.35rem; }
       .site-name { font-size: 1.1rem; }
       .site-name .ai-badge { display: none; }
       .balance-display .balance-amount { font-size: 0.85rem; }
@@ -1583,23 +1302,41 @@
       .param-btn-group .param-value { font-size: 0.85rem; }
       .even-btn .payout-value, .odd-btn .payout-value { font-size: 1.05rem; }
       .even-btn, .odd-btn { min-height: 52px; padding: 0.35rem 0.4rem; font-size: 0.65rem; border-width: 2px; }
+      .live-trade-popup { padding: 1.2rem; max-width: 340px; }
+      .live-trade-popup .balance-display-popup .bal-amount { font-size: 1.2rem; }
+      .live-trade-popup .stats-grid { grid-template-columns: 1fr 1fr; }
+      .live-trade-popup .popup-actions { flex-direction: column; }
+      .live-trade-popup .popup-actions .btn-close-trade { order: -1; background: transparent; border: none; color: #6e7681; padding: 0.3rem; }
       .param-popup { padding: 1rem; max-width: 340px; }
       .btn-activate { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
       .btn-live-chat { font-size: 0.65rem; padding: 0.4rem 0.7rem; }
       .bot-card { padding: 0.5rem; }
-      .dashboard-card { display: none !important; }
       .history-popup-content { padding: 0.8rem !important; }
       .history-popup-content .history-popup-table-wrap { max-height: 50vh !important; }
       .history-popup-content .history-popup-table { font-size: 0.65rem; }
       .history-popup-content .history-popup-table th { font-size: 0.6rem; padding: 0.4rem 0.4rem 0.4rem 0; }
       .history-popup-content .history-popup-table td { font-size: 0.6rem; padding: 0.35rem 0.4rem 0.35rem 0; }
-      .deposit-popup { padding: 1.2rem !important; }
-      .deposit-popup .deposit-title { font-size: 1.2rem; }
-      .deposit-popup .deposit-amount-btn { font-size: 0.75rem; padding: 0.3rem 0.6rem; min-width: 48px; }
       .sidebar { width: 280px; }
       .sidebar-logo img { height: 36px; }
       .sidebar-logo-text { font-size: 1.1rem; }
       .sidebar-nav li a { font-size: 0.9rem; padding: 0.7rem 0.9rem; }
+      .ai-scan-popup { padding: 1.2rem; max-width: 340px; }
+      .ai-scan-popup .scan-title { font-size: 1.3rem; }
+      .ai-scan-popup .scan-summary { flex-wrap: wrap; gap: 0.3rem; }
+      .chat-popup { padding: 1.2rem; max-width: 340px; }
+      .chat-popup .chat-title { font-size: 1.2rem; }
+      .chat-popup .chat-features { flex-direction: column; align-items: center; }
+      .mpesa-popup { padding: 1.2rem; max-width: 340px; }
+      .mpesa-popup .mpesa-title { font-size: 1.1rem; }
+      .mpesa-popup .mpesa-denominations .denom-btn { font-size: 0.65rem; padding: 0.2rem 0.4rem; min-width: 34px; }
+      .mpesa-popup .mpesa-custom-amount input { font-size: 0.75rem; padding: 0.3rem 0.4rem; }
+      .action-popup { padding: 1.2rem; max-width: 340px; }
+      .action-popup .action-title { font-size: 1.1rem; }
+      .action-popup .action-details .detail-row { font-size: 0.7rem; }
+      .notif-popup { padding: 1.2rem; max-width: 340px; }
+      .notif-popup .notif-title { font-size: 1.1rem; }
+      .notif-popup .notif-list { max-height: 200px; }
+      .notif-popup .notif-item .notif-msg { font-size: 0.7rem; }
     }
 
     .dashboard-card { display: none !important; }
@@ -1616,25 +1353,31 @@
     <ul class="sidebar-nav">
       <li class="nav-label">Main</li>
       <li><a href="#" class="active"><i class="fas fa-th-large"></i> Dashboard</a></li>
-      <li><a href="#"><i class="fas fa-chart-line"></i> Trading</a></li>
-      <li><a href="#"><i class="fas fa-robot"></i> AI Bot</a></li>
-      <li class="nav-label">Portfolio</li>
-      <li><a href="#"><i class="fas fa-wallet"></i> Wallet</a></li>
-      <li><a href="#" id="historyNavLink"><i class="fas fa-history"></i> History</a></li>
-      <li><a href="#"><i class="fas fa-file-invoice"></i> Statements</a></li>
-      <li class="nav-label">Tools</li>
-      <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-      <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+      <li><a href="#" id="aiBotNavLink"><i class="fas fa-robot"></i> AI Bot</a></li>
+      
+      <li class="nav-divider"></li>
+      <li class="nav-label">Funds</li>
+      <li><a href="#" id="sidebarDepositBtn"><i class="fas fa-plus-circle" style="color:#3fb950;"></i> Deposit</a></li>
+      <li><a href="#" id="sidebarWithdrawBtn"><i class="fas fa-arrow-circle-right" style="color:#f0883e;"></i> Withdraw</a></li>
+      
+      <li class="nav-divider"></li>
+      <li class="nav-label">Learn & Earn</li>
+      <li><a href="#" id="sidebarKnowHowBtn"><i class="fas fa-graduation-cap" style="color:#58a6ff;"></i> Know How to Trade</a></li>
+      <li><a href="#" id="sidebarReferBtn"><i class="fas fa-share-alt" style="color:#ffd700;"></i> Refer & Earn</a></li>
+      
+      <li class="nav-divider"></li>
+      <li class="nav-label">Support</li>
+      <li><a href="#" id="sidebarHistoryBtn"><i class="fas fa-history"></i> History</a></li>
+      <li><a href="#" id="sidebarHelpBtn"><i class="fas fa-question-circle"></i> Help Center</a></li>
+      <li><a href="#" id="sidebarEmailBtn"><i class="fas fa-envelope" style="color:#f0883e;"></i> Email Support</a></li>
     </ul>
     <div class="sidebar-user">
-      <div class="avatar">JD</div>
-      <div class="user-info"><div class="name">John Doe</div><div class="email">john.doe@email.com</div></div>
-      <a href="#" style="color:#6e7681; font-size:0.9rem; transition: color 0.3s;" onmouseover="this.style.color='#58a6ff'" onmouseout="this.style.color='#6e7681'"><i class="fas fa-sign-out-alt"></i></a>
+      <a href="#" id="signOutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
     </div>
   </aside>
 
   <main class="main-content">
-    <!-- TOP BAR - LARGER HEADER -->
+    <!-- TOP BAR -->
     <div class="top-bar">
       <div class="top-bar-left">
         <div class="hamburger-dash" id="hamburgerDash"><span></span><span></span><span></span></div>
@@ -1804,7 +1547,7 @@
       <div class="bot-card">
         <div class="card-header">
           <h3><i class="fas fa-robot"></i> AI Bot</h3>
-          <a href="#" class="card-action">Config <i class="fas fa-cog"></i></a>
+          <a href="#" class="card-action" id="aiBotTrigger">Scan Market <i class="fas fa-search"></i></a>
         </div>
         <div class="bot-controls">
           <button class="btn-activate" id="activateBtn"><i class="fas fa-power-off"></i> Activate</button>
@@ -1813,6 +1556,177 @@
       </div>
     </div>
   </main>
+</div>
+
+<!-- NOTIFICATION POPUP (Welcome & Notification Center) -->
+<div class="notif-popup-overlay" id="notifPopupOverlay">
+  <div class="notif-popup">
+    <div class="notif-header">
+      <div class="notif-title"><i class="fas fa-bell"></i> Notifications</div>
+      <button class="notif-close" id="notifClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="notif-welcome">
+      <div class="welcome-text">👋 Welcome back, <span>Trader!</span></div>
+    </div>
+    <div class="notif-list" id="notifList">
+      <!-- Notifications will be populated here -->
+    </div>
+    <div class="notif-footer">
+      <button class="btn-mark-read" id="markAllRead"><i class="fas fa-check-double"></i> Mark All Read</button>
+      <button class="btn-clear-all" id="clearAllNotifs"><i class="fas fa-trash-alt"></i> Clear All</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI SCAN POPUP -->
+<div class="ai-scan-overlay" id="aiScanOverlay">
+  <div class="ai-scan-popup">
+    <div class="scan-icon"><i class="fas fa-brain"></i></div>
+    <div class="scan-title">AI Market Scan</div>
+    <div class="scan-sub">Real-time volatility index analysis & trading signals</div>
+    <div class="scan-market-info">
+      <span><i class="fas fa-database"></i> 4 Assets Analyzed</span>
+      <span><i class="fas fa-bolt"></i> <span id="scanSpeed">Live</span></span>
+      <span><i class="fas fa-chart-simple"></i> Volatility Index</span>
+    </div>
+    <div id="scanResultsContainer" class="scan-results-container">
+      <div class="scan-loading">
+        <div class="dot-loader"></div>
+        <div class="dot-loader"></div>
+        <div class="dot-loader"></div>
+      </div>
+    </div>
+    <div class="scan-summary" id="scanSummary">
+      <div class="summary-item"><span class="num buy" id="buyCount">0</span><span class="label">Buy</span></div>
+      <div class="summary-item"><span class="num sell" id="sellCount">0</span><span class="label">Sell</span></div>
+      <div class="summary-item"><span class="num neutral" id="neutralCount">0</span><span class="label">Neutral</span></div>
+      <div class="summary-item"><span class="num" id="totalCount">0</span><span class="label">Total</span></div>
+    </div>
+    <div class="scan-time"><i class="fas fa-clock"></i> Last updated: <span id="scanTimestamp">Just now</span></div>
+    <button class="btn-close-scan" id="closeScanPopup"><i class="fas fa-check-circle" style="margin-right:6px;"></i> Done</button>
+  </div>
+</div>
+
+<!-- LIVE CHAT POPUP (WhatsApp) -->
+<div class="chat-popup-overlay" id="chatPopupOverlay">
+  <div class="chat-popup">
+    <div class="chat-icon"><i class="fab fa-whatsapp"></i></div>
+    <div class="chat-title">Live Support</div>
+    <div class="chat-sub">Connect with a dedicated agent instantly</div>
+    <div class="chat-agent-info">
+      <div class="agent-avatar">SA</div>
+      <div class="agent-details">
+        <div class="name">Sarah Adams</div>
+        <div class="status"><span class="dot"></span> Online Now</div>
+      </div>
+    </div>
+    <div class="chat-features">
+      <span class="feature"><i class="fas fa-clock"></i> 24/7 Support</span>
+      <span class="feature"><i class="fas fa-user-check"></i> Verified Agent</span>
+      <span class="feature"><i class="fas fa-headset"></i> 1-on-1 Chat</span>
+    </div>
+    <div class="chat-actions">
+      <button class="btn-whatsapp" id="whatsappConnect"><i class="fab fa-whatsapp"></i> Connect on WhatsApp</button>
+      <button class="btn-chat-cancel" id="cancelChat">Cancel</button>
+    </div>
+    <div class="chat-disclaimer">You'll be connected to a live agent who will cater to your trading needs</div>
+  </div>
+</div>
+
+<!-- M-PESA DEPOSIT POPUP -->
+<div class="mpesa-popup-overlay" id="mpesaPopupOverlay">
+  <div class="mpesa-popup">
+    <div class="mpesa-icon"><i class="fas fa-mobile-alt"></i></div>
+    <div class="mpesa-title">M-Pesa Deposit</div>
+    <div class="mpesa-sub">Choose amount and enter your details</div>
+    
+    <div class="mpesa-denominations">
+      <button class="denom-btn" data-amount="1">$1</button>
+      <button class="denom-btn" data-amount="5">$5</button>
+      <button class="denom-btn active" data-amount="10">$10</button>
+      <button class="denom-btn" data-amount="25">$25</button>
+      <button class="denom-btn" data-amount="50">$50</button>
+      <button class="denom-btn" data-amount="100">$100</button>
+    </div>
+    
+    <div class="mpesa-custom-amount">
+      <input type="number" id="mpesaCustomAmount" placeholder="Custom amount" min="1" step="1" />
+    </div>
+    
+    <div class="mpesa-amount-display">
+      <span class="label">Amount to Deposit</span>
+      <span class="amount" id="mpesaAmountDisplay">$10</span>
+    </div>
+    
+    <div class="mpesa-form">
+      <div class="form-group">
+        <label>M-Pesa Phone Number</label>
+        <input type="tel" id="mpesaPhoneInput" placeholder="e.g. 0712345678" />
+        <span class="input-hint"><i class="fas fa-info-circle"></i> We'll send a payment prompt to this number</span>
+      </div>
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="mpesaNameInput" placeholder="Enter your full name" />
+      </div>
+    </div>
+    
+    <div class="mpesa-actions">
+      <button class="btn-mpesa-confirm" id="mpesaConfirm"><i class="fas fa-paper-plane"></i> Send Prompt</button>
+      <button class="btn-mpesa-cancel" id="mpesaCancel">Cancel</button>
+    </div>
+    <div class="mpesa-disclaimer">A prompt will be sent to your phone. Confirm payment to complete deposit.</div>
+  </div>
+</div>
+
+<!-- ACTION POPUPS (Generic for Withdraw, Know How, Refer & Earn, Email Support) -->
+<div class="action-popup-overlay" id="actionPopupOverlay">
+  <div class="action-popup">
+    <div class="action-icon" id="actionIcon"><i class="fas fa-arrow-circle-right"></i></div>
+    <div class="action-title" id="actionTitle">Withdraw</div>
+    <div class="action-sub" id="actionSub">Withdraw your funds securely</div>
+    <div class="action-details" id="actionDetails">
+      <div class="detail-row"><span class="label">Status</span><span class="value">Available</span></div>
+      <div class="detail-row"><span class="label">Processing Time</span><span class="value">24-48 hours</span></div>
+      <div class="detail-row"><span class="label">Min Amount</span><span class="value">$10</span></div>
+    </div>
+    <div id="actionExtraContent"></div>
+    <button class="action-btn-close" id="actionCloseBtn">Got it</button>
+  </div>
+</div>
+
+<!-- LIVE TRADE POPUP -->
+<div class="live-trade-overlay" id="liveTradeOverlay">
+  <div class="live-trade-popup">
+    <div class="popup-header">
+      <div class="trade-type">
+        <span class="even-label" id="liveTradeTypeLabel"><i class="fas fa-check-circle"></i> EVEN</span>
+      </div>
+      <div class="trade-status" id="liveTradeStatus">● LIVE</div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+      <div class="progress-label">
+        <span>Progress</span>
+        <span id="progressPercent">0%</span>
+      </div>
+    </div>
+    <div class="balance-display-popup">
+      <div class="bal-label">Current Balance</div>
+      <div class="bal-amount" id="liveBalanceDisplay">$1,000.00</div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-label">Stake</div><div class="stat-value gold" id="liveStakeDisplay">$25</div></div>
+      <div class="stat-box"><div class="stat-label">Target</div><div class="stat-value pink" id="liveTargetDisplay">$30</div></div>
+      <div class="stat-box"><div class="stat-label">Earned</div><div class="stat-value green" id="liveEarnedDisplay">$0</div></div>
+    </div>
+    <div class="target-info">Target: <span id="liveTargetInfo">$30</span> • Stake: <span id="liveStakeInfo">$25</span></div>
+    <div class="popup-actions">
+      <button class="btn-stop-trade" id="stopTradeBtn"><i class="fas fa-stop-circle"></i> Stop Trade</button>
+      <button class="btn-close-trade" id="closeLivePopup">✕</button>
+    </div>
+  </div>
 </div>
 
 <!-- HISTORY POPUP -->
@@ -1831,30 +1745,6 @@
         <i class="fas fa-inbox"></i>
         No trades recorded yet.<br>Start trading to see your history here!
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- DEPOSIT POPUP -->
-<div class="deposit-popup-overlay" id="depositPopupOverlay">
-  <div class="deposit-popup">
-    <div class="deposit-icon"><i class="fas fa-coins"></i></div>
-    <div class="deposit-title">Need Funds?</div>
-    <div class="deposit-sub">Your Real account needs a top-up to trade</div>
-    <div class="deposit-balance">
-      <div class="bal-label">Current Balance</div>
-      <div class="bal-amount">$0.00</div>
-    </div>
-    <div class="deposit-amounts">
-      <button class="deposit-amount-btn" data-amount="25">$25</button>
-      <button class="deposit-amount-btn" data-amount="50">$50</button>
-      <button class="deposit-amount-btn active" data-amount="100">$100</button>
-      <button class="deposit-amount-btn" data-amount="250">$250</button>
-      <button class="deposit-amount-btn" data-amount="500">$500</button>
-    </div>
-    <div class="deposit-actions">
-      <button class="btn-deposit-cancel" id="depositCancel">Later</button>
-      <button class="btn-deposit-confirm" id="depositConfirm"><i class="fas fa-plus-circle" style="margin-right:4px;"></i> Deposit</button>
     </div>
   </div>
 </div>
@@ -1922,38 +1812,557 @@
       });
     });
 
+    // NOTIFICATION POPUP
+    const notifPopupOverlay = document.getElementById('notifPopupOverlay');
+    const notifClose = document.getElementById('notifClose');
+    const notifList = document.getElementById('notifList');
+    const notifBtn = document.getElementById('notifBtn');
+    const markAllReadBtn = document.getElementById('markAllRead');
+    const clearAllBtn = document.getElementById('clearAllNotifs');
+    const badge = notifBtn.querySelector('.badge');
+
+    // Sample notifications data
+    let notifications = [
+      { id: 1, icon: 'info', iconClass: 'fas fa-info-circle', message: 'Welcome to Pocket Options! Start your trading journey today.', time: 'Just now' },
+      { id: 2, icon: 'success', iconClass: 'fas fa-check-circle', message: 'BTC/USD trade won! +$112.50 added to your balance.', time: '5 min ago' },
+      { id: 3, icon: 'success', iconClass: 'fas fa-check-circle', message: 'ETH/USD trade won! +$210.00 added to your balance.', time: '12 min ago' },
+      { id: 4, icon: 'warning', iconClass: 'fas fa-exclamation-triangle', message: 'EUR/USD trade lost. -$85.00 deducted from your balance.', time: '28 min ago' },
+      { id: 5, icon: 'info', iconClass: 'fas fa-info-circle', message: 'AI Bot is now scanning for trading opportunities.', time: '1 hour ago' },
+      { id: 6, icon: 'success', iconClass: 'fas fa-check-circle', message: 'BTC/USD trade won! +$320.00 added to your balance.', time: '2 hours ago' },
+      { id: 7, icon: 'danger', iconClass: 'fas fa-times-circle', message: 'ETH/USD trade lost. -$42.50 deducted from your balance.', time: '3 hours ago' },
+    ];
+
+    let unreadCount = notifications.length;
+
+    function updateBadge() {
+      if (unreadCount > 0) {
+        badge.textContent = unreadCount;
+        badge.style.display = 'flex';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+
+    function renderNotifications() {
+      if (notifications.length === 0) {
+        notifList.innerHTML = `
+          <div class="notif-empty">
+            <i class="fas fa-inbox"></i>
+            No notifications yet. Start trading to get updates!
+          </div>
+        `;
+        return;
+      }
+      notifList.innerHTML = notifications.map(n => `
+        <div class="notif-item">
+          <div class="notif-icon ${n.icon}"><i class="${n.iconClass}"></i></div>
+          <div class="notif-content">
+            <div class="notif-msg">${n.message}</div>
+            <div class="notif-time">${n.time}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openNotifications() {
+      notifPopupOverlay.classList.add('active');
+      renderNotifications();
+    }
+
+    function closeNotifications() {
+      notifPopupOverlay.classList.remove('active');
+    }
+
+    notifBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openNotifications();
+    });
+
+    notifClose.addEventListener('click', closeNotifications);
+    notifPopupOverlay.addEventListener('click', function(e) {
+      if (e.target === this) closeNotifications();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && notifPopupOverlay.classList.contains('active')) {
+        closeNotifications();
+      }
+    });
+
+    // Mark all as read
+    markAllReadBtn.addEventListener('click', function() {
+      unreadCount = 0;
+      updateBadge();
+      // Add a success notification
+      notifications.unshift({
+        id: Date.now(),
+        icon: 'success',
+        iconClass: 'fas fa-check-circle',
+        message: 'All notifications marked as read.',
+        time: 'Just now'
+      });
+      renderNotifications();
+    });
+
+    // Clear all notifications
+    clearAllBtn.addEventListener('click', function() {
+      if (notifications.length === 0) return;
+      if (confirm('Clear all notifications?')) {
+        notifications = [];
+        unreadCount = 0;
+        updateBadge();
+        renderNotifications();
+      }
+    });
+
+    // Update badge initially
+    updateBadge();
+
+    // Add a new notification function (can be called from trading engine)
+    function addNotification(message, type = 'info') {
+      const iconMap = {
+        info: { icon: 'info', iconClass: 'fas fa-info-circle' },
+        success: { icon: 'success', iconClass: 'fas fa-check-circle' },
+        warning: { icon: 'warning', iconClass: 'fas fa-exclamation-triangle' },
+        danger: { icon: 'danger', iconClass: 'fas fa-times-circle' }
+      };
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      notifications.unshift({
+        id: Date.now(),
+        ...iconMap[type] || iconMap.info,
+        message: message,
+        time: timeStr
+      });
+      unreadCount++;
+      updateBadge();
+      // If popup is open, re-render
+      if (notifPopupOverlay.classList.contains('active')) {
+        renderNotifications();
+      }
+    }
+
+    // Expose addNotification globally for use in other parts
+    window.addNotification = addNotification;
+
+    // ACTION POPUP (Generic)
+    const actionPopupOverlay = document.getElementById('actionPopupOverlay');
+    const actionIcon = document.getElementById('actionIcon');
+    const actionTitle = document.getElementById('actionTitle');
+    const actionSub = document.getElementById('actionSub');
+    const actionDetails = document.getElementById('actionDetails');
+    const actionExtraContent = document.getElementById('actionExtraContent');
+    const actionCloseBtn = document.getElementById('actionCloseBtn');
+
+    function showActionPopup(config) {
+      actionIcon.className = 'action-icon ' + (config.iconClass || '');
+      actionIcon.innerHTML = config.icon || '<i class="fas fa-arrow-circle-right"></i>';
+      actionTitle.textContent = config.title || 'Action';
+      actionSub.textContent = config.sub || 'Complete your action';
+      actionDetails.innerHTML = config.details || '<div class="detail-row"><span class="label">Status</span><span class="value">Available</span></div>';
+      actionExtraContent.innerHTML = config.extra || '';
+      actionPopupOverlay.classList.add('active');
+    }
+
+    actionCloseBtn.addEventListener('click', function() {
+      actionPopupOverlay.classList.remove('active');
+    });
+    actionPopupOverlay.addEventListener('click', function(e) {
+      if (e.target === this) actionPopupOverlay.classList.remove('active');
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && actionPopupOverlay.classList.contains('active')) {
+        actionPopupOverlay.classList.remove('active');
+      }
+    });
+
+    // SIDEBAR: Deposit (opens M-PESA popup)
+    document.getElementById('sidebarDepositBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      if (isRealAccount) {
+        mpesaPopupOverlay.classList.add('active');
+        denomBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('.denom-btn[data-amount="10"]')?.classList.add('active');
+        updateMpesaAmount(10);
+        mpesaCustomAmount.value = 10;
+        if (window.innerWidth <= 820 && sidebar.classList.contains('open')) toggleSidebar();
+      } else {
+        alert('💰 Demo account: You can practice with virtual funds.\nSwitch to Real account for live trading.');
+      }
+    });
+
+    // SIDEBAR: Withdraw
+    document.getElementById('sidebarWithdrawBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const currentBalance = getBalance();
+      showActionPopup({
+        icon: '<i class="fas fa-arrow-circle-right" style="color:#f0883e;"></i>',
+        title: 'Withdraw Funds',
+        sub: 'Withdraw your earnings securely',
+        details: `
+          <div class="detail-row"><span class="label">Available Balance</span><span class="value">$${currentBalance.toFixed(2)}</span></div>
+          <div class="detail-row"><span class="label">Processing Time</span><span class="value">24-48 hours</span></div>
+          <div class="detail-row"><span class="label">Min Withdrawal</span><span class="value">$10</span></div>
+          <div class="detail-row"><span class="label">Method</span><span class="value">M-Pesa / Bank Transfer</span></div>
+        `,
+        extra: `<div style="text-align:center;font-size:0.7rem;color:#6e7681;margin-top:0.3rem;">Your withdrawal will be processed within 24-48 hours</div>`
+      });
+      if (window.innerWidth <= 820 && sidebar.classList.contains('open')) toggleSidebar();
+    });
+
+    // SIDEBAR: Know How to Trade
+    document.getElementById('sidebarKnowHowBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      showActionPopup({
+        icon: '<i class="fas fa-graduation-cap" style="color:#58a6ff;"></i>',
+        title: 'Know How to Trade',
+        sub: 'Learn the basics of trading volatility indices',
+        details: `
+          <div class="detail-row"><span class="label">📘 Beginner Guide</span><span class="value">Start Here</span></div>
+          <div class="detail-row"><span class="label">📊 Trading Strategies</span><span class="value">Learn Now</span></div>
+          <div class="detail-row"><span class="label">🎯 Even/Odd Strategy</span><span class="value">Watch Video</span></div>
+          <div class="detail-row"><span class="label">📈 Market Analysis</span><span class="value">Read More</span></div>
+        `,
+        extra: `<div style="text-align:center;font-size:0.7rem;color:#6e7681;margin-top:0.3rem;">Start your trading journey with our comprehensive guides</div>`
+      });
+      if (window.innerWidth <= 820 && sidebar.classList.contains('open')) toggleSidebar();
+    });
+
+    // SIDEBAR: Refer & Earn
+    document.getElementById('sidebarReferBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const refCode = 'PO' + Math.random().toString(36).substring(2, 8).toUpperCase();
+      showActionPopup({
+        icon: '<i class="fas fa-share-alt" style="color:#ffd700;"></i>',
+        title: 'Refer & Earn',
+        sub: 'Invite friends and earn rewards',
+        details: `
+          <div class="detail-row"><span class="label">Your Referral Code</span><span class="value" style="color:#ffd700;font-weight:700;">${refCode}</span></div>
+          <div class="detail-row"><span class="label">Bonus per Referral</span><span class="value" style="color:#3fb950;">$10</span></div>
+          <div class="detail-row"><span class="label">Total Referrals</span><span class="value">0</span></div>
+          <div class="detail-row"><span class="label">Earnings</span><span class="value" style="color:#3fb950;">$0.00</span></div>
+        `,
+        extra: `<div style="text-align:center;font-size:0.7rem;color:#6e7681;margin-top:0.3rem;">Share your code and earn $10 for each friend who joins!</div>`
+      });
+      if (window.innerWidth <= 820 && sidebar.classList.contains('open')) toggleSidebar();
+    });
+
+    // SIDEBAR: History
+    document.getElementById('sidebarHistoryBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      historyPopupOverlay.classList.add('active');
+      updateHistoryPopup();
+      if (window.innerWidth <= 820 && sidebar.classList.contains('open')) toggleSidebar();
+    });
+
+    // SIDEBAR: Help Center (Live Chat)
+    document.getElementById('sidebarHelpBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      chatPopupOverlay.classList.add('active');
+      if (window.innerWidth <= 820 && sidebar.classList.contains('open')) toggleSidebar();
+    });
+
+    // SIDEBAR: Email Support (cloudmikkie@outlook.com)
+    document.getElementById('sidebarEmailBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      showActionPopup({
+        icon: '<i class="fas fa-envelope" style="color:#f0883e;"></i>',
+        title: 'Email Support',
+        sub: 'Get help via email',
+        details: `
+          <div class="detail-row"><span class="label">📧 Support Email</span><span class="value" style="color:#58a6ff;">cloudmikkie@outlook.com</span></div>
+          <div class="detail-row"><span class="label">⏱ Response Time</span><span class="value">Within 24 hours</span></div>
+          <div class="detail-row"><span class="label">📋 Subject</span><span class="value">Support Request</span></div>
+        `,
+        extra: `
+          <div class="action-email">
+            <i class="fas fa-envelope"></i>
+            <span>cloudmikkie@outlook.com</span>
+            <button class="copy-btn" onclick="navigator.clipboard?.writeText('cloudmikkie@outlook.com').then(() => alert('✅ Email copied!'))">Copy</button>
+          </div>
+          <div style="text-align:center;font-size:0.65rem;color:#6e7681;margin-top:0.2rem;">We'll respond within 24 hours</div>
+        `
+      });
+      if (window.innerWidth <= 820 && sidebar.classList.contains('open')) toggleSidebar();
+    });
+
     // HISTORY POPUP
-    const historyNavLink = document.getElementById('historyNavLink');
+    const historyNavLink = document.getElementById('sidebarHistoryBtn');
     const historyPopupOverlay = document.getElementById('historyPopupOverlay');
     const closeHistoryPopup = document.getElementById('closeHistoryPopup');
     function openHistoryPopup() { historyPopupOverlay.classList.add('active'); updateHistoryPopup(); }
     function closeHistoryPopupFn() { historyPopupOverlay.classList.remove('active'); }
-    historyNavLink.addEventListener('click', function(e) { e.preventDefault(); openHistoryPopup(); });
     closeHistoryPopup.addEventListener('click', closeHistoryPopupFn);
     historyPopupOverlay.addEventListener('click', function(e) { if (e.target === this) closeHistoryPopupFn(); });
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && historyPopupOverlay.classList.contains('active')) closeHistoryPopupFn(); });
 
-    // DEPOSIT POPUP
-    const depositPopupOverlay = document.getElementById('depositPopupOverlay');
-    const depositCancel = document.getElementById('depositCancel');
-    const depositConfirm = document.getElementById('depositConfirm');
-    const depositAmountBtns = document.querySelectorAll('.deposit-amount-btn');
-    let selectedDepositAmount = 100;
-    depositAmountBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        depositAmountBtns.forEach(b => b.classList.remove('active'));
+    // LIVE CHAT POPUP (WhatsApp)
+    const chatPopupOverlay = document.getElementById('chatPopupOverlay');
+    const liveChatBtn = document.getElementById('liveChatBtn');
+    const cancelChat = document.getElementById('cancelChat');
+    const whatsappConnect = document.getElementById('whatsappConnect');
+
+    liveChatBtn.addEventListener('click', function() {
+      chatPopupOverlay.classList.add('active');
+    });
+
+    cancelChat.addEventListener('click', function() {
+      chatPopupOverlay.classList.remove('active');
+    });
+    chatPopupOverlay.addEventListener('click', function(e) {
+      if (e.target === this) chatPopupOverlay.classList.remove('active');
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && chatPopupOverlay.classList.contains('active')) {
+        chatPopupOverlay.classList.remove('active');
+      }
+    });
+
+    const whatsappNumber = '254142367289';
+    whatsappConnect.addEventListener('click', function() {
+      const message = encodeURIComponent('Hello! I need assistance with my trading account on Pocket Options. Can you help me?');
+      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+      chatPopupOverlay.classList.remove('active');
+    });
+
+    // AI SCAN POPUP
+    const aiScanOverlay = document.getElementById('aiScanOverlay');
+    const closeScanPopup = document.getElementById('closeScanPopup');
+    const scanResultsContainer = document.getElementById('scanResultsContainer');
+    const scanTimestamp = document.getElementById('scanTimestamp');
+    const buyCount = document.getElementById('buyCount');
+    const sellCount = document.getElementById('sellCount');
+    const neutralCount = document.getElementById('neutralCount');
+    const totalCount = document.getElementById('totalCount');
+
+    function performMarketScan() {
+      const symbols = ['VIX', 'VXN', 'VXD', 'VXF'];
+      const signals = ['buy', 'sell', 'neutral'];
+      const signalLabels = {
+        'buy': '<span class="signal-badge buy">BUY</span>',
+        'sell': '<span class="signal-badge sell">SELL</span>',
+        'neutral': '<span class="signal-badge neutral">NEUTRAL</span>'
+      };
+      const prices = ['15.42', '22.87', '18.63', '31.94', '27.15', '19.78', '24.33', '16.52', '29.41', '21.07'];
+      
+      let html = '';
+      let buy = 0, sell = 0, neutral = 0;
+      symbols.forEach(symbol => {
+        const signal = signals[Math.floor(Math.random() * signals.length)];
+        const confidence = (60 + Math.floor(Math.random() * 35)) + '%';
+        const price = prices[Math.floor(Math.random() * prices.length)];
+        if (signal === 'buy') buy++;
+        else if (signal === 'sell') sell++;
+        else neutral++;
+        html += `
+          <div class="scan-result-item">
+            <span class="symbol">${symbol}</span>
+            <span>${signalLabels[signal]}</span>
+            <span class="price-info">$${price}</span>
+            <span class="confidence">${confidence}</span>
+          </div>
+        `;
+      });
+      scanResultsContainer.innerHTML = html;
+      buyCount.textContent = buy;
+      sellCount.textContent = sell;
+      neutralCount.textContent = neutral;
+      totalCount.textContent = buy + sell + neutral;
+      scanTimestamp.textContent = new Date().toLocaleTimeString();
+    }
+
+    function openScanPopup() {
+      scanResultsContainer.innerHTML = `
+        <div class="scan-loading">
+          <div class="dot-loader"></div>
+          <div class="dot-loader"></div>
+          <div class="dot-loader"></div>
+        </div>
+      `;
+      aiScanOverlay.classList.add('active');
+      setTimeout(performMarketScan, 800);
+    }
+
+    document.getElementById('aiBotTrigger').addEventListener('click', function(e) {
+      e.preventDefault();
+      openScanPopup();
+    });
+
+    document.getElementById('aiBotNavLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector('.sidebar-nav a.active').classList.remove('active');
+      this.classList.add('active');
+      document.querySelector('.bot-card').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(openScanPopup, 400);
+    });
+
+    closeScanPopup.addEventListener('click', function() {
+      aiScanOverlay.classList.remove('active');
+      const activateBtn = document.getElementById('activateBtn');
+      if (activateBtn.classList.contains('active')) {
+        activateBtn.innerHTML = '<i class="fas fa-power-off"></i> Activate';
+        activateBtn.classList.remove('active');
+      }
+    });
+    aiScanOverlay.addEventListener('click', function(e) {
+      if (e.target === this) {
+        aiScanOverlay.classList.remove('active');
+        const activateBtn = document.getElementById('activateBtn');
+        if (activateBtn.classList.contains('active')) {
+          activateBtn.innerHTML = '<i class="fas fa-power-off"></i> Activate';
+          activateBtn.classList.remove('active');
+        }
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && aiScanOverlay.classList.contains('active')) {
+        aiScanOverlay.classList.remove('active');
+        const activateBtn = document.getElementById('activateBtn');
+        if (activateBtn.classList.contains('active')) {
+          activateBtn.innerHTML = '<i class="fas fa-power-off"></i> Activate';
+          activateBtn.classList.remove('active');
+        }
+      }
+    });
+
+    // ACTIVATE - AI Bot
+    const activateBtn = document.getElementById('activateBtn');
+    let isBotActive = false;
+    activateBtn.addEventListener('click', function() {
+      isBotActive = !isBotActive;
+      if (isBotActive) {
+        this.innerHTML = '<i class="fas fa-power-off"></i> Deactivate';
         this.classList.add('active');
-        selectedDepositAmount = parseInt(this.dataset.amount);
+        alert('🤖 AI Bot activated! Bot will scan for trading opportunities automatically.');
+        setTimeout(openScanPopup, 500);
+        addNotification('AI Bot activated and scanning for trading opportunities.', 'success');
+      } else {
+        this.innerHTML = '<i class="fas fa-power-off"></i> Activate';
+        this.classList.remove('active');
+        alert('⏸️ Bot deactivated.');
+        addNotification('AI Bot deactivated.', 'warning');
+      }
+    });
+
+    // M-PESA DEPOSIT POPUP
+    const mpesaPopupOverlay = document.getElementById('mpesaPopupOverlay');
+    const mpesaCancel = document.getElementById('mpesaCancel');
+    const mpesaConfirm = document.getElementById('mpesaConfirm');
+    const mpesaPhoneInput = document.getElementById('mpesaPhoneInput');
+    const mpesaNameInput = document.getElementById('mpesaNameInput');
+    const mpesaAmountDisplay = document.getElementById('mpesaAmountDisplay');
+    const mpesaCustomAmount = document.getElementById('mpesaCustomAmount');
+    const denomBtns = document.querySelectorAll('.denom-btn');
+    let selectedMpesaAmount = 10;
+
+    function updateMpesaAmount(amount) {
+      selectedMpesaAmount = amount;
+      mpesaAmountDisplay.textContent = '$' + amount;
+      mpesaCustomAmount.value = amount;
+    }
+
+    denomBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        denomBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const amount = parseInt(this.dataset.amount);
+        updateMpesaAmount(amount);
       });
     });
-    depositCancel.addEventListener('click', function() { depositPopupOverlay.classList.remove('active'); });
-    depositConfirm.addEventListener('click', function() {
-      realBalance += selectedDepositAmount;
-      updateBalanceDisplay();
-      depositPopupOverlay.classList.remove('active');
-      alert('💚 Awesome! $' + selectedDepositAmount + ' added to your Real account.\nNew balance: $' + realBalance.toFixed(2));
+
+    mpesaCustomAmount.addEventListener('input', function() {
+      let val = parseFloat(this.value);
+      if (!isNaN(val) && val > 0) {
+        denomBtns.forEach(b => b.classList.remove('active'));
+        val = Math.round(val);
+        if (val < 1) val = 1;
+        this.value = val;
+        updateMpesaAmount(val);
+      }
     });
-    depositPopupOverlay.addEventListener('click', function(e) { if (e.target === this) depositPopupOverlay.classList.remove('active'); });
+
+    mpesaCustomAmount.addEventListener('blur', function() {
+      let val = parseFloat(this.value);
+      if (isNaN(val) || val < 1) {
+        this.value = selectedMpesaAmount;
+      } else {
+        val = Math.round(val);
+        if (val < 1) val = 1;
+        this.value = val;
+        updateMpesaAmount(val);
+      }
+    });
+
+    // Top bar deposit button
+    const depositBtn = document.getElementById('depositBtn');
+    depositBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (isRealAccount) {
+        mpesaPopupOverlay.classList.add('active');
+        denomBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('.denom-btn[data-amount="10"]')?.classList.add('active');
+        updateMpesaAmount(10);
+        mpesaCustomAmount.value = 10;
+      } else {
+        alert('💰 Demo account: You can practice with virtual funds.\nSwitch to Real account for live trading.');
+      }
+    });
+
+    mpesaCancel.addEventListener('click', function() {
+      mpesaPopupOverlay.classList.remove('active');
+    });
+    mpesaPopupOverlay.addEventListener('click', function(e) {
+      if (e.target === this) mpesaPopupOverlay.classList.remove('active');
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && mpesaPopupOverlay.classList.contains('active')) {
+        mpesaPopupOverlay.classList.remove('active');
+      }
+    });
+
+    mpesaConfirm.addEventListener('click', function() {
+      const phone = mpesaPhoneInput.value.trim();
+      const name = mpesaNameInput.value.trim();
+      
+      if (!phone) {
+        alert('⚠️ Please enter your M-Pesa phone number.');
+        mpesaPhoneInput.focus();
+        return;
+      }
+      if (phone.length < 10) {
+        alert('⚠️ Please enter a valid phone number (e.g., 0712345678).');
+        mpesaPhoneInput.focus();
+        return;
+      }
+      if (!name) {
+        alert('⚠️ Please enter your name.');
+        mpesaNameInput.focus();
+        return;
+      }
+
+      alert('📱 Sending payment prompt to ' + phone + '...\n\nAmount: $' + selectedMpesaAmount + '\nName: ' + name + '\n\nPlease check your phone and confirm the payment.');
+      
+      setTimeout(() => {
+        realBalance += selectedMpesaAmount;
+        updateBalanceDisplay();
+        mpesaPopupOverlay.classList.remove('active');
+        mpesaPhoneInput.value = '';
+        mpesaNameInput.value = '';
+        mpesaCustomAmount.value = 10;
+        denomBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('.denom-btn[data-amount="10"]')?.classList.add('active');
+        updateMpesaAmount(10);
+        alert('✅ Payment confirmed! $' + selectedMpesaAmount + ' has been added to your Real account.\nNew balance: $' + realBalance.toFixed(2));
+        addNotification('$' + selectedMpesaAmount + ' deposited successfully to your Real account.', 'success');
+      }, 1500);
+    });
+
+    // SIGN OUT
+    document.getElementById('signOutBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      if (confirm('Are you sure you want to sign out?')) {
+        alert('👋 You have been signed out successfully.');
+      }
+    });
 
     // BALANCE DROPDOWN
     const balanceDisplay = document.getElementById('balanceDisplay');
@@ -2006,6 +2415,7 @@
       isRealAccount = false;
       updateBalanceDisplay();
       alert('✅ Switched to Demo Account');
+      addNotification('Switched to Demo Account for practice trading.', 'info');
     });
     
     realOption.addEventListener('click', function(e) {
@@ -2023,14 +2433,11 @@
       isRealAccount = true;
       updateBalanceDisplay();
       alert('💰 Switched to Real Account');
+      addNotification('Switched to Real Account for live trading.', 'success');
     });
     
-    document.getElementById('depositBtn')?.addEventListener('click', function() {
-      if (isRealAccount) { depositPopupOverlay.classList.add('active'); }
-      else { alert('💰 Demo account: You can practice with virtual funds.\nSwitch to Real account for live trading.'); }
-    });
     document.getElementById('notifBtn')?.addEventListener('click', function() {
-      alert('🔔 3 notifications:\n1. BTC trade won (+$112.50)\n2. ETH trade won (+$210.00)\n3. EUR trade lost (-$85.00)');
+      // Already handled above
     });
 
     // TRADING OPTIONS
@@ -2042,25 +2449,6 @@
         else if (opt === 'over-under') { this.classList.add('active-green'); alert('✅ Over / Under'); }
         else if (opt === 'high-low') { this.classList.add('active-orange'); alert('✅ High / Low'); }
       });
-    });
-
-    // ACTIVATE
-    const activateBtn = document.getElementById('activateBtn');
-    let isActive = false;
-    activateBtn.addEventListener('click', function() {
-      isActive = !isActive;
-      if (isActive) {
-        this.innerHTML = '<i class="fas fa-power-off"></i> Deactivate';
-        this.classList.add('active');
-        alert('🤖 Bot activated!');
-      } else {
-        this.innerHTML = '<i class="fas fa-power-off"></i> Activate';
-        this.classList.remove('active');
-        alert('⏸️ Bot deactivated.');
-      }
-    });
-    document.getElementById('liveChatBtn').addEventListener('click', function() {
-      alert('💬 Live chat connecting...');
     });
 
     // DIGIT CYCLE
@@ -2300,6 +2688,141 @@
       if (e.key === 'Enter' && popupOverlay.classList.contains('active')) applyPopup();
     });
 
+    // ----- LIVE TRADE POPUP -----
+    const liveTradeOverlay = document.getElementById('liveTradeOverlay');
+    const liveTradeTypeLabel = document.getElementById('liveTradeTypeLabel');
+    const progressBarFill = document.getElementById('progressBarFill');
+    const progressPercent = document.getElementById('progressPercent');
+    const liveBalanceDisplay = document.getElementById('liveBalanceDisplay');
+    const liveStakeDisplay = document.getElementById('liveStakeDisplay');
+    const liveTargetDisplay = document.getElementById('liveTargetDisplay');
+    const liveEarnedDisplay = document.getElementById('liveEarnedDisplay');
+    const liveTargetInfo = document.getElementById('liveTargetInfo');
+    const liveStakeInfo = document.getElementById('liveStakeInfo');
+    const stopTradeBtn = document.getElementById('stopTradeBtn');
+    const closeLivePopup = document.getElementById('closeLivePopup');
+
+    let liveTradeActive = false;
+    let liveTradeMode = 'even';
+    let liveStake = 25;
+    let liveTarget = 30;
+    let liveEarned = 0;
+    let liveInterval = null;
+    let liveStartTime = 0;
+    let liveBalanceSnapshot = 1000;
+
+    function showLiveTradePopup(mode, stake, target) {
+      liveTradeMode = mode;
+      liveStake = stake;
+      liveTarget = target;
+      liveEarned = 0;
+      liveBalanceSnapshot = getBalance();
+      liveTradeActive = true;
+      liveStartTime = Date.now();
+
+      const typeLabel = mode === 'even' ? 'EVEN' : 'ODD';
+      const icon = mode === 'even' ? 'fa-check-circle' : 'fa-times-circle';
+      const colorClass = mode === 'even' ? 'even-label' : 'odd-label';
+      liveTradeTypeLabel.className = colorClass;
+      liveTradeTypeLabel.innerHTML = `<i class="fas ${icon}"></i> ${typeLabel}`;
+      
+      liveStakeDisplay.textContent = '$' + stake;
+      liveTargetDisplay.textContent = '$' + target;
+      liveStakeInfo.textContent = '$' + stake;
+      liveTargetInfo.textContent = '$' + target;
+      liveEarnedDisplay.textContent = '$0';
+      
+      updateLiveBalanceDisplay();
+      progressBarFill.style.width = '0%';
+      progressPercent.textContent = '0%';
+      
+      liveTradeOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      if (liveInterval) clearInterval(liveInterval);
+      liveInterval = setInterval(() => {
+        if (!liveTradeActive) return;
+        
+        const increment = Math.floor(Math.random() * 3) + 1;
+        liveEarned += increment;
+        if (liveEarned > liveTarget) liveEarned = liveTarget;
+        
+        const newBalance = liveBalanceSnapshot + liveEarned;
+        if (isRealAccount) {
+          realBalance = newBalance;
+        } else {
+          balance = newBalance;
+        }
+        updateBalanceDisplay();
+        updateLiveBalanceDisplay();
+        
+        liveEarnedDisplay.textContent = '$' + liveEarned;
+        
+        const progress = Math.min((liveEarned / liveTarget) * 100, 100);
+        progressBarFill.style.width = progress + '%';
+        progressPercent.textContent = Math.round(progress) + '%';
+        
+        if (liveEarned >= liveTarget) {
+          completeTrade('win');
+        }
+      }, 1200);
+    }
+
+    function updateLiveBalanceDisplay() {
+      const currentBalance = getBalance();
+      liveBalanceDisplay.textContent = '$' + currentBalance.toFixed(2);
+      liveBalanceDisplay.classList.remove('increasing');
+      void liveBalanceDisplay.offsetWidth;
+      liveBalanceDisplay.classList.add('increasing');
+    }
+
+    function completeTrade(result) {
+      if (!liveTradeActive) return;
+      liveTradeActive = false;
+      if (liveInterval) {
+        clearInterval(liveInterval);
+        liveInterval = null;
+      }
+      liveTradeOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      
+      const timeTaken = Math.floor((Date.now() - liveStartTime) / 1000);
+      const stake = liveStake;
+      
+      if (result === 'win') {
+        const profit = liveEarned;
+        const payout = stake + profit;
+        showWinPopup(profit, stake, payout, timeTaken, liveTradeMode.charAt(0).toUpperCase() + liveTradeMode.slice(1));
+        addNotification(`${liveTradeMode.toUpperCase()} trade won! +$${profit} added to your balance.`, 'success');
+      } else {
+        const lossAmount = stake;
+        const newBalance = getBalance() - lossAmount;
+        setBalance(newBalance);
+        showLossPopup(stake, lossAmount, 0, timeTaken, liveTradeMode.charAt(0).toUpperCase() + liveTradeMode.slice(1));
+        addNotification(`${liveTradeMode.toUpperCase()} trade lost. -$${lossAmount} deducted from your balance.`, 'danger');
+      }
+    }
+
+    stopTradeBtn.addEventListener('click', function() {
+      if (liveTradeActive) {
+        completeTrade('loss');
+      }
+    });
+
+    closeLivePopup.addEventListener('click', function() {
+      if (liveTradeActive) {
+        completeTrade('loss');
+      }
+      liveTradeOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    liveTradeOverlay.addEventListener('click', function(e) {
+      if (e.target === this && liveTradeActive) {
+        completeTrade('loss');
+      }
+    });
+
     // ----- TRADING ENGINE -----
     const evenBtn = document.getElementById('evenBtn');
     const oddBtn = document.getElementById('oddBtn');
@@ -2386,6 +2909,9 @@
       isRunning = false;
       evenBtn.classList.remove('active');
       oddBtn.classList.remove('active');
+      if (liveTradeActive) {
+        completeTrade('loss');
+      }
     }
 
     function isEven(num) { return num % 2 === 0; }
@@ -2419,7 +2945,11 @@
 
     function checkRealBalanceAndDeposit() {
       if (isRealAccount && realBalance <= 0) {
-        depositPopupOverlay.classList.add('active');
+        mpesaPopupOverlay.classList.add('active');
+        denomBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('.denom-btn[data-amount="10"]')?.classList.add('active');
+        updateMpesaAmount(10);
+        mpesaCustomAmount.value = 10;
         return true;
       }
       return false;
@@ -2473,12 +3003,15 @@
       startTime = Date.now();
       lastPrice = getCurrentPrice();
 
+      showLiveTradePopup(mode, currentStake, targetProfit);
+
       let highlighted = document.querySelector('.digit-circle.highlight');
       let currentDigit = highlighted ? parseInt(highlighted.dataset.digit) : Math.floor(Math.random() * 10);
       
       const shouldIncrement = mode === 'even' ? isEven(currentDigit) : !isEven(currentDigit);
       if (shouldIncrement) {
-        setBalance(getBalance() + 5);
+        const newBalance = getBalance() + 5;
+        setBalance(newBalance);
         currentIncrement += 5;
         const currentPrice = getCurrentPrice();
         if (mode === 'even' && currentPrice > lastPrice) playSingleBeep();
@@ -2504,7 +3037,8 @@
           winCounter++;
           if (winCounter >= MAX_WINS_BEFORE_LOSS) {
             const lossAmountValue = stake;
-            setBalance(getBalance() - lossAmountValue);
+            const newBalance = getBalance() - lossAmountValue;
+            setBalance(newBalance);
             showLossPopup(stake, lossAmountValue, winCounter, timeTaken, mode.charAt(0).toUpperCase() + mode.slice(1));
             winCounter = 0;
           } else {
@@ -2515,7 +3049,8 @@
 
         const shouldIncrement = mode === 'even' ? isEven(currentDigit) : !isEven(currentDigit);
         if (shouldIncrement) {
-          setBalance(getBalance() + 5);
+          const newBalance = getBalance() + 5;
+          setBalance(newBalance);
           currentIncrement += 5;
           const currentPrice = getCurrentPrice();
           if (mode === 'even' && currentPrice > lastPrice) playSingleBeep();
@@ -2530,16 +3065,26 @@
       e.stopPropagation();
       if (oddBtn.classList.contains('active')) { oddBtn.classList.remove('active'); stopIncrement(); }
       this.classList.toggle('active');
-      if (this.classList.contains('active')) { startIncrement('even'); } 
-      else { stopIncrement(); }
+      if (this.classList.contains('active')) { 
+        startIncrement('even');
+        addNotification('Even trade started!', 'info');
+      } else { 
+        stopIncrement();
+        addNotification('Even trade stopped.', 'warning');
+      }
     });
 
     oddBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       if (evenBtn.classList.contains('active')) { evenBtn.classList.remove('active'); stopIncrement(); }
       this.classList.toggle('active');
-      if (this.classList.contains('active')) { startIncrement('odd'); } 
-      else { stopIncrement(); }
+      if (this.classList.contains('active')) { 
+        startIncrement('odd');
+        addNotification('Odd trade started!', 'info');
+      } else { 
+        stopIncrement();
+        addNotification('Odd trade stopped.', 'warning');
+      }
     });
 
     // CHART
