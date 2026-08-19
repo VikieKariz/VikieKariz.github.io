@@ -9,26 +9,30 @@
   <style>
     /* ----- RESET & BASE (mobile-first) ----- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html, body { height: 100%; overflow: hidden; }
     body {
       background: #0a0e14;
       background-image: radial-gradient(ellipse at 10% 20%, rgba(88,166,255,0.05) 0%, transparent 50%),
                         radial-gradient(ellipse at 90% 80%, rgba(63,185,80,0.05) 0%, transparent 50%);
-      min-height: 100vh;
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
       color: #e6edf3;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
     }
-    .dashboard-wrapper { display: flex; min-height: 100vh; position: relative; }
+    .dashboard-wrapper {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+    }
 
-    /* ----- SIDEBAR (mobile-first) ----- */
+    /* ----- SIDEBAR (overlay) ----- */
     .sidebar {
       width: 280px;
       background: rgba(10,14,20,0.98);
-      backdrop-filter: blur(20px) saturate(200%);
-      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-right: 1px solid rgba(88,166,255,0.08);
       padding: 1.2rem 0.8rem;
       display: flex;
@@ -37,9 +41,8 @@
       top: 0; left: 0; bottom: 0;
       z-index: 100;
       transform: translateX(-100%);
-      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1);
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
       overflow-y: auto;
-      font-size: 0.85rem;
     }
     .sidebar.open { transform: translateX(0); }
     .sidebar::-webkit-scrollbar { width: 3px; }
@@ -48,14 +51,13 @@
       display: flex; align-items: center; gap: 0.6rem;
       margin-bottom: 1.5rem; padding-bottom: 0.8rem;
       border-bottom: 1px solid rgba(88,166,255,0.06);
-      text-decoration: none;
     }
     .sidebar-logo img {
       height: 32px; width: auto; border-radius: 8px;
       box-shadow: 0 0 0 1px rgba(88,166,255,0.15);
     }
     .sidebar-logo-text {
-      font-size: 1.1rem; font-weight: 700; color: #e6edf3;
+      font-size: 1rem; font-weight: 700; color: #e6edf3;
     }
     .sidebar-logo-text .highlight {
       background: linear-gradient(135deg, #58a6ff, #3fb950);
@@ -66,18 +68,18 @@
     .sidebar-logo-text .ai-badge {
       font-size: 0.4rem; background: rgba(88,166,255,0.15); padding: 0.05rem 0.4rem;
       border-radius: 20px; color: #58a6ff; border: 1px solid rgba(88,166,255,0.2);
-      font-weight: 600; -webkit-text-fill-color: #58a6ff; margin-left: 2px;
+      font-weight: 600; -webkit-text-fill-color: #58a6ff;
     }
     .sidebar-nav { list-style: none; flex: 1; }
     .sidebar-nav li { margin-bottom: 0.1rem; }
     .sidebar-nav li a {
-      display: flex; align-items: center; gap: 0.8rem;
+      display: flex; align-items: center; gap: 0.7rem;
       padding: 0.5rem 0.8rem; border-radius: 8px;
       color: #8b949e; text-decoration: none; font-size: 0.8rem; font-weight: 500;
       transition: all 0.2s ease; border: 1px solid transparent;
     }
     .sidebar-nav li a i { width: 1.2rem; font-size: 0.9rem; color: #6e7681; }
-    .sidebar-nav li a:hover { background: rgba(88,166,255,0.05); color: #f0f6fc; border-color: rgba(88,166,255,0.06); }
+    .sidebar-nav li a:hover { background: rgba(88,166,255,0.05); color: #f0f6fc; }
     .sidebar-nav li a.active { background: rgba(88,166,255,0.08); color: #58a6ff; border-color: rgba(88,166,255,0.1); }
     .sidebar-nav li a.active i { color: #58a6ff; }
     .sidebar-nav .nav-label {
@@ -94,159 +96,91 @@
       display: flex; align-items: center; justify-content: center;
       font-weight: 700; font-size: 0.85rem; color: #fff; flex-shrink: 0;
     }
-    .sidebar-user .user-info { flex: 1; min-width: 0; }
     .sidebar-user .user-info .name { font-weight: 600; font-size: 0.8rem; color: #f0f6fc; }
     .sidebar-user .user-info .email { font-size: 0.65rem; color: #6e7681; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .sidebar-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      z-index: 99;
-      display: none;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+      z-index: 99; display: none;
     }
     .sidebar-overlay.active { display: block; }
 
-    /* ----- MAIN CONTENT (mobile-first) ----- */
+    /* ----- MAIN CONTENT (full height, flex column) ----- */
     .main-content {
-      margin-left: 0;
       flex: 1;
-      padding: 0.3rem 0.3rem 1rem;
-      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
       width: 100%;
-      max-width: 100vw;
-      overflow-x: hidden;
+      overflow: hidden;
+      padding: 0.3rem 0.3rem 0;
     }
 
-    /* ----- TOP BAR (mobile) ----- */
+    /* ----- TOP BAR (comfortable) ----- */
     .top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.2rem;
-      padding: 0.3rem 0.4rem;
+      gap: 0.3rem;
+      padding: 0.3rem 0.5rem;
       background: rgba(10,14,20,0.85);
-      backdrop-filter: blur(20px) saturate(200%);
-      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(88,166,255,0.08);
-      border-radius: 10px 10px 0 0;
-      width: 100%;
-      min-height: 44px;
-      flex-wrap: nowrap;
+      border-radius: 12px 12px 0 0;
+      flex-shrink: 0;
+      min-height: 48px;
     }
-    .top-bar-left {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      flex: 0 0 auto;
-    }
+    .top-bar-left { display: flex; align-items: center; gap: 0.3rem; }
     .hamburger-dash {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      background: rgba(10,14,20,0.6);
-      border: 1px solid rgba(88,166,255,0.08);
-      border-radius: 6px;
-      padding: 0.2rem 0.4rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      display: flex; flex-direction: column; gap: 3px;
+      background: rgba(10,14,20,0.6); border: 1px solid rgba(88,166,255,0.08);
+      border-radius: 6px; padding: 0.25rem 0.4rem; cursor: pointer;
     }
-    .hamburger-dash span { display: block; width: 16px; height: 2px; background: #c9d1d9; border-radius: 3px; }
+    .hamburger-dash span { display: block; width: 18px; height: 2px; background: #c9d1d9; border-radius: 3px; }
     .site-name {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #e6edf3;
-      display: flex;
-      align-items: center;
-      gap: 0.1rem;
-      white-space: nowrap;
+      font-size: 0.85rem; font-weight: 700; color: #e6edf3;
+      display: flex; align-items: center; gap: 0.2rem; white-space: nowrap;
     }
     .site-name .highlight {
       background: linear-gradient(135deg, #58a6ff, #3fb950);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .site-name .ai-badge {
-      font-size: 0.35rem;
-      background: rgba(88,166,255,0.15);
-      padding: 0.05rem 0.3rem;
-      border-radius: 12px;
-      color: #58a6ff;
-      border: 1px solid rgba(88,166,255,0.2);
-      font-weight: 600;
-      -webkit-text-fill-color: #58a6ff;
-      display: none;
-    }
+    .site-name .ai-badge { display: none; }
     .top-bar-center {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      flex: 1 1 auto;
-      justify-content: flex-end;
-      min-width: 0;
+      display: flex; align-items: center; gap: 0.3rem;
+      flex: 1 1 auto; justify-content: flex-end; min-width: 0;
     }
-    .balance-dropdown {
-      position: relative;
-      z-index: 60;
-      flex-shrink: 1;
-      min-width: 0;
-    }
+    .balance-dropdown { position: relative; z-index: 60; flex-shrink: 1; min-width: 0; }
     .balance-display {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      background: rgba(10,14,20,0.6);
-      padding: 0.15rem 0.4rem;
-      border-radius: 6px;
-      border: 1px solid rgba(88,166,255,0.06);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      user-select: none;
-      flex-wrap: nowrap;
+      display: flex; align-items: center; gap: 0.2rem;
+      background: rgba(10,14,20,0.6); padding: 0.2rem 0.5rem;
+      border-radius: 6px; border: 1px solid rgba(88,166,255,0.06);
+      cursor: pointer; transition: all 0.2s ease; user-select: none;
     }
     .balance-display .balance-amount {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      white-space: nowrap;
+      font-size: 0.8rem; font-weight: 700; color: #f0f6fc; white-space: nowrap;
     }
-    .balance-display .balance-amount .currency { font-size: 0.5rem; color: #6e7681; font-weight: 400; }
+    .balance-display .balance-amount .currency { font-size: 0.55rem; color: #6e7681; font-weight: 400; }
     .balance-display .account-badge {
-      font-size: 0.35rem;
-      font-weight: 600;
-      padding: 0.05rem 0.2rem;
-      border-radius: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.2px;
+      font-size: 0.4rem; font-weight: 600; padding: 0.08rem 0.3rem;
+      border-radius: 8px; text-transform: uppercase; letter-spacing: 0.2px;
       flex-shrink: 0;
     }
     .account-badge.demo { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid rgba(88,166,255,0.15); }
     .account-badge.real { background: rgba(63,185,80,0.15); color: #3fb950; border: 1px solid rgba(63,185,80,0.15); }
-    .balance-display .dropdown-arrow { font-size: 0.45rem; color: #6e7681; transition: transform 0.2s ease; flex-shrink: 0; }
+    .balance-display .dropdown-arrow { font-size: 0.5rem; color: #6e7681; transition: transform 0.2s ease; }
     .balance-display .dropdown-arrow.open { transform: rotate(180deg); }
     .dropdown-menu {
-      position: absolute;
-      top: calc(100% + 4px);
-      left: 50%;
-      transform: translateX(-50%);
-      min-width: 150px;
-      background: rgba(10,14,20,0.98);
-      backdrop-filter: blur(20px) saturate(200%);
-      -webkit-backdrop-filter: blur(20px) saturate(200%);
-      border: 1px solid rgba(88,166,255,0.08);
-      border-radius: 10px;
-      padding: 0.2rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-      display: none;
-      animation: dropdownFade 0.2s ease;
-      z-index: 999;
-      pointer-events: auto;
+      position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+      min-width: 160px; background: rgba(10,14,20,0.98); backdrop-filter: blur(20px);
+      border: 1px solid rgba(88,166,255,0.08); border-radius: 10px; padding: 0.3rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9); display: none; animation: dropdownFade 0.2s ease;
+      z-index: 999; pointer-events: auto;
     }
     .dropdown-menu.open { display: block !important; }
     @keyframes dropdownFade {
-      0% { opacity: 0; transform: translateX(-50%) translateY(-6px) scale(0.97); }
+      0% { opacity: 0; transform: translateX(-50%) translateY(-5px) scale(0.97); }
       100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
     }
     .dropdown-menu .dropdown-item {
@@ -254,8 +188,7 @@
       border-radius: 6px; color: #c9d1d9; font-size: 0.7rem; font-weight: 500;
       cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent;
     }
-    .dropdown-menu .dropdown-item:hover { background: rgba(88,166,255,0.05); border-color: rgba(88,166,255,0.06); }
-    .dropdown-menu .dropdown-item.active { background: rgba(88,166,255,0.08); border-color: rgba(88,166,255,0.1); color: #58a6ff; }
+    .dropdown-menu .dropdown-item.active { background: rgba(88,166,255,0.08); color: #58a6ff; border-color: rgba(88,166,255,0.1); }
     .dropdown-menu .dropdown-item .item-icon {
       width: 24px; height: 24px; border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
@@ -266,1000 +199,446 @@
     .dropdown-menu .dropdown-item .item-info .item-title { font-weight: 600; font-size: 0.7rem; color: #f0f6fc; }
     .dropdown-menu .dropdown-item .item-info .item-sub { font-size: 0.55rem; color: #6e7681; }
     .dropdown-menu .dropdown-item .item-check { color: #3fb950; font-size: 0.7rem; }
-    .dropdown-menu .dropdown-divider { height: 1px; background: rgba(88,166,255,0.06); margin: 0.1rem 0.3rem; }
+    .dropdown-menu .dropdown-divider { height: 1px; background: rgba(88,166,255,0.06); margin: 0.15rem 0.3rem; }
     .deposit-btn {
-      padding: 0.15rem 0.5rem;
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      border: none;
-      border-radius: 6px;
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.55rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      align-items: center;
-      gap: 0.15rem;
-      white-space: nowrap;
-      flex-shrink: 0;
+      padding: 0.2rem 0.6rem; background: linear-gradient(135deg, #3fb950, #2d8f47);
+      border: none; border-radius: 6px; color: #fff; font-weight: 700;
+      font-size: 0.6rem; cursor: pointer; font-family: 'Inter', sans-serif;
+      display: flex; align-items: center; gap: 0.2rem; white-space: nowrap;
     }
-    .deposit-btn i { font-size: 0.55rem; }
-    .deposit-btn .btn-text { display: inline; font-size: 0.5rem; }
-    .top-bar-right {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      flex: 0 0 auto;
-    }
+    .deposit-btn i { font-size: 0.6rem; }
+    .deposit-btn .btn-text { font-size: 0.55rem; }
+    .top-bar-right { display: flex; align-items: center; gap: 0.3rem; }
     .notif-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      background: rgba(10,14,20,0.6);
-      border: 1px solid rgba(88,166,255,0.06);
-      color: #8b949e;
-      font-size: 0.7rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      width: 30px; height: 30px; border-radius: 6px;
+      background: rgba(10,14,20,0.6); border: 1px solid rgba(88,166,255,0.06);
+      color: #8b949e; font-size: 0.75rem; cursor: pointer; position: relative;
+      display: flex; align-items: center; justify-content: center;
     }
     .notif-btn .badge {
-      position: absolute;
-      top: -2px;
-      right: -2px;
-      width: 14px;
-      height: 14px;
-      background: #f0883e;
-      border-radius: 50%;
-      font-size: 0.4rem;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute; top: -2px; right: -2px; width: 14px; height: 14px;
+      background: #f0883e; border-radius: 50%; font-size: 0.4rem; font-weight: 700;
+      color: #fff; display: flex; align-items: center; justify-content: center;
       border: 1.5px solid #0a0e14;
     }
 
-    /* ----- TRADING OPTIONS BAR (mobile) ----- */
+    /* ----- TRADING OPTIONS BAR (comfortable) ----- */
     .trading-options-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.15rem;
-      padding: 0.2rem 0.3rem;
-      background: rgba(10,14,20,0.5);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(88,166,255,0.06);
-      width: 100%;
-      border-radius: 0;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      display: flex; align-items: center; gap: 0.2rem;
+      padding: 0.25rem 0.3rem; background: rgba(10,14,20,0.5);
+      backdrop-filter: blur(16px); border-bottom: 1px solid rgba(88,166,255,0.06);
+      flex-shrink: 0; overflow-x: auto; scrollbar-width: none;
     }
     .trading-options-bar::-webkit-scrollbar { display: none; }
     .option-btn-combined {
-      padding: 0.2rem 0.3rem;
-      border-radius: 4px;
-      border: 1px solid rgba(88,166,255,0.08);
-      background: rgba(10,14,20,0.4);
-      color: #8b949e;
-      font-size: 0.45rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 0.1rem;
-      flex: 1;
-      justify-content: center;
-      min-width: 0;
+      padding: 0.25rem 0.5rem; border-radius: 6px;
+      border: 1px solid rgba(88,166,255,0.08); background: rgba(10,14,20,0.4);
+      color: #8b949e; font-size: 0.55rem; font-weight: 500; cursor: pointer;
+      font-family: 'Inter', sans-serif; white-space: nowrap;
+      display: flex; align-items: center; gap: 0.15rem; flex: 1; justify-content: center;
     }
-    .option-btn-combined i { font-size: 0.4rem; opacity: 0.6; }
-    .option-btn-combined .slash { color: #6e7681; font-size: 0.35rem; opacity: 0.5; margin: 0 0.05rem; }
+    .option-btn-combined i { font-size: 0.5rem; opacity: 0.6; }
+    .option-btn-combined .slash { color: #6e7681; font-size: 0.4rem; opacity: 0.5; }
     .option-btn-combined.active-blue { background: rgba(88,166,255,0.12); border-color: rgba(88,166,255,0.2); color: #58a6ff; }
     .option-btn-combined.active-green { background: rgba(63,185,80,0.12); border-color: rgba(63,185,80,0.2); color: #3fb950; }
     .option-btn-combined.active-orange { background: rgba(240,136,62,0.12); border-color: rgba(240,136,62,0.2); color: #f0883e; }
 
-    /* ----- CHART SECTION (mobile) ----- */
-    .chart-section { padding: 0.2rem 0.1rem; margin-bottom: 0; }
+    /* ----- SCROLLABLE MIDDLE (chart + controls) ----- */
+    .scrollable-middle {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0.2rem 0.1rem 0.3rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .scrollable-middle::-webkit-scrollbar { width: 3px; }
+    .scrollable-middle::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
+
+    /* ----- CHART SECTION (balanced size) ----- */
+    .chart-section { padding: 0.1rem 0; }
     .chart-container {
-      background: rgba(10,14,20,0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 0.3rem;
-      width: 100%;
-      height: 300px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
+      background: rgba(10,14,20,0.6); backdrop-filter: blur(16px);
+      border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.4rem; width: 100%; height: 280px;
+      display: flex; flex-direction: column;
     }
     .chart-container canvas {
-      display: block;
-      width: 100% !important;
-      flex: 1;
-      border-radius: 4px;
-      min-height: 0;
+      display: block; width: 100% !important; flex: 1;
+      border-radius: 4px; min-height: 0;
     }
     .chart-header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.1rem;
-      flex-shrink: 0;
-      padding: 0;
-      flex-wrap: wrap;
-      gap: 0.1rem;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.1rem; flex-shrink: 0; gap: 0.15rem;
     }
-    .chart-header-inner .chart-title {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      flex-wrap: wrap;
-    }
+    .chart-header-inner .chart-title { display: flex; align-items: center; gap: 0.25rem; }
     .chart-header-inner .chart-title h2 {
-      font-size: 0.6rem;
-      font-weight: 600;
-      color: #f0f6fc;
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
+      font-size: 0.65rem; font-weight: 600; color: #f0f6fc;
+      display: flex; align-items: center; gap: 0.15rem;
     }
-    .chart-header-inner .chart-title h2 i { font-size: 0.55rem; }
+    .chart-header-inner .chart-title h2 i { font-size: 0.6rem; }
     .chart-header-inner .chart-title .symbol-badge {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 3px;
-      padding: 0.05rem 0.3rem;
-      color: #ffffff;
-      font-size: 0.45rem;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px; padding: 0.1rem 0.4rem; color: #fff;
+      font-size: 0.5rem; font-weight: 600;
     }
-    .chart-header-inner .chart-controls {
-      display: flex;
-      gap: 0.15rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+    .chart-header-inner .chart-controls { display: flex; gap: 0.15rem; align-items: center; flex-wrap: wrap; }
     .chart-header-inner .chart-controls select {
-      background: rgba(10,14,20,0.6);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 3px;
-      padding: 0.05rem 0.2rem;
-      color: #f0f6fc;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.45rem;
-      font-weight: 500;
-      outline: none;
-      cursor: pointer;
+      background: rgba(10,14,20,0.6); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px; padding: 0.1rem 0.3rem; color: #f0f6fc;
+      font-size: 0.5rem; font-weight: 500; outline: none; cursor: pointer;
       max-width: 60px;
     }
     .chart-header-inner .chart-controls select option { background: #0a0e14; color: #f0f6fc; }
-    .chart-header-inner .chart-timeframe {
-      display: flex;
-      gap: 0.1rem;
-    }
+    .chart-header-inner .chart-timeframe { display: flex; gap: 0.1rem; }
     .chart-header-inner .chart-timeframe button {
-      background: rgba(10,14,20,0.4);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: #8b949e;
-      font-size: 0.4rem;
-      padding: 0.05rem 0.25rem;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
+      background: rgba(10,14,20,0.4); border: 1px solid rgba(255,255,255,0.06);
+      color: #8b949e; font-size: 0.45rem; padding: 0.1rem 0.3rem;
+      border-radius: 4px; cursor: pointer; font-family: 'Inter', sans-serif;
     }
     .chart-header-inner .chart-timeframe button.active {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.15);
-      color: #ffffff;
+      background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15);
+      color: #fff;
     }
     .chart-stats-row {
-      display: flex;
-      gap: 0.3rem;
-      padding: 0.15rem 0.05rem 0.05rem;
-      flex-wrap: wrap;
-      flex-shrink: 0;
+      display: flex; gap: 0.3rem; padding: 0.2rem 0.05rem 0.05rem;
+      flex-wrap: wrap; flex-shrink: 0;
       border-top: 1px solid rgba(255,255,255,0.04);
     }
-    .chart-stats-row .stat-item {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      min-width: 30px;
-    }
-    .chart-stats-row .stat-item .label {
-      font-size: 0.35rem;
-      color: #6e7681;
-      text-transform: uppercase;
-      letter-spacing: 0.2px;
-    }
-    .chart-stats-row .stat-item .value {
-      font-size: 0.6rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      line-height: 1.1;
-    }
+    .chart-stats-row .stat-item { display: flex; flex-direction: column; flex: 1; min-width: 30px; }
+    .chart-stats-row .stat-item .label { font-size: 0.4rem; color: #6e7681; text-transform: uppercase; letter-spacing: 0.2px; }
+    .chart-stats-row .stat-item .value { font-size: 0.65rem; font-weight: 700; color: #f0f6fc; line-height: 1.2; }
     .chart-stats-row .stat-item .value.up { color: #3fb950; }
     .chart-stats-row .stat-item .value.down { color: #f0883e; }
 
-    /* ----- DIGIT CIRCLES (mobile) ----- */
+    /* ----- DIGIT CIRCLES (balanced) ----- */
     .digit-circles-container {
-      display: flex;
-      justify-content: center;
-      gap: 0.2rem;
-      padding: 0.15rem 0.05rem 0.05rem;
-      flex-shrink: 0;
-      flex-wrap: wrap;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      margin-top: 0.05rem;
+      display: flex; justify-content: center; gap: 0.2rem;
+      padding: 0.15rem 0.05rem; flex-shrink: 0; flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.04); margin-top: 0.05rem;
     }
-    .digit-circle-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.05rem;
-    }
+    .digit-circle-wrapper { display: flex; flex-direction: column; align-items: center; gap: 0.05rem; }
     .digit-circle {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.45rem;
-      font-weight: 700;
-      color: #fff;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.55rem; font-weight: 700; color: #fff;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
       transition: all 0.2s ease;
-      cursor: default;
     }
     .digit-circle.active { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.2); }
     .digit-circle.highlight {
-      background: rgba(88,166,255,0.25);
-      border-color: #58a6ff;
-      box-shadow: 0 0 12px rgba(88,166,255,0.2);
-      transform: scale(1.1);
+      background: rgba(88,166,255,0.25); border-color: #58a6ff;
+      box-shadow: 0 0 14px rgba(88,166,255,0.2); transform: scale(1.1);
     }
-    .digit-percentage {
-      font-size: 0.3rem;
-      color: #6e7681;
-      font-weight: 600;
-      min-width: 16px;
-      text-align: center;
-    }
+    .digit-percentage { font-size: 0.35rem; color: #6e7681; font-weight: 600; min-width: 16px; text-align: center; }
     .digit-percentage.high { color: #3fb950; }
     .digit-percentage.low { color: #f0883e; }
     .digit-percentage.peak { color: #ff6b6b; font-weight: 700; }
 
-    /* ----- TRADING CONTROLS (mobile) ----- */
+    /* ----- TRADING CONTROLS (comfortable) ----- */
     .trading-controls {
-      background: rgba(10,14,20,0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 0.4rem 0.4rem;
-      margin: 0.2rem 0.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
+      background: rgba(10,14,20,0.6); backdrop-filter: blur(16px);
+      border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.5rem 0.5rem; margin: 0.25rem 0;
+      display: flex; flex-direction: column; gap: 0.35rem;
       flex-shrink: 0;
     }
-    .balance-flash {
-      border-color: #ffd700 !important;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.25), inset 0 0 20px rgba(255, 215, 0, 0.05) !important;
-    }
-    .trading-controls .top-row {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.3rem;
-    }
+    .balance-flash { border-color: #ffd700 !important; box-shadow: 0 0 20px rgba(255,215,0,0.25); }
+    .trading-controls .top-row { display: flex; flex-direction: column; gap: 0.3rem; }
     .trading-controls .mode-section {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      width: 100%;
-      flex-wrap: wrap;
+      display: flex; align-items: center; gap: 0.3rem; width: 100%;
     }
     .trading-controls .mode-section .label {
-      font-size: 0.45rem;
-      color: #6e7681;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      font-weight: 600;
-      flex-shrink: 0;
+      font-size: 0.5rem; color: #6e7681; text-transform: uppercase;
+      letter-spacing: 0.3px; font-weight: 600; flex-shrink: 0;
     }
     .mode-btn {
-      padding: 0.25rem 0.8rem;
-      border-radius: 30px;
-      border: none;
-      font-weight: 700;
-      font-size: 0.55rem;
-      letter-spacing: 0.2px;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      padding: 0.3rem 1rem; border-radius: 30px; border: none;
+      font-weight: 700; font-size: 0.6rem; cursor: pointer;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff;
-      box-shadow: 0 2px 10px rgba(63,185,80,0.2);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      flex: 1;
-      justify-content: center;
-      min-width: 60px;
+      color: #fff; box-shadow: 0 2px 10px rgba(63,185,80,0.2);
+      display: inline-flex; align-items: center; gap: 4px;
+      flex: 1; justify-content: center; min-width: 60px;
     }
-    .mode-btn i { font-size: 0.55rem; }
-    .mode-btn.active-auto {
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff;
-      box-shadow: 0 2px 12px rgba(63,185,80,0.35);
-    }
-    .mode-btn.active-manual {
-      background: rgba(240,136,62,0.2);
-      color: #f0883e;
-      border: 1px solid rgba(240,136,62,0.35);
-      box-shadow: 0 2px 12px rgba(240,136,62,0.15);
-    }
-    .stake-section {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      width: 100%;
-    }
+    .mode-btn i { font-size: 0.6rem; }
+    .mode-btn.active-auto { background: linear-gradient(135deg, #3fb950, #2d8f47); color: #fff; box-shadow: 0 2px 12px rgba(63,185,80,0.35); }
+    .mode-btn.active-manual { background: rgba(240,136,62,0.2); color: #f0883e; border: 1px solid rgba(240,136,62,0.35); }
+    .stake-section { display: flex; flex-direction: column; gap: 0.2rem; width: 100%; }
     .stake-section .label {
-      font-size: 0.45rem;
-      color: #6e7681;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      font-weight: 600;
-      text-align: center;
+      font-size: 0.5rem; color: #6e7681; text-transform: uppercase;
+      letter-spacing: 0.3px; font-weight: 600; text-align: center;
     }
     .stake-control-row {
-      display: flex !important;
-      align-items: center;
-      gap: 0.2rem;
-      width: 100%;
-      justify-content: space-between;
+      display: flex !important; align-items: center; gap: 0.3rem;
+      width: 100%; justify-content: space-between;
     }
     .stake-adjust-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 1px solid rgba(88,166,255,0.15);
-      background: rgba(10,14,20,0.6);
-      color: #f0f6fc;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-      flex-shrink: 0;
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid rgba(88,166,255,0.15); background: rgba(10,14,20,0.6);
+      color: #f0f6fc; font-size: 1rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif; flex-shrink: 0;
     }
     .stake-adjust-btn.minus { color: #f0883e; border-color: rgba(240,136,62,0.25); }
     .stake-adjust-btn.plus { color: #3fb950; border-color: rgba(63,185,80,0.25); }
-    .stake-display {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 30px;
-    }
-    .stake-display .stake-value {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      line-height: 1.1;
-    }
-    .stake-display .stake-currency { font-size: 0.4rem; color: #6e7681; }
+    .stake-display { display: flex; flex-direction: column; align-items: center; min-width: 36px; }
+    .stake-display .stake-value { font-size: 1.1rem; font-weight: 700; color: #f0f6fc; line-height: 1.2; }
+    .stake-display .stake-currency { font-size: 0.45rem; color: #6e7681; }
     .stake-presets {
-      display: flex !important;
-      gap: 0.15rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
+      display: flex !important; gap: 0.15rem; flex-wrap: wrap;
+      justify-content: center; width: 100%;
     }
     .stake-preset-btn {
-      padding: 0.1rem 0.3rem;
-      border-radius: 3px;
-      border: 1px solid rgba(88,166,255,0.08);
-      background: rgba(10,14,20,0.4);
-      color: #8b949e;
-      font-size: 0.4rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-      min-width: 20px;
-      text-align: center;
-      flex: 1;
+      padding: 0.15rem 0.35rem; border-radius: 4px;
+      border: 1px solid rgba(88,166,255,0.08); background: rgba(10,14,20,0.4);
+      color: #8b949e; font-size: 0.45rem; font-weight: 600;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      min-width: 24px; text-align: center; flex: 1;
     }
-    .stake-preset-btn.active {
-      background: rgba(63,185,80,0.15);
-      border-color: #3fb950;
-      color: #3fb950;
-    }
+    .stake-preset-btn.active { background: rgba(63,185,80,0.15); border-color: #3fb950; color: #3fb950; }
     .three-params {
-      display: flex;
-      gap: 0.15rem;
-      width: 100%;
-      justify-content: space-between;
-      flex-wrap: nowrap;
+      display: flex; gap: 0.15rem; width: 100%; justify-content: space-between;
     }
     .param-btn-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.05rem;
-      background: rgba(10,14,20,0.4);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 4px;
-      padding: 0.2rem 0.05rem;
-      flex: 1;
-      min-width: 0;
-      min-height: 34px;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.05rem; background: rgba(10,14,20,0.4);
+      border: 1px solid rgba(255,255,255,0.06); border-radius: 6px;
+      padding: 0.25rem 0.1rem; flex: 1; min-width: 0; min-height: 40px;
+      cursor: pointer; transition: all 0.2s ease;
     }
     .param-btn-group .param-label {
-      font-size: 0.35rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2px;
-      color: #6e7681;
-      font-weight: 600;
-      white-space: nowrap;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 0.1rem;
+      font-size: 0.4rem; text-transform: uppercase; letter-spacing: 0.2px;
+      color: #6e7681; font-weight: 600; white-space: nowrap;
+      display: flex; align-items: center; gap: 0.1rem;
     }
-    .param-btn-group .param-label i { font-size: 0.35rem; color: #58a6ff; }
+    .param-btn-group .param-label i { font-size: 0.4rem; color: #58a6ff; }
     .param-btn-group .param-value {
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      min-width: 24px;
-      text-align: center;
-      background: transparent;
-      border: none;
-      outline: none;
-      font-family: 'Inter', sans-serif;
-      padding: 0;
-      pointer-events: none;
-      width: 100%;
+      font-size: 0.75rem; font-weight: 700; color: #f0f6fc;
+      min-width: 28px; text-align: center; background: transparent;
+      border: none; outline: none; font-family: 'Inter', sans-serif;
+      padding: 0; pointer-events: none; width: 100%;
     }
     .param-btn-group .param-value .dollar { color: #3fb950; font-weight: 700; }
 
-    /* ----- EVEN / ODD BUTTONS (mobile) ----- */
+    /* ----- EVEN / ODD BUTTONS (comfortable) ----- */
     .match-differ-row {
-      display: flex;
-      gap: 0.3rem;
-      width: 100%;
-      justify-content: space-between;
+      display: flex; gap: 0.3rem; width: 100%; justify-content: space-between;
     }
     .even-btn, .odd-btn {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.05rem;
-      padding: 0.3rem 0.3rem;
-      border-radius: 6px;
-      background: rgba(10,14,20,0.4);
-      color: #c9d1d9;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      min-height: 40px;
-      border-width: 2px;
-      border-style: solid;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.1rem;
+      padding: 0.35rem 0.4rem; border-radius: 8px;
+      background: rgba(10,14,20,0.4); color: #c9d1d9;
+      font-family: 'Inter', sans-serif; font-size: 0.55rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s ease; min-height: 50px;
+      border-width: 2.5px; border-style: solid;
     }
-    .even-btn {
-      border-color: rgba(0, 255, 200, 0.35);
-      box-shadow: 0 0 8px rgba(0, 255, 200, 0.06);
-    }
+    .even-btn { border-color: rgba(0, 255, 200, 0.35); box-shadow: 0 0 10px rgba(0, 255, 200, 0.06); }
     .even-btn .btn-label {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      font-size: 0.45rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2px;
-      color: #6e7681;
-      pointer-events: none;
+      display: flex; align-items: center; gap: 0.2rem;
+      font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.2px;
+      color: #6e7681; pointer-events: none;
     }
-    .even-btn .btn-label i { font-size: 0.45rem; color: #00ffc8; }
+    .even-btn .btn-label i { font-size: 0.5rem; color: #00ffc8; }
     .even-btn .payout-value {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #00ffc8;
-      pointer-events: none;
-      text-shadow: 0 0 12px rgba(0, 255, 200, 0.1);
+      font-size: 0.95rem; font-weight: 700; color: #00ffc8;
+      pointer-events: none; text-shadow: 0 0 12px rgba(0,255,200,0.1);
     }
     .even-btn .payout-value .dollar { color: #00ffc8; font-weight: 700; }
-    .even-btn.active {
-      background: rgba(0, 255, 200, 0.10);
-      border-color: #00ffc8;
-      box-shadow: 0 0 20px rgba(0, 255, 200, 0.2);
-      color: #00ffc8;
-    }
+    .even-btn.active { background: rgba(0,255,200,0.10); border-color: #00ffc8; box-shadow: 0 0 20px rgba(0,255,200,0.2); color: #00ffc8; }
     .even-btn.active .btn-label { color: #00ffc8; }
     .even-btn.active .btn-label i { color: #00ffc8; }
 
-    .odd-btn {
-      border-color: rgba(255, 20, 147, 0.35);
-      box-shadow: 0 0 8px rgba(255, 20, 147, 0.06);
-    }
+    .odd-btn { border-color: rgba(255,20,147,0.35); box-shadow: 0 0 10px rgba(255,20,147,0.06); }
     .odd-btn .btn-label {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      font-size: 0.45rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2px;
-      color: #6e7681;
-      pointer-events: none;
+      display: flex; align-items: center; gap: 0.2rem;
+      font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.2px;
+      color: #6e7681; pointer-events: none;
     }
-    .odd-btn .btn-label i { font-size: 0.45rem; color: #ff1493; }
+    .odd-btn .btn-label i { font-size: 0.5rem; color: #ff1493; }
     .odd-btn .payout-value {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #ff1493;
-      pointer-events: none;
-      text-shadow: 0 0 12px rgba(255, 20, 147, 0.1);
+      font-size: 0.95rem; font-weight: 700; color: #ff1493;
+      pointer-events: none; text-shadow: 0 0 12px rgba(255,20,147,0.1);
     }
     .odd-btn .payout-value .dollar { color: #ff1493; font-weight: 700; }
-    .odd-btn.active {
-      background: rgba(255, 20, 147, 0.10);
-      border-color: #ff1493;
-      box-shadow: 0 0 20px rgba(255, 20, 147, 0.2);
-      color: #ff1493;
-    }
+    .odd-btn.active { background: rgba(255,20,147,0.10); border-color: #ff1493; box-shadow: 0 0 20px rgba(255,20,147,0.2); color: #ff1493; }
     .odd-btn.active .btn-label { color: #ff1493; }
     .odd-btn.active .btn-label i { color: #ff1493; }
 
-    /* ----- POPUP (mobile) ----- */
-    .param-popup-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      z-index: 999999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 0.8rem;
+    /* ----- BOT CARD (sticky bottom, comfortable) ----- */
+    .bot-card-wrapper {
+      flex-shrink: 0;
+      padding: 0.2rem 0.1rem 0.3rem;
+      background: rgba(10,14,20,0.3);
+      backdrop-filter: blur(4px);
+      border-top: 1px solid rgba(88,166,255,0.05);
     }
-    .param-popup-overlay.active { display: flex; }
-    .param-popup {
-      background: #1a1f2a;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 0.8rem;
-      max-width: 280px;
-      width: 100%;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-      animation: popupIn 0.2s ease;
-    }
-    @keyframes popupIn {
-      0% { opacity: 0; transform: scale(0.95) translateY(10px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .param-popup .popup-title {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      margin-bottom: 0.1rem;
-      text-align: center;
-    }
-    .param-popup .popup-sub {
-      font-size: 0.55rem;
-      color: #6e7681;
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-    .param-popup .popup-presets {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.2rem;
-      justify-content: center;
-      margin-bottom: 0.5rem;
-    }
-    .param-popup .popup-preset-btn {
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      border: 1px solid rgba(88,166,255,0.08);
-      background: rgba(10,14,20,0.6);
-      color: #c9d1d9;
-      font-size: 0.6rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-      min-width: 28px;
-    }
-    .param-popup .popup-preset-btn.active {
-      background: rgba(63,185,80,0.15);
-      border-color: #3fb950;
-      color: #3fb950;
-    }
-    .param-popup .popup-manual {
-      display: flex;
-      gap: 0.3rem;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-    .param-popup .popup-manual label {
-      font-size: 0.5rem;
-      color: #6e7681;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .param-popup .popup-manual input {
-      flex: 1;
-      background: rgba(10,14,20,0.6);
-      border: 1px solid rgba(88,166,255,0.08);
-      border-radius: 4px;
-      padding: 0.2rem 0.4rem;
-      color: #f0f6fc;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 500;
-      outline: none;
-      width: 100%;
-      min-width: 0;
-    }
-    .param-popup .popup-actions {
-      display: flex;
-      gap: 0.3rem;
-      justify-content: flex-end;
-    }
-    .param-popup .popup-actions button {
-      padding: 0.2rem 0.8rem;
-      border-radius: 4px;
-      border: none;
-      font-weight: 600;
-      font-size: 0.55rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-    }
-    .param-popup .popup-actions .btn-cancel {
-      background: rgba(10,14,20,0.6);
-      color: #8b949e;
-      border: 1px solid rgba(88,166,255,0.08);
-    }
-    .param-popup .popup-actions .btn-apply {
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff;
-    }
-
-    /* ----- BOT CARD (mobile) ----- */
     .bot-card {
-      background: rgba(10,14,20,0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 8px;
-      border: 1px solid rgba(88,166,255,0.05);
-      padding: 0.5rem;
-      margin-top: 0.2rem;
+      background: rgba(10,14,20,0.6); backdrop-filter: blur(16px);
+      border-radius: 10px; border: 1px solid rgba(88,166,255,0.05);
+      padding: 0.5rem 0.6rem;
     }
     .bot-card .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 0.3rem;
     }
     .bot-card .card-header h3 {
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: #f0f6fc;
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
+      font-size: 0.7rem; font-weight: 600; color: #f0f6fc;
+      display: flex; align-items: center; gap: 0.25rem;
     }
     .bot-card .card-header h3 i { color: #58a6ff; }
     .bot-card .card-header .card-action {
-      color: #58a6ff;
-      font-size: 0.5rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
+      color: #58a6ff; font-size: 0.55rem; font-weight: 500;
+      cursor: pointer; text-decoration: none;
     }
     .bot-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      align-items: center;
+      display: flex; gap: 0.4rem; align-items: center;
+      justify-content: stretch;
     }
     .btn-activate {
-      padding: 0.25rem 0.8rem;
-      border-radius: 30px;
-      border: none;
-      font-weight: 700;
-      font-size: 0.55rem;
-      letter-spacing: 0.2px;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      padding: 0.4rem 1rem; border-radius: 30px; border: none;
+      font-weight: 700; font-size: 0.65rem; cursor: pointer;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff;
-      box-shadow: 0 2px 10px rgba(63,185,80,0.2);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      flex: 1;
-      justify-content: center;
+      color: #fff; box-shadow: 0 2px 10px rgba(63,185,80,0.2);
+      display: inline-flex; align-items: center; gap: 5px;
+      flex: 1; justify-content: center;
     }
     .btn-activate.active {
-      background: rgba(240,136,62,0.2);
-      color: #f0883e;
+      background: rgba(240,136,62,0.2); color: #f0883e;
       border: 1px solid rgba(240,136,62,0.35);
       box-shadow: 0 2px 12px rgba(240,136,62,0.15);
     }
     .btn-live-chat {
-      padding: 0.25rem 0.6rem;
-      border-radius: 30px;
-      border: 1px solid rgba(88,166,255,0.25);
-      background: rgba(10,14,20,0.4);
-      color: #58a6ff;
-      font-weight: 600;
-      font-size: 0.5rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      backdrop-filter: blur(8px);
-      flex: 1;
-      justify-content: center;
+      padding: 0.4rem 1rem; border-radius: 30px;
+      border: 1px solid rgba(88,166,255,0.25); background: rgba(10,14,20,0.4);
+      color: #58a6ff; font-weight: 600; font-size: 0.6rem;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      display: inline-flex; align-items: center; gap: 5px;
+      backdrop-filter: blur(8px); flex: 1; justify-content: center;
     }
-    .btn-live-chat i {
-      font-size: 0.6rem;
-      animation: pulseGlow 2s infinite;
-    }
+    .btn-live-chat i { font-size: 0.7rem; animation: pulseGlow 2s infinite; }
     @keyframes pulseGlow {
       0% { text-shadow: 0 0 0 rgba(88,166,255,0.3); }
       50% { text-shadow: 0 0 10px rgba(88,166,255,0.6); }
       100% { text-shadow: 0 0 0 rgba(88,166,255,0.3); }
     }
 
-    /* ----- HISTORY POPUP (mobile) ----- */
-    .history-popup-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 9999999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 0.5rem;
-      animation: fadeIn 0.2s ease;
-    }
-    .history-popup-overlay.active { display: flex; }
-    .history-popup-content {
-      background: #1a1f2a;
-      border: 1px solid rgba(88,166,255,0.1);
-      border-radius: 14px;
+    /* ----- POPUPS (comfortable) ----- */
+    .param-popup-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+      z-index: 999999; display: none; align-items: center; justify-content: center;
       padding: 1rem;
-      max-width: 95%;
-      width: 100%;
-      max-height: 90vh;
-      box-shadow: 0 30px 100px rgba(0,0,0,0.9);
+    }
+    .param-popup-overlay.active { display: flex; }
+    .param-popup {
+      background: #1a1f2a; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 1.2rem; max-width: 320px; width: 100%;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9); animation: popupIn 0.2s ease;
+    }
+    @keyframes popupIn {
+      0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .param-popup .popup-title { font-size: 0.9rem; font-weight: 700; color: #f0f6fc; text-align: center; }
+    .param-popup .popup-sub { font-size: 0.6rem; color: #6e7681; text-align: center; margin-bottom: 0.6rem; }
+    .param-popup .popup-presets { display: flex; flex-wrap: wrap; gap: 0.25rem; justify-content: center; margin-bottom: 0.6rem; }
+    .param-popup .popup-preset-btn {
+      padding: 0.25rem 0.5rem; border-radius: 5px; border: 1px solid rgba(88,166,255,0.08);
+      background: rgba(10,14,20,0.6); color: #c9d1d9; font-size: 0.65rem;
+      font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif;
+      min-width: 32px;
+    }
+    .param-popup .popup-preset-btn.active { background: rgba(63,185,80,0.15); border-color: #3fb950; color: #3fb950; }
+    .param-popup .popup-manual { display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.6rem; }
+    .param-popup .popup-manual label { font-size: 0.55rem; color: #6e7681; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 600; white-space: nowrap; }
+    .param-popup .popup-manual input {
+      flex: 1; background: rgba(10,14,20,0.6); border: 1px solid rgba(88,166,255,0.08);
+      border-radius: 5px; padding: 0.25rem 0.5rem; color: #f0f6fc;
+      font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500;
+      outline: none; width: 100%; min-width: 0;
+    }
+    .param-popup .popup-actions { display: flex; gap: 0.4rem; justify-content: flex-end; }
+    .param-popup .popup-actions button {
+      padding: 0.3rem 1rem; border-radius: 5px; border: none;
+      font-weight: 600; font-size: 0.6rem; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .param-popup .popup-actions .btn-cancel { background: rgba(10,14,20,0.6); color: #8b949e; border: 1px solid rgba(88,166,255,0.08); }
+    .param-popup .popup-actions .btn-apply { background: linear-gradient(135deg, #3fb950, #2d8f47); color: #fff; }
+
+    /* History, Win, Loss, Deposit popups (comfortable) */
+    .history-popup-overlay, .win-popup-overlay, .loss-popup-overlay, .deposit-popup-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+      z-index: 9999999; display: none; align-items: center; justify-content: center;
+      padding: 0.8rem; animation: fadeIn 0.2s ease;
+    }
+    .history-popup-overlay.active, .win-popup-overlay.active, .loss-popup-overlay.active, .deposit-popup-overlay.active { display: flex; }
+    @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+    .history-popup-content {
+      background: #1a1f2a; border: 1px solid rgba(88,166,255,0.1);
+      border-radius: 16px; padding: 1.2rem; max-width: 95%; width: 100%;
+      max-height: 90vh; box-shadow: 0 40px 120px rgba(0,0,0,0.9);
       animation: popIn 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
     }
-    .history-popup-content .history-popup-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-      flex-shrink: 0;
-    }
-    .history-popup-content .history-popup-header h2 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
+    .history-popup-content .history-popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-shrink: 0; }
+    .history-popup-content .history-popup-header h2 { font-size: 0.95rem; font-weight: 700; color: #f0f6fc; display: flex; align-items: center; gap: 0.4rem; }
     .history-popup-content .history-popup-header h2 i { color: #58a6ff; }
     .history-popup-content .history-popup-header .close-history-btn {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #8b949e;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      color: #8b949e; width: 30px; height: 30px; border-radius: 50%;
+      font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
-    .history-popup-content .history-popup-table-wrap {
-      overflow-x: auto;
-      overflow-y: auto;
-      max-height: 55vh;
-      flex: 1;
-    }
+    .history-popup-content .history-popup-table-wrap { overflow-x: auto; overflow-y: auto; max-height: 60vh; flex: 1; }
     .history-popup-content .history-popup-table-wrap::-webkit-scrollbar { width: 3px; }
     .history-popup-content .history-popup-table-wrap::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
-    .history-popup-content .history-popup-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.6rem;
-    }
+    .history-popup-content .history-popup-table { width: 100%; border-collapse: collapse; font-size: 0.65rem; }
     .history-popup-content .history-popup-table th {
-      text-align: left;
-      padding: 0.3rem 0.4rem 0.3rem 0;
-      color: #6e7681;
-      font-weight: 600;
-      font-size: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      border-bottom: 1px solid rgba(88,166,255,0.08);
-      position: sticky;
-      top: 0;
-      background: #1a1f2a;
-      z-index: 2;
+      text-align: left; padding: 0.35rem 0.5rem 0.35rem 0;
+      color: #6e7681; font-weight: 600; font-size: 0.5rem; text-transform: uppercase;
+      letter-spacing: 0.3px; border-bottom: 1px solid rgba(88,166,255,0.08);
+      position: sticky; top: 0; background: #1a1f2a; z-index: 2;
     }
     .history-popup-content .history-popup-table td {
-      padding: 0.3rem 0.4rem 0.3rem 0;
-      border-bottom: 1px solid rgba(88,166,255,0.04);
-      color: #c9d1d9;
-      font-size: 0.55rem;
+      padding: 0.3rem 0.5rem 0.3rem 0; border-bottom: 1px solid rgba(88,166,255,0.04);
+      color: #c9d1d9; font-size: 0.6rem;
     }
     .history-popup-content .history-popup-table .status-badge {
-      padding: 0.05rem 0.3rem;
-      border-radius: 10px;
-      font-size: 0.45rem;
-      font-weight: 600;
+      padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.5rem; font-weight: 600;
     }
     .history-popup-content .history-popup-table .status-badge.win { background: rgba(63,185,80,0.15); color: #3fb950; }
     .history-popup-content .history-popup-table .status-badge.loss { background: rgba(240,136,62,0.15); color: #f0883e; }
     .history-popup-content .history-popup-table .profit-pos { color: #3fb950; font-weight: 600; }
     .history-popup-content .history-popup-table .profit-neg { color: #f0883e; font-weight: 600; }
-    .history-popup-content .history-popup-empty {
-      text-align: center;
-      color: #6e7681;
-      font-size: 0.7rem;
-      padding: 2rem 0;
-      font-style: italic;
-    }
-    .history-popup-content .history-popup-empty i {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #3fb950;
-      opacity: 0.3;
-    }
+    .history-popup-content .history-popup-empty { text-align: center; color: #6e7681; font-size: 0.8rem; padding: 2rem 0; }
+    .history-popup-content .history-popup-empty i { font-size: 2.2rem; display: block; margin-bottom: 0.5rem; color: #3fb950; opacity: 0.3; }
 
-    /* ----- WIN / LOSS POPUPS (mobile) ----- */
-    .win-popup-overlay, .loss-popup-overlay, .deposit-popup-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 9999998;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 0.8rem;
-      animation: fadeIn 0.2s ease;
-    }
-    .win-popup-overlay.active, .loss-popup-overlay.active, .deposit-popup-overlay.active { display: flex; }
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
     .win-popup, .loss-popup, .deposit-popup {
-      border-radius: 18px;
-      padding: 1.2rem 1rem;
-      max-width: 340px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.9);
-      animation: popIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-      position: relative;
-      overflow: hidden;
+      border-radius: 20px; padding: 1.5rem 1.2rem; max-width: 360px; width: 100%;
+      text-align: center; box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+      animation: popIn 0.4s cubic-bezier(0.2,0.9,0.4,1);
     }
-    .win-popup {
-      background: linear-gradient(145deg, #1a2a1f, #0d1a12);
-      border: 2px solid rgba(63,185,80,0.4);
-    }
-    .loss-popup {
-      background: linear-gradient(145deg, #2a1a1a, #1a0d0d);
-      border: 2px solid rgba(240,136,62,0.4);
-    }
-    .deposit-popup {
-      background: linear-gradient(145deg, #1a1f2a, #0d121c);
-      border: 2px solid rgba(88,166,255,0.3);
-    }
-    .win-popup .win-icon, .loss-popup .loss-icon, .deposit-popup .deposit-icon {
-      font-size: 2.8rem;
-      margin-bottom: 0.2rem;
-    }
+    .win-popup { background: linear-gradient(145deg,#1a2a1f,#0d1a12); border: 2px solid rgba(63,185,80,0.4); }
+    .loss-popup { background: linear-gradient(145deg,#2a1a1a,#1a0d0d); border: 2px solid rgba(240,136,62,0.4); }
+    .deposit-popup { background: linear-gradient(145deg,#1a1f2a,#0d121c); border: 2px solid rgba(88,166,255,0.3); }
+    .win-popup .win-icon, .loss-popup .loss-icon, .deposit-popup .deposit-icon { font-size: 3rem; margin-bottom: 0.2rem; }
     .win-popup .win-icon { color: #3fb950; }
     .loss-popup .loss-icon { color: #f0883e; }
     .deposit-popup .deposit-icon { color: #f0883e; }
-    .win-popup .win-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #3fb950, #8bc34a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .loss-popup .loss-title { font-size: 1.5rem; font-weight: 800; color: #f0883e; }
-    .deposit-popup .deposit-title { font-size: 1.2rem; font-weight: 800; color: #f0f6fc; }
-    .win-popup .win-sub, .loss-popup .loss-sub, .deposit-popup .deposit-sub {
-      color: #8b949e;
-      font-size: 0.65rem;
-      margin-bottom: 0.6rem;
-    }
-    .win-popup .win-profit, .loss-popup .loss-amount, .deposit-popup .deposit-balance .bal-amount {
-      font-size: 1.6rem;
-      font-weight: 800;
-    }
+    .win-popup .win-title { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg,#3fb950,#8bc34a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .loss-popup .loss-title { font-size: 1.6rem; font-weight: 800; color: #f0883e; }
+    .deposit-popup .deposit-title { font-size: 1.3rem; font-weight: 800; color: #f0f6fc; }
+    .win-popup .win-sub, .loss-popup .loss-sub, .deposit-popup .deposit-sub { color: #8b949e; font-size: 0.7rem; margin-bottom: 0.6rem; }
+    .win-popup .win-profit, .loss-popup .loss-amount, .deposit-popup .deposit-balance .bal-amount { font-size: 1.8rem; font-weight: 800; }
     .win-popup .win-profit { color: #3fb950; }
     .loss-popup .loss-amount { color: #f0883e; }
-    .win-popup .win-stats, .loss-popup .loss-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.4rem;
-      margin: 0.5rem 0 0.6rem;
-    }
-    .win-popup .win-stat-box, .loss-popup .loss-stat-box {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 8px;
-      padding: 0.4rem 0.2rem;
-    }
-    .win-popup .win-stat-box .stat-label, .loss-popup .loss-stat-box .stat-label {
-      font-size: 0.4rem;
-      text-transform: uppercase;
-      color: #6e7681;
-      letter-spacing: 0.3px;
-      font-weight: 600;
-    }
-    .win-popup .win-stat-box .stat-value, .loss-popup .loss-stat-box .stat-value {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #f0f6fc;
-      margin-top: 0.05rem;
-    }
+    .win-popup .win-stats, .loss-popup .loss-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.6rem 0 0.8rem; }
+    .win-popup .win-stat-box, .loss-popup .loss-stat-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 0.5rem 0.2rem; }
+    .win-popup .win-stat-box .stat-label, .loss-popup .loss-stat-box .stat-label { font-size: 0.4rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.3px; font-weight: 600; }
+    .win-popup .win-stat-box .stat-value, .loss-popup .loss-stat-box .stat-value { font-size: 0.9rem; font-weight: 700; color: #f0f6fc; margin-top: 0.05rem; }
     .win-popup .win-stat-box .stat-value.gold { color: #ffd700; }
     .win-popup .win-stat-box .stat-value.cyan { color: #00ffc8; }
     .win-popup .win-stat-box .stat-value.green { color: #3fb950; }
@@ -1267,116 +646,36 @@
     .loss-popup .loss-stat-box .stat-value.gold { color: #ffd700; }
     .loss-popup .loss-stat-box .stat-value.pink { color: #ff1493; }
     .loss-popup .loss-stat-box .stat-value.red { color: #f0883e; }
-    .win-popup .win-time, .loss-popup .loss-time, .deposit-popup .deposit-sub {
-      font-size: 0.5rem;
-      color: #6e7681;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.3rem;
-      margin-bottom: 0.6rem;
-    }
-    .deposit-popup .deposit-balance {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 8px;
-      padding: 0.4rem;
-      margin-bottom: 0.6rem;
-    }
-    .deposit-popup .deposit-balance .bal-label {
-      font-size: 0.4rem;
-      text-transform: uppercase;
-      color: #6e7681;
-      letter-spacing: 0.3px;
-    }
+    .win-popup .win-time, .loss-popup .loss-time, .deposit-popup .deposit-sub { font-size: 0.55rem; color: #6e7681; display: flex; align-items: center; justify-content: center; gap: 0.3rem; margin-bottom: 0.6rem; }
+    .deposit-popup .deposit-balance { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 0.5rem; margin-bottom: 0.6rem; }
+    .deposit-popup .deposit-balance .bal-label { font-size: 0.4rem; text-transform: uppercase; color: #6e7681; letter-spacing: 0.3px; }
     .deposit-popup .deposit-balance .bal-amount { color: #f0883e; font-size: 1.4rem; }
-    .deposit-popup .deposit-amounts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      justify-content: center;
-      margin: 0.4rem 0;
-    }
-    .deposit-popup .deposit-amount-btn {
-      padding: 0.3rem 0.6rem;
-      border-radius: 6px;
-      border: 1px solid rgba(88,166,255,0.15);
-      background: rgba(10,14,20,0.6);
-      color: #c9d1d9;
-      font-size: 0.65rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-      flex: 1;
-      min-width: 40px;
-    }
-    .deposit-popup .deposit-amount-btn.active {
-      background: rgba(63,185,80,0.15);
-      border-color: #3fb950;
-      color: #3fb950;
-    }
-    .deposit-popup .deposit-actions {
-      display: flex;
-      gap: 0.3rem;
-      justify-content: center;
-      margin-top: 0.3rem;
-    }
-    .deposit-popup .deposit-actions button {
-      padding: 0.3rem 1rem;
-      border-radius: 30px;
-      border: none;
-      font-weight: 700;
-      font-size: 0.6rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-      flex: 1;
-    }
-    .deposit-popup .deposit-actions .btn-deposit-confirm {
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      color: #fff;
-      box-shadow: 0 2px 12px rgba(63,185,80,0.3);
-    }
-    .deposit-popup .deposit-actions .btn-deposit-cancel {
-      background: rgba(10,14,20,0.6);
-      color: #8b949e;
-      border: 1px solid rgba(88,166,255,0.08);
-    }
-    .win-popup .btn-close-win, .loss-popup .btn-close-loss {
-      border: none;
-      padding: 0.4rem 2rem;
-      border-radius: 30px;
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.7rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-    }
-    .win-popup .btn-close-win {
-      background: linear-gradient(135deg, #3fb950, #2d8f47);
-      box-shadow: 0 2px 16px rgba(63,185,80,0.3);
-    }
-    .loss-popup .btn-close-loss {
-      background: linear-gradient(135deg, #f0883e, #d4732a);
-      box-shadow: 0 2px 16px rgba(240,136,62,0.3);
-    }
-    .two-col-grid { display: grid; grid-template-columns: 1fr; gap: 0.3rem; margin-top: 0.2rem; }
+    .deposit-popup .deposit-amounts { display: flex; flex-wrap: wrap; gap: 0.3rem; justify-content: center; margin: 0.5rem 0; }
+    .deposit-popup .deposit-amount-btn { padding: 0.35rem 0.7rem; border-radius: 8px; border: 1px solid rgba(88,166,255,0.15); background: rgba(10,14,20,0.6); color: #c9d1d9; font-size: 0.7rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; flex: 1; min-width: 45px; }
+    .deposit-popup .deposit-amount-btn.active { background: rgba(63,185,80,0.15); border-color: #3fb950; color: #3fb950; }
+    .deposit-popup .deposit-actions { display: flex; gap: 0.3rem; justify-content: center; margin-top: 0.4rem; }
+    .deposit-popup .deposit-actions button { padding: 0.35rem 1.2rem; border-radius: 30px; border: none; font-weight: 700; font-size: 0.65rem; cursor: pointer; font-family: 'Inter', sans-serif; flex: 1; }
+    .deposit-popup .deposit-actions .btn-deposit-confirm { background: linear-gradient(135deg,#3fb950,#2d8f47); color: #fff; box-shadow: 0 2px 12px rgba(63,185,80,0.3); }
+    .deposit-popup .deposit-actions .btn-deposit-cancel { background: rgba(10,14,20,0.6); color: #8b949e; border: 1px solid rgba(88,166,255,0.08); }
+    .win-popup .btn-close-win, .loss-popup .btn-close-loss { border: none; padding: 0.4rem 2rem; border-radius: 30px; color: #fff; font-weight: 700; font-size: 0.7rem; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .win-popup .btn-close-win { background: linear-gradient(135deg,#3fb950,#2d8f47); box-shadow: 0 2px 16px rgba(63,185,80,0.3); }
+    .loss-popup .btn-close-loss { background: linear-gradient(135deg,#f0883e,#d4732a); box-shadow: 0 2px 16px rgba(240,136,62,0.3); }
+
+    .two-col-grid { display: none; }
     .dashboard-card { display: none !important; }
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: rgba(10,14,20,0.5); }
     ::-webkit-scrollbar-thumb { background: rgba(88,166,255,0.2); border-radius: 10px; }
 
-    /* small extra tweaks */
+    /* small extra tweaks for very small screens */
     @media (max-width: 380px) {
-      .chart-container { height: 240px; }
-      .digit-circle { width: 14px; height: 14px; font-size: 0.35rem; }
-      .digit-percentage { font-size: 0.25rem; min-width: 12px; }
-      .stake-display .stake-value { font-size: 0.8rem; }
-      .even-btn .payout-value, .odd-btn .payout-value { font-size: 0.7rem; }
-      .balance-display .balance-amount { font-size: 0.6rem; }
-      .deposit-btn { font-size: 0.45rem; padding: 0.1rem 0.3rem; }
+      .chart-container { height: 220px; }
+      .digit-circle { width: 18px; height: 18px; font-size: 0.45rem; }
+      .digit-percentage { font-size: 0.3rem; min-width: 14px; }
+      .stake-display .stake-value { font-size: 0.95rem; }
+      .even-btn .payout-value, .odd-btn .payout-value { font-size: 0.8rem; }
+      .balance-display .balance-amount { font-size: 0.7rem; }
+      .deposit-btn { font-size: 0.5rem; padding: 0.15rem 0.4rem; }
     }
   </style>
 </head>
@@ -1450,132 +749,116 @@
       <button class="option-btn-combined active-orange" data-option="high-low"><i class="fas fa-arrow-up"></i> High <span class="slash">/</span> Low</button>
     </div>
 
-    <!-- CHART SECTION -->
-    <section class="chart-section">
-      <div class="chart-container">
-        <div class="chart-header-inner">
-          <div class="chart-title">
-            <h2><i class="fas fa-chart-line"></i> Volatility</h2>
-            <span class="symbol-badge" id="currentSymbol">VIX 1T</span>
+    <!-- SCROLLABLE MIDDLE -->
+    <div class="scrollable-middle">
+      <!-- CHART SECTION -->
+      <section class="chart-section">
+        <div class="chart-container">
+          <div class="chart-header-inner">
+            <div class="chart-title">
+              <h2><i class="fas fa-chart-line"></i> Volatility</h2>
+              <span class="symbol-badge" id="currentSymbol">VIX 1T</span>
+            </div>
+            <div class="chart-controls">
+              <select id="volatilitySelector">
+                <option value="VIX">VIX</option>
+                <option value="VXN">VXN</option>
+                <option value="VXD">VXD</option>
+                <option value="VXF">VXF</option>
+              </select>
+              <div class="chart-timeframe">
+                <button class="active" data-tf="1T">1T</button>
+                <button data-tf="5T">5T</button>
+                <button data-tf="15T">15T</button>
+                <button data-tf="1H">1H</button>
+                <button data-tf="4H">4H</button>
+                <button data-tf="1D">1D</button>
+              </div>
+            </div>
           </div>
-          <div class="chart-controls">
-            <select id="volatilitySelector">
-              <option value="VIX">VIX</option>
-              <option value="VXN">VXN</option>
-              <option value="VXD">VXD</option>
-              <option value="VXF">VXF</option>
-            </select>
-            <div class="chart-timeframe">
-              <button class="active" data-tf="1T">1T</button>
-              <button data-tf="5T">5T</button>
-              <button data-tf="15T">15T</button>
-              <button data-tf="1H">1H</button>
-              <button data-tf="4H">4H</button>
-              <button data-tf="1D">1D</button>
+          <canvas id="mainChartCanvas"></canvas>
+          <div class="chart-stats-row" id="chartStats">
+            <div class="stat-item"><span class="label">Price</span><span class="value" id="statPrice">--</span></div>
+            <div class="stat-item"><span class="label">Change</span><span class="value" id="statChange">--</span></div>
+            <div class="stat-item"><span class="label">High</span><span class="value" id="statHigh">--</span></div>
+            <div class="stat-item"><span class="label">Low</span><span class="value" id="statLow">--</span></div>
+            <div class="stat-item"><span class="label">Vol</span><span class="value" id="statVolume">--</span></div>
+            <div class="stat-item"><span class="label">Time</span><span class="value" id="statTime" style="font-size:0.5rem;color:#8b949e;">--</span></div>
+          </div>
+          <div class="digit-circles-container" id="digitCircles">
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="0">0</div><span class="digit-percentage" data-percent="0">0%</span></div>
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="1">1</div><span class="digit-percentage" data-percent="0">0%</span></div>
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="2">2</div><span class="digit-percentage" data-percent="0">0%</span></div>
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="3">3</div><span class="digit-percentage" data-percent="0">0%</span></div>
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="4">4</div><span class="digit-percentage" data-percent="0">0%</span></div>
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="5">5</div><span class="digit-percentage" data-percent="0">0%</span></div>
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="6">6</div><span class="digit-percentage" data-percent="0">0%</span></div>
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="7">7</div><span class="digit-percentage" data-percent="0">0%</span></div>
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="8">8</div><span class="digit-percentage" data-percent="0">0%</span></div>
+            <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="9">9</div><span class="digit-percentage" data-percent="0">0%</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRADING CONTROLS -->
+      <div class="trading-controls" id="tradingControls">
+        <div class="top-row">
+          <div class="mode-section">
+            <span class="label"><i class="fas fa-cog"></i> Mode</span>
+            <button class="mode-btn active-auto" id="autoBtn"><i class="fas fa-play"></i> Auto</button>
+            <button class="mode-btn" id="manualBtn"><i class="fas fa-hand"></i> Manual</button>
+          </div>
+          <div class="stake-section">
+            <span class="label">Stake</span>
+            <div class="stake-control-row">
+              <button class="stake-adjust-btn minus" id="stakeMinus">−</button>
+              <div class="stake-display">
+                <span class="stake-value" id="stakeDisplay">25</span>
+                <span class="stake-currency">USD</span>
+              </div>
+              <button class="stake-adjust-btn plus" id="stakePlus">+</button>
+            </div>
+            <div class="stake-presets">
+              <button class="stake-preset-btn" data-stake="1">$1</button>
+              <button class="stake-preset-btn" data-stake="5">$5</button>
+              <button class="stake-preset-btn" data-stake="10">$10</button>
+              <button class="stake-preset-btn active" data-stake="25">$25</button>
+              <button class="stake-preset-btn" data-stake="50">$50</button>
+              <button class="stake-preset-btn" data-stake="100">$100</button>
             </div>
           </div>
         </div>
-        <canvas id="mainChartCanvas"></canvas>
 
-        <div class="chart-stats-row" id="chartStats">
-          <div class="stat-item"><span class="label">Price</span><span class="value" id="statPrice">--</span></div>
-          <div class="stat-item"><span class="label">Change</span><span class="value" id="statChange">--</span></div>
-          <div class="stat-item"><span class="label">High</span><span class="value" id="statHigh">--</span></div>
-          <div class="stat-item"><span class="label">Low</span><span class="value" id="statLow">--</span></div>
-          <div class="stat-item"><span class="label">Vol</span><span class="value" id="statVolume">--</span></div>
-          <div class="stat-item"><span class="label">Time</span><span class="value" id="statTime" style="font-size:0.5rem; color:#8b949e;">--</span></div>
-        </div>
-
-        <div class="digit-circles-container" id="digitCircles">
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="0">0</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="1">1</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="2">2</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="3">3</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="4">4</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="5">5</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="6">6</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="7">7</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="8">8</div><span class="digit-percentage" data-percent="0">0%</span></div>
-          <div class="digit-circle-wrapper"><div class="digit-circle" data-digit="9">9</div><span class="digit-percentage" data-percent="0">0%</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TRADING CONTROLS -->
-    <div class="trading-controls" id="tradingControls">
-      <div class="top-row">
-        <div class="mode-section">
-          <span class="label"><i class="fas fa-cog"></i> Mode</span>
-          <button class="mode-btn active-auto" id="autoBtn"><i class="fas fa-play"></i> Auto</button>
-          <button class="mode-btn" id="manualBtn"><i class="fas fa-hand"></i> Manual</button>
-        </div>
-        <div class="stake-section">
-          <span class="label">Stake</span>
-          <div class="stake-control-row">
-            <button class="stake-adjust-btn minus" id="stakeMinus">−</button>
-            <div class="stake-display">
-              <span class="stake-value" id="stakeDisplay">25</span>
-              <span class="stake-currency">USD</span>
-            </div>
-            <button class="stake-adjust-btn plus" id="stakePlus">+</button>
+        <div class="three-params">
+          <div class="param-btn-group" data-param="target">
+            <span class="param-label"><i class="fas fa-bullseye"></i> Target</span>
+            <span class="param-value" id="targetValue"><span class="dollar">$</span>30</span>
           </div>
-          <div class="stake-presets">
-            <button class="stake-preset-btn" data-stake="1">$1</button>
-            <button class="stake-preset-btn" data-stake="5">$5</button>
-            <button class="stake-preset-btn" data-stake="10">$10</button>
-            <button class="stake-preset-btn active" data-stake="25">$25</button>
-            <button class="stake-preset-btn" data-stake="50">$50</button>
-            <button class="stake-preset-btn" data-stake="100">$100</button>
+          <div class="param-btn-group" data-param="stoploss">
+            <span class="param-label"><i class="fas fa-shield-alt"></i> Stop</span>
+            <span class="param-value" id="stoplossValue"><span class="dollar">$</span>20</span>
+          </div>
+          <div class="param-btn-group" data-param="multiplier">
+            <span class="param-label"><i class="fas fa-times"></i> Mult</span>
+            <span class="param-value" id="multiplierValue">2.0<span style="font-size:0.5rem;color:#6e7681;">x</span></span>
           </div>
         </div>
-      </div>
 
-      <div class="three-params">
-        <div class="param-btn-group" data-param="target">
-          <span class="param-label"><i class="fas fa-bullseye"></i> Target</span>
-          <span class="param-value" id="targetValue"><span class="dollar">$</span>30</span>
-        </div>
-        <div class="param-btn-group" data-param="stoploss">
-          <span class="param-label"><i class="fas fa-shield-alt"></i> Stop</span>
-          <span class="param-value" id="stoplossValue"><span class="dollar">$</span>20</span>
-        </div>
-        <div class="param-btn-group" data-param="multiplier">
-          <span class="param-label"><i class="fas fa-times"></i> Mult</span>
-          <span class="param-value" id="multiplierValue">2.0<span style="font-size:0.45rem;color:#6e7681;">x</span></span>
-        </div>
-      </div>
-
-      <div class="match-differ-row">
-        <button class="even-btn" id="evenBtn" data-param="even">
-          <span class="btn-label"><i class="fas fa-check-circle"></i> Even</span>
-          <span class="payout-value" id="evenPayout"><span class="dollar">$</span>30.00</span>
-        </button>
-        <button class="odd-btn" id="oddBtn" data-param="odd">
-          <span class="btn-label"><i class="fas fa-times-circle"></i> Odd</span>
-          <span class="payout-value" id="oddPayout"><span class="dollar">$</span>28.00</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- POPUP -->
-    <div class="param-popup-overlay" id="paramPopupOverlay">
-      <div class="param-popup">
-        <div class="popup-title" id="popupTitle">Target</div>
-        <div class="popup-sub" id="popupSub">Select or enter a value</div>
-        <div class="popup-presets" id="popupPresets"></div>
-        <div class="popup-manual">
-          <label>Manual</label>
-          <input type="number" id="popupManualInput" step="1" min="1" />
-        </div>
-        <div class="popup-actions">
-          <button class="btn-cancel" id="popupCancel">Cancel</button>
-          <button class="btn-apply" id="popupApply">Apply</button>
+        <div class="match-differ-row">
+          <button class="even-btn" id="evenBtn" data-param="even">
+            <span class="btn-label"><i class="fas fa-check-circle"></i> Even</span>
+            <span class="payout-value" id="evenPayout"><span class="dollar">$</span>30.00</span>
+          </button>
+          <button class="odd-btn" id="oddBtn" data-param="odd">
+            <span class="btn-label"><i class="fas fa-times-circle"></i> Odd</span>
+            <span class="payout-value" id="oddPayout"><span class="dollar">$</span>28.00</span>
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- TWO COLUMN GRID – only AI Bot -->
-    <div class="two-col-grid">
+    <!-- BOT CARD (fixed bottom) -->
+    <div class="bot-card-wrapper">
       <div class="bot-card">
         <div class="card-header">
           <h3><i class="fas fa-robot"></i> AI Bot</h3>
@@ -1590,7 +873,23 @@
   </main>
 </div>
 
-<!-- HISTORY POPUP -->
+<!-- POPUPS -->
+<div class="param-popup-overlay" id="paramPopupOverlay">
+  <div class="param-popup">
+    <div class="popup-title" id="popupTitle">Target</div>
+    <div class="popup-sub" id="popupSub">Select or enter a value</div>
+    <div class="popup-presets" id="popupPresets"></div>
+    <div class="popup-manual">
+      <label>Manual</label>
+      <input type="number" id="popupManualInput" step="1" min="1" />
+    </div>
+    <div class="popup-actions">
+      <button class="btn-cancel" id="popupCancel">Cancel</button>
+      <button class="btn-apply" id="popupApply">Apply</button>
+    </div>
+  </div>
+</div>
+
 <div class="history-popup-overlay" id="historyPopupOverlay">
   <div class="history-popup-content">
     <div class="history-popup-header">
@@ -1603,19 +902,17 @@
         <tbody id="historyPopupBody"></tbody>
       </table>
       <div id="historyPopupEmpty" class="history-popup-empty">
-        <i class="fas fa-inbox"></i>
-        No trades recorded yet.<br>Start trading to see your history here!
+        <i class="fas fa-inbox"></i> No trades recorded yet.
       </div>
     </div>
   </div>
 </div>
 
-<!-- DEPOSIT POPUP -->
 <div class="deposit-popup-overlay" id="depositPopupOverlay">
   <div class="deposit-popup">
     <div class="deposit-icon"><i class="fas fa-exclamation-triangle"></i></div>
     <div class="deposit-title">Insufficient Balance</div>
-    <div class="deposit-sub">Your Real account balance is zero. Please deposit funds to continue trading.</div>
+    <div class="deposit-sub">Your Real account balance is zero. Please deposit.</div>
     <div class="deposit-balance">
       <div class="bal-label">Current Balance</div>
       <div class="bal-amount">$0.00</div>
@@ -1634,7 +931,6 @@
   </div>
 </div>
 
-<!-- WIN POPUP -->
 <div class="win-popup-overlay" id="winPopupOverlay">
   <div class="win-popup">
     <div class="win-icon"><i class="fas fa-trophy"></i></div>
@@ -1642,29 +938,16 @@
     <div class="win-sub">Trade completed successfully</div>
     <div class="win-profit"><span class="currency">+</span>$<span id="winProfitAmount">0.00</span></div>
     <div class="win-stats">
-      <div class="win-stat-box">
-        <div class="stat-label">Stake</div>
-        <div class="stat-value gold">$<span id="winStake">0</span></div>
-      </div>
-      <div class="win-stat-box">
-        <div class="stat-label">Payout</div>
-        <div class="stat-value cyan">$<span id="winPayout">0.00</span></div>
-      </div>
-      <div class="win-stat-box">
-        <div class="stat-label">Profit</div>
-        <div class="stat-value green">+$<span id="winProfit">0.00</span></div>
-      </div>
-      <div class="win-stat-box">
-        <div class="stat-label">Time</div>
-        <div class="stat-value pink"><span id="winTime">0s</span></div>
-      </div>
+      <div class="win-stat-box"><div class="stat-label">Stake</div><div class="stat-value gold">$<span id="winStake">0</span></div></div>
+      <div class="win-stat-box"><div class="stat-label">Payout</div><div class="stat-value cyan">$<span id="winPayout">0.00</span></div></div>
+      <div class="win-stat-box"><div class="stat-label">Profit</div><div class="stat-value green">+$<span id="winProfit">0.00</span></div></div>
+      <div class="win-stat-box"><div class="stat-label">Time</div><div class="stat-value pink"><span id="winTime">0s</span></div></div>
     </div>
-    <div class="win-time"><i class="fas fa-clock"></i> Completed in <span id="winDuration">0</span> seconds</div>
+    <div class="win-time"><i class="fas fa-clock"></i> Completed in <span id="winDuration">0</span>s</div>
     <button class="btn-close-win" id="closeWinPopup"><i class="fas fa-check-circle" style="margin-right:4px;"></i> Awesome!</button>
   </div>
 </div>
 
-<!-- LOSS POPUP -->
 <div class="loss-popup-overlay" id="lossPopupOverlay">
   <div class="loss-popup">
     <div class="loss-icon"><i class="fas fa-times-circle"></i></div>
@@ -1672,24 +955,12 @@
     <div class="loss-sub">Better luck next time</div>
     <div class="loss-amount"><span class="currency">-</span>$<span id="lossAmount">0.00</span></div>
     <div class="loss-stats">
-      <div class="loss-stat-box">
-        <div class="stat-label">Stake</div>
-        <div class="stat-value gold">$<span id="lossStake">0</span></div>
-      </div>
-      <div class="loss-stat-box">
-        <div class="stat-label">Loss</div>
-        <div class="stat-value red">-$<span id="lossTotal">0.00</span></div>
-      </div>
-      <div class="loss-stat-box">
-        <div class="stat-label">Wins Streak</div>
-        <div class="stat-value pink"><span id="lossStreak">0</span> wins</div>
-      </div>
-      <div class="loss-stat-box">
-        <div class="stat-label">Time</div>
-        <div class="stat-value pink"><span id="lossTime">0s</span></div>
-      </div>
+      <div class="loss-stat-box"><div class="stat-label">Stake</div><div class="stat-value gold">$<span id="lossStake">0</span></div></div>
+      <div class="loss-stat-box"><div class="stat-label">Loss</div><div class="stat-value red">-$<span id="lossTotal">0.00</span></div></div>
+      <div class="loss-stat-box"><div class="stat-label">Wins Streak</div><div class="stat-value pink"><span id="lossStreak">0</span> wins</div></div>
+      <div class="loss-stat-box"><div class="stat-label">Time</div><div class="stat-value pink"><span id="lossTime">0s</span></div></div>
     </div>
-    <div class="loss-time"><i class="fas fa-clock"></i> Trade ended in <span id="lossDuration">0</span> seconds</div>
+    <div class="loss-time"><i class="fas fa-clock"></i> Trade ended in <span id="lossDuration">0</span>s</div>
     <button class="btn-close-loss" id="closeLossPopup"><i class="fas fa-redo" style="margin-right:4px;"></i> Try Again</button>
   </div>
 </div>
@@ -1705,8 +976,8 @@
       overlay.classList.toggle('active');
       document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
     }
-    if (hamburger) hamburger.addEventListener('click', toggleSidebar);
-    if (overlay) overlay.addEventListener('click', toggleSidebar);
+    hamburger.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && sidebar.classList.contains('open')) toggleSidebar(); });
     window.addEventListener('resize', function() {
       if (window.innerWidth > 820 && sidebar.classList.contains('open')) {
@@ -1742,7 +1013,7 @@
       realBalance += selectedDepositAmount;
       updateBalanceDisplay();
       depositPopupOverlay.classList.remove('active');
-      alert('💰 Successfully deposited $' + selectedDepositAmount + ' to Real account!\nNew balance: $' + realBalance.toFixed(2));
+      alert('💰 Deposited $' + selectedDepositAmount + ' to Real account! New balance: $' + realBalance.toFixed(2));
     });
     depositPopupOverlay.addEventListener('click', function(e) { if (e.target === this) depositPopupOverlay.classList.remove('active'); });
 
@@ -1812,11 +1083,8 @@
       alert('💰 Switched to Real Account');
     });
     document.getElementById('depositBtn')?.addEventListener('click', function() {
-      if (isRealAccount) {
-        depositPopupOverlay.classList.add('active');
-      } else {
-        alert('💰 Demo account: You can practice with virtual funds.\nSwitch to Real account for live trading.');
-      }
+      if (isRealAccount) depositPopupOverlay.classList.add('active');
+      else alert('💰 Demo account: practice with virtual funds.');
     });
     document.getElementById('notifBtn')?.addEventListener('click', function() {
       alert('🔔 3 notifications:\n1. BTC trade won (+$112.50)\n2. ETH trade won (+$210.00)\n3. EUR trade lost (-$85.00)');
@@ -2048,9 +1316,7 @@
         evenPayout.innerHTML = `<span class="dollar">$</span>${evenVal.toFixed(2)}`;
         oddPayout.innerHTML = `<span class="dollar">$</span>${oddVal.toFixed(2)}`;
       }
-      if (activeParam === 'multiplier') {
-        updateParamsFromMultiplier();
-      }
+      if (activeParam === 'multiplier') updateParamsFromMultiplier();
       closePopup();
     }
     document.querySelectorAll('.param-btn-group').forEach(group => {
@@ -2075,7 +1341,6 @@
     // ----- TRADING ENGINE -----
     const evenBtn = document.getElementById('evenBtn');
     const oddBtn = document.getElementById('oddBtn');
-    const balanceEl = document.getElementById('balanceAmount');
     const balanceDisplayContainer = document.getElementById('balanceDisplay');
     const winPopupOverlay = document.getElementById('winPopupOverlay');
     const closeWinBtn = document.getElementById('closeWinPopup');
@@ -2107,13 +1372,6 @@
     function setBalance(newBalance) {
       if (isRealAccount) { realBalance = newBalance; } else { balance = newBalance; }
       updateBalanceDisplay();
-    }
-    function updateBalanceDisplay() {
-      if (isRealAccount) {
-        balanceAmount.innerHTML = `$${realBalance.toFixed(2)} <span class="currency">USD</span>`;
-      } else {
-        balanceAmount.innerHTML = `$${balance.toFixed(2)} <span class="currency">USD</span>`;
-      }
     }
     function getCurrentPrice() {
       const priceEl = document.getElementById('statPrice');
@@ -2168,7 +1426,7 @@
             <td>$${t.amount}</td>
             <td><span class="status-badge ${t.result.toLowerCase()}">${t.result}</span></td>
             <td class="${t.pl >= 0 ? 'profit-pos' : 'profit-neg'}">${t.pl >= 0 ? '+' : ''}$${Math.abs(t.pl).toFixed(2)}</td>
-            <td style="font-size:0.5rem; color:#6e7681;">${t.time}</td>
+            <td style="font-size:0.5rem;color:#6e7681;">${t.time}</td>
           </tr>
         `).join('');
       }
@@ -2333,7 +1591,7 @@
       const ctx = canvas.getContext('2d');
       const container = canvas.parentElement;
       const w = container.clientWidth - 8;
-      const h = container.clientHeight - 130;
+      const h = container.clientHeight - 150;
       const dpr = window.devicePixelRatio || 1;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
@@ -2345,11 +1603,11 @@
       const min = Math.min(...data);
       const max = Math.max(...data);
       const range = max - min || 0.001;
-      const pad = { top: 6, bottom: 14, left: 12, right: 28 };
+      const pad = { top: 8, bottom: 16, left: 14, right: 30 };
       const chartW = w - pad.left - pad.right;
       const chartH = h - pad.top - pad.bottom;
       ctx.clearRect(0, 0, w, h);
-      const xSteps = 4, ySteps = 4;
+      const xSteps = 5, ySteps = 4;
       ctx.strokeStyle = 'rgba(255,255,255,0.06)';
       ctx.lineWidth = 0.5;
       for (let i = 0; i <= xSteps; i++) {
@@ -2361,25 +1619,25 @@
         ctx.beginPath(); ctx.moveTo(pad.left, yPos); ctx.lineTo(pad.left + chartW, yPos); ctx.stroke();
       }
       ctx.fillStyle = '#8b949e';
-      ctx.font = '6px Inter, sans-serif';
+      ctx.font = '7px Inter, sans-serif';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
       for (let i = 0; i <= ySteps; i++) {
         const yPos = pad.top + (i / ySteps) * chartH;
         const value = max - (i / ySteps) * range;
-        ctx.fillText(value.toFixed(1), pad.left + chartW + 2, yPos);
+        ctx.fillText(value.toFixed(1), pad.left + chartW + 3, yPos);
       }
       const timeLabels = getTimeLabels();
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
       ctx.fillStyle = '#8b949e';
-      ctx.font = '5px Inter, sans-serif';
+      ctx.font = '6px Inter, sans-serif';
       for (let i = 0; i <= xSteps; i++) {
         const idx = Math.floor((i / xSteps) * (len - 1));
         const xPos = pad.left + (idx / (len - 1)) * chartW;
         const d = timeLabels[idx] || new Date();
         const timeStr = d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
-        ctx.fillText(timeStr, xPos, pad.top + chartH + 1);
+        ctx.fillText(timeStr, xPos, pad.top + chartH + 2);
       }
       const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + chartH);
       grad.addColorStop(0, 'rgba(255,255,255,0.10)');
@@ -2405,16 +1663,16 @@
         else ctx.lineTo(x, y);
       }
       ctx.shadowColor = 'rgba(255,255,255,0.15)';
-      ctx.shadowBlur = 4;
+      ctx.shadowBlur = 5;
       ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 1.8;
       ctx.stroke();
       ctx.shadowBlur = 0;
       const lastX = pad.left + chartW;
       const lastY = pad.top + chartH - ((data[len-1] - min) / range) * chartH;
-      ctx.beginPath(); ctx.arc(lastX, lastY, 3, 0, 2 * Math.PI);
-      ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fill();
-      ctx.beginPath(); ctx.arc(lastX, lastY, 2, 0, 2 * Math.PI);
+      ctx.beginPath(); ctx.arc(lastX, lastY, 4, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.fill();
+      ctx.beginPath(); ctx.arc(lastX, lastY, 2.5, 0, 2 * Math.PI);
       ctx.fillStyle = '#ffffff';
       ctx.shadowColor = 'rgba(255,255,255,0.3)';
       ctx.shadowBlur = 6;
