@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Login</title>
+  <!-- Font Awesome for icons (optional but adds a nice touch) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f5f7fa 0%, #e9edf5 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .login-card {
+      background: #ffffff;
+      max-width: 400px;
+      width: 100%;
+      padding: 2.5rem 2rem 2rem;
+      border-radius: 32px;
+      box-shadow: 0 20px 40px -12px rgba(0, 20, 30, 0.25),
+                  0 8px 24px -6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .login-card:hover {
+      transform: scale(1.005);
+    }
+
+    h1 {
+      font-weight: 600;
+      font-size: 2rem;
+      letter-spacing: -0.5px;
+      color: #0b1a2e;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h1 i {
+      color: #2a6df4;
+      font-size: 2rem;
+    }
+
+    .subhead {
+      color: #4a5b6e;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      border-left: 3px solid #2a6df4;
+      padding-left: 0.75rem;
+      font-weight: 400;
+      background: #f0f4fe;
+      border-radius: 0 12px 12px 0;
+      line-height: 1.4;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1e2b3c;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.3px;
+    }
+
+    .input-group .icon-wrapper {
+      position: relative;
+    }
+
+    .input-group .icon-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7b8a9e;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.8rem;
+      border: 1.5px solid #dce3ec;
+      border-radius: 60px;
+      font-size: 1rem;
+      background: #fafcff;
+      transition: all 0.25s ease;
+      color: #0b1a2e;
+      font-weight: 500;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #2a6df4;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(42, 109, 244, 0.12);
+    }
+
+    .input-group input:focus + i,
+    .input-group input:focus ~ i {
+      color: #2a6df4;
+    }
+
+    .input-group input::placeholder {
+      color: #a6b6cc;
+      font-weight: 400;
+      font-size: 0.95rem;
+    }
+
+    .extra-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1.5rem 0 1.8rem;
+      font-size: 0.9rem;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #1e2b3c;
+      cursor: pointer;
+    }
+
+    .remember-me input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: #2a6df4;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      color: #2a6df4;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dotted transparent;
+      transition: border-color 0.2s;
+    }
+
+    .forgot-link:hover {
+      border-bottom-color: #2a6df4;
+    }
+
+    .login-btn {
+      width: 100%;
+      background: #1e2b3c;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      border-radius: 60px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 14px rgba(30, 43, 60, 0.25);
+      letter-spacing: 0.3px;
+    }
+
+    .login-btn i {
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .login-btn:hover {
+      background: #2a6df4;
+      box-shadow: 0 10px 20px -6px #2a6df480;
+      transform: translateY(-2px);
+    }
+
+    .login-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 4px 8px rgba(42, 109, 244, 0.3);
+    }
+
+    .signup-text {
+      text-align: center;
+      margin-top: 1.8rem;
+      color: #4a5b6e;
+      font-size: 0.95rem;
+      border-top: 1px solid #e5ebf3;
+      padding-top: 1.8rem;
+    }
+
+    .signup-text a {
+      color: #2a6df4;
+      font-weight: 600;
+      text-decoration: none;
+      margin-left: 0.3rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .signup-text a:hover {
+      border-bottom-color: #2a6df4;
+    }
+
+    /* small screen adjustments */
+    @media (max-width: 460px) {
+      .login-card {
+        padding: 2rem 1.2rem;
+      }
+
+      .extra-options {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card" role="main" aria-labelledby="login-heading">
+    <h1 id="login-heading">
+      <i class="fas fa-lock" aria-hidden="true"></i> 
+      Welcome
+    </h1>
+    <div class="subhead">
+      <i class="fas fa-arrow-right" style="margin-right: 6px; opacity:0.7;"></i> 
+      Sign in to your account
+    </div>
+
+    <!-- login form – no action for demo, but fully functional -->
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <!-- email / username field -->
+      <div class="input-group">
+        <label for="email"><i class="far fa-envelope" style="margin-right: 6px;"></i> Email or username</label>
+        <div class="icon-wrapper">
+          <i class="fas fa-user" aria-hidden="true"></i>
+          <input type="text" id="email" placeholder="you@example.com" value="demo@user.com" required>
+        </div>
+      </div>
+
+      <!-- password field -->
+      <div class="input-group">
+        <label for="password"><i class="fas fa-key" style="margin-right: 6px;"></i> Password</label>
+        <div class="icon-wrapper">
+          <i class="fas fa-lock" aria-hidden="true"></i>
+          <input type="password" id="password" placeholder="••••••••" value="password123" required>
+        </div>
+      </div>
+
+      <!-- extra options: remember & forgot -->
+      <div class="extra-options">
+        <label class="remember-me">
+          <input type="checkbox" id="remember" checked>
+          <span>Remember me</span>
+        </label>
+        <a href="#" class="forgot-link" onclick="alert('Password reset link sent (demo).')">Forgot password?</a>
+      </div>
+
+      <!-- login button -->
+      <button type="submit" class="login-btn">
+        <i class="fas fa-sign-in-alt" aria-hidden="true"></i> 
+        Log in
+      </button>
+
+      <div class="signup-text">
+        Don't have an account? 
+        <a href="#" onclick="alert('Sign-up page (demo).')">Sign up</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    /**
+     * Simple login handler – shows a friendly message.
+     * In a real app, this would send credentials to your backend.
+     */
+    function handleLogin(event) {
+      event.preventDefault(); // prevent page reload
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const remember = document.getElementById('remember').checked;
+
+      // very basic validation
+      if (!email || !password) {
+        alert('Please fill in both email and password.');
+        return;
+      }
+
+      // demo success message (replace with actual authentication)
+      alert(`✅ Login successful!\n\nEmail: ${email}\nRemember me: ${remember ? 'Yes' : 'No'}\n(Password: ${password})`);
+
+      // In a real scenario you'd do:
+      // fetch('/api/login', { method: 'POST', body: { email, password } })
+      //   .then(res => res.json())
+      //   .then(data => { ... })
+    }
+
+    // optional: handle "Enter" key on inputs gracefully (form already does)
+    console.log('Simple login page ready – styled with ❤️');
+  </script>
+</body>
+</html>
