@@ -1393,47 +1393,40 @@
     </section>
 
     <!-- Embedded demo (iframe) -->
-    <section class="demo-section" id="demo">
-      <div class="section-head">
-        <h2><i class="fas fa-laptop-code"></i> try ShopFlow right here</h2>
-        <p class="subtitle">A separate ERPNext-style demo page runs inside this frame. It has its own UI and keeps its own state — this landing page stays exactly where it is.</p>
-      </div>
+<section class="demo-section" id="demo">
+  <div class="section-head">
+    <h2><i class="fas fa-laptop-code"></i> Try ShopFlow Live</h2>
+    <p class="subtitle">Experience the real power of ShopFlow. Click below to launch a fully functional, live demo environment running on our servers.</p>
+  </div>
 
-      <div class="demo-warning">
-        <i class="fas fa-triangle-exclamation"></i>
-        <div class="dw-txt">
-          <strong>This is a mock design, not the real product.</strong> The frame below loads a standalone simulation page — not the real ShopFlow app. It has no backend, no database and no real transactions. <a href="#pricing" style="color:#f0883e; font-weight:600;">See the real plans →</a>
-        </div>
-      </div>
+  <div class="demo-warning" style="background: rgba(240, 136, 62, 0.1); border-color: #f0883e;">
+    <i class="fas fa-key" style="color:#f0883e;"></i>
+    <div class="dw-txt">
+      <strong>Demo Credentials:</strong> When the new tab opens, use these details to log in: <br>
+      <strong>Username:</strong> <code>demo@shopflow.com</code> &nbsp;|&nbsp; 
+      <strong>Password:</strong> <code>demo1234</code>
+    </div>
+  </div>
 
-      <div class="demo-frame-shell">
-        <div class="demo-frame-topbar">
-          <span class="df-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></span>
-          <span class="df-title"><i class="fas fa-window-restore"></i> Demo page · runs in an iframe</span>
-          <span class="df-actions">
-            <span class="df-badge"><i class="fas fa-flask"></i> Mock</span>
-            <a href="https://overrule-gulp-smokeless.ngrok-free.dev/" target="_blank" rel="noopener" class="df-open"><i class="fas fa-arrow-up-right-from-square"></i> Open in new tab</a>
-          </span>
-        </div>
-        <div class="demo-frame-wrap">
-          <div class="demo-frame-loading" id="demoFrameLoading">
-            <div class="spinner"></div>
-            <span>Loading demo page…</span>
-          </div>
-          <iframe
-            id="demoFrame"
-            title="ShopFlow demo (mock) — ERPNext-style simulation"
-            src="https://overrule-gulp-smokeless.ngrok-free.dev/"
-            loading="lazy"
-            allow="clipboard-write"
-          ></iframe>
-        </div>
-        <div class="demo-frame-foot">
-          <span class="dff-note"><i class="fas fa-circle-info"></i> Mock demo page · sample data resets on refresh</span>
-          <span class="dff-size"><i class="fas fa-code"></i> demo.html</span>
-        </div>
-      </div>
-    </section>
+  <div class="demo-frame-shell" style="padding: 40px 20px; text-align: center; background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
+    <div style="font-size: 3rem; color: #238636; margin-bottom: 20px;">
+      <i class="fas fa-desktop"></i>
+    </div>
+    <h3 style="color: #c9d1d9; margin-bottom: 10px;">Ready to see it in action?</h3>
+    <p style="color: #8b949e; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto;">
+      The live demo opens in a secure new tab to give you the full desktop experience, including Point of Sale, Inventory, and Accounting.
+    </p>
+    
+    <!-- This is the button that opens your Ngrok link -->
+    <a href="https://overrule-gulp-smokeless.ngrok-free.dev/" target="_blank" rel="noopener" style="display: inline-block; background: #238636; color: white; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 6px; text-decoration: none; transition: background 0.3s;">
+      <i class="fas fa-arrow-up-right-from-square"></i> Launch Live Demo
+    </a>
+    
+    <p style="color: #8b949e; font-size: 0.85rem; margin-top: 20px;">
+      <i class="fas fa-shield-alt"></i> Note: You will see a quick Ngrok security page. Just click "Visit Site" to enter.
+    </p>
+  </div>
+</section>
 
     <!-- Video placeholder -->
     <section class="video-section" id="video">
