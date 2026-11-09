@@ -642,7 +642,8 @@
 
     .features-section, .how-section, .pricing-section, .demo-section, .video-section,
     .testimonials-section, .faq-section, .sectors-section, .integrations-section,
-    .security-section, .team-section, .case-studies-section, .compare-section {
+    .security-section, .team-section, .case-studies-section, .compare-section,
+    .legal-section, .support-section, .complaints-section, .consultation-section {
       margin-top: 4.5rem;
     }
 
@@ -1297,6 +1298,216 @@
       .trust-bar .tb-item { border-right: none; }
       .selfhost-steps { grid-template-columns: 1fr; }
     }
+
+    /* ============ Legal sections (Privacy / Terms) ============ */
+    .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.4rem; }
+    .legal-card {
+      background: rgba(10, 14, 20, 0.5);
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      border-radius: 16px; padding: 1.8rem;
+      transition: all 0.4s cubic-bezier(0.2,0.9,0.4,1);
+      position: relative; overflow: hidden;
+    }
+    .legal-card:hover { border-color: rgba(88, 166, 255, 0.18); transform: translateY(-4px); box-shadow: 0 12px 50px rgba(0,0,0,0.3); }
+    .legal-card h3 { font-size: 1.1rem; font-weight: 800; color: #f0f6fc; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.6rem; }
+    .legal-card h3 i { color: var(--blue); }
+    .legal-card h4 { font-size: 0.9rem; font-weight: 700; color: #f0f6fc; margin-top: 1rem; margin-bottom: 0.4rem; }
+    .legal-card p, .legal-card li { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+    .legal-card ul { padding-left: 1.2rem; margin: 0.4rem 0 0.6rem; }
+    .legal-card ul li { margin-bottom: 0.25rem; }
+    .legal-card .legal-note {
+      margin-top: 1rem; padding: 0.7rem 0.9rem;
+      background: rgba(88, 166, 255, 0.04);
+      border: 1px solid rgba(88, 166, 255, 0.1);
+      border-radius: 10px; font-size: 0.8rem; color: var(--text-dim);
+    }
+    .legal-card .legal-note i { color: var(--blue); margin-right: 6px; }
+
+    /* ============ Support & communication ============ */
+    .support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.4rem; }
+    .support-card {
+      background: rgba(10, 14, 20, 0.5);
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      border-radius: 16px; padding: 1.8rem;
+      transition: all 0.4s cubic-bezier(0.2,0.9,0.4,1);
+    }
+    .support-card:hover { border-color: rgba(88, 166, 255, 0.18); transform: translateY(-4px); box-shadow: 0 12px 50px rgba(0,0,0,0.3); }
+    .support-card h3 { font-size: 1.1rem; font-weight: 800; color: #f0f6fc; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.6rem; }
+    .support-card h3 i { color: var(--green); }
+    .support-card p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0.6rem; }
+    .support-card ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; margin-top: 0.6rem; }
+    .support-card ul li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
+    .support-card ul li i { color: var(--blue); margin-top: 0.15rem; flex-shrink: 0; font-size: 0.75rem; }
+    .support-card .support-cta {
+      margin-top: 1rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.2rem; border-radius: 10px;
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      color: var(--blue); font-weight: 600; font-size: 0.85rem;
+      text-decoration: none; transition: all 0.3s ease;
+    }
+    .support-card .support-cta:hover { background: rgba(88, 166, 255, 0.15); border-color: rgba(88, 166, 255, 0.3); transform: translateY(-2px); }
+
+    /* ============ Complaints section ============ */
+    .complaints-card {
+      background: linear-gradient(150deg, rgba(240,136,62,0.06), rgba(10,14,20,0.6));
+      border: 1px solid rgba(240, 136, 62, 0.18);
+      border-left: 3px solid var(--orange);
+      border-radius: 16px; padding: 2rem;
+      margin-top: 1.4rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+      align-items: start;
+    }
+    .complaints-card .comp-left h3 { font-size: 1.15rem; font-weight: 800; color: #f0f6fc; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.6rem; }
+    .complaints-card .comp-left h3 i { color: var(--orange); }
+    .complaints-card .comp-left p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 0.8rem; }
+    .complaints-card .comp-left ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+    .complaints-card .comp-left ul li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; }
+    .complaints-card .comp-left ul li i { color: var(--green); margin-top: 0.15rem; flex-shrink: 0; font-size: 0.7rem; }
+    .complaints-form { display: flex; flex-direction: column; gap: 0.8rem; }
+    .complaints-form .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
+    .complaints-form .form-group label { font-size: 0.8rem; font-weight: 500; color: var(--text-dim); }
+    .complaints-form .form-group input,
+    .complaints-form .form-group textarea {
+      padding: 0.6rem 0.9rem; background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(240, 136, 62, 0.15); border-radius: 9px;
+      color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      outline: none; transition: all 0.3s ease;
+    }
+    .complaints-form .form-group input::placeholder,
+    .complaints-form .form-group textarea::placeholder { color: var(--text-faint); }
+    .complaints-form .form-group input:focus,
+    .complaints-form .form-group textarea:focus { border-color: rgba(240, 136, 62, 0.4); box-shadow: 0 0 0 3px rgba(240, 136, 62, 0.06); }
+    .complaints-form .form-group textarea { resize: vertical; min-height: 90px; }
+    .complaints-form .comp-submit {
+      padding: 0.7rem 1.4rem; background: linear-gradient(135deg, #f0883e, #d4712a);
+      border: none; border-radius: 9px; color: #0a0e14;
+      font-weight: 700; font-size: 0.88rem; cursor: pointer;
+      transition: all 0.35s ease; font-family: 'Inter', sans-serif;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      box-shadow: 0 6px 24px rgba(240, 136, 62, 0.25);
+    }
+    .complaints-form .comp-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(240, 136, 62, 0.4); }
+
+    /* ============ Complaint direct channels ============ */
+    .complaint-channels {
+      margin-top: 1.4rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(240, 136, 62, 0.15);
+    }
+    .complaint-channels h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .complaint-channels h4 i { color: var(--orange); }
+    .channel-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .channel-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+      border: 1px solid transparent;
+    }
+    .channel-btn i { font-size: 1rem; }
+    .channel-btn:hover { transform: translateY(-2px); }
+
+    .channel-btn.whatsapp {
+      background: rgba(37, 211, 102, 0.12);
+      border-color: rgba(37, 211, 102, 0.3);
+      color: #25d366;
+    }
+    .channel-btn.whatsapp:hover {
+      background: rgba(37, 211, 102, 0.22);
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.25);
+    }
+
+    .channel-btn.email {
+      background: rgba(88, 166, 255, 0.1);
+      border-color: rgba(88, 166, 255, 0.25);
+      color: var(--blue);
+    }
+    .channel-btn.email:hover {
+      background: rgba(88, 166, 255, 0.2);
+      box-shadow: 0 6px 24px rgba(88, 166, 255, 0.25);
+    }
+
+    .channel-btn.instagram {
+      background: rgba(225, 48, 108, 0.1);
+      border-color: rgba(225, 48, 108, 0.28);
+      color: #e1306c;
+    }
+    .channel-btn.instagram:hover {
+      background: rgba(225, 48, 108, 0.2);
+      box-shadow: 0 6px 24px rgba(225, 48, 108, 0.25);
+    }
+
+    .channel-note {
+      margin-top: 0.8rem;
+      font-size: 0.78rem;
+      color: var(--text-faint);
+      line-height: 1.6;
+    }
+    .channel-note i { color: var(--blue); margin-right: 5px; }
+
+    /* ============ Free consultation button ============ */
+    .consultation-section {
+      margin-top: 4.5rem;
+      text-align: center;
+    }
+    .consultation-banner {
+      background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.08) 60%, rgba(10,14,20,0.6));
+      border: 1px solid rgba(88, 166, 255, 0.2);
+      border-radius: 20px; padding: 2.8rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    .consultation-banner::before {
+      content: ''; position: absolute; top: -60%; left: -60%; width: 220%; height: 220%;
+      background: radial-gradient(circle at 40% 50%, rgba(88, 166, 255, 0.05), transparent 50%);
+      animation: rotateBg 25s linear infinite; pointer-events: none;
+    }
+    .consultation-banner .cons-icon {
+      width: 70px; height: 70px; border-radius: 50%;
+      background: rgba(88, 166, 255, 0.1);
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem; font-size: 1.8rem; color: var(--blue);
+      position: relative;
+    }
+    .consultation-banner h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; color: #f0f6fc; margin-bottom: 0.5rem; position: relative; letter-spacing: -0.4px; }
+    .consultation-banner p { color: var(--text-dim); font-size: 0.95rem; max-width: 560px; margin: 0 auto 1.4rem; position: relative; line-height: 1.7; }
+    .consultation-btn {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      padding: 0.95rem 2.2rem; border-radius: 12px;
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      color: #0a0e14; font-weight: 800; font-size: 1rem;
+      text-decoration: none; transition: all 0.35s cubic-bezier(0.2,0.9,0.4,1);
+      box-shadow: 0 8px 32px rgba(88, 166, 255, 0.3);
+      position: relative;
+    }
+    .consultation-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 44px rgba(88, 166, 255, 0.45); }
+    .consultation-btn i { transition: transform 0.3s ease; }
+    .consultation-btn:hover i { transform: translateX(5px); }
+    .consultation-banner .cons-note { margin-top: 1rem; font-size: 0.75rem; color: var(--text-faint); position: relative; }
+    .consultation-banner .cons-note i { color: var(--green); margin-right: 5px; }
+
+    @media (max-width: 820px) {
+      .legal-grid, .support-grid, .complaints-card { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -1321,6 +1532,7 @@
         <li><a href="vybacsolutions.html"><i class="fas fa-house"></i> Home</a></li>
         <li><a href="#features"><i class="fas fa-th-large"></i> Features</a></li>
         <li><a href="#hosting"><i class="fas fa-tags"></i> Pricing</a></li>
+        <li><a href="#support"><i class="fas fa-headset"></i> Support</a></li>
         <li><a href="#testimonials"><i class="fas fa-quote-right"></i> Reviews</a></li>
         <li><a href="#faq"><i class="fas fa-circle-question"></i> FAQ</a></li>
         <li><a href="#contact" class="nav-cta"><i class="fas fa-rocket"></i> Get Started</a></li>
@@ -1341,10 +1553,12 @@
           <span class="ticker-item"><i class="fas fa-window-restore"></i> Live demo available — try it without leaving the page</span>
           <span class="ticker-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> 500+ shops already running on ShopFlow</span>
           <span class="ticker-item"><i class="fas fa-video"></i> Self-hosting setup video + written guide available</span>
+          <span class="ticker-item"><i class="fas fa-headset"></i> Free consultation available — book a call with our team</span>
           <span class="ticker-item"><i class="fas fa-store"></i> ShopFlow SMS — <a href="#hosting" class="price-tag">Turnkey Setup $1,200</a> or <a href="#hosting" class="price-tag">Self-Hosted $750</a> — one-time</span>
           <span class="ticker-item"><i class="fas fa-window-restore"></i> Live demo available — try it without leaving the page</span>
           <span class="ticker-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> 500+ shops already running on ShopFlow</span>
           <span class="ticker-item"><i class="fas fa-video"></i> Self-hosting setup video + written guide available</span>
+          <span class="ticker-item"><i class="fas fa-headset"></i> Free consultation available — book a call with our team</span>
         </div>
       </div>
     </div>
@@ -1370,6 +1584,7 @@
         <div class="hero-actions">
           <a href="#demo" class="btn-primary"><i class="fas fa-laptop-code"></i> Try the Live Demo</a>
           <a href="#hosting" class="btn-secondary"><i class="fas fa-tags"></i> View Pricing</a>
+          <a href="#consultation" class="btn-secondary" style="background:rgba(63,185,80,0.08); border-color:rgba(63,185,80,0.2); color:var(--green);"><i class="fas fa-headset"></i> Free Consultation</a>
         </div>
         <div class="hero-stats">
           <div class="hero-stat"><span class="num">500+</span><span class="lbl">Shops running</span></div>
@@ -1928,6 +2143,159 @@ password: <span class="c-val">change-me-now</span></code>
       </div>
     </section>
 
+    <!-- ============ SUPPORT & COMMUNICATION ============ -->
+    <section class="support-section" id="support">
+      <div class="section-head">
+        <span class="eyebrow">Support</span>
+        <h2><i class="fas fa-headset"></i> Clear communication &amp; support</h2>
+        <p class="subtitle">We keep things simple and transparent — here's exactly how you can reach us and what to expect.</p>
+      </div>
+      <div class="support-grid">
+        <div class="support-card reveal">
+          <h3><i class="fas fa-comments"></i> How to reach us</h3>
+          <p>We don't hide behind bots or endless ticket queues. Choose the channel that works for you.</p>
+          <ul>
+            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> support@shopflow.app — replies within one business day.</li>
+            <li><i class="fas fa-phone"></i> <strong>Phone / WhatsApp:</strong> +1 (555) 123-4567 — Mon–Fri, 9am–6pm.</li>
+            <li><i class="fas fa-headset"></i> <strong>Live chat:</strong> Available in the dashboard for Turnkey customers.</li>
+            <li><i class="fas fa-book-open"></i> <strong>Docs &amp; guides:</strong> Full written setup and troubleshooting docs for Self-Hosted.</li>
+            <li><i class="fas fa-handshake"></i> <strong>Consultation:</strong> Book a free call with our team before you buy.</li>
+          </ul>
+          <a href="#contact" class="support-cta"><i class="fas fa-arrow-right"></i> Contact Support</a>
+        </div>
+        <div class="support-card reveal">
+          <h3><i class="fas fa-circle-check"></i> What you can expect</h3>
+          <p>We believe in clear communication at every step — no surprises, no hidden fees.</p>
+          <ul>
+            <li><i class="fas fa-clock"></i> <strong>Response time:</strong> Within 1 business day for all support requests.</li>
+            <li><i class="fas fa-shield-halved"></i> <strong>Turnkey:</strong> Priority support during install and after handover.</li>
+            <li><i class="fas fa-server"></i> <strong>Self-Hosted:</strong> Optional support plan available; docs always free.</li>
+            <li><i class="fas fa-file-signature"></i> <strong>Transparency:</strong> One-time pricing, no hidden charges, no lock-in.</li>
+            <li><i class="fas fa-user-check"></i> <strong>Real people:</strong> You talk to someone who knows the product.</li>
+            <li><i class="fas fa-bullhorn"></i> <strong>Updates:</strong> We announce changes and new features in advance.</li>
+          </ul>
+          <a href="#consultation" class="support-cta" style="background:rgba(63,185,80,0.08); border-color:rgba(63,185,80,0.2); color:var(--green);"><i class="fas fa-headset"></i> Book Free Consultation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMPLAINTS SECTION ============ -->
+    <section class="complaints-section" id="complaints">
+      <div class="section-head">
+        <span class="eyebrow">Complaints</span>
+        <h2><i class="fas fa-comment-dots"></i> Your voice matters</h2>
+        <p class="subtitle">If something isn't right, we want to hear about it — and fix it.</p>
+      </div>
+      <div class="complaints-card reveal">
+        <div class="comp-left">
+          <h3><i class="fas fa-bullhorn"></i> Complaints are heard</h3>
+          <p>We take every complaint seriously. Whether it's about the product, support, or billing — tell us and we'll respond personally. No automated replies, no ignoring.</p>
+          <ul>
+            <li><i class="fas fa-check"></i> Every complaint is read by a real person on our team</li>
+            <li><i class="fas fa-check"></i> You'll receive an acknowledgment within 24 hours</li>
+            <li><i class="fas fa-check"></i> We aim to resolve issues within 5 business days</li>
+            <li><i class="fas fa-check"></i> We'll follow up to confirm you're satisfied</li>
+            <li><i class="fas fa-check"></i> Your feedback helps shape our product updates</li>
+          </ul>
+
+          <!-- Direct complaint channels -->
+          <div class="complaint-channels">
+            <h4><i class="fas fa-share-nodes"></i> Reach us directly</h4>
+            <div class="channel-buttons">
+              <a href="https://wa.me/254791480995?text=Hi%20ShopFlow%20team%2C%20I%20have%20a%20complaint%20about..." target="_blank" rel="noopener" class="channel-btn whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+              </a>
+              <a href="mailto:cloudmikkie@gmail.com?subject=Complaint%20about%20ShopFlow&body=Hi%20ShopFlow%20team%2C%0A%0AI%20would%20like%20to%20report%20a%20complaint%3A%0A" class="channel-btn email">
+                <i class="fas fa-envelope"></i> Email
+              </a>
+              <a href="https://instagram.com/cloudmikkie" target="_blank" rel="noopener" class="channel-btn instagram">
+                <i class="fab fa-instagram"></i> Instagram
+              </a>
+            </div>
+            <p class="channel-note"><i class="fas fa-circle-info"></i> Prefer to write it out? Use the form on the right — it goes straight to our team.</p>
+          </div>
+        </div>
+        <form class="complaints-form" id="complaintsForm">
+          <div class="form-group">
+            <label for="comp-name">Your Name</label>
+            <input type="text" id="comp-name" placeholder="e.g. Jane Mwangi" required />
+          </div>
+          <div class="form-group">
+            <label for="comp-email">Email Address</label>
+            <input type="email" id="comp-email" placeholder="jane@yourshop.com" required />
+          </div>
+          <div class="form-group">
+            <label for="comp-shop">Shop Name</label>
+            <input type="text" id="comp-shop" placeholder="Your shop name" />
+          </div>
+          <div class="form-group">
+            <label for="comp-message">What went wrong?</label>
+            <textarea id="comp-message" placeholder="Describe your complaint — be as detailed as you like. We're listening." required></textarea>
+          </div>
+          <button type="submit" class="comp-submit"><i class="fas fa-paper-plane"></i> Submit Complaint</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ FREE CONSULTATION ============ -->
+    <section class="consultation-section" id="consultation">
+      <div class="consultation-banner reveal">
+        <div class="cons-icon"><i class="fas fa-headset"></i></div>
+        <h2>Not sure which plan fits? Talk to us — free.</h2>
+        <p>Book a no-obligation consultation call with our team. We'll listen to your shop's needs, walk you through the options, and help you decide — no pressure, no sales pitch.</p>
+        <a href="#contact" class="consultation-btn"><i class="fas fa-calendar-check"></i> Book a Free Consultation <i class="fas fa-arrow-right"></i></a>
+        <div class="cons-note"><i class="fas fa-check-circle"></i> Free · 20 minutes · No obligation</div>
+      </div>
+    </section>
+
+    <!-- ============ PRIVACY POLICY & TERMS OF SERVICE ============ -->
+    <section class="legal-section" id="legal">
+      <div class="section-head">
+        <span class="eyebrow">Legal</span>
+        <h2><i class="fas fa-scale-balanced"></i> Privacy Policy &amp; Terms of Service</h2>
+        <p class="subtitle">Clear, plain-language policies — because you deserve to know how your data is handled and what you're agreeing to.</p>
+      </div>
+      <div class="legal-grid">
+        <!-- Privacy Policy -->
+        <div class="legal-card reveal">
+          <h3><i class="fas fa-lock"></i> Privacy Policy</h3>
+          <p><strong>Last updated:</strong> June 2026</p>
+          <p>ShopFlow respects your privacy. This policy explains what data we collect, how we use it, and your rights.</p>
+          <h4>1. What we collect</h4>
+          <p>We collect information you provide directly — such as your name, email, shop name, and payment details when you purchase. When you use the software, it stores sales, inventory and customer records <strong>on your own server</strong>. We do not access that data.</p>
+          <h4>2. How we use your information</h4>
+          <ul>
+            <li>To process your order and deliver the software package.</li>
+            <li>To communicate with you about support, updates and billing.</li>
+            <li>To improve our website and services (aggregated, anonymised analytics only).</li>
+          </ul>
+          <h4>3. Data storage &amp; security</h4>
+          <p>Your business data lives on infrastructure you control. Our website and billing systems use industry-standard encryption. We never sell your personal data to third parties.</p>
+          <h4>4. Your rights</h4>
+          <p>You may request a copy of your personal data, ask us to correct it, or request deletion at any time by emailing <strong>privacy@shopflow.app</strong>.</p>
+          <div class="legal-note"><i class="fas fa-circle-info"></i> This is a summary. For the full legal text, contact us or refer to the documentation included with your purchase.</div>
+        </div>
+
+        <!-- Terms of Service -->
+        <div class="legal-card reveal">
+          <h3><i class="fas fa-file-contract"></i> Terms of Service</h3>
+          <p><strong>Last updated:</strong> June 2026</p>
+          <p>By purchasing or using ShopFlow, you agree to these terms. Please read them carefully.</p>
+          <h4>1. License &amp; ownership</h4>
+          <p>When you purchase ShopFlow (Turnkey or Self-Hosted), you receive a perpetual license to use the software on your own server. You own your data and the license. You may not resell or redistribute the software as a competing product.</p>
+          <h4>2. Payment &amp; refunds</h4>
+          <p>Both plans are a one-time payment. Because the software is delivered digitally, refunds are handled on a case-by-case basis within 14 days of purchase if the software has not been installed or used. Contact <strong>billing@shopflow.app</strong>.</p>
+          <h4>3. Support</h4>
+          <p>Turnkey customers receive priority support during installation. Self-Hosted customers receive documentation and may purchase an optional support plan. We aim to respond within one business day.</p>
+          <h4>4. Limitation of liability</h4>
+          <p>ShopFlow is provided "as is". We are not liable for any indirect or consequential loss arising from the use of the software. Our total liability is limited to the amount you paid for the license.</p>
+          <h4>5. Changes to these terms</h4>
+          <p>We may update these terms from time to time. We will notify you of significant changes via email or through the product dashboard.</p>
+          <div class="legal-note"><i class="fas fa-circle-info"></i> This is a summary. For the full legal text, contact us or refer to the documentation included with your purchase.</div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ FAQ ============ -->
     <section class="faq-section" id="faq">
       <div class="section-head">
@@ -1974,7 +2342,15 @@ password: <span class="c-val">change-me-now</span></code>
         </div>
         <div class="faq-item">
           <div class="faq-q">How do I get support? <i class="fas fa-chevron-down"></i></div>
-          <div class="faq-a"><p>Turnkey customers get priority email and chat support during the install and after. Self-Hosted customers can add an optional support plan, or use the written docs and setup video. Either way, you'll talk to a person who knows the product.</p></div>
+          <div class="faq-a"><p>Turnkey customers get priority email and chat support during the install and after. Self-Hosted customers can add an optional support plan, or use the written docs and setup video. Either way, you'll talk to a person who knows the product. See the <a href="#support" style="color:#58a6ff;">Support &amp; Communication</a> section above for full details.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How do I file a complaint? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a"><p>Use the <a href="#complaints" style="color:#58a6ff;">Complaints form</a> above or reach us directly on WhatsApp (+254 791 480 995), email (<strong>cloudmikkie@gmail.com</strong>), or Instagram (<strong>@cloudmikkie</strong>). Every complaint is read by a real person, acknowledged within 24 hours, and we aim to resolve issues within 5 business days.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I get a free consultation before buying? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a"><p>Absolutely. Use the <a href="#consultation" style="color:#58a6ff;">Free Consultation</a> button above or <a href="#contact" style="color:#58a6ff;">contact us</a> to book a 20-minute, no-obligation call. We'll walk you through the plans and help you decide what fits your shop best.</p></div>
         </div>
       </div>
     </section>
@@ -1986,6 +2362,7 @@ password: <span class="c-val">change-me-now</span></code>
       <div class="hero-actions">
         <a href="#demo" class="btn-primary"><i class="fas fa-laptop-code"></i> Try the Demo</a>
         <a href="#hosting" class="btn-secondary"><i class="fas fa-tags"></i> Compare Plans</a>
+        <a href="#consultation" class="btn-secondary" style="background:rgba(63,185,80,0.08); border-color:rgba(63,185,80,0.2); color:var(--green);"><i class="fas fa-headset"></i> Free Consultation</a>
       </div>
     </section>
 
@@ -2012,6 +2389,7 @@ password: <span class="c-val">change-me-now</span></code>
                 <option>Turnkey — $1,200 one-time</option>
                 <option>Self-Hosted — $750 one-time</option>
                 <option>Self-Hosted + Support plan</option>
+                <option>Free consultation call</option>
                 <option>Just have a question</option>
               </select>
             </div>
@@ -2055,6 +2433,7 @@ password: <span class="c-val">change-me-now</span></code>
           <li><a href="#hosting">Pricing</a></li>
           <li><a href="#how">How It Works</a></li>
           <li><a href="#video">Self-Host Guide</a></li>
+          <li><a href="#support">Support</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Get Started</a></li>
         </ul>
@@ -2066,8 +2445,9 @@ password: <span class="c-val">change-me-now</span></code>
           <li><a href="#">Careers</a></li>
           <li><a href="#">Blog</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="#">Partners</a></li>
-          <li><a href="#">Press Kit</a></li>
+          <li><a href="#legal">Privacy Policy</a></li>
+          <li><a href="#legal">Terms of Service</a></li>
+          <li><a href="#complaints">Complaints</a></li>
         </ul>
       </div>
       <div class="footer-col footer-col-resources">
@@ -2077,8 +2457,9 @@ password: <span class="c-val">change-me-now</span></code>
           <li><a href="#">Documentation</a></li>
           <li><a href="#">API Reference</a></li>
           <li><a href="#">Community</a></li>
-          <li><a href="#">Support</a></li>
+          <li><a href="#support">Support</a></li>
           <li><a href="#faq">FAQs</a></li>
+          <li><a href="#consultation">Free Consultation</a></li>
         </ul>
       </div>
       <div class="footer-col footer-col-contact">
@@ -2094,8 +2475,8 @@ password: <span class="c-val">change-me-now</span></code>
     <div class="footer-bottom">
       <p>&copy; 2026 ShopFlow. All rights reserved.</p>
       <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="#legal">Privacy Policy</a>
+        <a href="#legal">Terms of Service</a>
         <a href="#">Cookie Policy</a>
       </div>
       <div class="footer-ai-status"><span class="dot"></span><span>All systems operational</span></div>
@@ -2115,8 +2496,12 @@ password: <span class="c-val">change-me-now</span></code>
       <li><a href="vybacsolutions.html"><i class="fas fa-house"></i> Home</a></li>
       <li><a href="#features"><i class="fas fa-th-large"></i> Features</a></li>
       <li><a href="#hosting"><i class="fas fa-tags"></i> Pricing</a></li>
+      <li><a href="#support"><i class="fas fa-headset"></i> Support</a></li>
       <li><a href="#video"><i class="fas fa-book-open"></i> Setup Guide</a></li>
       <li><a href="#testimonials"><i class="fas fa-quote-right"></i> Reviews</a></li>
+      <li><a href="#complaints"><i class="fas fa-comment-dots"></i> Complaints</a></li>
+      <li><a href="#consultation"><i class="fas fa-calendar-check"></i> Free Consultation</a></li>
+      <li><a href="#legal"><i class="fas fa-scale-balanced"></i> Privacy &amp; Terms</a></li>
       <li><a href="#faq"><i class="fas fa-circle-question"></i> FAQ</a></li>
       <li><a href="#contact" class="mobile-cta"><i class="fas fa-rocket"></i> Get Started</a></li>
     </ul>
@@ -2155,6 +2540,16 @@ password: <span class="c-val">change-me-now</span></code>
         contactForm.addEventListener('submit', function(e) {
           e.preventDefault();
           alert('Thanks! Your message has been received. Our team will get back to you within one business day.');
+          this.reset();
+        });
+      }
+
+      /* -------- Complaints form -------- */
+      const complaintsForm = document.getElementById('complaintsForm');
+      if (complaintsForm) {
+        complaintsForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          alert('Thank you for your complaint. We take it seriously — a real person from our team will acknowledge it within 24 hours and work towards a resolution. You can also reach us on WhatsApp (+254 791 480 995), email (cloudmikkie@gmail.com), or Instagram (@cloudmikkie).');
           this.reset();
         });
       }
