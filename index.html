@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cloud_mikkie · AI</title>
+  <title>ShopFlow · Shop Management System</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
   <style>
@@ -41,10 +41,7 @@
       100% { opacity: 0.8; transform: scale(1.1); }
     }
     body:hover::before { animation-duration: 8s; }
-    .ai-thinking {
-      display: inline-block;
-      animation: thinkingPulse 2s ease-in-out infinite;
-    }
+    .ai-thinking { display: inline-block; animation: thinkingPulse 2s ease-in-out infinite; }
     @keyframes thinkingPulse {
       0%, 100% { opacity: 0.6; transform: scale(1); }
       50% { opacity: 1; transform: scale(1.05); }
@@ -92,14 +89,16 @@
       transition: all 0.4s ease;
     }
     .logo:hover { filter: drop-shadow(0 0 40px rgba(88, 166, 255, 0.3)); }
-    .logo img {
-      height: 42px; width: auto; display: block; border-radius: 10px;
+    .logo .logo-icon {
+      height: 42px; width: 42px; display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; background: linear-gradient(135deg, rgba(88,166,255,0.15), rgba(63,185,80,0.1));
+      border: 1px solid rgba(88, 166, 255, 0.2);
+      font-size: 1.2rem; color: #58a6ff;
       box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.2), 0 4px 20px rgba(0,0,0,0.6);
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-      filter: brightness(1.1);
     }
-    .logo:hover img {
-      transform: scale(1.05) rotate(-2deg) scaleX(-1);
+    .logo:hover .logo-icon {
+      transform: scale(1.05) rotate(-3deg);
       box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.4), 0 6px 30px rgba(88, 166, 255, 0.2);
     }
     .logo-text {
@@ -132,12 +131,7 @@
       font-weight: 600; letter-spacing: 0.5px;
       animation: thinkingPulse 3s ease-in-out infinite;
     }
-    /* Hide logo text and AI badge on small screens */
-    @media (max-width: 850px) {
-      .logo-text {
-        display: none;
-      }
-    }
+    @media (max-width: 850px) { .logo-text { display: none; } }
     .search-wrapper {
       flex: 1 1 260px; min-width: 160px; max-width: 400px;
       position: relative;
@@ -165,24 +159,11 @@
       box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.08), inset 0 2px 10px rgba(0,0,0,0.5);
     }
     .search-wrapper:focus-within i { opacity: 1; color: #58a6ff; }
-
-    /* On small screens, expand search bar to fill available space */
     @media (max-width: 850px) {
-      .search-wrapper {
-        flex: 1 1 auto;
-        min-width: 0;
-        max-width: none;
-      }
-      .search-wrapper input {
-        font-size: 0.85rem;
-        padding: 0.6rem 1rem 0.6rem 2.6rem;
-      }
-      .search-wrapper i {
-        left: 14px;
-        font-size: 0.8rem;
-      }
+      .search-wrapper { flex: 1 1 auto; min-width: 0; max-width: none; }
+      .search-wrapper input { font-size: 0.85rem; padding: 0.6rem 1rem 0.6rem 2.6rem; }
+      .search-wrapper i { left: 14px; font-size: 0.8rem; }
     }
-
     .nav-links {
       display: flex; align-items: center; gap: 0.3rem;
       list-style: none; margin: 0; padding: 0.3rem 0.8rem;
@@ -221,13 +202,19 @@
       border-color: rgba(88, 166, 255, 0.1); transform: translateY(-1px);
     }
     .nav-links li a:hover i { opacity: 1; }
-    .nav-links li a.active {
-      color: #58a6ff; background: rgba(88, 166, 255, 0.08);
-      border-color: rgba(88, 166, 255, 0.15);
-      box-shadow: 0 0 30px rgba(88, 166, 255, 0.03);
+    .nav-cta {
+      background: linear-gradient(135deg, #58a6ff, #3fb950) !important;
+      color: #0a0e14 !important;
+      font-weight: 700 !important;
+      border-color: transparent !important;
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.25) !important;
     }
-    .nav-links li a.active::before { width: 70%; }
-
+    .nav-cta:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 30px rgba(88, 166, 255, 0.4) !important;
+      color: #0a0e14 !important;
+    }
+    .nav-cta i { color: #0a0e14 !important; opacity: 1 !important; }
     .hamburger {
       display: none; flex-direction: column; gap: 5px;
       background: rgba(10, 14, 20, 0.6);
@@ -248,7 +235,6 @@
       transition: all 0.3s ease; opacity: 0.8;
     }
     .hamburger:hover span { background: #58a6ff; }
-
     .mobile-menu-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.8);
@@ -337,11 +323,12 @@
       border-color: rgba(88, 166, 255, 0.12);
       transform: translateX(4px); color: #f0f6fc;
     }
-    .mobile-nav-list li a.active-mobile {
-      background: rgba(88, 166, 255, 0.08);
-      border-color: rgba(88, 166, 255, 0.15);
-      color: #58a6ff;
+    .mobile-nav-list li a.mobile-cta {
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      color: #0a0e14; font-weight: 700;
+      border-color: transparent;
     }
+    .mobile-nav-list li a.mobile-cta i { color: #0a0e14; }
     .panel-footer {
       margin-top: auto; font-size: 0.7rem; color: #6e7681;
       border-top: 1px solid rgba(88, 166, 255, 0.06);
@@ -351,7 +338,6 @@
       letter-spacing: 0.3px;
     }
     .panel-footer i { color: #3fb950; font-size: 0.5rem; vertical-align: middle; margin-right: 6px; }
-
     @media (max-width: 850px) {
       .header-container { gap: 0.8rem; }
       .nav-links { display: none; }
@@ -359,7 +345,7 @@
       .sticky-header { padding: 0.5rem 1rem; }
     }
     @media (max-width: 500px) {
-      .logo img { height: 34px; }
+      .logo .logo-icon { height: 34px; width: 34px; font-size: 1rem; }
       .search-wrapper input { padding: 0.5rem 0.6rem 0.5rem 2.2rem; font-size: 0.8rem; }
       .search-wrapper i { left: 12px; font-size: 0.75rem; }
       .mobile-menu-panel { padding: 1.5rem 1.2rem; width: 270px; }
@@ -369,432 +355,537 @@
       max-width: 1200px; margin: 2.8rem auto; padding: 0 1.5rem;
       color: #e6edf3; position: relative; z-index: 1; flex: 1;
     }
-    .split-layout {
-      display: flex; gap: 2rem; align-items: stretch; min-height: 420px;
-    }
-    .image-panel {
-      flex: 0 0 30%;
-      background: rgba(10, 14, 20, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 16px;
-      border: 1px solid rgba(88, 166, 255, 0.1);
-      overflow: hidden;
-      display: flex;
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 2.5rem;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(88, 166, 255, 0.05);
-      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
-      min-height: 380px;
-      position: relative;
+      min-height: 520px;
+      margin-bottom: 1rem;
     }
-    .image-panel img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1), filter 0.8s ease;
-      filter: saturate(0.9) contrast(1.1);
-    }
-    /* Default image for all screens */
-    .image-panel img {
-      content: url('https://raw.githubusercontent.com/VikieKariz/VikieKariz.github.io/main/ChatGPT%20Image%20Aug%205%2C%202026%2C%2008_08_32%20PM.png');
-    }
-    /* Large screens: change to a different image */
-    @media (min-width: 821px) {
-      .image-panel img {
-        content: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&q=80');
-      }
-    }
-    .image-panel:hover img {
-      transform: scale(1.05);
-      filter: saturate(1.1) contrast(1.2) brightness(1.05);
-    }
-    /* overlay without blur gradient — clean text */
-    .image-panel .ai-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 2rem 1.5rem 1rem;
-      background: transparent;
-      pointer-events: none;
-    }
-    .image-panel .ai-overlay span {
-      font-size: 0.65rem;
-      color: rgba(255, 255, 255, 0.5);
-      font-family: 'Inter', monospace;
-      letter-spacing: 1px;
-      background: rgba(10, 14, 20, 0.3);
-      padding: 0.2rem 0.8rem;
-      border-radius: 30px;
-      backdrop-filter: blur(2px);
-      display: inline-block;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .image-panel .ai-overlay i {
-      color: #58a6ff;
-      margin-right: 6px;
-      animation: thinkingPulse 2s ease-in-out infinite;
-    }
-
-    .slider-panel {
-      flex: 1; min-width: 0;
-      background: rgba(10, 14, 20, 0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 16px;
-      border: 1px solid rgba(88, 166, 255, 0.08);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(88, 166, 255, 0.05);
-      padding: 2.2rem 2.2rem 3.5rem 2.2rem;
-      position: relative; overflow: hidden;
-      min-height: 380px;
-      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
-    }
-    .slider-panel::before {
-      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle at 30% 40%, rgba(88, 166, 255, 0.02), transparent 60%);
-      pointer-events: none; animation: rotateBg 30s linear infinite;
-    }
-    @keyframes rotateBg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .slider-panel:hover {
-      border-color: rgba(88, 166, 255, 0.15);
-      box-shadow: 0 12px 60px rgba(0,0,0,0.4), 0 0 40px rgba(88, 166, 255, 0.02);
-    }
-    .slide {
-      display: none;
-      animation: fadeUpAI 0.7s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
-      position: relative; z-index: 1;
-    }
-    .slide.active { display: block; }
-    @keyframes fadeUpAI {
-      0% { opacity: 0; transform: translateY(30px) scale(0.98); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .slide h2 {
-      font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;
-      color: #f0f6fc; display: flex; align-items: center; gap: 0.8rem;
-      font-family: 'Inter', sans-serif; letter-spacing: -0.3px;
-    }
-    .slide h2 i { color: #58a6ff; font-size: 1.5rem; opacity: 0.9; animation: thinkingPulse 3s ease-in-out infinite; }
-    .slide p { line-height: 1.8; color: #b1bac4; font-size: 0.95rem; max-width: 100%; }
-    .slide .highlight {
-      color: #58a6ff; font-weight: 600;
-      background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(63, 185, 80, 0.05));
-      padding: 0.05rem 0.3rem; border-radius: 4px;
-    }
-    .slide .price-badge {
-      display: inline-block; background: rgba(88, 166, 255, 0.1);
-      padding: 0.3rem 1.2rem; border-radius: 40px;
-      font-weight: 700; font-size: 1.1rem; color: #58a6ff;
+    .hero-left { display: flex; flex-direction: column; gap: 1.3rem; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(88, 166, 255, 0.08);
       border: 1px solid rgba(88, 166, 255, 0.15);
-      margin-top: 0.6rem; transition: all 0.4s ease;
-      position: relative; overflow: hidden;
+      color: #58a6ff; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      padding: 0.35rem 0.9rem; border-radius: 30px;
+      width: fit-content;
+      animation: thinkingPulse 3s ease-in-out infinite;
     }
-    .price-badge::after { content: '⚡'; margin-left: 6px; animation: thinkingPulse 1.5s ease-in-out infinite; }
-    .slider-panel:hover .price-badge {
-      background: rgba(88, 166, 255, 0.15);
-      border-color: rgba(88, 166, 255, 0.25); transform: scale(1.02);
+    .hero-eyebrow i { font-size: 0.6rem; color: #3fb950; }
+    .hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3.1rem);
+      font-weight: 800; line-height: 1.12;
+      letter-spacing: -1.5px; color: #f0f6fc;
     }
-    .slide .perk-list { list-style: none; padding: 0; margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-    .slide .perk-list li {
-      display: flex; align-items: center; gap: 0.6rem;
-      color: #c9d1d9; font-size: 0.85rem; transition: all 0.4s ease; cursor: default;
-    }
-    .slide .perk-list li:hover { color: #f0f6fc; transform: translateX(4px) scale(1.02); }
-    .slide .perk-list li i { color: #3fb950; font-size: 0.9rem; animation: thinkingPulse 3s ease-in-out infinite; }
-    .slide .feature-tag {
-      display: inline-block; background: rgba(240, 136, 62, 0.08);
-      padding: 0.2rem 1rem; border-radius: 30px;
-      font-size: 0.65rem; font-weight: 600; color: #f0883e;
-      border: 1px solid rgba(240, 136, 62, 0.1);
-      margin-top: 0.5rem; transition: all 0.4s ease;
-    }
-    .slider-panel:hover .feature-tag {
-      background: rgba(240, 136, 62, 0.12);
-      border-color: rgba(240, 136, 62, 0.2);
-    }
-    .slide .slide-detail { margin-top: 0.5rem; font-size: 0.85rem; color: #8b949e; line-height: 1.6; }
-
-    .pagination-dots {
-      position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 0.5rem; z-index: 5;
-    }
-    .pagination-dots .dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: rgba(48, 54, 61, 0.6);
-      border: 1px solid rgba(88, 166, 255, 0.1);
-      cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: 0 0 4px rgba(0,0,0,0.3); position: relative;
-    }
-    .pagination-dots .dot::after {
-      content: ''; position: absolute; inset: -3px; border-radius: 50%;
-      border: 1px solid transparent; transition: all 0.4s ease;
-    }
-    .pagination-dots .dot.active {
-      background: #58a6ff; border-color: #58a6ff;
-      box-shadow: 0 0 20px rgba(88, 166, 255, 0.3); transform: scale(1.4);
-    }
-    .pagination-dots .dot.active::after { border-color: rgba(88, 166, 255, 0.2); }
-    .pagination-dots .dot:hover {
-      background: rgba(88, 166, 255, 0.3);
-      border-color: rgba(88, 166, 255, 0.3); transform: scale(1.2);
-    }
-
-    .services-section { margin-top: 4rem; }
-    .services-section h2 {
-      font-size: 1.8rem; font-weight: 700; color: #f0f6fc;
-      margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem;
-    }
-    .services-section h2 i { color: #58a6ff; font-size: 1.8rem; animation: thinkingPulse 3s ease-in-out infinite; }
-    .services-section .subtitle { color: #8b949e; font-size: 1rem; margin-bottom: 2rem; }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
-    .service-card { display: none !important; }
-    @media (max-width: 819px) {
-      .service-card:nth-child(1), .service-card:nth-child(2) { display: flex !important; }
-    }
-    @media (min-width: 820px) {
-      .service-card:nth-child(1), .service-card:nth-child(2), .service-card:nth-child(3),
-      .service-card:nth-child(4), .service-card:nth-child(5), .service-card:nth-child(6) { display: flex !important; }
-    }
-    .service-card.hidden-service { display: none !important; }
-    .service-card.show { display: flex !important; }
-    @keyframes fadeInService { 0% { opacity: 0; transform: translateY(20px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-    .service-card.show { animation: fadeInService 0.5s ease forwards; }
-    .service-card {
-      background: rgba(10, 14, 20, 0.5); backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px); border-radius: 12px;
-      border: 1px solid rgba(88, 166, 255, 0.06);
-      padding: 1.5rem; transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: 0 2px 16px rgba(0,0,0,0.15);
-      position: relative; overflow: hidden; display: flex; align-items: flex-start; gap: 1rem;
-    }
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.15), transparent);
-      opacity: 0; transition: opacity 0.4s ease;
-    }
-    .service-card:hover::before { opacity: 1; }
-    .service-card:hover {
-      border-color: rgba(88, 166, 255, 0.12); transform: translateY(-4px);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.25), 0 0 30px rgba(88, 166, 255, 0.02);
-      background: rgba(10, 14, 20, 0.7);
-    }
-    .service-card .icon {
-      flex-shrink: 0; width: 44px; height: 44px;
-      background: rgba(88, 166, 255, 0.06); border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; color: #58a6ff; transition: all 0.4s ease;
-    }
-    .service-card:hover .icon {
-      background: rgba(88, 166, 255, 0.12); transform: scale(1.05) rotate(-3deg);
-    }
-    .service-card .content h4 { font-size: 0.95rem; font-weight: 600; color: #f0f6fc; margin-bottom: 0.2rem; }
-    .service-card .content p { font-size: 0.8rem; color: #8b949e; line-height: 1.5; }
-
-    .services-toggle { display: flex; justify-content: center; margin-top: 1.5rem; }
-    .services-toggle button {
-      background: rgba(88, 166, 255, 0.06); backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(88, 166, 255, 0.1); color: #58a6ff;
-      padding: 0.7rem 2.5rem; border-radius: 40px;
-      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem;
-      cursor: pointer; transition: all 0.4s ease;
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .services-toggle button:hover {
-      background: rgba(88, 166, 255, 0.12); border-color: rgba(88, 166, 255, 0.2);
-      transform: translateY(-2px); box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
-    }
-    .services-toggle button i { transition: transform 0.4s ease; }
-    .services-toggle button.open i { transform: rotate(180deg); }
-
-    .projects-section { margin-top: 4rem; }
-    .projects-section h2 {
-      font-size: 1.8rem; font-weight: 700; color: #f0f6fc;
-      margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem;
-    }
-    .projects-section h2 i { color: #58a6ff; font-size: 1.8rem; animation: thinkingPulse 3s ease-in-out infinite; }
-    .projects-section .subtitle { color: #8b949e; font-size: 1rem; margin-bottom: 2rem; }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-    .project-card { display: none !important; }
-    @media (max-width: 599px) {
-      .project-card:nth-child(1), .project-card:nth-child(2) { display: block !important; }
-    }
-    @media (min-width: 600px) and (max-width: 819px) {
-      .project-card:nth-child(1), .project-card:nth-child(2), .project-card:nth-child(3), .project-card:nth-child(4) { display: block !important; }
-    }
-    @media (min-width: 820px) {
-      .project-card:nth-child(1), .project-card:nth-child(2), .project-card:nth-child(3),
-      .project-card:nth-child(4), .project-card:nth-child(5), .project-card:nth-child(6) { display: block !important; }
-    }
-    .project-card.hidden-project { display: none !important; }
-    .project-card.show { display: block !important; }
-    @keyframes fadeInProject { 0% { opacity: 0; transform: translateY(20px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-    .project-card.show { animation: fadeInProject 0.5s ease forwards; }
-    .project-card {
-      background: rgba(10, 14, 20, 0.5); backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px); border-radius: 14px;
-      border: 1px solid rgba(88, 166, 255, 0.06);
-      padding: 1.8rem; transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-      position: relative; overflow: hidden;
-    }
-    .project-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, #58a6ff, #3fb950, #58a6ff);
-      background-size: 200% 100%; opacity: 0; transition: opacity 0.5s ease;
-      animation: gradientShift 3s ease-in-out infinite;
-    }
-    .project-card:hover::before { opacity: 1; }
-    .project-card:hover {
-      border-color: rgba(88, 166, 255, 0.15); transform: translateY(-6px);
-      box-shadow: 0 12px 50px rgba(0,0,0,0.3), 0 0 40px rgba(88, 166, 255, 0.03);
-      background: rgba(10, 14, 20, 0.7);
-    }
-    .project-card .project-icon {
-      font-size: 2.2rem; margin-bottom: 1rem; display: inline-block;
-      background: rgba(88, 166, 255, 0.06); padding: 0.6rem; border-radius: 12px;
-      transition: all 0.4s ease;
-    }
-    .project-card:hover .project-icon {
-      background: rgba(88, 166, 255, 0.12); transform: scale(1.05) rotate(-5deg);
-    }
-    .project-card h4 { font-size: 1.1rem; font-weight: 700; color: #f0f6fc; margin-bottom: 0.5rem; }
-    .project-card .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.8rem; }
-    .project-card .project-tags span {
-      background: rgba(88, 166, 255, 0.06); padding: 0.1rem 0.6rem; border-radius: 20px;
-      font-size: 0.6rem; color: #58a6ff; border: 1px solid rgba(88, 166, 255, 0.06);
-      font-weight: 500; letter-spacing: 0.3px;
-    }
-    .project-card p { color: #b1bac4; font-size: 0.9rem; line-height: 1.7; }
-    .project-card .project-ai-badge {
-      display: inline-block; margin-top: 0.8rem;
-      background: rgba(63, 185, 80, 0.08); padding: 0.2rem 0.8rem; border-radius: 20px;
-      font-size: 0.6rem; color: #3fb950; border: 1px solid rgba(63, 185, 80, 0.08);
-      font-weight: 600;
-    }
-    .projects-toggle { display: flex; justify-content: center; margin-top: 2rem; }
-    .projects-toggle button {
-      background: rgba(88, 166, 255, 0.06); backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(88, 166, 255, 0.1); color: #58a6ff;
-      padding: 0.7rem 2.5rem; border-radius: 40px;
-      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem;
-      cursor: pointer; transition: all 0.4s ease;
-      display: inline-flex; align-items: center; gap: 0.6rem;
-    }
-    .projects-toggle button:hover {
-      background: rgba(88, 166, 255, 0.12); border-color: rgba(88, 166, 255, 0.2);
-      transform: translateY(-2px); box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
-    }
-    .projects-toggle button i { transition: transform 0.4s ease; }
-    .projects-toggle button.open i { transform: rotate(180deg); }
-
-    .blog-section { margin-top: 4rem; }
-    .blog-section h2 {
-      font-size: 1.8rem; font-weight: 700; color: #f0f6fc;
-      margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem;
-    }
-    .blog-section h2 i { color: #58a6ff; font-size: 1.8rem; animation: thinkingPulse 3s ease-in-out infinite; }
-    .blog-section .subtitle { color: #8b949e; font-size: 1rem; margin-bottom: 2rem; }
-    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-    .blog-card { display: none !important; }
-    @media (max-width: 599px) {
-      .blog-card:nth-child(1), .blog-card:nth-child(2) { display: flex !important; }
-    }
-    @media (min-width: 600px) and (max-width: 819px) {
-      .blog-card:nth-child(1), .blog-card:nth-child(2), .blog-card:nth-child(3), .blog-card:nth-child(4) { display: flex !important; }
-    }
-    @media (min-width: 820px) {
-      .blog-card:nth-child(1), .blog-card:nth-child(2), .blog-card:nth-child(3),
-      .blog-card:nth-child(4), .blog-card:nth-child(5), .blog-card:nth-child(6) { display: flex !important; }
-    }
-    .blog-card.hidden-blog { display: none !important; }
-    .blog-card.show { display: flex !important; }
-    @keyframes fadeInBlog { 0% { opacity: 0; transform: translateY(20px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-    .blog-card.show { animation: fadeInBlog 0.5s ease forwards; }
-    .blog-card {
-      background: rgba(10, 14, 20, 0.5); backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px); border-radius: 14px;
-      border: 1px solid rgba(88, 166, 255, 0.06);
-      padding: 1.8rem; transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-      position: relative; overflow: hidden;
-      display: flex; flex-direction: column;
-    }
-    .blog-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, #f0883e, #58a6ff, #3fb950);
-      background-size: 200% 100%; opacity: 0; transition: opacity 0.5s ease;
+    .hero h1 .grad {
+      background: linear-gradient(135deg, #58a6ff, #3fb950, #58a6ff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
       animation: gradientShift 4s ease-in-out infinite;
     }
-    .blog-card:hover::before { opacity: 1; }
-    .blog-card:hover {
-      border-color: rgba(88, 166, 255, 0.15); transform: translateY(-6px);
+    .hero p.lead {
+      font-size: 1.02rem; line-height: 1.8; color: #b1bac4;
+      max-width: 540px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 0.4rem; }
+    .btn-primary, .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.85rem 1.7rem; border-radius: 12px;
+      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.92rem;
+      cursor: pointer; text-decoration: none; transition: all 0.35s cubic-bezier(0.2,0.9,0.4,1);
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      color: #0a0e14;
+      box-shadow: 0 6px 28px rgba(88, 166, 255, 0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 38px rgba(88, 166, 255, 0.45);
+    }
+    .btn-primary i { transition: transform 0.3s ease; }
+    .btn-primary:hover i { transform: translateX(4px); }
+    .btn-secondary {
+      background: rgba(88, 166, 255, 0.06);
+      border-color: rgba(88, 166, 255, 0.15);
+      color: #58a6ff;
+    }
+    .btn-secondary:hover {
+      background: rgba(88, 166, 255, 0.12);
+      border-color: rgba(88, 166, 255, 0.25);
+      transform: translateY(-3px);
+    }
+    .hero-stats {
+      display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 0.8rem;
+      padding-top: 1.4rem; border-top: 1px solid rgba(88, 166, 255, 0.08);
+    }
+    .hero-stat .num {
+      font-size: 1.6rem; font-weight: 800; color: #58a6ff;
+      font-family: 'Inter', monospace; letter-spacing: -0.5px;
+      display: block; line-height: 1.1;
+    }
+    .hero-stat .lbl { font-size: 0.72rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.6px; }
+    .hero-right { position: relative; }
+    .dashboard-mock {
+      background: rgba(10, 14, 20, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 18px;
+      border: 1px solid rgba(88, 166, 255, 0.12);
+      box-shadow: 0 20px 70px rgba(0,0,0,0.5), inset 0 1px 0 rgba(88, 166, 255, 0.05);
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.2,0.9,0.4,1);
+    }
+    .dashboard-mock:hover {
+      border-color: rgba(88, 166, 255, 0.2);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.6), 0 0 60px rgba(88, 166, 255, 0.04);
+      transform: translateY(-4px);
+    }
+    .mock-topbar {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1rem;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(88, 166, 255, 0.06);
+    }
+    .mock-topbar .dot-red, .mock-topbar .dot-yellow, .mock-topbar .dot-green {
+      width: 9px; height: 9px; border-radius: 50%;
+    }
+    .mock-topbar .dot-red { background: #f85149; }
+    .mock-topbar .dot-yellow { background: #f0883e; }
+    .mock-topbar .dot-green { background: #3fb950; }
+    .mock-topbar .mock-title {
+      margin-left: auto; font-size: 0.62rem; color: #6e7681;
+      font-family: 'Inter', monospace; letter-spacing: 0.5px;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .mock-topbar .mock-title i { color: #3fb950; animation: thinkingPulse 2s ease-in-out infinite; }
+    .mock-body { padding: 1.1rem; display: flex; flex-direction: column; gap: 0.9rem; }
+    .mock-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+    .mock-kpi {
+      background: rgba(0,0,0,0.25); border-radius: 10px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 0.7rem 0.8rem;
+      transition: all 0.3s ease;
+    }
+    .mock-kpi:hover { border-color: rgba(88, 166, 255, 0.15); transform: translateY(-2px); }
+    .mock-kpi .k-lbl { font-size: 0.55rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
+    .mock-kpi .k-val { font-size: 1.05rem; font-weight: 800; color: #f0f6fc; font-family: 'Inter', monospace; margin-top: 0.15rem; }
+    .mock-kpi .k-val.up { color: #3fb950; }
+    .mock-kpi .k-val.blue { color: #58a6ff; }
+    .mock-chart {
+      background: rgba(0,0,0,0.25); border-radius: 10px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 0.8rem;
+    }
+    .mock-chart .c-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; }
+    .mock-chart .c-head span { font-size: 0.62rem; color: #8b949e; font-weight: 600; letter-spacing: 0.3px; }
+    .mock-chart .c-head .tag { font-size: 0.5rem; color: #3fb950; background: rgba(63,185,80,0.1); padding: 0.1rem 0.5rem; border-radius: 20px; }
+    .bars { display: flex; align-items: flex-end; gap: 0.45rem; height: 70px; }
+    .bars .bar {
+      flex: 1; border-radius: 4px 4px 0 0;
+      background: linear-gradient(180deg, #58a6ff, rgba(88,166,255,0.15));
+      animation: barGrow 1.2s cubic-bezier(0.2,0.9,0.4,1) forwards;
+      transform-origin: bottom; opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+    .bars .bar:hover { opacity: 1; }
+    .bars .bar:nth-child(2n) { background: linear-gradient(180deg, #3fb950, rgba(63,185,80,0.15)); }
+    @keyframes barGrow { 0% { transform: scaleY(0); } 100% { transform: scaleY(1); } }
+    .mock-orders { display: flex; flex-direction: column; gap: 0.45rem; }
+    .mock-order-row {
+      display: flex; align-items: center; gap: 0.55rem;
+      background: rgba(0,0,0,0.2); border-radius: 8px;
+      padding: 0.45rem 0.6rem;
+      border: 1px solid rgba(88, 166, 255, 0.04);
+      transition: all 0.3s ease;
+      font-size: 0.62rem;
+    }
+    .mock-order-row:hover { border-color: rgba(88, 166, 255, 0.12); background: rgba(0,0,0,0.3); }
+    .mock-order-row .o-icon {
+      width: 22px; height: 22px; border-radius: 6px;
+      background: rgba(88,166,255,0.1); color: #58a6ff;
+      display: flex; align-items: center; justify-content: center; font-size: 0.55rem;
+      flex-shrink: 0;
+    }
+    .mock-order-row .o-name { color: #c9d1d9; font-weight: 600; }
+    .mock-order-row .o-id { color: #6e7681; font-family: 'Inter', monospace; }
+    .mock-order-row .o-status {
+      margin-left: auto; font-size: 0.52rem; font-weight: 700;
+      padding: 0.1rem 0.5rem; border-radius: 20px;
+    }
+    .o-status.paid { color: #3fb950; background: rgba(63,185,80,0.1); border: 1px solid rgba(63,185,80,0.15); }
+    .o-status.pending { color: #f0883e; background: rgba(240,136,62,0.1); border: 1px solid rgba(240,136,62,0.15); }
+    .o-status.shipped { color: #58a6ff; background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.15); }
+    .mock-float-badge {
+      position: absolute; bottom: -14px; left: -14px;
+      background: rgba(10,14,20,0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(63,185,80,0.2);
+      border-radius: 12px; padding: 0.6rem 0.9rem;
+      display: flex; align-items: center; gap: 0.55rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      animation: floatY 4s ease-in-out infinite;
+      z-index: 2;
+    }
+    .mock-float-badge i { color: #3fb950; font-size: 0.95rem; }
+    .mock-float-badge .f-txt { font-size: 0.6rem; color: #c9d1d9; font-weight: 600; }
+    .mock-float-badge .f-sub { font-size: 0.5rem; color: #6e7681; }
+    @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    .section-head { margin-bottom: 2rem; }
+    .section-head h2 {
+      font-size: 1.8rem; font-weight: 700; color: #f0f6fc;
+      display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem;
+    }
+    .section-head h2 i { color: #58a6ff; font-size: 1.6rem; animation: thinkingPulse 3s ease-in-out infinite; }
+    .section-head .subtitle { color: #8b949e; font-size: 1rem; }
+
+    /* Embedded demo (iframe) */
+    .demo-section { margin-top: 3.5rem; }
+    .demo-warning {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      background: rgba(240, 136, 62, 0.07);
+      border: 1px solid rgba(240, 136, 62, 0.2);
+      border-left: 3px solid #f0883e;
+      border-radius: 10px; padding: 0.9rem 1.1rem;
+      margin-bottom: 1.4rem;
+    }
+    .demo-warning i { color: #f0883e; font-size: 1.1rem; margin-top: 0.1rem; flex-shrink: 0; }
+    .demo-warning .dw-txt { font-size: 0.85rem; color: #c9d1d9; line-height: 1.6; }
+    .demo-warning .dw-txt strong { color: #f0883e; }
+
+    .demo-frame-shell {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 20px 70px rgba(0,0,0,0.5);
+    }
+    .demo-frame-topbar {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.8rem;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      flex-wrap: wrap;
+    }
+    .demo-frame-topbar .df-dots { display: flex; gap: 0.3rem; }
+    .demo-frame-topbar .df-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .demo-frame-topbar .df-dots .red { background: #f85149; }
+    .demo-frame-topbar .df-dots .yellow { background: #d29922; }
+    .demo-frame-topbar .df-dots .green { background: #3fb950; }
+    .demo-frame-topbar .df-title {
+      font-size: 0.7rem; color: #8b949e; font-weight: 600;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .demo-frame-topbar .df-title i { color: #58a6ff; font-size: 0.65rem; }
+    .demo-frame-topbar .df-actions {
+      margin-left: auto; display: flex; align-items: center; gap: 0.4rem;
+    }
+    .demo-frame-topbar .df-badge {
+      font-size: 0.55rem; font-weight: 800; letter-spacing: 0.5px;
+      text-transform: uppercase; color: #f0883e;
+      background: rgba(240,136,62,0.1); border: 1px solid rgba(240,136,62,0.2);
+      padding: 0.15rem 0.5rem; border-radius: 20px;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+    }
+    .demo-frame-topbar .df-open {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.62rem; font-weight: 600; text-decoration: none;
+      color: #58a6ff; background: rgba(88,166,255,0.08);
+      border: 1px solid rgba(88,166,255,0.15);
+      padding: 0.2rem 0.6rem; border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+    .demo-frame-topbar .df-open:hover {
+      background: rgba(88,166,255,0.15); border-color: rgba(88,166,255,0.3);
+    }
+    .demo-frame-wrap {
+      position: relative;
+      width: 100%;
+      height: 560px;
+      background: #0d1117;
+    }
+    .demo-frame-wrap iframe {
+      display: block; width: 100%; height: 100%; border: none;
+      background: #0d1117;
+    }
+    .demo-frame-loading {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.8rem;
+      background: #0d1117; color: #6e7681;
+      font-size: 0.75rem; z-index: 2;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .demo-frame-loading.hidden { opacity: 0; visibility: hidden; }
+    .demo-frame-loading .spinner {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 2px solid #21262d; border-top-color: #58a6ff;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .demo-frame-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.8rem; flex-wrap: wrap;
+      padding: 0.5rem 0.8rem;
+      background: #161b22;
+      border-top: 1px solid #30363d;
+      font-size: 0.62rem; color: #6e7681;
+    }
+    .demo-frame-foot .dff-note {
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .demo-frame-foot .dff-note i { color: #f0883e; }
+    .demo-frame-foot .dff-size {
+      font-family: 'Inter', monospace; display: flex; align-items: center; gap: 0.4rem;
+    }
+    .demo-frame-foot .dff-size i { color: #58a6ff; }
+    @media (max-width: 820px) {
+      .demo-frame-wrap { height: 480px; }
+    }
+    @media (max-width: 500px) {
+      .demo-frame-wrap { height: 420px; }
+      .demo-frame-topbar .df-title { display: none; }
+    }
+
+    /* Video */
+    .video-section { margin-top: 3.5rem; }
+    .video-shell {
+      position: relative;
+      background: rgba(10, 14, 20, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(88, 166, 255, 0.12);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 70px rgba(0,0,0,0.5);
+      aspect-ratio: 16 / 9;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.2,0.9,0.4,1);
+    }
+    .video-shell:hover {
+      border-color: rgba(88, 166, 255, 0.25);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.6), 0 0 60px rgba(88, 166, 255, 0.06);
+    }
+    .video-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 25% 30%, rgba(88,166,255,0.12), transparent 50%),
+        radial-gradient(circle at 75% 70%, rgba(63,185,80,0.1), transparent 50%),
+        repeating-linear-gradient(45deg, rgba(88,166,255,0.02) 0px, rgba(88,166,255,0.02) 1px, transparent 1px, transparent 14px);
+      pointer-events: none;
+    }
+    .video-play {
+      position: relative; z-index: 2;
+      width: 84px; height: 84px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(88,166,255,0.25), rgba(63,185,80,0.15));
+      border: 1px solid rgba(88, 166, 255, 0.35);
+      display: flex; align-items: center; justify-content: center;
+      color: #58a6ff; font-size: 1.6rem;
+      box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.35);
+      transition: all 0.4s ease;
+      animation: playPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes playPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.35); }
+      50% { box-shadow: 0 0 0 18px rgba(88, 166, 255, 0); }
+    }
+    .video-shell:hover .video-play {
+      transform: scale(1.08);
+      background: linear-gradient(135deg, rgba(88,166,255,0.4), rgba(63,185,80,0.25));
+      color: #f0f6fc;
+    }
+    .video-info {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+      padding: 2.2rem 1.6rem 1.1rem;
+      background: linear-gradient(to top, rgba(10,14,20,0.95), rgba(10,14,20,0.4) 60%, transparent);
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    .video-info .vi-txt h4 { font-size: 1rem; font-weight: 700; color: #f0f6fc; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .video-info .vi-txt h4 .vi-badge {
+      font-size: 0.52rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
+      color: #f0883e; background: rgba(240,136,62,0.12); border: 1px solid rgba(240,136,62,0.2);
+      padding: 0.15rem 0.55rem; border-radius: 20px;
+    }
+    .video-info .vi-txt p { font-size: 0.78rem; color: #8b949e; margin-top: 0.25rem; }
+    .video-info .vi-meta {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.68rem; color: #6e7681; font-family: 'Inter', monospace;
+      background: rgba(0,0,0,0.4); border: 1px solid rgba(88,166,255,0.08);
+      padding: 0.25rem 0.7rem; border-radius: 20px;
+    }
+    .video-info .vi-meta i { color: #58a6ff; }
+    .video-caption {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      margin-top: 1.2rem; padding: 0.9rem 1.1rem;
+      background: rgba(88, 166, 255, 0.04);
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      border-radius: 10px;
+    }
+    .video-caption i { color: #58a6ff; margin-top: 0.1rem; flex-shrink: 0; }
+    .video-caption p { font-size: 0.82rem; color: #b1bac4; line-height: 1.65; }
+    .video-caption p strong { color: #f0f6fc; }
+
+    /* Features */
+    .features-section { margin-top: 3.5rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .feature-card {
+      background: rgba(10, 14, 20, 0.5); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); border-radius: 14px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 1.6rem; transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.3), transparent);
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-card:hover {
+      border-color: rgba(88, 166, 255, 0.15); transform: translateY(-5px);
       box-shadow: 0 12px 50px rgba(0,0,0,0.3), 0 0 40px rgba(88, 166, 255, 0.03);
       background: rgba(10, 14, 20, 0.7);
     }
-    .blog-card .blog-meta { display: flex; align-items: center; gap: 0.6rem; font-size: 0.7rem; color: #8b949e; margin-bottom: 0.6rem; }
-    .blog-card .blog-meta .blog-category {
-      background: rgba(88, 166, 255, 0.06); padding: 0.1rem 0.6rem; border-radius: 20px;
-      color: #58a6ff; border: 1px solid rgba(88, 166, 255, 0.06); font-weight: 500;
+    .feature-card .icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: rgba(88, 166, 255, 0.08); color: #58a6ff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 1rem;
+      transition: all 0.4s ease;
     }
-    .blog-card .blog-meta .blog-date { color: #6e7681; }
-    .blog-card .blog-icon { font-size: 2rem; margin-bottom: 0.8rem; display: inline-block; transition: all 0.4s ease; }
-    .blog-card:hover .blog-icon { transform: scale(1.1) rotate(-3deg); }
-    .blog-card h4 { font-size: 1.1rem; font-weight: 700; color: #f0f6fc; margin-bottom: 0.5rem; line-height: 1.3; }
-    .blog-card p { color: #b1bac4; font-size: 0.9rem; line-height: 1.7; flex: 1; }
-    .blog-card .blog-read-more {
-      margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;
-      color: #58a6ff; text-decoration: none; font-weight: 600; font-size: 0.85rem;
-      transition: all 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px;
-    }
-    .blog-card .blog-read-more:hover { gap: 0.8rem; border-bottom-color: #58a6ff; }
-    .blog-card .blog-read-more i { transition: transform 0.3s ease; }
-    .blog-card .blog-read-more:hover i { transform: translateX(4px); }
-    .blog-card:nth-child(1) .blog-icon { color: #f0883e; }
-    .blog-card:nth-child(2) .blog-icon { color: #58a6ff; }
-    .blog-card:nth-child(3) .blog-icon { color: #3fb950; }
-    .blog-card:nth-child(4) .blog-icon { color: #f0883e; }
-    .blog-card:nth-child(5) .blog-icon { color: #58a6ff; }
-    .blog-card:nth-child(6) .blog-icon { color: #3fb950; }
-    .blog-toggle { display: flex; justify-content: center; margin-top: 2rem; }
-    .blog-toggle button {
-      background: rgba(88, 166, 255, 0.06); backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(88, 166, 255, 0.1); color: #58a6ff;
-      padding: 0.7rem 2.5rem; border-radius: 40px;
-      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem;
-      cursor: pointer; transition: all 0.4s ease;
-      display: inline-flex; align-items: center; gap: 0.6rem;
-    }
-    .blog-toggle button:hover {
-      background: rgba(88, 166, 255, 0.12); border-color: rgba(88, 166, 255, 0.2);
-      transform: translateY(-2px); box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
-    }
-    .blog-toggle button i { transition: transform 0.4s ease; }
-    .blog-toggle button.open i { transform: rotate(180deg); }
+    .feature-card:hover .icon { background: rgba(88, 166, 255, 0.15); transform: scale(1.06) rotate(-4deg); }
+    .feature-card h4 { font-size: 1rem; font-weight: 700; color: #f0f6fc; margin-bottom: 0.45rem; }
+    .feature-card p { font-size: 0.85rem; color: #8b949e; line-height: 1.65; }
 
-    .testimonials-section { margin-top: 4rem; }
-    .testimonials-section h2 {
-      font-size: 1.8rem; font-weight: 700; color: #f0f6fc;
-      margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem;
+    /* How it works */
+    .how-section { margin-top: 3.5rem; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.2rem; }
+    .step-card {
+      background: rgba(10, 14, 20, 0.5); border-radius: 14px;
+      border: 1px solid rgba(88, 166, 255, 0.06);
+      padding: 1.6rem; position: relative; transition: all 0.4s ease;
     }
-    .testimonials-section h2 i { color: #58a6ff; font-size: 1.8rem; animation: thinkingPulse 3s ease-in-out infinite; }
-    .testimonials-section .subtitle { color: #8b949e; font-size: 1rem; margin-bottom: 2rem; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-    .testimonial-card { display: none !important; }
-    @media (max-width: 819px) {
-      .testimonial-card:nth-child(1) { display: flex !important; }
+    .step-card:hover {
+      border-color: rgba(88, 166, 255, 0.15); transform: translateY(-5px);
+      box-shadow: 0 12px 50px rgba(0,0,0,0.3);
     }
-    @media (min-width: 820px) {
-      .testimonial-card:nth-child(1), .testimonial-card:nth-child(2), .testimonial-card:nth-child(3) { display: flex !important; }
+    .step-card .step-num {
+      font-size: 2.2rem; font-weight: 800; font-family: 'Inter', monospace;
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1; margin-bottom: 0.6rem;
+      letter-spacing: -1px;
     }
-    .testimonial-card.hidden-testimonial { display: none !important; }
-    .testimonial-card.show { display: flex !important; }
-    @keyframes fadeInTestimonial { 0% { opacity: 0; transform: translateY(20px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-    .testimonial-card.show { animation: fadeInTestimonial 0.5s ease forwards; }
+    .step-card h4 { font-size: 1rem; font-weight: 700; color: #f0f6fc; margin-bottom: 0.4rem; }
+    .step-card p { font-size: 0.85rem; color: #8b949e; line-height: 1.65; }
+
+    /* Pricing */
+    .pricing-section { margin-top: 3.5rem; }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem; align-items: stretch; max-width: 900px; margin: 0 auto;
+    }
+    .pricing-card {
+      background: rgba(10, 14, 20, 0.6); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px); border-radius: 18px;
+      border: 1px solid rgba(88, 166, 255, 0.08);
+      padding: 2.2rem 2rem; display: flex; flex-direction: column;
+      position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.2,0.9,0.4,1);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(88, 166, 255, 0.18);
+      box-shadow: 0 20px 70px rgba(0,0,0,0.4), 0 0 50px rgba(88, 166, 255, 0.03);
+    }
+    .pricing-card.featured {
+      border-color: rgba(88, 166, 255, 0.35);
+      background: linear-gradient(160deg, rgba(88,166,255,0.09), rgba(63,185,80,0.04) 60%, rgba(10,14,20,0.7));
+      box-shadow: 0 20px 70px rgba(88,166,255,0.12), 0 0 0 1px rgba(88,166,255,0.1);
+    }
+    .pricing-card.featured::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #58a6ff, #3fb950, #58a6ff);
+      background-size: 200% 100%;
+      animation: gradientShift 3s ease-in-out infinite;
+    }
+    .pricing-badge {
+      position: absolute; top: 1rem; right: 1rem;
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      color: #0a0e14; font-size: 0.58rem; font-weight: 800;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      padding: 0.25rem 0.7rem; border-radius: 20px;
+    }
+    .pricing-card .p-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1rem;
+      transition: all 0.4s ease;
+    }
+    .pricing-card.turnkey .p-icon { background: rgba(88,166,255,0.1); color: #58a6ff; border: 1px solid rgba(88,166,255,0.15); }
+    .pricing-card.selfhosted .p-icon { background: rgba(63,185,80,0.1); color: #3fb950; border: 1px solid rgba(63,185,80,0.15); }
+    .pricing-card:hover .p-icon { transform: scale(1.06) rotate(-4deg); }
+    .pricing-card .p-name { font-size: 1.25rem; font-weight: 800; color: #f0f6fc; margin-bottom: 0.2rem; letter-spacing: -0.3px; }
+    .pricing-card .p-desc { font-size: 0.82rem; color: #8b949e; margin-bottom: 1.2rem; line-height: 1.5; }
+    .pricing-card .p-price { display: flex; align-items: baseline; gap: 0.35rem; margin-bottom: 0.3rem; }
+    .pricing-card .p-price .amount {
+      font-size: 2.6rem; font-weight: 800; color: #f0f6fc;
+      font-family: 'Inter', monospace; letter-spacing: -1.5px;
+    }
+    .pricing-card.featured .p-price .amount { color: #58a6ff; }
+    .pricing-card .p-price .per { font-size: 0.82rem; color: #8b949e; }
+    .pricing-card .p-note { font-size: 0.7rem; color: #6e7681; margin-bottom: 1.3rem; }
+    .pricing-card .p-features { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.8rem; flex: 1; }
+    .pricing-card .p-features li {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.85rem; color: #b1bac4; line-height: 1.5;
+    }
+    .pricing-card .p-features li i { color: #3fb950; font-size: 0.8rem; margin-top: 0.15rem; flex-shrink: 0; }
+    .pricing-card .p-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.85rem 1.2rem; border-radius: 12px;
+      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; text-decoration: none; transition: all 0.35s ease;
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      color: #58a6ff;
+    }
+    .pricing-card .p-btn:hover {
+      background: rgba(88, 166, 255, 0.15);
+      border-color: rgba(88, 166, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    .pricing-card.featured .p-btn {
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      color: #0a0e14; border-color: transparent;
+      box-shadow: 0 6px 28px rgba(88, 166, 255, 0.3);
+    }
+    .pricing-card.featured .p-btn:hover { box-shadow: 0 10px 38px rgba(88, 166, 255, 0.45); }
+    .pricing-card.selfhosted .p-btn {
+      background: rgba(63, 185, 80, 0.08);
+      border-color: rgba(63, 185, 80, 0.18);
+      color: #3fb950;
+    }
+    .pricing-card.selfhosted .p-btn:hover {
+      background: rgba(63, 185, 80, 0.15);
+      border-color: rgba(63, 185, 80, 0.3);
+    }
+    .pricing-compare-note {
+      text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #6e7681;
+    }
+    .pricing-compare-note i { color: #58a6ff; margin-right: 4px; }
+
+    /* Testimonials */
+    .testimonials-section { margin-top: 3.5rem; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
     .testimonial-card {
       background: rgba(10, 14, 20, 0.5); backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px); border-radius: 14px;
@@ -818,30 +909,20 @@
     }
     .testimonial-card .testimonial-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
     .testimonial-card .testimonial-avatar {
-      width: 56px; height: 56px; border-radius: 50%;
+      width: 52px; height: 52px; border-radius: 50%;
       background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(63, 185, 80, 0.1));
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; color: #58a6ff;
+      font-size: 1.3rem; color: #58a6ff;
       border: 2px solid rgba(88, 166, 255, 0.1); flex-shrink: 0;
       transition: all 0.4s ease;
     }
-    .testimonial-card:hover .testimonial-avatar {
-      border-color: rgba(88, 166, 255, 0.2); transform: scale(1.05);
-    }
-    .testimonial-card .testimonial-author { flex: 1; }
-    .testimonial-card .testimonial-author h4 { font-size: 1rem; font-weight: 600; color: #f0f6fc; margin-bottom: 0.1rem; }
-    .testimonial-card .testimonial-author .role { font-size: 0.8rem; color: #8b949e; }
-    .testimonial-card .testimonial-stars { color: #f0883e; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 0.5rem; }
-    .testimonial-card .testimonial-stars .star-filled { color: #f0883e; }
-    .testimonial-card .testimonial-stars .star-empty { color: #30363d; }
+    .testimonial-card:hover .testimonial-avatar { border-color: rgba(88, 166, 255, 0.2); transform: scale(1.05); }
+    .testimonial-card .testimonial-author h4 { font-size: 0.95rem; font-weight: 600; color: #f0f6fc; margin-bottom: 0.1rem; }
+    .testimonial-card .testimonial-author .role { font-size: 0.75rem; color: #8b949e; }
+    .testimonial-card .testimonial-stars { color: #f0883e; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 0.6rem; }
     .testimonial-card .testimonial-text {
-      color: #b1bac4; font-size: 0.95rem; line-height: 1.8;
-      flex: 1; font-style: italic; position: relative; padding-left: 0.5rem;
-    }
-    .testimonial-card .testimonial-text::before {
-      content: '"'; font-size: 2.5rem; color: rgba(88, 166, 255, 0.1);
-      position: absolute; top: -0.5rem; left: -0.5rem;
-      font-family: 'Georgia', serif;
+      color: #b1bac4; font-size: 0.9rem; line-height: 1.8;
+      flex: 1; font-style: italic; position: relative; padding-left: 0.3rem;
     }
     .testimonial-card .testimonial-footer {
       margin-top: 1rem; display: flex; align-items: center; gap: 0.8rem;
@@ -852,127 +933,50 @@
       font-size: 0.6rem; color: #58a6ff; border: 1px solid rgba(88, 166, 255, 0.06);
       font-weight: 500; letter-spacing: 0.3px;
     }
-    .testimonial-card .testimonial-footer .verified { color: #3fb950; font-size: 0.7rem; margin-left: auto; }
+    .testimonial-card .testimonial-footer .verified { color: #3fb950; font-size: 0.68rem; margin-left: auto; }
     .testimonial-card .testimonial-footer .verified i { margin-right: 4px; }
 
-    .testimonials-toggle { display: flex; justify-content: center; margin-top: 1.5rem; gap: 1rem; flex-wrap: wrap; }
-    .testimonials-toggle button {
-      background: rgba(88, 166, 255, 0.06); backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(88, 166, 255, 0.1); color: #58a6ff;
-      padding: 0.7rem 2.5rem; border-radius: 40px;
-      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem;
-      cursor: pointer; transition: all 0.4s ease;
-      display: inline-flex; align-items: center; gap: 0.6rem;
-    }
-    .testimonials-toggle button:hover {
-      background: rgba(88, 166, 255, 0.12); border-color: rgba(88, 166, 255, 0.2);
-      transform: translateY(-2px); box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
-    }
-    .testimonials-toggle button i { transition: transform 0.4s ease; }
-    .testimonials-toggle button.open i { transform: rotate(180deg); }
-    .testimonials-toggle a {
-      background: rgba(240, 136, 62, 0.06); backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(240, 136, 62, 0.1); color: #f0883e;
-      padding: 0.7rem 2.5rem; border-radius: 40px;
-      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem;
-      cursor: pointer; transition: all 0.4s ease;
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      text-decoration: none;
-    }
-    .testimonials-toggle a:hover {
-      background: rgba(240, 136, 62, 0.12); border-color: rgba(240, 136, 62, 0.2);
-      transform: translateY(-2px); box-shadow: 0 4px 20px rgba(240, 136, 62, 0.05);
-    }
-    .testimonials-toggle a i { transition: transform 0.3s ease; }
-    .testimonials-toggle a:hover i { transform: translateX(4px); }
-
-    .impact-values-section {
-      margin-top: 4rem;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
-    }
-    .impact-card, .values-card {
-      background: rgba(10, 14, 20, 0.5); backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px); border-radius: 16px;
+    /* FAQ */
+    .faq-section { margin-top: 3.5rem; }
+    .faq-list { display: flex; flex-direction: column; gap: 0.8rem; max-width: 820px; margin: 0 auto; }
+    .faq-item {
+      background: rgba(10, 14, 20, 0.5); border-radius: 12px;
       border: 1px solid rgba(88, 166, 255, 0.06);
-      padding: 2rem; transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: 0 4px 30px rgba(0,0,0,0.2);
-      position: relative; overflow: hidden;
+      overflow: hidden; transition: all 0.3s ease;
     }
-    .impact-card::before, .values-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.2), transparent);
-      opacity: 0; transition: opacity 0.5s ease;
+    .faq-item.open { border-color: rgba(88, 166, 255, 0.15); background: rgba(10, 14, 20, 0.7); }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 1.1rem 1.3rem; cursor: pointer;
+      font-size: 0.92rem; font-weight: 600; color: #e6edf3;
+      transition: color 0.3s ease; user-select: none;
     }
-    .impact-card:hover::before, .values-card:hover::before { opacity: 1; }
-    .impact-card:hover, .values-card:hover {
-      border-color: rgba(88, 166, 255, 0.12); transform: translateY(-4px);
-      box-shadow: 0 12px 50px rgba(0,0,0,0.3), 0 0 40px rgba(88, 166, 255, 0.02);
+    .faq-q:hover { color: #58a6ff; }
+    .faq-q i { color: #58a6ff; font-size: 0.8rem; transition: transform 0.4s ease; flex-shrink: 0; }
+    .faq-item.open .faq-q i { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.2,0.9,0.4,1); }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .faq-a p { padding: 0 1.3rem 1.2rem; font-size: 0.86rem; color: #8b949e; line-height: 1.8; }
+
+    /* CTA */
+    .cta-banner {
+      margin-top: 4rem;
+      background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(63,185,80,0.06) 60%, rgba(10,14,20,0.6));
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      border-radius: 20px; padding: 3rem 2rem;
+      text-align: center; position: relative; overflow: hidden;
     }
-    .impact-card h3, .values-card h3 {
-      font-size: 1.3rem; font-weight: 700; color: #f0f6fc;
-      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem;
-    }
-    .impact-card h3 i, .values-card h3 i { color: #58a6ff; font-size: 1.4rem; animation: thinkingPulse 3s ease-in-out infinite; }
-    .impact-card p { color: #b1bac4; line-height: 1.9; font-size: 0.95rem; }
-    .impact-stats {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem;
-    }
-    .impact-stats .stat-item {
-      text-align: center; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 10px;
-      border: 1px solid rgba(88, 166, 255, 0.04); transition: all 0.4s ease;
-      position: relative; overflow: hidden;
-    }
-    .impact-stats .stat-item::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.2), transparent);
-      opacity: 0; transition: opacity 0.4s ease;
-    }
-    .impact-stats .stat-item:hover::after { opacity: 1; }
-    .impact-stats .stat-item:hover {
-      border-color: rgba(88, 166, 255, 0.1); background: rgba(0,0,0,0.3); transform: scale(1.02);
-    }
-    .impact-stats .stat-item .number {
-      font-size: 1.8rem; font-weight: 700; color: #58a6ff;
-      display: block; font-family: 'Inter', monospace;
-    }
-    .impact-stats .stat-item .label { font-size: 0.7rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
-    .values-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem;
-    }
-    .values-grid .value-item {
-      background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 10px;
-      border: 1px solid rgba(88, 166, 255, 0.04);
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-      position: relative; overflow: hidden;
-    }
-    .values-grid .value-item::before {
+    .cta-banner::before {
       content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle at center, rgba(88, 166, 255, 0.02), transparent 50%);
-      opacity: 0; transition: opacity 0.5s ease;
+      background: radial-gradient(circle at 30% 40%, rgba(88, 166, 255, 0.06), transparent 50%);
+      animation: rotateBg 30s linear infinite; pointer-events: none;
     }
-    .values-grid .value-item:hover::before { opacity: 1; }
-    .values-grid .value-item:hover {
-      border-color: rgba(88, 166, 255, 0.1); transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-    .values-grid .value-item h4 { color: #58a6ff; font-size: 0.95rem; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.5rem; }
-    .values-grid .value-item h4 i { animation: thinkingPulse 3s ease-in-out infinite; }
-    .values-grid .value-item p { font-size: 0.8rem; color: #8b949e; line-height: 1.6; }
+    @keyframes rotateBg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .cta-banner h2 { font-size: 1.9rem; font-weight: 800; color: #f0f6fc; margin-bottom: 0.6rem; letter-spacing: -0.5px; position: relative; }
+    .cta-banner p { color: #b1bac4; font-size: 1rem; margin-bottom: 1.6rem; position: relative; }
+    .cta-banner .hero-actions { justify-content: center; position: relative; }
 
-    .badge-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
-    .badge-row .badge {
-      background: rgba(10, 14, 20, 0.6); padding: 0.3rem 1rem; border-radius: 30px;
-      font-size: 0.7rem; border: 1px solid rgba(88, 166, 255, 0.06);
-      color: #b1bac4; transition: all 0.3s ease; position: relative;
-    }
-    .badge-row .badge:hover {
-      border-color: rgba(88, 166, 255, 0.15); color: #f0f6fc;
-      transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .badge-row .badge i { color: #58a6ff; margin-right: 4px; }
-
+    /* Contact */
     .contact-section {
       margin-top: 4rem;
       background: rgba(10, 14, 20, 0.3); backdrop-filter: blur(16px);
@@ -981,10 +985,7 @@
       padding: 3rem; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
       transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
     }
-    .contact-section:hover {
-      border-color: rgba(88, 166, 255, 0.12);
-      box-shadow: 0 12px 60px rgba(0,0,0,0.3);
-    }
+    .contact-section:hover { border-color: rgba(88, 166, 255, 0.12); box-shadow: 0 12px 60px rgba(0,0,0,0.3); }
     .contact-section h2 {
       font-size: 1.8rem; font-weight: 700; color: #f0f6fc;
       margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem;
@@ -999,9 +1000,7 @@
       padding: 0.8rem 1rem; background: rgba(0,0,0,0.2); border-radius: 12px;
       border: 1px solid rgba(88, 166, 255, 0.04); transition: all 0.3s ease;
     }
-    .contact-info .info-item:hover {
-      border-color: rgba(88, 166, 255, 0.1); background: rgba(0,0,0,0.3); transform: translateX(4px);
-    }
+    .contact-info .info-item:hover { border-color: rgba(88, 166, 255, 0.1); background: rgba(0,0,0,0.3); transform: translateX(4px); }
     .contact-info .info-item .icon {
       width: 40px; height: 40px; background: rgba(88, 166, 255, 0.06); border-radius: 10px;
       display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #58a6ff;
@@ -1029,35 +1028,36 @@
     .contact-form .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
     .contact-form .form-group label { font-size: 0.85rem; font-weight: 500; color: #b1bac4; }
     .contact-form .form-group input,
-    .contact-form .form-group textarea {
+    .contact-form .form-group textarea,
+    .contact-form .form-group select {
       padding: 0.7rem 1rem; background: rgba(0,0,0,0.2);
       border: 1px solid rgba(88, 166, 255, 0.06); border-radius: 10px;
       color: #e6edf3; font-family: 'Inter', sans-serif; font-size: 0.95rem;
       transition: all 0.3s ease; outline: none;
     }
+    .contact-form .form-group select { cursor: pointer; }
+    .contact-form .form-group select option { background: #0a0e14; color: #e6edf3; }
     .contact-form .form-group input::placeholder,
     .contact-form .form-group textarea::placeholder { color: #6e7681; }
     .contact-form .form-group input:focus,
-    .contact-form .form-group textarea:focus {
+    .contact-form .form-group textarea:focus,
+    .contact-form .form-group select:focus {
       border-color: rgba(88, 166, 255, 0.2); background: rgba(0,0,0,0.3);
       box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.05);
     }
     .contact-form .form-group textarea { resize: vertical; min-height: 100px; }
     .contact-form .submit-btn {
-      padding: 0.7rem 2rem; background: rgba(88, 166, 255, 0.08);
-      border: 1px solid rgba(88, 166, 255, 0.15); border-radius: 10px;
-      color: #58a6ff; font-weight: 600; font-size: 0.95rem;
+      padding: 0.8rem 2rem; background: linear-gradient(135deg, #58a6ff, #3fb950);
+      border: 1px solid transparent; border-radius: 10px;
+      color: #0a0e14; font-weight: 700; font-size: 0.95rem;
       cursor: pointer; transition: all 0.4s ease;
       font-family: 'Inter', sans-serif;
       display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+      box-shadow: 0 6px 28px rgba(88, 166, 255, 0.25);
     }
-    .contact-form .submit-btn:hover {
-      background: rgba(88, 166, 255, 0.15); border-color: rgba(88, 166, 255, 0.25);
-      transform: translateY(-2px); box-shadow: 0 4px 20px rgba(88, 166, 255, 0.05);
-    }
+    .contact-form .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 38px rgba(88, 166, 255, 0.4); }
     .contact-form .submit-btn i { transition: transform 0.3s ease; }
     .contact-form .submit-btn:hover i { transform: translateX(4px); }
-
     .contact-right { display: flex; flex-direction: column; gap: 1rem; }
     .contact-right .map-container {
       width: 100%; border-radius: 14px; overflow: hidden;
@@ -1071,54 +1071,52 @@
       filter: invert(0.9) hue-rotate(180deg) saturate(0.5);
       transition: filter 0.5s ease;
     }
-    .contact-right .map-container iframe:hover {
-      filter: invert(0.85) hue-rotate(180deg) saturate(0.6);
-    }
+    .contact-right .map-container iframe:hover { filter: invert(0.85) hue-rotate(180deg) saturate(0.6); }
     .contact-right .map-address {
       background: rgba(0,0,0,0.2); padding: 0.8rem 1.2rem; border-radius: 10px;
       border: 1px solid rgba(88, 166, 255, 0.04); text-align: center;
       transition: all 0.3s ease;
     }
-    .contact-right .map-address:hover {
-      border-color: rgba(88, 166, 255, 0.1); background: rgba(0,0,0,0.3);
-    }
+    .contact-right .map-address:hover { border-color: rgba(88, 166, 255, 0.1); background: rgba(0,0,0,0.3); }
     .contact-right .map-address i { color: #58a6ff; margin-right: 0.5rem; }
     .contact-right .map-address span { color: #b1bac4; font-size: 0.9rem; }
 
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; gap: 2rem; min-height: auto; }
+      .hero-right { order: 2; }
+      .hero p.lead { max-width: 100%; }
+    }
     @media (max-width: 820px) {
-      .split-layout { flex-direction: column; }
-      .image-panel { flex: 0 0 auto; width: 100%; min-height: 200px; max-height: 320px; }
-      .image-panel img { object-fit: cover; width: 100%; height: 100%; }
-      .slider-panel { padding: 1.8rem 1.5rem 3.2rem 1.5rem; min-height: 340px; }
-      .slide h2 { font-size: 1.2rem; flex-wrap: wrap; }
-      .slide p { font-size: 0.9rem; }
-      .slide .perk-list { flex-direction: column; gap: 0.3rem; }
-      .slide .slide-detail { font-size: 0.8rem; }
-      .services-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-      .projects-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-      .blog-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+      .features-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
       .testimonials-grid { grid-template-columns: 1fr; }
-      .impact-values-section { grid-template-columns: 1fr; }
-      .values-grid { grid-template-columns: 1fr; }
-      .impact-stats { grid-template-columns: repeat(3, 1fr); }
       .contact-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       .contact-section { padding: 1.5rem; }
       .contact-right .map-container { min-height: 300px; max-height: 400px; }
       .contact-right .map-container iframe { min-height: 300px; max-height: 400px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .video-shell { aspect-ratio: 16 / 10; }
+      .video-play { width: 64px; height: 64px; font-size: 1.2rem; }
+      .video-info { padding: 1.6rem 1.1rem 0.9rem; }
+    }
+    @media (max-width: 600px) {
+      .mock-kpis { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.2rem; }
+      .hero-stat .num { font-size: 1.3rem; }
     }
     @media (max-width: 500px) {
-      .image-panel { min-height: 160px; max-height: 220px; }
-      .slider-panel { padding: 1.2rem 1rem 2.8rem 1rem; min-height: 300px; }
-      .pagination-dots .dot { width: 7px; height: 7px; }
-      .services-grid { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .blog-grid { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .service-card { padding: 1.2rem; }
-      .impact-stats { grid-template-columns: 1fr; }
+      .page-content { padding: 0 1rem; }
       .contact-section { padding: 1rem; }
+      .cta-banner { padding: 2rem 1.2rem; }
+      .cta-banner h2 { font-size: 1.4rem; }
+      .pricing-card { padding: 1.6rem 1.4rem; }
+      .pricing-card .p-price .amount { font-size: 2.1rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
       .contact-right .map-container { min-height: 220px; max-height: 300px; }
       .contact-right .map-container iframe { min-height: 220px; max-height: 300px; }
+      .video-info .vi-txt h4 { font-size: 0.85rem; }
+      .video-info .vi-txt p { font-size: 0.7rem; }
+      .video-info .vi-meta { display: none; }
     }
 
     .footer {
@@ -1138,10 +1136,7 @@
     .footer-col-company { grid-column: 3 / 4; grid-row: 1 / 2; }
     .footer-col-resources { grid-column: 2 / 3; grid-row: 2 / 3; }
     .footer-col-contact { grid-column: 3 / 4; grid-row: 2 / 3; }
-
-    .footer-brand .logo-text {
-      font-size: 1.3rem; font-weight: 700; color: #e6edf3; margin-bottom: 0.5rem;
-    }
+    .footer-brand .logo-text { font-size: 1.3rem; font-weight: 700; color: #e6edf3; margin-bottom: 0.5rem; }
     .footer-brand .logo-text .highlight {
       background: linear-gradient(135deg, #58a6ff, #3fb950);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -1174,24 +1169,19 @@
       outline: none; transition: all 0.3s ease;
     }
     .footer-brand .footer-newsletter .newsletter-form input::placeholder { color: #6e7681; }
-    .footer-brand .footer-newsletter .newsletter-form input:focus {
-      border-color: rgba(88, 166, 255, 0.15); background: rgba(0,0,0,0.4);
-    }
+    .footer-brand .footer-newsletter .newsletter-form input:focus { border-color: rgba(88, 166, 255, 0.15); background: rgba(0,0,0,0.4); }
     .footer-brand .footer-newsletter .newsletter-form button {
       padding: 0.5rem 1rem; background: rgba(88, 166, 255, 0.08);
       border: 1px solid rgba(88, 166, 255, 0.1); border-radius: 8px;
       color: #58a6ff; cursor: pointer; transition: all 0.3s ease;
       font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.85rem;
     }
-    .footer-brand .footer-newsletter .newsletter-form button:hover {
-      background: rgba(88, 166, 255, 0.15); border-color: rgba(88, 166, 255, 0.2);
-    }
+    .footer-brand .footer-newsletter .newsletter-form button:hover { background: rgba(88, 166, 255, 0.15); border-color: rgba(88, 166, 255, 0.2); }
     .footer-col h4 { color: #f0f6fc; font-size: 0.95rem; font-weight: 600; margin-bottom: 1rem; }
     .footer-col ul { list-style: none; padding: 0; }
     .footer-col ul li { margin-bottom: 0.6rem; }
     .footer-col ul li a { color: #8b949e; text-decoration: none; font-size: 0.85rem; transition: all 0.3s ease; display: inline-block; }
     .footer-col ul li a:hover { color: #58a6ff; transform: translateX(4px); }
-
     .footer-bottom {
       max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(88, 166, 255, 0.06);
       padding-top: 1.5rem; margin-top: 2rem;
@@ -1206,7 +1196,6 @@
     .footer-bottom .footer-legal { display: flex; gap: 1.5rem; }
     .footer-bottom .footer-legal a { color: #6e7681; text-decoration: none; font-size: 0.75rem; transition: color 0.3s ease; }
     .footer-bottom .footer-legal a:hover { color: #58a6ff; }
-
     @media (max-width: 820px) {
       .footer-container { grid-template-columns: 1fr 1fr !important; gap: 2rem; }
       .footer-brand { grid-column: 1 / 3 !important; grid-row: 1 / 2 !important; }
@@ -1228,7 +1217,6 @@
       .footer-bottom { flex-direction: column; text-align: center; gap: 0.8rem; }
       .footer-bottom .footer-legal { flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
     }
-
     .news-ticker-wrap {
       position: sticky; top: 72px; z-index: 999;
       background: rgba(10, 14, 20, 0.85);
@@ -1240,10 +1228,7 @@
       padding: 0.4rem 0; overflow: hidden;
       transition: all 0.4s ease;
     }
-    .news-ticker-wrap:hover {
-      background: rgba(10, 14, 20, 0.95);
-      border-color: rgba(88, 166, 255, 0.1);
-    }
+    .news-ticker-wrap:hover { background: rgba(10, 14, 20, 0.95); border-color: rgba(88, 166, 255, 0.1); }
     .ticker-container {
       max-width: 1280px; margin: 0 auto;
       display: flex; align-items: center; gap: 0.8rem; padding: 0 1.5rem;
@@ -1258,13 +1243,10 @@
       white-space: nowrap; display: flex; align-items: center; gap: 0.4rem;
       transition: all 0.3s ease;
     }
-    .ticker-label:hover {
-      background: rgba(88, 166, 255, 0.1);
-      border-color: rgba(88, 166, 255, 0.15);
-    }
+    .ticker-label:hover { background: rgba(88, 166, 255, 0.1); border-color: rgba(88, 166, 255, 0.15); }
     .ticker-label i { font-size: 0.7rem; color: #f0883e; animation: thinkingPulse 2s ease-in-out infinite; }
     .ticker-track { flex: 1; overflow: hidden; position: relative; height: 2.2rem; display: flex; align-items: center; }
-    .ticker-slide { display: flex; white-space: nowrap; animation: scrollTicker 28s linear infinite; will-change: transform; width: max-content; }
+    .ticker-slide { display: flex; white-space: nowrap; animation: scrollTicker 32s linear infinite; will-change: transform; width: max-content; }
     .ticker-item {
       display: inline-flex; align-items: center; gap: 0.8rem;
       padding: 0 2rem; font-weight: 400; color: #b1bac4;
@@ -1282,10 +1264,7 @@
       background: rgba(88, 166, 255, 0.04); padding: 0.1rem 0.8rem; border-radius: 30px;
       font-weight: 600; color: #58a6ff; border: 1px solid rgba(88, 166, 255, 0.06);
     }
-    @keyframes scrollTicker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+    @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     .ticker-track:hover .ticker-slide { animation-play-state: paused; }
     @media (max-width: 580px) {
       .ticker-label span { display: none; }
@@ -1293,7 +1272,6 @@
       .ticker-item { font-size: 0.7rem; padding: 0 1rem; }
     }
     @media (max-width: 850px) { .news-ticker-wrap { top: 62px; } }
-
     .ai-status {
       position: fixed; bottom: 20px; right: 20px; z-index: 999;
       background: rgba(10, 14, 20, 0.8); backdrop-filter: blur(16px);
@@ -1318,22 +1296,22 @@
   <header class="sticky-header">
     <div class="header-container">
       <a href="#" class="logo">
-        <img src="https://raw.githubusercontent.com/VikieKariz/VikieKariz.github.io/main/ChatGPT%20Image%20Aug%205%2C%202026%2C%2008_08_32%20PM.png" alt="cloud_mikkie AI" width="42" height="42" />
+        <span class="logo-icon"><i class="fas fa-cash-register"></i></span>
         <span class="logo-text">
-          <span class="highlight">cloud_mikkie</span>
-          <span class="ai-badge">AI</span>
+          <span class="highlight">ShopFlow</span>
+          <span class="ai-badge">SMS</span>
         </span>
       </a>
       <div class="search-wrapper">
         <i class="fas fa-search"></i>
-        <input type="text" placeholder="Ask AI anything..." />
+        <input type="text" placeholder="Search features, pricing, docs..." />
       </div>
       <ul class="nav-links">
-        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
-        <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
-        <li><a href="explore.html"><i class="fas fa-compass"></i> Explore</a></li>
-        <li><a href="contacts.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="#features"><i class="fas fa-th-large"></i> Features</a></li>
+        <li><a href="#pricing"><i class="fas fa-tags"></i> Pricing</a></li>
+        <li><a href="#testimonials"><i class="fas fa-quote-right"></i> Reviews</a></li>
+        <li><a href="#faq"><i class="fas fa-circle-question"></i> FAQ</a></li>
+        <li><a href="#contact" class="nav-cta"><i class="fas fa-rocket"></i> Get Started</a></li>
       </ul>
       <button class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
         <span></span><span></span><span></span>
@@ -1343,207 +1321,326 @@
 
   <div class="news-ticker-wrap">
     <div class="ticker-container">
-      <div class="ticker-label"><i class="fas fa-terminal"></i><span>AI · offer</span></div>
+      <div class="ticker-label"><i class="fas fa-bolt"></i><span>launch offer</span></div>
       <div class="ticker-track">
         <div class="ticker-slide">
-          <span class="ticker-item"><i class="fas fa-utensils"></i> full restaurant site — <span class="price-tag">$200</span> <span class="badge-hot">AI·optimized</span> <i class="fas fa-star" style="color: #f0883e;"></i> portfolio + review</span>
-          <span class="ticker-item"><i class="fas fa-clock"></i> <strong>first 3</strong> restaurants only <span class="badge-hot">2 left</span></span>
-          <span class="ticker-item"><i class="fas fa-check-circle" style="color: #3fb950;"></i> 100% satisfaction · AI-powered</span>
-          <span class="ticker-item"><i class="fas fa-gem"></i> cloud_mikkie AI: $200 + review exchange</span>
-          <span class="ticker-item"><i class="fas fa-utensils"></i> full restaurant site — <span class="price-tag">$200</span> <span class="badge-hot">AI·optimized</span> <i class="fas fa-star" style="color: #f0883e;"></i> portfolio + review</span>
-          <span class="ticker-item"><i class="fas fa-clock"></i> <strong>first 3</strong> restaurants only <span class="badge-hot">2 left</span></span>
-          <span class="ticker-item"><i class="fas fa-check-circle" style="color: #3fb950;"></i> 100% satisfaction · AI-powered</span>
-          <span class="ticker-item"><i class="fas fa-gem"></i> cloud_mikkie AI: $200 + review exchange</span>
+          <span class="ticker-item"><i class="fas fa-store"></i> ShopFlow SMS — <span class="price-tag">Turnkey $1,200</span> or <span class="price-tag">Self-Hosted $750</span></span>
+          <span class="ticker-item"><i class="fas fa-window-restore"></i> Live demo embedded below — try it without leaving the page</span>
+          <span class="ticker-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> 500+ shops already running on ShopFlow</span>
+          <span class="ticker-item"><i class="fas fa-video"></i> Self-hosting setup video coming soon</span>
+          <span class="ticker-item"><i class="fas fa-store"></i> ShopFlow SMS — <span class="price-tag">Turnkey $1,200</span> or <span class="price-tag">Self-Hosted $750</span></span>
+          <span class="ticker-item"><i class="fas fa-window-restore"></i> Live demo embedded below — try it without leaving the page</span>
+          <span class="ticker-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> 500+ shops already running on ShopFlow</span>
+          <span class="ticker-item"><i class="fas fa-video"></i> Self-hosting setup video coming soon</span>
         </div>
       </div>
     </div>
   </div>
 
   <div class="page-content">
-    <div class="split-layout">
-      <div class="image-panel">
-        <img src="https://raw.githubusercontent.com/VikieKariz/VikieKariz.github.io/main/ChatGPT%20Image%20Aug%205%2C%202026%2C%2008_08_32%20PM.png" alt="cloud_mikkie AI showcase" />
-        <div class="ai-overlay">
-          <span><i class="fas fa-circle"></i> AI · neural engine v2.4</span>
+
+    <section class="hero">
+      <div class="hero-left">
+        <span class="hero-eyebrow"><i class="fas fa-circle"></i> Shop Management System</span>
+        <h1><span class="grad">ShopFlow</span> — the Shop Management System that runs your store while you focus on growth.</h1>
+        <p class="lead">ShopFlow gives retail shops, boutiques, pharmacies and minimarts a single dashboard for sales, inventory, staff, customers and reports. Choose <strong>Turnkey</strong> ($1,200 — we host and manage it) or <strong>Self-Hosted</strong> ($750 — you run it on your own server) — both powered by the same full-featured Shop Management System.</p>
+        <div class="hero-actions">
+          <a href="#demo" class="btn-primary"><i class="fas fa-laptop-code"></i> Try the Live Demo</a>
+          <a href="#pricing" class="btn-secondary"><i class="fas fa-tags"></i> View Pricing</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><span class="num">500+</span><span class="lbl">Shops running</span></div>
+          <div class="hero-stat"><span class="num">1.2M+</span><span class="lbl">Transactions processed</span></div>
+          <div class="hero-stat"><span class="num">99.9%</span><span class="lbl">Uptime</span></div>
         </div>
       </div>
-      <div class="slider-panel" id="sliderContainer">
-        <div class="slide active" data-index="0">
-          <h2><i class="fas fa-brain"></i> // AI · build your brand</h2>
-          <p>Our <span class="highlight">AI-powered engine</span> crafts <span class="highlight">full, professional websites</span> for businesses — from restaurants to boutiques. No fluff, just intelligent code and design that converts.</p>
-          <div class="price-badge">$200 flat</div>
-          <ul class="perk-list">
-            <li><i class="fas fa-check-circle"></i> AI-optimized responsive design</li>
-            <li><i class="fas fa-check-circle"></i> Smart domain + hosting setup</li>
-            <li><i class="fas fa-check-circle"></i> Intelligent contact forms &amp; booking</li>
+      <div class="hero-right">
+        <div class="dashboard-mock">
+          <div class="mock-topbar">
+            <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
+            <span class="mock-title"><i class="fas fa-circle"></i> ShopFlow Dashboard — Live</span>
+          </div>
+          <div class="mock-body">
+            <div class="mock-kpis">
+              <div class="mock-kpi"><span class="k-lbl">Today's Sales</span><span class="k-val up">$4,820</span></div>
+              <div class="mock-kpi"><span class="k-lbl">Orders</span><span class="k-val blue">128</span></div>
+              <div class="mock-kpi"><span class="k-lbl">Low Stock</span><span class="k-val">6</span></div>
+            </div>
+            <div class="mock-chart">
+              <div class="c-head"><span>Weekly Revenue</span><span class="tag">+18.4% ↑</span></div>
+              <div class="bars">
+                <span class="bar" style="height: 45%"></span>
+                <span class="bar" style="height: 62%"></span>
+                <span class="bar" style="height: 38%"></span>
+                <span class="bar" style="height: 80%"></span>
+                <span class="bar" style="height: 55%"></span>
+                <span class="bar" style="height: 92%"></span>
+                <span class="bar" style="height: 70%"></span>
+              </div>
+            </div>
+            <div class="mock-orders">
+              <div class="mock-order-row"><span class="o-icon"><i class="fas fa-receipt"></i></span><span class="o-name">Nike Air Max</span><span class="o-id">#INV-1042</span><span class="o-status paid">Paid</span></div>
+              <div class="mock-order-row"><span class="o-icon"><i class="fas fa-box"></i></span><span class="o-name">Wireless Earbuds</span><span class="o-id">#INV-1043</span><span class="o-status shipped">Shipped</span></div>
+              <div class="mock-order-row"><span class="o-icon"><i class="fas fa-clock"></i></span><span class="o-name">Coffee Beans 1kg</span><span class="o-id">#INV-1044</span><span class="o-status pending">Pending</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="mock-float-badge">
+          <i class="fas fa-arrow-trend-up"></i>
+          <div><div class="f-txt">+24% revenue this month</div><div class="f-sub">auto-tracked by ShopFlow</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Embedded demo (iframe) -->
+<section class="demo-section" id="demo">
+  <div class="section-head">
+    <h2><i class="fas fa-laptop-code"></i> Try ShopFlow Live</h2>
+    <p class="subtitle">Experience the real power of ShopFlow. Click below to launch a fully functional, live demo environment running on our servers.</p>
+  </div>
+
+  <div class="demo-warning" style="background: rgba(240, 136, 62, 0.1); border-color: #f0883e;">
+    <i class="fas fa-key" style="color:#f0883e;"></i>
+    <div class="dw-txt">
+      <strong>Demo Credentials:</strong> When the new tab opens, use these details to log in: <br>
+      <strong>Username:</strong> <code>demo@shopflow.com</code> &nbsp;|&nbsp; 
+      <strong>Password:</strong> <code>demo1234</code>
+    </div>
+  </div>
+
+  <div class="demo-frame-shell" style="padding: 40px 20px; text-align: center; background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
+    <div style="font-size: 3rem; color: #238636; margin-bottom: 20px;">
+      <i class="fas fa-desktop"></i>
+    </div>
+    <h3 style="color: #c9d1d9; margin-bottom: 10px;">Ready to see it in action?</h3>
+    <p style="color: #8b949e; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto;">
+      The live demo opens in a secure new tab to give you the full desktop experience, including Point of Sale, Inventory, and Accounting.
+    </p>
+    
+    <!-- This is the button that opens your Ngrok link -->
+    <a href="https://overrule-gulp-smokeless.ngrok-free.dev/" target="_blank" rel="noopener" style="display: inline-block; background: #238636; color: white; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 6px; text-decoration: none; transition: background 0.3s;">
+      <i class="fas fa-arrow-up-right-from-square"></i> Launch Live Demo
+    </a>
+    
+    <p style="color: #8b949e; font-size: 0.85rem; margin-top: 20px;">
+      <i class="fas fa-shield-alt"></i> Note: You will see a quick Ngrok security page. Just click "Visit Site" to enter.
+    </p>
+  </div>
+</section>
+
+    <!-- Video placeholder -->
+    <section class="video-section" id="video">
+      <div class="section-head">
+        <h2><i class="fas fa-play-circle"></i> how to self-host ShopFlow</h2>
+        <p class="subtitle">A step-by-step video walkthrough for the Self-Hosted plan — from downloading the package to running your first sale on your own server.</p>
+      </div>
+      <div class="video-shell" id="videoShell" role="button" tabindex="0" aria-label="Play self-hosting setup video">
+        <div class="video-bg"></div>
+        <div class="video-play"><i class="fas fa-play"></i></div>
+        <div class="video-info">
+          <div class="vi-txt">
+            <h4>Self-Hosted Setup Guide <span class="vi-badge">Video coming soon</span></h4>
+            <p>Download → install → configure → go live. Full walkthrough for the Self-Hosted plan.</p>
+          </div>
+          <div class="vi-meta"><i class="fas fa-clock"></i> ~12 min · <i class="fas fa-server"></i> Self-Hosted</div>
+        </div>
+      </div>
+      <div class="video-caption">
+        <i class="fas fa-circle-info"></i>
+        <p><strong>Video placeholder.</strong> This is where the self-hosting walkthrough video will be embedded. It will cover: downloading the ShopFlow package, prerequisites (server, database, domain), installing and configuring the app, importing your products, and going live with your first sale. In the meantime, the <a href="#contact" style="color:#58a6ff;">written setup docs</a> are available on request.</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section" id="features">
+      <div class="section-head">
+        <h2><i class="fas fa-th-large"></i> everything your shop needs</h2>
+        <p class="subtitle">Powerful modules that work together — no more spreadsheets, notebooks or scattered apps.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="icon"><i class="fas fa-cash-register"></i></div><h4>Point of Sale (POS)</h4><p>Lightning-fast checkout, barcode scanning, split payments and receipts — online or offline.</p></div>
+        <div class="feature-card"><div class="icon"><i class="fas fa-boxes-stacked"></i></div><h4>Inventory Management</h4><p>Real-time stock levels, low-stock alerts, batch tracking and multi-location support.</p></div>
+        <div class="feature-card"><div class="icon"><i class="fas fa-users"></i></div><h4>Customer &amp; Loyalty</h4><p>Store customer profiles, purchase history, credit balances and run loyalty programs.</p></div>
+        <div class="feature-card"><div class="icon"><i class="fas fa-user-tie"></i></div><h4>Staff &amp; Roles</h4><p>Add cashiers and managers, assign permissions, and track performance per shift.</p></div>
+        <div class="feature-card"><div class="icon"><i class="fas fa-chart-pie"></i></div><h4>Reports &amp; Analytics</h4><p>Daily sales, profit margins, best sellers and exportable reports — always accurate.</p></div>
+        <div class="feature-card"><div class="icon"><i class="fas fa-truck-fast"></i></div><h4>Suppliers &amp; Purchases</h4><p>Manage suppliers, purchase orders, goods received and supplier balances in one flow.</p></div>
+        <div class="feature-card"><div class="icon"><i class="fas fa-file-invoice-dollar"></i></div><h4>Invoicing &amp; Receipts</h4><p>Branded invoices, tax handling and email/SMS receipts sent automatically.</p></div>
+        <div class="feature-card"><div class="icon"><i class="fas fa-mobile-screen"></i></div><h4>Works on Any Device</h4><p>Use it on a desktop, tablet or phone — your data stays in sync in real time.</p></div>
+        <div class="feature-card"><div class="icon"><i class="fas fa-shield-halved"></i></div><h4>Secure &amp; Backed Up</h4><p>Encrypted data, role-based access and automatic daily backups as standard.</p></div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-section" id="how">
+      <div class="section-head">
+        <h2><i class="fas fa-route"></i> how it works</h2>
+        <p class="subtitle">From sign-up to your first sale in under an hour — no technical skills needed for Turnkey.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-num">01</div><h4>Create your account</h4><p>Sign up, add your shop name and choose your business type. Pick Turnkey or Self-Hosted.</p></div>
+        <div class="step-card"><div class="step-num">02</div><h4>Import your products</h4><p>Add items manually or bulk-import from Excel/CSV. Set prices, stock and barcode labels.</p></div>
+        <div class="step-card"><div class="step-num">03</div><h4>Invite your staff</h4><p>Add cashiers and managers with the right permissions. Each gets their own secure login.</p></div>
+        <div class="step-card"><div class="step-num">04</div><h4>Start selling</h4><p>Ring up sales, track stock automatically and watch your reports update in real time.</p></div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section" id="pricing">
+      <div class="section-head">
+        <h2><i class="fas fa-tags"></i> two ways to run ShopFlow</h2>
+        <p class="subtitle">One Shop Management System, two payment plans. Pick the one that fits how you want to run your shop.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card turnkey featured">
+          <span class="pricing-badge">Most Popular</span>
+          <div class="p-icon"><i class="fas fa-cloud"></i></div>
+          <div class="p-name">Turnkey</div>
+          <div class="p-desc">We host, manage and maintain everything for you. You just log in and sell.</div>
+          <div class="p-price"><span class="amount">$1,200</span><span class="per">/ month</span></div>
+          <div class="p-note">Billed monthly · cancel anytime · 20% off with annual billing</div>
+          <ul class="p-features">
+            <li><i class="fas fa-check"></i> Fully managed cloud hosting — zero setup</li>
+            <li><i class="fas fa-check"></i> Automatic updates, backups &amp; security patches</li>
+            <li><i class="fas fa-check"></i> Access from any device, anywhere</li>
+            <li><i class="fas fa-check"></i> Unlimited products &amp; staff accounts</li>
+            <li><i class="fas fa-check"></i> POS, inventory, reports &amp; all modules included</li>
+            <li><i class="fas fa-check"></i> Priority email &amp; chat support</li>
+            <li><i class="fas fa-check"></i> 99.9% uptime SLA</li>
           </ul>
-          <div class="feature-tag"><i class="fas fa-star"></i> AI limited to first 3 clients</div>
-          <div class="slide-detail"><i class="fas fa-clock" style="color: #58a6ff; margin-right: 4px;"></i> Launch in 48 hours · <i class="fas fa-users" style="color: #58a6ff; margin-left: 8px; margin-right: 4px;"></i> 100+ businesses served</div>
+          <a href="#contact" class="p-btn">Start with Turnkey <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="slide" data-index="1">
-          <h2><i class="fas fa-star"></i> // AI · review exchange</h2>
-          <p>In return for our <span class="highlight">AI-crafted $200 website</span>, we ask for an <span class="highlight">honest review</span> about your experience. Your feedback helps our AI learn and refine our craft.</p>
-          <ul class="perk-list">
-            <li><i class="fas fa-pen-fancy"></i> AI-assisted review generation</li>
-            <li><i class="fas fa-smile"></i> We share your business with our AI network</li>
-            <li><i class="fas fa-heart"></i> Build a long-term AI-powered relationship</li>
+        <div class="pricing-card selfhosted">
+          <div class="p-icon"><i class="fas fa-server"></i></div>
+          <div class="p-name">Self-Hosted</div>
+          <div class="p-desc">Install ShopFlow on your own server. Full control over your data and infrastructure.</div>
+          <div class="p-price"><span class="amount">$750</span><span class="per">one-time</span></div>
+          <div class="p-note">Full license · optional support &amp; updates plan available</div>
+          <ul class="p-features">
+            <li><i class="fas fa-check"></i> Full Shop Management System source &amp; license</li>
+            <li><i class="fas fa-check"></i> Install on your own server (VPS, on-prem or cloud)</li>
+            <li><i class="fas fa-check"></i> Your data never leaves your infrastructure</li>
+            <li><i class="fas fa-check"></i> Unlimited products &amp; staff accounts</li>
+            <li><i class="fas fa-check"></i> POS, inventory, reports &amp; all modules included</li>
+            <li><i class="fas fa-check"></i> Setup video + written install guide</li>
+            <li><i class="fas fa-check"></i> Optional support &amp; update plan</li>
           </ul>
-          <div class="feature-tag"><i class="fas fa-handshake"></i> AI · win-win partnership</div>
-          <div class="slide-detail"><i class="fas fa-check-circle" style="color: #3fb950; margin-right: 4px;"></i> 200+ verified reviews · <i class="fas fa-star" style="color: #f0883e; margin-left: 8px; margin-right: 4px;"></i> 4.9/5 average rating</div>
-        </div>
-        <div class="slide" data-index="2">
-          <h2><i class="fas fa-globe"></i> // AI · get featured</h2>
-          <p>Every business we build for gets the <span class="highlight">opportunity to be featured</span> on our <span class="highlight">AI-powered cloud_mikkie showcase</span> page. Thousands of potential customers will see your site through our intelligent recommendation engine.</p>
-          <ul class="perk-list">
-            <li><i class="fas fa-arrow-up"></i> AI-optimized portfolio placement</li>
-            <li><i class="fas fa-share-alt"></i> Smart social media shoutout</li>
-            <li><i class="fas fa-trophy"></i> Badge: "AI cloud_mikkie Certified"</li>
-          </ul>
-          <div class="feature-tag"><i class="fas fa-bolt"></i> AI boost your visibility</div>
-          <div class="slide-detail"><i class="fas fa-eye" style="color: #58a6ff; margin-right: 4px;"></i> 10K+ monthly visitors · <i class="fas fa-rocket" style="color: #f0883e; margin-left: 8px; margin-right: 4px;"></i> Featured businesses see 3x growth</div>
-        </div>
-        <div class="slide" data-index="3">
-          <h2><i class="fas fa-robot"></i> // AI · smart automation</h2>
-          <p>Our <span class="highlight">intelligent automation</span> goes beyond websites. We build <span class="highlight">AI-powered tools</span> that handle your customer inquiries, bookings, and follow-ups automatically — saving you hours every week.</p>
-          <ul class="perk-list">
-            <li><i class="fas fa-robot"></i> AI chatbot for 24/7 customer support</li>
-            <li><i class="fas fa-calendar-check"></i> Smart booking &amp; scheduling system</li>
-            <li><i class="fas fa-envelope"></i> Automated email follow-ups &amp; marketing</li>
-          </ul>
-          <div class="feature-tag"><i class="fas fa-clock"></i> Save 20+ hours weekly</div>
-          <div class="slide-detail"><i class="fas fa-chart-line" style="color: #3fb950; margin-right: 4px;"></i> 85% faster response times · <i class="fas fa-dollar-sign" style="color: #58a6ff; margin-left: 8px; margin-right: 4px;"></i> 3x ROI increase</div>
-        </div>
-        <div class="slide" data-index="4">
-          <h2><i class="fas fa-shield-alt"></i> // AI · security & reliability</h2>
-          <p>Your business deserves <span class="highlight">enterprise-grade security</span> and <span class="highlight">99.9% uptime</span>. Our AI monitors your site 24/7, detects threats in real-time, and ensures your customers always have a seamless experience.</p>
-          <ul class="perk-list">
-            <li><i class="fas fa-shield-virus"></i> AI-powered threat detection</li>
-            <li><i class="fas fa-sync-alt"></i> Automated backups &amp; recovery</li>
-            <li><i class="fas fa-cloud"></i> Global CDN &amp; load balancing</li>
-          </ul>
-          <div class="feature-tag"><i class="fas fa-check-circle"></i> 99.9% uptime guaranteed</div>
-          <div class="slide-detail"><i class="fas fa-shield-alt" style="color: #58a6ff; margin-right: 4px;"></i> 24/7 AI monitoring · <i class="fas fa-bolt" style="color: #f0883e; margin-left: 8px; margin-right: 4px;"></i> 50ms average response time</div>
-        </div>
-        <div class="pagination-dots" id="paginationDots">
-          <span class="dot active" data-index="0"></span>
-          <span class="dot" data-index="1"></span>
-          <span class="dot" data-index="2"></span>
-          <span class="dot" data-index="3"></span>
-          <span class="dot" data-index="4"></span>
+          <a href="#contact" class="p-btn">Get Self-Hosted <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
-    </div>
+      <p class="pricing-compare-note"><i class="fas fa-circle-info"></i> Both plans include the exact same Shop Management System features — the only difference is who hosts and maintains it.</p>
+    </section>
 
-    <div class="services-section" id="services">
-      <h2><i class="fas fa-cogs"></i> our services</h2>
-      <p class="subtitle">AI-powered solutions for every business need</p>
-      <div class="services-grid" id="servicesGrid">
-        <div class="service-card"><div class="icon"><i class="fas fa-globe"></i></div><div class="content"><h4>🌐 Full-Stack Web Development</h4><p>End-to-end web solutions with modern frameworks and AI optimization</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-mobile-alt"></i></div><div class="content"><h4>📱 Mobile App Development</h4><p>Native and cross-platform mobile apps with intelligent features</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-robot"></i></div><div class="content"><h4>🤖 AI Integration & Automation</h4><p>Smart automation and AI integration to streamline your workflows</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-cloud"></i></div><div class="content"><h4>☁️ Cloud Deployment & DevOps</h4><p>Scalable cloud infrastructure with CI/CD and monitoring</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-shield-alt"></i></div><div class="content"><h4>🔐 Cybersecurity & Website Protection</h4><p>Enterprise-grade security, SSL, and threat protection</p></div></div>
-        <div class="service-card"><div class="icon"><i class="fas fa-shopping-cart"></i></div><div class="content"><h4>🛒 E-commerce Solutions</h4><p>Custom online stores with payment processing and inventory management</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-credit-card"></i></div><div class="content"><h4>💳 Payment Gateway Integration</h4><p>Secure payment processing with multiple gateway support</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-chart-bar"></i></div><div class="content"><h4>📊 Business Dashboards & Analytics</h4><p>Real-time insights with AI-powered data visualization</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-plug"></i></div><div class="content"><h4>🔌 API Development & Integrations</h4><p>Custom APIs and third-party service integrations</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-puzzle-piece"></i></div><div class="content"><h4>🧩 Custom Business Software</h4><p>Tailored software solutions for unique business needs</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-paint-brush"></i></div><div class="content"><h4>🎨 UI/UX Design</h4><p>User-centered design with AI-driven user experience optimization</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-rocket"></i></div><div class="content"><h4>⚡ Website Optimization & SEO</h4><p>Performance optimization and search engine visibility</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-sync-alt"></i></div><div class="content"><h4>🔄 Website Maintenance & Support</h4><p>Ongoing maintenance, updates, and technical support</p></div></div>
-        <div class="service-card hidden-service" data-hidden="true"><div class="icon"><i class="fas fa-cubes"></i></div><div class="content"><h4>📈 SaaS Product Development</h4><p>Build scalable SaaS products with AI-powered features</p></div></div>
+    <!-- Testimonials -->
+    <section class="testimonials-section" id="testimonials">
+      <div class="section-head">
+        <h2><i class="fas fa-quote-right"></i> trusted by shop owners</h2>
+        <p class="subtitle">Real feedback from real businesses running their shops on ShopFlow.</p>
       </div>
-      <div class="services-toggle">
-        <button id="servicesToggleBtn"><span id="toggleText">Show More Services</span><i class="fas fa-chevron-down" id="toggleIcon"></i></button>
-      </div>
-    </div>
-
-    <div class="projects-section" id="projects">
-      <h2><i class="fas fa-project-diagram"></i> featured projects</h2>
-      <p class="subtitle">Showcasing our deep expertise in household AI, automation, and intelligent systems</p>
-      <div class="projects-grid" id="projectsGrid">
-        <div class="project-card"><div class="project-icon"><i class="fas fa-home"></i></div><h4>🏠 Smart Home Automation Hub</h4><div class="project-tags"><span>AI</span><span>IoT</span><span>Automation</span><span>Household</span></div><p>An intelligent AI-powered platform that unifies smart home devices, learns user behavior patterns, and automatically optimizes energy consumption, lighting, and security across the entire household.</p><span class="project-ai-badge"><i class="fas fa-brain"></i> AI-Powered · 95% efficiency boost</span></div>
-        <div class="project-card"><div class="project-icon"><i class="fas fa-shield-virus"></i></div><h4>🔒 AI-Powered Security System</h4><div class="project-tags"><span>AI</span><span>Computer Vision</span><span>Security</span><span>Household</span></div><p>Advanced neural network-based surveillance system that detects anomalies, recognizes family members, and sends real-time alerts. Features facial recognition, motion prediction, and intelligent threat assessment.</p><span class="project-ai-badge"><i class="fas fa-brain"></i> 99.7% accuracy · Real-time</span></div>
-        <div class="project-card"><div class="project-icon"><i class="fas fa-tools"></i></div><h4>🔧 Predictive Home Maintenance AI</h4><div class="project-tags"><span>Predictive AI</span><span>Automation</span><span>Household</span><span>IoT</span></div><p>Smart predictive system that monitors home appliances and infrastructure, detects potential failures before they occur, and automatically schedules maintenance. Reduces repair costs by up to 70%.</p><span class="project-ai-badge"><i class="fas fa-brain"></i> Predictive · Cost-saving</span></div>
-        <div class="project-card"><div class="project-icon"><i class="fas fa-solar-panel"></i></div><h4>⚡ Smart Energy Management System</h4><div class="project-tags"><span>AI Optimization</span><span>Energy</span><span>Household</span><span>Sustainability</span></div><p>AI-driven energy optimization platform that analyzes consumption patterns, integrates with renewable energy sources, and automatically adjusts usage to minimize costs and carbon footprint while maintaining comfort.</p><span class="project-ai-badge"><i class="fas fa-brain"></i> 40% energy reduction · Sustainable</span></div>
-        <div class="project-card"><div class="project-icon"><i class="fas fa-smart-home"></i></div><h4>🏡 AI-Powered Home Assistant</h4><div class="project-tags"><span>AI</span><span>Voice</span><span>Household</span><span>Automation</span></div><p>A comprehensive voice-controlled home assistant that manages everything from climate control to grocery lists, using natural language processing and machine learning.</p><span class="project-ai-badge"><i class="fas fa-brain"></i> NLP · Voice-controlled</span></div>
-        <div class="project-card"><div class="project-icon"><i class="fas fa-water"></i></div><h4>💧 Smart Irrigation System</h4><div class="project-tags"><span>AI</span><span>IoT</span><span>Sustainability</span><span>Household</span></div><p>AI-driven irrigation system that analyzes soil moisture, weather forecasts, and plant types to optimize water usage, reducing water waste by up to 50% while maintaining healthy gardens.</p><span class="project-ai-badge"><i class="fas fa-brain"></i> 50% water savings · Smart</span></div>
-        <div class="project-card hidden-project" data-hidden="true"><div class="project-icon"><i class="fas fa-wind"></i></div><h4>🌀 AI Air Quality Monitor</h4><div class="project-tags"><span>AI</span><span>Health</span><span>Household</span><span>IoT</span></div><p>Intelligent air quality monitoring system that detects pollutants, allergens, and CO2 levels, providing real-time recommendations for ventilation and air purification.</p><span class="project-ai-badge"><i class="fas fa-brain"></i> Health-focused · Real-time</span></div>
-        <div class="project-card hidden-project" data-hidden="true"><div class="project-icon"><i class="fas fa-utensils"></i></div><h4>🍳 Smart Kitchen Assistant</h4><div class="project-tags"><span>AI</span><span>Household</span><span>Automation</span><span>IoT</span></div><p>AI-powered kitchen assistant that helps with meal planning, inventory management, and recipe suggestions based on dietary preferences and available ingredients.</p><span class="project-ai-badge"><i class="fas fa-brain"></i> Meal planning · Smart</span></div>
-      </div>
-      <div class="projects-toggle">
-        <button id="projectsToggleBtn"><span id="projectsToggleText">Show More Projects</span><i class="fas fa-chevron-down" id="projectsToggleIcon"></i></button>
-      </div>
-    </div>
-
-    <div class="blog-section" id="explore">
-      <h2><i class="fas fa-compass"></i> explore</h2>
-      <p class="subtitle">Insights, tutorials, and thoughts on web development, AI, and digital innovation</p>
-      <div class="blog-grid" id="blogGrid">
-        <div class="blog-card"><div class="blog-icon"><i class="fas fa-code"></i></div><div class="blog-meta"><span class="blog-category">Web Development</span><span class="blog-date">Dec 15, 2026</span></div><h4>Building Scalable Web Apps with AI</h4><p>Discover how AI-powered tools are revolutionizing the way we build scalable, high-performance web applications. From intelligent code generation to automated testing.</p><a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a></div>
-        <div class="blog-card"><div class="blog-icon"><i class="fas fa-robot"></i></div><div class="blog-meta"><span class="blog-category">AI & Automation</span><span class="blog-date">Dec 10, 2026</span></div><h4>The Future of AI in Web Development</h4><p>Explore how artificial intelligence is reshaping the web development landscape. From automated design systems to intelligent code assistants and beyond.</p><a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a></div>
-        <div class="blog-card"><div class="blog-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="blog-meta"><span class="blog-category">DevOps & Cloud</span><span class="blog-date">Dec 5, 2026</span></div><h4>Cloud Deployment Strategies for 2026</h4><p>Learn about the latest cloud deployment strategies, including serverless architectures, containerization, and AI-driven infrastructure management.</p><a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a></div>
-        <div class="blog-card"><div class="blog-icon"><i class="fas fa-shield-alt"></i></div><div class="blog-meta"><span class="blog-category">Cybersecurity</span><span class="blog-date">Nov 28, 2026</span></div><h4>AI-Powered Cybersecurity Solutions</h4><p>Discover how AI is transforming cybersecurity with intelligent threat detection, real-time monitoring, and automated response systems for modern web applications.</p><a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a></div>
-        <div class="blog-card"><div class="blog-icon"><i class="fas fa-database"></i></div><div class="blog-meta"><span class="blog-category">Data Science</span><span class="blog-date">Nov 20, 2026</span></div><h4>AI-Powered Data Analytics</h4><p>Learn how AI is transforming data analytics with predictive models, automated insights, and intelligent data visualization for better business decisions.</p><a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a></div>
-        <div class="blog-card"><div class="blog-icon"><i class="fas fa-mobile-alt"></i></div><div class="blog-meta"><span class="blog-category">Mobile Development</span><span class="blog-date">Nov 15, 2026</span></div><h4>AI-Powered Mobile Apps</h4><p>Discover how AI is enhancing mobile app experiences with intelligent features like personalization, voice recognition, and predictive analytics.</p><a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a></div>
-        <div class="blog-card hidden-blog" data-hidden="true"><div class="blog-icon"><i class="fas fa-lock"></i></div><div class="blog-meta"><span class="blog-category">Security</span><span class="blog-date">Nov 10, 2026</span></div><h4>AI-Driven Security Trends</h4><p>Explore the latest trends in AI-driven security, including automated threat hunting, zero-trust architecture, and intelligent compliance monitoring.</p><a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a></div>
-        <div class="blog-card hidden-blog" data-hidden="true"><div class="blog-icon"><i class="fas fa-chart-line"></i></div><div class="blog-meta"><span class="blog-category">Business</span><span class="blog-date">Nov 5, 2026</span></div><h4>AI ROI: Measuring Success</h4><p>Learn how to measure the ROI of AI investments in your business, from operational efficiency gains to revenue growth and competitive advantage.</p><a href="#" onclick="alert('Redirecting to blog post...'); return false;" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a></div>
-      </div>
-      <div class="blog-toggle">
-        <button id="blogToggleBtn"><span id="blogToggleText">Show More Posts</span><i class="fas fa-chevron-down" id="blogToggleIcon"></i></button>
-      </div>
-    </div>
-
-    <div class="testimonials-section">
-      <h2><i class="fas fa-quote-right"></i> client testimonials</h2>
-      <p class="subtitle">Real feedback from real clients who trusted us with their digital transformation</p>
-      <div class="testimonials-grid" id="testimonialsGrid">
-        <div class="testimonial-card"><div class="testimonial-header"><div class="testimonial-avatar"><i class="fas fa-user-tie"></i></div><div class="testimonial-author"><h4>Sarah Mitchell</h4><div class="role">CEO, Bloom & Co. Boutique</div></div></div><div class="testimonial-stars"><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i></div><div class="testimonial-text">Working with cloud_mikkie AI was an absolute game-changer for our business. They didn't just build us a website — they created a complete digital ecosystem that doubled our online sales in just three months. Their AI-powered analytics helped us understand our customers better than ever before. The team was professional, responsive, and truly understood our vision from day one.</div><div class="testimonial-footer"><span class="project-tag">E-commerce Solution</span><span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span></div></div>
-        <div class="testimonial-card"><div class="testimonial-header"><div class="testimonial-avatar"><i class="fas fa-user-astronaut"></i></div><div class="testimonial-author"><h4>James Peterson</h4><div class="role">Founder, TechStart Inc.</div></div></div><div class="testimonial-stars"><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i></div><div class="testimonial-text">The AI integration and automation solutions provided by cloud_mikkie transformed our entire workflow. What used to take our team 20 hours a week now runs automatically in the background. Their deep understanding of AI and machine learning is truly impressive. They didn't just deliver a product — they became a strategic partner in our growth journey. I can't recommend them enough.</div><div class="testimonial-footer"><span class="project-tag">AI Automation</span><span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span></div></div>
-        <div class="testimonial-card"><div class="testimonial-header"><div class="testimonial-avatar"><i class="fas fa-user-graduate"></i></div><div class="testimonial-author"><h4>Maria Rodriguez</h4><div class="role">Director, GreenScape Landscaping</div></div></div><div class="testimonial-stars"><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i></div><div class="testimonial-text">We were struggling to get our landscaping business online effectively until we found cloud_mikkie AI. They built us a stunning website with integrated booking and payment systems that has completely transformed how we operate. Our bookings have increased by 150%, and we're now able to manage everything from a single dashboard. Their support team is always available and incredibly helpful.</div><div class="testimonial-footer"><span class="project-tag">Web Development</span><span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span></div></div>
-        <div class="testimonial-card hidden-testimonial" data-hidden="true"><div class="testimonial-header"><div class="testimonial-avatar"><i class="fas fa-user-cog"></i></div><div class="testimonial-author"><h4>David Chen</h4><div class="role">CTO, CloudSync Solutions</div></div></div><div class="testimonial-stars"><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i><i class="fas fa-star star-filled"></i></div><div class="testimonial-text">When we needed a robust cloud infrastructure and DevOps setup, cloud_mikkie AI delivered beyond our expectations. Their expertise in cloud deployment, security, and scalability is world-class. They implemented a CI/CD pipeline that has reduced our deployment time by 80% and significantly improved our system reliability. Their team's technical knowledge and problem-solving abilities are outstanding.</div><div class="testimonial-footer"><span class="project-tag">Cloud & DevOps</span><span class="verified"><i class="fas fa-check-circle"></i> Verified Client</span></div></div>
-      </div>
-      <div class="testimonials-toggle">
-        <button id="testimonialsToggleBtn"><span id="testimonialsToggleText">Show More Testimonials</span><i class="fas fa-chevron-down" id="testimonialsToggleIcon"></i></button>
-        <a href="#" onclick="alert('Redirecting to all testimonials page...'); return false;">View All Testimonials <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-
-    <div class="impact-values-section">
-      <div class="impact-card">
-        <h3><i class="fas fa-chart-line"></i> our impact</h3>
-        <p>Since our founding, our <strong>AI algorithms</strong> have helped <strong>hundreds of businesses</strong> establish a powerful online presence. Our intelligent systems analyze user behavior, optimize performance, and deliver <span class="highlight">data-driven results</span>.</p>
-        <div class="impact-stats"><div class="stat-item"><span class="number">200+</span><span class="label">AI websites built</span></div><div class="stat-item"><span class="number">98%</span><span class="label">client satisfaction</span></div><div class="stat-item"><span class="number">4.9★</span><span class="label">average rating</span></div></div>
-        <div class="badge-row"><span class="badge"><i class="fas fa-trophy"></i> AI Innovation Award 2026</span><span class="badge"><i class="fas fa-medal"></i> Best AI Web Design 2026</span><span class="badge"><i class="fas fa-award"></i> Top AI Development Agency</span></div>
-      </div>
-      <div class="values-card">
-        <h3><i class="fas fa-heart"></i> core values</h3>
-        <div class="values-grid">
-          <div class="value-item"><h4><i class="fas fa-lightbulb"></i> Innovation</h4><p>We push boundaries with cutting-edge AI technologies to deliver intelligent, adaptive solutions.</p></div>
-          <div class="value-item"><h4><i class="fas fa-hand-holding-heart"></i> Empathy</h4><p>Our AI understands human needs, creating experiences that truly connect and resonate.</p></div>
-          <div class="value-item"><h4><i class="fas fa-gem"></i> Quality</h4><p>Every pixel, every line of AI-generated code — crafted with meticulous attention to detail.</p></div>
-          <div class="value-item"><h4><i class="fas fa-shield-alt"></i> Integrity</h4><p>Trust is our foundation. We're transparent about our AI, honest, and always deliver.</p></div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"><i class="fas fa-user-tie"></i></div>
+            <div class="testimonial-author"><h4>Sarah Mitchell</h4><div class="role">Owner, Bloom & Co. Boutique</div></div>
+          </div>
+          <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <div class="testimonial-text">ShopFlow replaced three separate apps for us. Stock is always accurate, checkout is fast, and I can check my sales from my phone while away from the shop. We're on the Turnkey plan and haven't had to touch a server once.</div>
+          <div class="testimonial-footer"><span class="project-tag">Turnkey · Boutique</span><span class="verified"><i class="fas fa-check-circle"></i> Verified</span></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"><i class="fas fa-user-astronaut"></i></div>
+            <div class="testimonial-author"><h4>James Peterson</h4><div class="role">Manager, TechStart Electronics</div></div>
+          </div>
+          <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <div class="testimonial-text">We chose Self-Hosted because we already had infrastructure. The install was straightforward, the setup video helped a lot, and the system is rock solid. The purchasing module alone paid for itself in the first month.</div>
+          <div class="testimonial-footer"><span class="project-tag">Self-Hosted · Electronics</span><span class="verified"><i class="fas fa-check-circle"></i> Verified</span></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar"><i class="fas fa-user-graduate"></i></div>
+            <div class="testimonial-author"><h4>Maria Rodriguez</h4><div class="role">Director, GreenLeaf Pharmacy</div></div>
+          </div>
+          <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <div class="testimonial-text">We needed something that handled expiry dates and batches properly — ShopFlow does it out of the box. The Turnkey plan means we never worry about backups or updates. The support team is genuinely helpful.</div>
+          <div class="testimonial-footer"><span class="project-tag">Turnkey · Pharmacy</span><span class="verified"><i class="fas fa-check-circle"></i> Verified</span></div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="contact-section" id="contact">
-      <h2><i class="fas fa-envelope"></i> get in touch</h2>
-      <p class="subtitle">Have a project in mind? Let's build something amazing together.</p>
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+      <div class="section-head">
+        <h2><i class="fas fa-circle-question"></i> frequently asked questions</h2>
+        <p class="subtitle">Everything you need to know before getting started.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">Is the demo on this page the real product? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a"><p>No — the demo runs in a separate page inside an iframe, and it's a <strong>mock design</strong> inspired by ERPNext's UI. It has no backend, no database and no real transactions; sample data resets when you refresh. The real product is a full Shop Management System with accounts, live data, receipts, payments and all the modules described above.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Why is the demo in a separate frame? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a"><p>The demo runs as its own page inside an iframe, so it keeps its own UI state and interactions independent of this landing page. The landing page stays exactly where it is while you click around the demo. You can also open the demo in a new tab using the button in the demo's top bar.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What's the difference between Turnkey and Self-Hosted? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a"><p>Both plans give you the exact same Shop Management System. With <strong>Turnkey ($1,200/month)</strong>, we host, maintain and back it up for you — you just log in and sell. With <strong>Self-Hosted ($750 one-time)</strong>, you install it on your own server and keep full control of your data and infrastructure. A video walkthrough of the self-hosting setup is coming soon.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do I need any technical skills to use ShopFlow? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a"><p>For Turnkey, no — it's fully managed. For Self-Hosted, you (or your IT person) will need basic server skills to install and maintain it. We provide a step-by-step setup video, written documentation and optional paid setup assistance.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Where can I watch the self-hosting setup video? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a"><p>The video is coming soon and will be embedded in the "How to self-host ShopFlow" section above. It will walk through downloading the package, server prerequisites, installation, configuration and going live. Until then, written setup docs are available on request.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I switch between plans later? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a"><p>Yes. You can export your data from one plan and import it into the other. Many shops start on Turnkey and move to Self-Hosted once they grow — or the other way around. We'll help you migrate at no extra cost.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Is my data safe and backed up? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-a"><p>On Turnkey, we run automatic daily backups and encrypt your data in transit and at rest. On Self-Hosted, you control your own backups — and we give you the scripts and docs to do it reliably.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner">
+      <h2>Ready to run a smarter shop?</h2>
+      <p>Join 500+ shops already using ShopFlow. Choose Turnkey ($1,200/mo) or Self-Hosted ($750 one-time) — same powerful system, your call on who runs it.</p>
+      <div class="hero-actions">
+        <a href="#demo" class="btn-primary"><i class="fas fa-laptop-code"></i> Try the Demo</a>
+        <a href="#pricing" class="btn-secondary"><i class="fas fa-tags"></i> Compare Plans</a>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact-section" id="contact">
+      <h2><i class="fas fa-envelope"></i> get started or ask us anything</h2>
+      <p class="subtitle">Tell us about your shop and which plan you're interested in. We reply within one business day.</p>
       <div class="contact-grid">
         <div class="contact-left">
           <div class="contact-info">
             <div class="info-item"><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div class="content"><h4>Location</h4><p>San Francisco, CA</p></div></div>
-            <div class="info-item"><div class="icon"><i class="fas fa-envelope"></i></div><div class="content"><h4>Email</h4><p><a href="mailto:hello@cloudmikkie.ai">hello@cloudmikkie.ai</a></p></div></div>
+            <div class="info-item"><div class="icon"><i class="fas fa-envelope"></i></div><div class="content"><h4>Email</h4><p><a href="mailto:hello@shopflow.app">hello@shopflow.app</a></p></div></div>
             <div class="info-item"><div class="icon"><i class="fas fa-phone"></i></div><div class="content"><h4>Phone</h4><p><a href="tel:+15551234567">+1 (555) 123-4567</a></p></div></div>
             <div class="info-item"><div class="icon"><i class="fas fa-clock"></i></div><div class="content"><h4>Working Hours</h4><p>Mon - Fri: 9:00 AM - 6:00 PM PST</p></div></div>
           </div>
           <div class="contact-social"><h4>Connect with us</h4><div class="social-links"><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-discord"></i></a></div></div>
           <form class="contact-form" id="contactForm">
-            <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" placeholder="John Doe" /></div>
-            <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" placeholder="john@example.com" /></div>
-            <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" placeholder="Project Inquiry" /></div>
-            <div class="form-group"><label for="message">Message</label><textarea id="message" placeholder="Tell us about your project..."></textarea></div>
+            <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" placeholder="John Doe" required /></div>
+            <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" placeholder="john@example.com" required /></div>
+            <div class="form-group"><label for="shop">Shop Name</label><input type="text" id="shop" placeholder="e.g. Bloom & Co. Boutique" /></div>
+            <div class="form-group"><label for="plan">Interested Plan</label>
+              <select id="plan">
+                <option>Turnkey — $1,200/mo</option>
+                <option>Self-Hosted — $750 one-time</option>
+                <option>Self-Hosted + Support plan</option>
+                <option>Just have a question</option>
+              </select>
+            </div>
+            <div class="form-group"><label for="message">Message</label><textarea id="message" placeholder="Tell us about your shop..."></textarea></div>
             <button type="submit" class="submit-btn">Send Message <i class="fas fa-arrow-right"></i></button>
           </form>
         </div>
@@ -1554,49 +1651,50 @@
           <div class="map-address"><i class="fas fa-location-dot"></i><span>📍 San Francisco, CA — We're here!</span></div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-brand">
-        <div class="logo-text"><span class="highlight">cloud_mikkie</span><span class="ai-badge">AI</span></div>
-        <p>Intelligent web solutions powered by artificial intelligence. Building the future, one line of code at a time.</p>
+        <div class="logo-text"><span class="highlight">ShopFlow</span><span class="ai-badge">SMS</span></div>
+        <p>Shop Management System built by a software development company that actually talks to shop owners. Turnkey or Self-Hosted — same powerful system, your call on who runs it.</p>
         <div class="footer-social"><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-discord"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div>
-        <div class="footer-newsletter"><h4>Subscribe to our newsletter</h4><div class="newsletter-form"><input type="email" placeholder="Enter your email" /><button>Subscribe</button></div></div>
+        <div class="footer-newsletter"><h4>Get product updates</h4><div class="newsletter-form"><input type="email" placeholder="Enter your email" /><button>Subscribe</button></div></div>
       </div>
-      <div class="footer-col footer-col-services"><h4>Services</h4><ul><li><a href="#">Web Development</a></li><li><a href="#">AI Integration</a></li><li><a href="#">Cloud Solutions</a></li><li><a href="#">UI/UX Design</a></li><li><a href="#">E-commerce</a></li><li><a href="#">Cybersecurity</a></li></ul></div>
-      <div class="footer-col footer-col-company"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li><li><a href="#">Partners</a></li><li><a href="#">Press Kit</a></li></ul></div>
-      <div class="footer-col footer-col-resources"><h4>Resources</h4><ul><li><a href="#">Documentation</a></li><li><a href="#">API Reference</a></li><li><a href="#">Community</a></li><li><a href="#">Support</a></li><li><a href="#">Tutorials</a></li><li><a href="#">FAQs</a></li></ul></div>
-      <div class="footer-col footer-col-contact"><h4>Contact Info</h4><ul><li><a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: #58a6ff;"></i>San Francisco, CA</a></li><li><a href="#"><i class="fas fa-envelope" style="margin-right: 8px; color: #58a6ff;"></i>hello@cloudmikkie.ai</a></li><li><a href="#"><i class="fas fa-phone" style="margin-right: 8px; color: #58a6ff;"></i>+1 (555) 123-4567</a></li><li><a href="#"><i class="fas fa-clock" style="margin-right: 8px; color: #58a6ff;"></i>Mon-Fri 9AM-6PM PST</a></li></ul></div>
+      <div class="footer-col footer-col-services"><h4>Product</h4><ul><li><a href="#features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#how">How It Works</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Get Started</a></li><li><a href="#">Roadmap</a></li></ul></div>
+      <div class="footer-col footer-col-company"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Partners</a></li><li><a href="#">Press Kit</a></li></ul></div>
+      <div class="footer-col footer-col-resources"><h4>Resources</h4><ul><li><a href="#">Documentation</a></li><li><a href="#">API Reference</a></li><li><a href="#">Community</a></li><li><a href="#">Support</a></li><li><a href="#">Tutorials</a></li><li><a href="#faq">FAQs</a></li></ul></div>
+      <div class="footer-col footer-col-contact"><h4>Contact Info</h4><ul><li><a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: #58a6ff;"></i>San Francisco, CA</a></li><li><a href="#"><i class="fas fa-envelope" style="margin-right: 8px; color: #58a6ff;"></i>hello@shopflow.app</a></li><li><a href="#"><i class="fas fa-phone" style="margin-right: 8px; color: #58a6ff;"></i>+1 (555) 123-4567</a></li><li><a href="#"><i class="fas fa-clock" style="margin-right: 8px; color: #58a6ff;"></i>Mon-Fri 9AM-6PM PST</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 cloud_mikkie AI. All rights reserved.</p>
+      <p>&copy; 2026 ShopFlow. All rights reserved.</p>
       <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div>
-      <div class="footer-ai-status"><span class="dot"></span><span>AI neural engine · v2.4 · active</span></div>
+      <div class="footer-ai-status"><span class="dot"></span><span>All systems operational</span></div>
     </div>
   </footer>
 
-  <div class="ai-status"><span class="dot"></span><span>AI · neural engine active</span></div>
+  <div class="ai-status"><span class="dot"></span><span>ShopFlow · systems online</span></div>
 
   <div class="mobile-menu-overlay" id="mobileOverlay"></div>
   <div class="mobile-menu-panel" id="mobilePanel">
     <div class="mobile-panel-header">
-      <div class="mobile-search"><i class="fas fa-search"></i><input type="text" placeholder="Ask AI..." /></div>
+      <div class="mobile-search"><i class="fas fa-search"></i><input type="text" placeholder="Search..." /></div>
       <button class="mobile-menu-close" id="closeMobileMenu" aria-label="Close menu"><i class="fas fa-times"></i></button>
     </div>
     <ul class="mobile-nav-list">
-      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
-      <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
-      <li><a href="explore.html"><i class="fas fa-compass"></i> Explore</a></li>
-      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="#features"><i class="fas fa-th-large"></i> Features</a></li>
+      <li><a href="#pricing"><i class="fas fa-tags"></i> Pricing</a></li>
+      <li><a href="#testimonials"><i class="fas fa-quote-right"></i> Reviews</a></li>
+      <li><a href="#faq"><i class="fas fa-circle-question"></i> FAQ</a></li>
+      <li><a href="#contact" class="mobile-cta"><i class="fas fa-rocket"></i> Get Started</a></li>
     </ul>
-    <div class="panel-footer"><i class="fas fa-circle"></i> cloud_mikkie AI · v2.4 · neural</div>
+    <div class="panel-footer"><i class="fas fa-circle"></i> ShopFlow · v3.5 · embedded demo</div>
   </div>
 
   <script>
     (function() {
+      /* Mobile menu */
       const hamburger = document.getElementById('hamburgerBtn');
       const overlay = document.getElementById('mobileOverlay');
       const panel = document.getElementById('mobilePanel');
@@ -1606,84 +1704,64 @@
       if (hamburger) hamburger.addEventListener('click', openMenu);
       if (closeBtn) closeBtn.addEventListener('click', closeMenu);
       if (overlay) overlay.addEventListener('click', closeMenu);
-      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && panel && panel.classList.contains('open')) closeMenu(); });
-      window.addEventListener('resize', function() { if (window.innerWidth > 850 && panel && panel.classList.contains('open')) closeMenu(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && panel.classList.contains('open')) closeMenu(); });
+      window.addEventListener('resize', function() { if (window.innerWidth > 850 && panel.classList.contains('open')) closeMenu(); });
+      panel.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
-      const container = document.getElementById('sliderContainer');
-      const slides = container.querySelectorAll('.slide');
-      const dots = container.querySelectorAll('.dot');
-      let current = 0, total = slides.length, interval;
-      function goTo(index) {
-        if (index < 0) index = total - 1;
-        if (index >= total) index = 0;
-        slides.forEach((s, i) => s.classList.toggle('active', i === index));
-        dots.forEach((d, i) => d.classList.toggle('active', i === index));
-        current = index;
-      }
-      function nextSlide() { goTo(current + 1); }
-      dots.forEach(dot => { dot.addEventListener('click', function() { const idx = parseInt(this.getAttribute('data-index'), 10); if (!isNaN(idx)) { goTo(idx); resetInterval(); } }); });
-      function startInterval() { interval = setInterval(nextSlide, 5000); }
-      function resetInterval() { clearInterval(interval); startInterval(); }
-      if (container) { container.addEventListener('mouseenter', function() { clearInterval(interval); }); container.addEventListener('mouseleave', function() { startInterval(); }); container.addEventListener('touchstart', function() { clearInterval(interval); }); container.addEventListener('touchend', function() { startInterval(); }); }
-      startInterval();
-
-      const toggleBtn = document.getElementById('servicesToggleBtn');
-      const toggleText = document.getElementById('toggleText');
-      const hiddenServices = document.querySelectorAll('.service-card.hidden-service');
-      let isOpen = false;
-      if (toggleBtn) {
-        toggleBtn.addEventListener('click', function() {
-          isOpen = !isOpen;
-          hiddenServices.forEach(service => { if (isOpen) service.classList.add('show'); else service.classList.remove('show'); });
-          toggleText.textContent = isOpen ? 'Show Less Services' : 'Show More Services';
-          toggleBtn.classList.toggle('open', isOpen);
+      /* Demo iframe loading overlay */
+      const demoFrame = document.getElementById('demoFrame');
+      const demoFrameLoading = document.getElementById('demoFrameLoading');
+      if (demoFrame && demoFrameLoading) {
+        demoFrame.addEventListener('load', function() {
+          setTimeout(() => demoFrameLoading.classList.add('hidden'), 300);
         });
       }
 
-      const projectsToggleBtn = document.getElementById('projectsToggleBtn');
-      const projectsToggleText = document.getElementById('projectsToggleText');
-      const hiddenProjects = document.querySelectorAll('.project-card.hidden-project');
-      let projectsOpen = false;
-      if (projectsToggleBtn) {
-        projectsToggleBtn.addEventListener('click', function() {
-          projectsOpen = !projectsOpen;
-          hiddenProjects.forEach(project => { if (projectsOpen) project.classList.add('show'); else project.classList.remove('show'); });
-          projectsToggleText.textContent = projectsOpen ? 'Show Less Projects' : 'Show More Projects';
-          projectsToggleBtn.classList.toggle('open', projectsOpen);
+      /* FAQ accordion */
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const q = item.querySelector('.faq-q');
+        q.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+          if (!isOpen) item.classList.add('open');
         });
-      }
+      });
 
-      const blogToggleBtn = document.getElementById('blogToggleBtn');
-      const blogToggleText = document.getElementById('blogToggleText');
-      const hiddenBlogs = document.querySelectorAll('.blog-card.hidden-blog');
-      let blogOpen = false;
-      if (blogToggleBtn) {
-        blogToggleBtn.addEventListener('click', function() {
-          blogOpen = !blogOpen;
-          hiddenBlogs.forEach(blog => { if (blogOpen) blog.classList.add('show'); else blog.classList.remove('show'); });
-          blogToggleText.textContent = blogOpen ? 'Show Less Posts' : 'Show More Posts';
-          blogToggleBtn.classList.toggle('open', blogOpen);
-        });
-      }
-
-      const testimonialToggleBtn = document.getElementById('testimonialsToggleBtn');
-      const testimonialToggleText = document.getElementById('testimonialsToggleText');
-      const hiddenTestimonials = document.querySelectorAll('.testimonial-card.hidden-testimonial');
-      let testimonialsOpen = false;
-      if (testimonialToggleBtn) {
-        testimonialToggleBtn.addEventListener('click', function() {
-          testimonialsOpen = !testimonialsOpen;
-          hiddenTestimonials.forEach(testimonial => { if (testimonialsOpen) testimonial.classList.add('show'); else testimonial.classList.remove('show'); });
-          testimonialToggleText.textContent = testimonialsOpen ? 'Show Less Testimonials' : 'Show More Testimonials';
-          testimonialToggleBtn.classList.toggle('open', testimonialsOpen);
-        });
-      }
-
+      /* Contact form */
       const contactForm = document.getElementById('contactForm');
       if (contactForm) {
-        contactForm.addEventListener('submit', function(e) { e.preventDefault(); alert('Thank you for your message! We\'ll get back to you soon.'); this.reset(); });
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          alert('Thanks! Your message has been received. Our team will get back to you within one business day.');
+          this.reset();
+        });
       }
 
+      /* Newsletter */
+      document.querySelectorAll('.newsletter-form button').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const input = this.parentElement.querySelector('input');
+          if (input && input.value.trim()) {
+            alert('Subscribed! You\'ll hear from us soon.');
+            input.value = '';
+          }
+        });
+      });
+
+      /* Video placeholder */
+      const videoShell = document.getElementById('videoShell');
+      function videoNotice() {
+        alert('Video coming soon — the self-hosting walkthrough will be embedded here.');
+      }
+      if (videoShell) {
+        videoShell.addEventListener('click', videoNotice);
+        videoShell.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); videoNotice(); }
+        });
+      }
+
+      /* Background stream */
       const stream = document.getElementById('dataStream');
       const chars = '01'.split('');
       for (let i = 0; i < 30; i++) {
@@ -1696,6 +1774,7 @@
         stream.appendChild(span);
       }
 
+      /* Cursor glow */
       document.body.addEventListener('mousemove', function(e) {
         const x = e.clientX / window.innerWidth;
         const y = e.clientY / window.innerHeight;
@@ -1703,6 +1782,21 @@
           radial-gradient(ellipse at ${x * 100}% ${y * 100}%, rgba(88, 166, 255, 0.06) 0%, transparent 40%),
           radial-gradient(ellipse at ${(1 - x) * 100}% ${(1 - y) * 100}%, rgba(63, 185, 80, 0.04) 0%, transparent 40%)
         `;
+      });
+
+      /* Smooth scroll */
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId.length > 1) {
+            const target = document.querySelector(targetId);
+            if (target) {
+              e.preventDefault();
+              const top = target.getBoundingClientRect().top + window.scrollY - 110;
+              window.scrollTo({ top, behavior: 'smooth' });
+            }
+          }
+        });
       });
     })();
   </script>
